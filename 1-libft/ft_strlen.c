@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/17 13:07:40 by ncaba            ###   ########.fr       */
+/*   Created: 2020/11/17 13:02:56 by ncaba             #+#    #+#             */
+/*   Updated: 2020/11/17 13:05:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
-# include <stdlib.h>
+#include "libft.h"
 
-size_t			ft_strlen(const char *s);
+size_t ft_strlen(const char *s) {
+	size_t size = 0;
 
-#endif
+	while(s && s[size]) {
+		size++;
+	}
+
+	return size;
+}
