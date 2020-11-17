@@ -4,6 +4,7 @@
 #include <string.h>
 
 int main(void) {
-	printf("%lu\n", ft_strlen("une phrase"));
+	printf("%d\n", ft_strncmp("aaa", "", 4));
+	printf("%d\n", strncmp("aaa", "", 4));
 	return 0;
 }

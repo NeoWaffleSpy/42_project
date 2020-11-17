@@ -6,14 +6,16 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 13:02:56 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/17 13:05:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/17 13:34:35 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 size_t ft_strlen(const char *s) {
-	size_t size = 0;
+	size_t size;
+
+	size = 0;
 
 	while(s && s[size]) {
 		size++;
