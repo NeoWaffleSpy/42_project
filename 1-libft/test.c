@@ -4,11 +4,10 @@
 #include <string.h>
 
 int main(void) {
-	size_t taille;
-	char *s;
+	char *big, *small;
 
-	s = "ha";
-	taille = ft_strlcpy(s, "Une phrase", 5);
-	printf("%lu - %s\n", taille, s);
+	big = "Une phrase aléatoire";
+	small = "rase";
+	printf("%s\n", ft_strnstr(big, small, 5));
 	return 0;
 }
