@@ -4,7 +4,11 @@
 #include <string.h>
 
 int main(void) {
-	printf("%d\n", ft_strncmp("aaa", "", 4));
-	printf("%d\n", strncmp("aaa", "", 4));
+	size_t taille;
+	char *s;
+
+	s = "ha";
+	taille = ft_strlcpy(s, "Une phrase", 5);
+	printf("%lu - %s\n", taille, s);
 	return 0;
 }
