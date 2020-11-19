@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/19 21:49:28 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/19 22:02:41 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int				ft_isdigit(int c);
 char			*ft_strnstr(const char *big, const char *little, size_t len);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strchr(const char *s, int c);
+void			*memset(void *s, int c, size_t n);
+
 
 #endif
