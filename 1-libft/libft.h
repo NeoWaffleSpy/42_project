@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/19 20:21:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/19 21:17:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef unsigned long int size_t;
 
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
+size_t			ft_strlcat(char *dst, const char *src, size_t size);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_tolower(int c);
 int				ft_toupper(int c);

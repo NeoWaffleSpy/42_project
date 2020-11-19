@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/19 20:22:08 by ncaba            ###   ########.fr        #
+#    Updated: 2020/11/19 21:20:26 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCSFILES =	ft_strlen.c \
 			ft_strnstr.c \
 			ft_tolower.c \
 			ft_toupper.c \
+			ft_strlcat.c \
 			ft_strlcpy.c
 SRCSDIR = ./
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
