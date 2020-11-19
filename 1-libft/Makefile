@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/19 21:44:16 by ncaba            ###   ########.fr        #
+#    Updated: 2020/11/19 21:49:44 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRCSFILES =	ft_strlen.c \
 			ft_strncmp.c \
 			ft_strrchr.c \
 			ft_strchr.c \
+			ft_isascii.c \
+			ft_isprint.c \
 			ft_isalnum.c \
 			ft_isalpha.c \
 			ft_isdigit.c \
