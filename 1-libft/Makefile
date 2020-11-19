@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/17 15:43:55 by ncaba            ###   ########.fr        #
+#    Updated: 2020/11/19 20:22:08 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,12 @@ NAME = libft.a
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g3
 SRCSFILES =	ft_strlen.c \
-			ft_strncmp.c
+			ft_strncmp.c \
+			ft_strrchr.c \
+			ft_strnstr.c \
+			ft_tolower.c \
+			ft_toupper.c \
+			ft_strlcpy.c
 SRCSDIR = ./
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJS = $(SRCS:.c=.o)
