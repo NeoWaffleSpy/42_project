@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/19 22:03:09 by ncaba            ###   ########.fr        #
+#    Updated: 2020/11/20 23:59:20 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,12 @@ SRCSFILES =	ft_strlen.c \
 			ft_strncmp.c \
 			ft_strrchr.c \
 			ft_strchr.c \
+			ft_atoi.c \
 			ft_memset.c \
+			ft_memcpy.c \
+			ft_memmove.c \
+			ft_memcmp.c \
+			ft_memccpy.c \
 			ft_isascii.c \
 			ft_isprint.c \
 			ft_isalnum.c \

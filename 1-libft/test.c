@@ -5,6 +5,7 @@ int main(void)
 	//char dst[] = "haha";
 	//char src[] = "";
 
+	//printf("%d\n", ft_atoi("  -457"));
 	//printf("%d\n", ft_isalnum('5'));
 	//printf("%d\n", ft_isalpha('5'));
 	//printf("%d\n", ft_isdigit('5'));
