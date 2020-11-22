@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 23:20:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/22 02:19:46 by ncaba            ###   ########.fr       */
+/*   Created: 2020/11/21 16:08:33 by ncaba             #+#    #+#             */
+/*   Updated: 2020/11/21 16:30:35 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	size_t	index;
-	void	*tmp;
+	int		len;
+	char	*newStr;
 
-	index = 0;
-	tmp = NULL;
-	while (index < n)
-	{
-		if (*((char*)s) == (char)c)
-			tmp = (void*)s;
-		s++;
-		index++;
-	}
-	return (tmp);
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	len = ft_strlen(s1) + ft_strlen(s2);
+	newStr = (char*)malloc(sizeof(char) * len + 1);
+	ft_strcpy(newStr, s1);
+	ft_strcat(newStr, s2);
+	return (newStr);
 }

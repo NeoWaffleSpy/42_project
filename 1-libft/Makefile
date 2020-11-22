@@ -6,33 +6,41 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/20 23:59:20 by ncaba            ###   ########.fr        #
+#    Updated: 2020/11/21 17:33:38 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g3
-SRCSFILES =	ft_strlen.c \
-			ft_strncmp.c \
-			ft_strrchr.c \
-			ft_strchr.c \
-			ft_atoi.c \
-			ft_memset.c \
-			ft_memcpy.c \
-			ft_memmove.c \
-			ft_memcmp.c \
-			ft_memccpy.c \
-			ft_isascii.c \
-			ft_isprint.c \
+SRCSFILES =	ft_atoi.c \
+			ft_bzero.c \
+			ft_calloc.c \
 			ft_isalnum.c \
 			ft_isalpha.c \
+			ft_isascii.c \
 			ft_isdigit.c \
-			ft_strnstr.c \
-			ft_tolower.c \
-			ft_toupper.c \
+			ft_isprint.c \
+			ft_memccpy.c \
+			ft_memchr.c \
+			ft_memcmp.c \
+			ft_memcpy.c \
+			ft_memmove.c \
+			ft_memset.c \
+			ft_strcat.c \
+			ft_strchr.c \
+			ft_strcpy.c \
+			ft_strdup.c \
 			ft_strlcat.c \
-			ft_strlcpy.c
+			ft_strlcpy.c \
+			ft_strlen.c \
+			ft_strncmp.c \
+			ft_strnstr.c \
+			ft_strrchr.c \
+			ft_strtrim.c \
+			ft_substr.c \
+			ft_tolower.c \
+			ft_toupper.c
 SRCSDIR = ./
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJS = $(SRCS:.c=.o)

@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/20 23:20:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/22 02:19:46 by ncaba            ###   ########.fr       */
+/*   Created: 2020/11/21 16:24:36 by ncaba             #+#    #+#             */
+/*   Updated: 2020/11/22 02:39:57 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+size_t	ft_strcat(char *dst, const char *src)
 {
-	size_t	index;
-	void	*tmp;
+	size_t index;
 
 	index = 0;
-	tmp = NULL;
-	while (index < n)
+	if (!src)
+		return (0);
+	while (dst[index])
 	{
-		if (*((char*)s) == (char)c)
-			tmp = (void*)s;
-		s++;
 		index++;
 	}
-	return (tmp);
-}
+	while (*src)
+	{
+		dst[index] = *src;
+		index++;
+		src++;
+	}
+	dst[index] = '\0';
+	return (index);
+} 
