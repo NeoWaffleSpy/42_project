@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:28:54 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/22 02:19:09 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/24 16:38:42 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	{
 		*((char*)dest) = *((char*)src);
 		if (*((char*)src) == (char)c)
-			return (dest++);
+			return (dest += 2);
 		dest++;
 		src++;
 		index++;
