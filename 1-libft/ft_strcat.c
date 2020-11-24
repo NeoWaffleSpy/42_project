@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:24:36 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/22 02:39:57 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/24 02:17:36 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,4 @@ size_t	ft_strcat(char *dst, const char *src)
 	}
 	dst[index] = '\0';
 	return (index);
-} 
+}

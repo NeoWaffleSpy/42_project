@@ -6,42 +6,45 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/21 00:03:47 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/24 02:03:40 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+int	rmspace(const char *nptr)
 {
-	boolean	isSpace;
-	boolean	isNegative;
-	int		result;
+	boolean	is_space;
+	int		counter;
 
-	isSpace = TRUE;
-	isNegative = FALSE;
-	result = 0;
-	while (isSpace)
+	is_space = TRUE;
+	counter = 0;
+	while (is_space)
 	{
-		if (*nptr == ' ' ||
-			*nptr == '\n' ||
-			*nptr == '\v' ||
-			*nptr == '\t' ||
-			*nptr == '\r' ||
-			*nptr == '\f' ||
-			*nptr == '+')
+		if (*nptr == ' ' || *nptr == '\n' || *nptr == '\v' ||
+			*nptr == '\t' || *nptr == '\r' || *nptr == '\f' || *nptr == '+')
 		{
 			nptr++;
+			counter++;
 		}
 		else
-		{
-			isSpace = FALSE;
-		}
+			is_space = FALSE;
 	}
+	return (counter);
+}
+
+int	ft_atoi(const char *nptr)
+{
+	boolean	is_negative;
+	int		result;
+
+	is_negative = FALSE;
+	result = 0;
+	nptr += rmspace(nptr);
 	if (*nptr == '-')
 	{
 		nptr++;
-		isNegative = TRUE;
+		is_negative = TRUE;
 	}
 	while (ft_isdigit(*nptr))
 	{
@@ -49,7 +52,7 @@ int	ft_atoi(const char *nptr)
 		result += (int)(*nptr - '0');
 		nptr++;
 	}
-	if (isNegative)
+	if (is_negative)
 		result *= -1;
 	return (result);
 }

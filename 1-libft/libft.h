@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/21 17:32:40 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/24 01:47:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef unsigned long int size_t;
-typedef int boolean;
+typedef struct				s_list
+{
+	void					*content;
+	struct s_list			*next;
+}							t_list;
+typedef unsigned long int	size_t;
+typedef int					boolean;
 
 size_t			ft_strlen(const char *s);
 size_t			ft_strcpy(char *dst, const char *src);
@@ -34,12 +39,16 @@ int				ft_isalnum(int c);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_atoi(const char *nptr);
+char			*ft_itoa(int chiffre);
 char			*ft_strnstr(const char *big, const char *little, size_t len);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s);
 char			*ft_substr(const char *s, unsigned int start, size_t len);
 char			*ft_strtrim(const char *s1, const char *ref);
+char			*ft_strjoin(const char *s1, const char *s2);
+char			*ft_strmapi(char const *s, char (*f)(unsigned in, char));
+char			**ft_split(const char *str, char c);
 void			*ft_memset(void *s, int c, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t n);
@@ -47,5 +56,13 @@ void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void			*ft_calloc(size_t nmemb, size_t siez);
 void			ft_bzero(void *s, size_t n);
+void			ft_putchar(char c);
+void			ft_putchar_fd(char c, int fd);
+void			ft_putstr(char *s);
+void			ft_putstr_fd(char *s, int fd);
+void			ft_putendl(char *s);
+void			ft_putendl_fd(char *s, int fd);
+void			ft_putnbr(int n);
+void			ft_putnbr_fd(int n, int fd);
 
 #endif
