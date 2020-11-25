@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:04:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 02:17:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/25 23:57:37 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	index;
+	size_t			index;
+	int				diff;
+	unsigned char	*new_s1;
+	unsigned char	*new_s2;
 
 	index = 0;
+	new_s1 = (unsigned char*)s1;
+	new_s2 = (unsigned char*)s2;
 	while (index < n)
 	{
-		if (((char*)s1)[index] != ((char*)s2)[index])
-			return (((char*)s1)[index] - ((char*)s2)[index]);
+		diff = new_s1[index] - new_s2[index];
+		if (diff != 0)
+			return (diff);
 		index++;
 	}
 	return (0);
