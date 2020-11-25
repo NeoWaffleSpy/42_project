@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:28:54 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/25 15:56:44 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/25 17:08:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	void	*tmp;
-	int		diff;
-	size_t	decalage;
+	size_t			loop;
+	unsigned char	*new_src;
+	unsigned char	*new_dest;
 
-	tmp = ft_memchr(src, c, n);
-	decalage = 0;
-	if (tmp != NULL)
+	new_src = (unsigned char*)src;
+	new_dest = (unsigned char*)dest;
+	loop = 0;
+	while (loop < n)
 	{
-		diff = tmp - src + 1;
-		ft_memcpy(dest, src, diff);
-		while (decalage * 16 < n)
-			decalage++;
-		return (dest + diff);
+		new_dest[loop] = new_src[loop];
+		if (new_src[loop] == (unsigned char) c)
+			return ((void*)&new_dest[loop + 1]);
+		loop++;
 	}
-
-	ft_memcpy(dest, src, n);
 	return (NULL);
 }
