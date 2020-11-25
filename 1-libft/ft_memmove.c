@@ -6,20 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 22:59:08 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/25 18:00:15 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/25 18:08:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	*ft_memmove2(void *dst, const void *src, size_t n)
-{
-	unsigned char	tmp[n];
-
-	ft_memcpy(tmp, src, n);
-	ft_memcpy(dst, tmp, n);
-	return (dst);
-}
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
@@ -30,6 +21,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	i = 0;
 	a = (unsigned char *)dst;
 	b = (unsigned char *)src;
+	if (!src || !dst)
+		return (dst);
 	if (a > b)
 	{
 		while (i < len)
