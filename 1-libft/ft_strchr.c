@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 21:27:48 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 00:15:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 00:23:27 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	*ft_strchr(const char *s, int c)
 	while (s[loop])
 	{
 		if (s[loop] == (char)c)
-			return ((char*)s + 1);
+			return ((char*)&s[loop]);
 		loop++;
 	}
 	if (s[loop] == (char)c)
-		return ((char*)s + 1);
+		return ((char*)&s[loop]);
 	return (NULL);
 }
