@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 22:59:08 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/25 18:08:54 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/25 18:11:50 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	i = 0;
 	a = (unsigned char *)dst;
 	b = (unsigned char *)src;
-	if (!src || !dst)
+	if (src == dst)
 		return (dst);
 	if (a > b)
 	{
