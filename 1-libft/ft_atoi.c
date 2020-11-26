@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 15:50:07 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 15:53:57 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ int	ft_atoi(const char *nptr)
 	is_negative = FALSE;
 	result = 0;
 	nptr += rmspace(nptr);
-	if (ft_strlen(nptr) > 10 ||
-		ft_strncmp(nptr, "2147483647", 10) > 0 ||
-		ft_strncmp(nptr, "-2147483648", 10) < 0)
-		return (-1);
 	if (*nptr == '-')
 	{
 		nptr++;
@@ -55,6 +51,8 @@ int	ft_atoi(const char *nptr)
 		result *= 10;
 		result += (int)(*nptr - '0');
 		nptr++;
+		if (result < 0)
+			return (0);
 	}
 	if (is_negative)
 		result *= -1;
