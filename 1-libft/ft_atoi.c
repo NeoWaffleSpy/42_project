@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 16:48:38 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 17:05:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int	ft_atoi(const char *nptr)
 	}
 	while (ft_isdigit(*nptr))
 	{
-		if (result * 10 + (int)(*nptr - '0') < 0)
-			return (0);
 		result = result * 10 + (int)(*nptr - '0');
 		nptr++;
 	}
