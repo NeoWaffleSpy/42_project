@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 17:15:32 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 17:20:01 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,13 @@ int	ft_atoi(const char *nptr)
 	is_negative = FALSE;
 	result = 0;
 	nptr += rmspace(nptr);
-	if (*nptr == '+')
-		nptr++;
-	if (!ft_isdigit(*nptr))
-		return (0);
 	if (*nptr == '-')
 	{
 		nptr++;
 		is_negative = TRUE;
 	}
+	else if (*nptr == '+')
+		nptr++;
 	while (ft_isdigit(*nptr))
 	{
 		result = result * 10 + (int)(*nptr - '0');
