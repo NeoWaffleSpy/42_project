@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 17:34:02 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 17:45:12 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,6 @@ int	rmspace(const char *nptr)
 
 int	ft_atoi(const char *nptr)
 {
-	int result = 0;
-	unsigned int digit;
-	boolean is_negative;
-
-	nptr += rmspace(nptr);
-	if (*nptr == '-')
-	{
-		nptr++;
-		is_negative = TRUE;
-	}
-	else
-	{
-		is_negative = FALSE;
-		if (*nptr == '+')
-			nptr++;
-	}
-
-	while (result >= 0)
-	{
-		digit = *nptr - '0';
-		if (digit > 9)
-			break;
-		result = result * 10 + digit;
-		nptr++;
-	}
-	if (is_negative)
-		return (-result);
-	return (result);
-}
-
-int	ft_atoi2(const char *nptr)
-{
 	boolean	is_negative;
 	int		result;
 
@@ -82,6 +50,8 @@ int	ft_atoi2(const char *nptr)
 		nptr++;
 	while (ft_isdigit(*nptr))
 	{
+		if (result * 10 + (int)(*nptr - '0') < result)
+			return (is_negative - 1);
 		result = result * 10 + (int)(*nptr - '0');
 		nptr++;
 	}
