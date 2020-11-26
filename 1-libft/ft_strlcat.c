@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 21:08:33 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 01:02:18 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 14:41:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 
 	index = 0;
 	index2 = 0;
-	if (size == 0)
-		return (0);
-	while (dst[index])
+	while (dst[index] && index < size)
 		index++;
 	while (src[index2] && index < size - 1)
 		dst[index++] = src[index2++];
