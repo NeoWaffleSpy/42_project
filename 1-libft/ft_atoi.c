@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 17:05:58 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 17:15:32 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	rmspace(const char *nptr)
 	while (is_space)
 	{
 		if (*nptr == ' ' || *nptr == '\n' || *nptr == '\v' ||
-			*nptr == '\t' || *nptr == '\r' || *nptr == '\f' || *nptr == '+')
+			*nptr == '\t' || *nptr == '\r' || *nptr == '\f')
 		{
 			nptr++;
 			counter++;
@@ -41,6 +41,10 @@ int	ft_atoi(const char *nptr)
 	is_negative = FALSE;
 	result = 0;
 	nptr += rmspace(nptr);
+	if (*nptr == '+')
+		nptr++;
+	if (!ft_isdigit(*nptr))
+		return (0);
 	if (*nptr == '-')
 	{
 		nptr++;
