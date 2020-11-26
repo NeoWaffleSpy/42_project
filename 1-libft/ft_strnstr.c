@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 15:53:32 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/21 16:20:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/26 15:24:10 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	index = 0;
 	if (!little || !(*little))
 		return ((char *)big);
-	while (big && len > 0 && index < len)
+	while (*big && len > 0 && index < len)
 	{
 		index = 0;
 		while (big && *big != *little && len > 0)
