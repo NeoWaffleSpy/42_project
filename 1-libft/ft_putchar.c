@@ -6,14 +6,14 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 01:15:49 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 01:40:52 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 22:52:36 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
 
-void	ft_putchar(char c)
+void	ft_putchar(int c)
 {
 	write(1, &c, 1);
 }
