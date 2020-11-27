@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcadiot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/13 18:14:10 by pcadiot           #+#    #+#             */
-/*   Updated: 2016/11/13 18:14:14 by pcadiot          ###   ########.fr       */
+/*   Created: 2020/11/27 23:27:48 by ncaba             #+#    #+#             */
+/*   Updated: 2020/11/27 23:28:14 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 t_list			*ft_lstnew(void const *content, size_t content_size)
 {

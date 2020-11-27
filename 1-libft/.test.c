@@ -17,6 +17,7 @@ void test_memccpy();
 void test_memchr();
 void test_memcmp();
 void test_memcpy();
+void test_memmove();
 void test_memset();
 void test_putchar_fd();
 void test_putendl_fd();
@@ -55,10 +56,11 @@ int main(void)
 	//test_memchr(); // OK
 	//test_memcmp(); // OK
 	//test_memcpy(); // OK
+	//test_memmove();
 	//test_memset(); // OK
 	//test_putchar_fd(); // OK
 	//test_putendl_fd(); // OK
-	//test_putnbr_fd(); // OK
+	test_putnbr_fd(); // OK
 	//test_putstr_fd(); // OK
 	//test_split(); // OK mais pas de free a la fin ?
 	//test_strcat(); // OK
@@ -83,10 +85,13 @@ int main(void)
 void test_atoi()
 {
 	printf("--------->Test de ft_atoi<---------\n");
-	printf("%d -> %d\n", atoi("  -457"), ft_atoi("  -457"));
-	printf("%d -> %d\n", atoi("  +87 456"), ft_atoi("  +87 456"));
-	printf("%d -> %d\n", atoi("  457651qgq365e31"), ft_atoi("  457651qgq365e31"));
-	printf("%d -> %d\n", atoi(""), ft_atoi(""));
+	printf("%10d -> %d\n", atoi("9999999999999999999999999"), ft_atoi("9999999999999999999999999"));
+	printf("%10d -> %d\n", atoi("-9999999999999999999999999"), ft_atoi("-9999999999999999999999999"));
+	printf("%10d -> %d\n", atoi("2147483647"), ft_atoi("2147483647"));
+	printf("%10d -> %d\n", atoi("-2147483648"), ft_atoi("-2147483648"));
+	printf("%10d -> %d\n", atoi("  +87 456"), ft_atoi("  +87 456"));
+	printf("%10d -> %d\n", atoi("  457651qgq365e31"), ft_atoi("  457651qgq365e31"));
+	printf("%10d -> %d\n", atoi(""), ft_atoi(""));
 }
 
 void test_bzero()
@@ -163,55 +168,60 @@ void test_itoa()
 	printf("--------->Test de ft_itoa<---------\n");
 	char *s;
 	int n;
-	n = 5;
+	n = -623;
 	s = ft_itoa(n);
-	printf("%d -> %s\n", n, s);
+	printf("%10d -> %s\n", n, s);
 	free(s);
-	n = 154626;
+	n = 156;
 	s = ft_itoa(n);
-	printf("%d -> %s\n", n, s);
+	printf("%10d -> %s\n", n, s);
 	free(s);
-	n = 147852;
+	n = -0;
 	s = ft_itoa(n);
-	printf("%d -> %s\n", n, s);
+	printf("%10d -> %s\n", n, s);
 	free(s);
-	n = 0;
+	n = 1699655146;
 	s = ft_itoa(n);
-	printf("%d -> %s\n", n, s);
+	printf("%10d -> %s\n", n, s);
 	free(s);
-	n = -147896523;
+	n = -147800523;
 	s = ft_itoa(n);
-	printf("%d -> %s\n", n, s);
+	printf("%10d -> %s\n", n, s);
 	free(s);
 }
 
 void test_memccpy()
 {
 	printf("--------->Test de ft_memccpy<---------\n");
-	char *s1 = "Une phrase ?";
-	char s2[13];
-	bzero(s2, 13);
-	memccpy(s2, s1, (int)'h', 13);
+	char *s1 = "test basic tuff eeccpym avec des mots en plus !";
+	int len = 47;
+	int letter = (int)'m';
+	char s2[len];
+	char s3[len];
+	bzero(s2, len);
+	bzero(s3, len);
+	int diff = memccpy(s2, s1, letter, len) - ft_memccpy(s3, s1, letter, len);
 	printf("   memccpy -> %s\n", s2);
-	bzero(s2, 13);
-	ft_memccpy(s2, s1, (int)'h', 13);
-	printf("ft_memccpy -> %s\n", s2);
+	printf("ft_memccpy -> %s\n", s3);
+	printf("Difference = %d\nString len = %lu\nSize copied = %d\n",
+			diff, ft_strlen(s1), len);
 }
 
 void test_memchr()
 {
 	printf("--------->Test de ft_memchr<---------\n");
-	char *str = "J'aime les bananes";
-	printf("   memchr -> %s\n", (char*)memchr(str, (int)'b', 17));
-	printf("ft_memchr -> %s\n", (char*)ft_memchr(str, (int)'b', 17));
+	char *str = "/|\x12\xff\x09\0\x42\042\42|\\";
+	printf("   string -> %p\n", str);
+	printf("   memchr -> %p\n", (char*)memchr(str, (int)'\0', 12));
+	printf("ft_memchr -> %p\n", (char*)ft_memchr(str, (int)'\0', 12));
 }
 
 void test_memcmp()
 {
 	printf("--------->Test de ft_memcmp<---------\n");
 	printf("%d - %d\n",
-		memcmp("J'aime les bananes", "J'aime les banane", 19),
-		ft_memcmp("J'aime les bananes", "J'aime les banane", 19));
+		memcmp("\xff\xaa\xde\xde\200", "\xff\xaa\xde\xde\0", 19),
+		ft_memcmp("\xff\xaa\xde\xde\200", "\xff\xaa\xde\xde\0", 19));
 	printf("%d - %d\n",
 		memcmp("J'aime les banane", "J'aime les bananes", 19),
 		ft_memcmp("J'aime les banane", "J'aime les bananes", 19));
@@ -231,6 +241,17 @@ void test_memcpy()
 	bzero(s2, 13);
 	ft_memcpy(s2, s1, 13);
 	printf("ft_memcpy -> %s\n", s2);
+}
+
+void test_memmove()
+{
+	printf("--------->Test de ft_memmove<---------\n");
+	int size = 128 * 1024 * 1024;
+	char *dst = (char*)malloc(sizeof(char) * size);
+	char *data = (char*)malloc(sizeof(char) * size);
+	ft_memset(data, 'A', size);
+	ft_memmove(((void*)0), ((void*)0), size);
+
 }
 
 void test_memset()
@@ -268,7 +289,9 @@ void test_putnbr_fd()
 	ft_putchar_fd('\n', 1);
 	ft_putnbr_fd(0, 1);
 	ft_putchar_fd('\n', 1);
-	ft_putnbr_fd(-875, 1);
+	ft_putnbr_fd(MININT, 1);
+	ft_putchar_fd('\n', 1);
+	ft_putnbr_fd(MAXINT, 1);
 	ft_putchar_fd('\n', 1);
 }
 
@@ -324,9 +347,9 @@ void test_strcat()
 void test_strchr()
 {
 	printf("--------->Test de ft_strchr<---------\n");
-	char *str = "J'aime les bananes";
-	printf("   strchr -> %s\n", (char*)strchr(str, (int)'b'));
-	printf("ft_strchr -> %s\n", (char*)ft_strchr(str, (int)'b'));
+	char *str = "The cake is a lie !";
+	printf("   strchr -> %s\n", (char*)strchr(str, (int)' '));
+	printf("ft_strchr -> %s\n", (char*)ft_strchr(str, (int)' '));
 }
 
 void test_strcpy()
@@ -415,10 +438,10 @@ void test_strncmp()
 void test_strnstr()
 {
 	printf("--------->Test de ft_strnstr<---------\n");
-	char big[] = "Une phrase aleatoire";
-	char small[] = "ale";
+	char small[] = "see F your F return F now F";
+	char big[] = "FF";
 	printf("   strnstr -> %s\n", strstr(big, small));
-	printf("ft_strnstr -> %s\n", ft_strnstr(big, small, 20));
+	printf("ft_strnstr -> %s\n", ft_strnstr(big, small, ft_strlen(big)));
 }
 
 void test_strrchr()
@@ -443,8 +466,8 @@ void test_strtrim()
 void test_substr()
 {
 	printf("--------->Test de ft_substr<---------\n");
-	char s[] = "Une phrase aleatoire";
-	char *result = ft_substr(s, 8, 12);
+	char s[] = "01234";
+	char *result = ft_substr(s, 10, 10);
 	printf("%s\n", result);
 	free(result);
 }

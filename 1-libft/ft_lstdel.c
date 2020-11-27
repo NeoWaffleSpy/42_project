@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcadiot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/13 18:17:52 by pcadiot           #+#    #+#             */
-/*   Updated: 2016/11/13 18:17:56 by pcadiot          ###   ########.fr       */
+/*   Created: 2020/11/27 23:21:46 by ncaba             #+#    #+#             */
+/*   Updated: 2020/11/27 23:22:04 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
