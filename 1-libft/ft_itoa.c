@@ -6,12 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:24:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 19:32:41 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 20:38:13 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int		max_len(int chiffre)
 {
@@ -63,7 +64,7 @@ char	*ft_itoa(int chiffre)
 	while (chiffre)
 	{
 		len = 1;
-		while ((len * 10) <= chiffre)
+		while ((len * 10) / len == 10 && (len * 10) <= chiffre)
 			len *= 10;
 		str[string_len] = ((char)(chiffre / len) + '0');
 		string_len++;
