@@ -6,13 +6,18 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 01:24:45 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 01:42:20 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 21:17:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void	ft_putnbr(int n)
 {
-	ft_putstr(ft_itoa(n));
+	char *s;
+
+	s = ft_itoa(n);
+	ft_putstr(s);
+	free(s);
 }
