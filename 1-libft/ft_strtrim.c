@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:45:58 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 02:32:40 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 02:34:33 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ char	*ft_strtrim(const char *s1, const char *ref)
 	endroit = 0;
 	envers = ft_strlen(s1) - 1;
 	trimmed = (char*)malloc(sizeof(char) * (envers + 2));
-	if (!trimmed)
-		return (NULL);
 	while (is_ref(s1[endroit], ref))
 		endroit++;
 	if (!s1[endroit])
