@@ -3,79 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
+/*   By: pcadiot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 21:24:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 20:38:13 by ncaba            ###   ########.fr       */
+/*   Created: 2016/11/10 15:26:03 by pcadiot           #+#    #+#             */
+/*   Updated: 2020/11/27 20:58:16 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
-int		max_len(int chiffre)
+static	int			ft_itoa_size(int n)
 {
-	int		len;
-	int		string_len;
-	boolean	is_negative;
+	int				size;
+	int				neg;
 
-	is_negative = FALSE;
-	if (chiffre < 0)
+	size = 0;
+	neg = 0;
+	if (n < 0 && n > -2147483648)
 	{
-		is_negative = TRUE;
-		chiffre *= -1;
+		neg = 1;
+		size++;
+		n = -n;
 	}
-	len = 1;
-	string_len = 1;
-	while ((len * 10) <= chiffre)
+	else if (n == 0)
+		return (1);
+	else if (n == -2147483648)
+		return (11);
+	while (n >= 1)
 	{
-		len *= 10;
-		string_len++;
+		n /= 10;
+		size++;
 	}
-	if (is_negative)
-		return (string_len + 1);
-	return (string_len);
+	return (size);
 }
 
-char	*return_0(char *s)
+char				*ft_itoa(int n)
 {
-	s[0] = '0';
-	s[1] = '\0';
-	return (s);
-}
+	char			*str;
+	int				i;
+	int				size;
+	int				neg;
+	unsigned int	tmp;
 
-char	*ft_itoa(int chiffre)
-{
-	char	*str;
-	int		len;
-	int		string_len;
-
-	str = (char*)malloc(sizeof(char) * max_len(chiffre) + 1);
-	if (chiffre == 0)
-		return (return_0(str));
-	string_len = 0;
-	if (chiffre < 0)
+	size = ft_itoa_size(n);
+	neg = (n < 0 ? 1 : 0);
+	i = 1;
+	if (!((str = (char *)malloc(sizeof(char) * ft_itoa_size(n) + 1))))
+		return (NULL);
+	tmp = (n < 0 ? -n : n);
+	if (tmp == 0)
+		str[tmp] = '0';
+	while (tmp >= 1)
 	{
-		str[string_len] = '-';
-		string_len++;
-		chiffre *= -1;
+		str[size - i] = (tmp % 10) + '0';
+		tmp /= 10;
+		i++;
 	}
-	while (chiffre)
-	{
-		len = 1;
-		while ((len * 10) / len == 10 && (len * 10) <= chiffre)
-			len *= 10;
-		str[string_len] = ((char)(chiffre / len) + '0');
-		string_len++;
-		chiffre %= len;
-		while (chiffre < len / 10)
-		{
-			str[string_len] = '0';
-			string_len++;
-			len /= 10;
-		}
-	}
-	str[string_len] = '\0';
+	if (neg)
+		*str = '-';
+	str[size] = '\0';
 	return (str);
 }
