@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:24:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 03:16:28 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 03:26:35 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ char	*ft_itoa(int chiffre)
 		str[string_len] = ((char)(chiffre / len) + '0');
 		string_len++;
 		chiffre %= len;
+		while (chiffre < len / 10)
+		{
+			str[string_len] = '0';
+			string_len++;
+			len /= 10;
+		}
 	}
 	str[string_len] = '\0';
 	return (str);
