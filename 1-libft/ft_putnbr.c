@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 01:24:45 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 21:17:44 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 22:13:29 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,23 @@
 
 void	ft_putnbr(int n)
 {
-	char *s;
-
-	s = ft_itoa(n);
-	ft_putstr(s);
-	free(s);
+	if (n == MININT)
+	{
+		ft_putnbr(MININT / 10);
+		ft_putnbr(-(MININT % 10));
+	}
+	else if (n > 9)
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
+	else if (n < 0)
+	{
+		ft_putchar('-');
+		ft_putnbr(-n);
+	}
+	else
+	{
+		ft_putchar('0' + n);
+	}
 }
