@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcadiot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/10 15:26:03 by pcadiot           #+#    #+#             */
-/*   Updated: 2020/11/27 20:58:16 by ncaba            ###   ########.fr       */
+/*   Created: 2020/11/27 21:06:37 by ncaba             #+#    #+#             */
+/*   Updated: 2020/11/27 21:11:24 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static	int			ft_itoa_size(int n)
+int		ft_itoa_size(int n)
 {
 	int				size;
 	int				neg;
@@ -38,7 +38,7 @@ static	int			ft_itoa_size(int n)
 	return (size);
 }
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char			*str;
 	int				i;
