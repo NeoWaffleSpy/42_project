@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 01:24:45 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 21:44:27 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 21:47:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_putnbr_fd(int n, int fd)
 	if (n == MININT)
 	{
 		ft_putnbr_fd(MININT / 10, fd);
-		ft_putnbr_fd(MININT % 10, fd);
+		ft_putnbr_fd(-(MININT % 10), fd);
 	}
 	else if (n > 9)
 	{
