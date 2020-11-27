@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 01:47:43 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 21:33:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define NULL 0
 # define TRUE 1
 # define FALSE 0
+# define MAXINT 2147483647
+# define MININT -2147483648
 
 typedef struct				s_list
 {
