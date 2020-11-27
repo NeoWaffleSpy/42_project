@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:24:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 03:05:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 03:12:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,57 +64,64 @@ char	*ft_itoa2(int chiffre)
 	return (str);
 }
 
-static int        taille_str(long long int n)
+int		taille_str(long long int n)
 {
-    long long int    i;
+	long long int	i;
+	boolean			is_negative;
 
-    i = 1;
-    if (n < 0)
-        n = n * -1;
-    while (n >= 10)
-    {
-        n = n / 10;
-        i++;
-    }
-    return (i);
+	is_negative = FALSE;
+	i = 1;
+	if (n < 0)
+	{
+		is_negative = TRUE;
+		n = n * -1;
+	}
+	while (n >= 10)
+	{
+		n = n / 10;
+		i++;
+	}
+	if (is_negative)
+		return (i + 1);
+	return (i);
 }
 
-static char        *rempli_str(char *str, long long int n, int len)
+char	*rempli_str(char *str, long long int n, int len)
 {
-    int        debut;
+	int				debut;
 
-    str[len] = '\0';
-    len = len - 1;
-    if (n < 0)
-    {
-        n = n * -1;
-        debut = 1;
-        str[0] = '-';
-    }
-    else
-        debut = 0;
-    while (len >= debut)
-    {
-        str[len] = n % 10 + '0';
-        n = n / 10;
-        len--;
-    }
-    return (str);
+	str[len] = '\0';
+	len = len - 1;
+	if (n < 0)
+	{
+		n = n * -1;
+		debut = 1;
+		str[0] = '-';
+	}
+	else
+		debut = 0;
+	while (len >= debut)
+	{
+		str[len] = n % 10 + '0';
+		n = n / 10;
+		len--;
+	}
+	return (str);
 }
 
-char            *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-    char            *str;
-    int                len;
-    long long int    lln;
+	char			*str;
+	int				len;
+	long long int	lln;
 
-    lln = n;
-    len = taille_str(lln);
-    if (lln < 0)
-        len = len + 1;
-    str = ft_calloc(sizeof(char), len);
-    if (!str)
-        return (NULL);
-    str = rempli_str(str, lln, len);
-    return (str);
+	lln = n;
+	len = taille_str(lln);
+	if (lln < 0)
+		len = len + 1;
+	str = ft_calloc(sizeof(char), len);
+	if (!str)
+		return (NULL);
+	str = rempli_str(str, lln, len);
+	return (str);
 }
