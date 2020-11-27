@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:24:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 03:01:25 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 03:05:05 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char            *ft_itoa(int n)
     len = taille_str(lln);
     if (lln < 0)
         len = len + 1;
-    str = ft_strnew(len);
+    str = ft_calloc(sizeof(char), len);
     if (!str)
         return (NULL);
     str = rempli_str(str, lln, len);
