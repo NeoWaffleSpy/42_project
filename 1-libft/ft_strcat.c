@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:24:36 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 22:37:27 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 22:38:49 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_strcat(char *dst, const char *src)
 {
 	char *d;
 	const char *s;
-	size_t dlen;
 
 	d = dst;
 	s = src;
