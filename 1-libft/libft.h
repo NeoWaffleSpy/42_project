@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 22:24:59 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 22:38:00 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef int					boolean;
 
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-size_t			ft_strcat(char *dst, const char *src);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -46,6 +45,7 @@ char			*ft_strrchr(const char *s, int c);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s);
 char			*ft_strcpy(char *dst, const char *src);
+char			*ft_strcat(char *dst, const char *src);
 char			*ft_substr(const char *s, unsigned int start, size_t len);
 char			*ft_strtrim(const char *s1, const char *ref);
 char			*ft_strjoin(const char *s1, const char *s2);

@@ -6,29 +6,27 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:24:36 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 02:17:36 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 22:37:27 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strcat(char *dst, const char *src)
+char	*ft_strcat(char *dst, const char *src)
 {
-	size_t index;
+	char *d;
+	const char *s;
+	size_t dlen;
 
-	index = 0;
-	if (!src)
-		return (0);
-	while (dst[index])
+	d = dst;
+	s = src;
+	while (*d != '\0')
+		d++;
+	while (*s != '\0')
 	{
-		index++;
+		*d++ = *s;
+		s++;
 	}
-	while (*src)
-	{
-		dst[index] = *src;
-		index++;
-		src++;
-	}
-	dst[index] = '\0';
-	return (index);
+	*d = '\0';
+	return(dst);
 }
