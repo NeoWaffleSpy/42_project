@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:24:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 20:38:13 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 20:44:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,30 @@ char	*return_0(char *s)
 char	*ft_itoa(int chiffre)
 {
 	char	*str;
-	int		len;
+	long	len;
+	long	new_chiffre;
 	int		string_len;
 
+	new_chiffre = (long)chiffre;
 	str = (char*)malloc(sizeof(char) * max_len(chiffre) + 1);
-	if (chiffre == 0)
+	if (new_chiffre == 0)
 		return (return_0(str));
 	string_len = 0;
-	if (chiffre < 0)
+	if (new_chiffre < 0)
 	{
 		str[string_len] = '-';
 		string_len++;
-		chiffre *= -1;
+		new_chiffre *= -1;
 	}
-	while (chiffre)
+	while (new_chiffre)
 	{
 		len = 1;
-		while ((len * 10) / len == 10 && (len * 10) <= chiffre)
+		while ((len * 10) / len == 10 && (len * 10) <= new_chiffre)
 			len *= 10;
-		str[string_len] = ((char)(chiffre / len) + '0');
+		str[string_len] = ((char)(new_chiffre / len) + '0');
 		string_len++;
-		chiffre %= len;
-		while (chiffre < len / 10)
+		new_chiffre %= len;
+		while ((long)chiffre < len / 10)
 		{
 			str[string_len] = '0';
 			string_len++;
