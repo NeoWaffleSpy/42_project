@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:24:02 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 02:46:04 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/27 02:45:09 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,22 @@ int		max_len(int chiffre)
 	return (string_len);
 }
 
+char	*return_0(char *s)
+{
+	s[0] = '0';
+	s[1] = '\0';
+	return (s);
+}
+
 char	*ft_itoa(int chiffre)
 {
 	char	*str;
 	int		len;
 	int		string_len;
 
-	if (chiffre == 0)
-		return (NULL);
 	str = (char*)malloc(sizeof(char) * max_len(chiffre) + 2);
+	if (chiffre == 0)
+		return (return_0(str));
 	string_len = 0;
 	if (chiffre < 0)
 	{
