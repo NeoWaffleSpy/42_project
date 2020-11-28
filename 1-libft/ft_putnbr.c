@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 01:24:45 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 22:13:29 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:38:19 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 void	ft_putnbr(int n)
 {

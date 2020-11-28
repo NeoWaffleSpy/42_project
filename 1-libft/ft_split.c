@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:05 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 02:35:48 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:38:09 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 int		get_nb_split(const char *str, char c)
 {

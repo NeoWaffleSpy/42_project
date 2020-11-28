@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:43 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 23:24:27 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:39:04 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {

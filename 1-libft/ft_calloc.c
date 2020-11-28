@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 15:40:31 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 01:40:33 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:39:33 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {

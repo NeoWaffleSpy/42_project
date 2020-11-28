@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:08:33 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 02:26:48 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:37:53 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {

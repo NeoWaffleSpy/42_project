@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 01:12:00 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 01:12:49 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:37:40 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned in, char))
 {

@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:48 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 23:28:14 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:38:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 t_list			*ft_lstnew(void const *content, size_t content_size)
 {

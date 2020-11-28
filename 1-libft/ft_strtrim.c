@@ -6,14 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:45:58 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 02:34:33 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:37:10 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-boolean	is_ref(char c, const char *ref)
+t_boolean	is_ref(char c, const char *ref)
 {
 	while (*ref)
 	{
@@ -26,7 +25,7 @@ boolean	is_ref(char c, const char *ref)
 	return (FALSE);
 }
 
-char	*ft_strtrim(const char *s1, const char *ref)
+char		*ft_strtrim(const char *s1, const char *ref)
 {
 	char	*trimmed;
 	int		endroit;

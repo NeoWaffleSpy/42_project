@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 21:06:37 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 21:11:24 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:39:20 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 int		ft_itoa_size(int n)
 {
