@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 22:59:08 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/25 18:11:50 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:43:52 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,16 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	if (src == dst)
 		return (dst);
 	if (a > b)
-	{
 		while (i < len)
 		{
 			a[len - 1] = b[len - 1];
 			len--;
 		}
-	}
 	else
-	{
 		while (i < len)
 		{
 			a[i] = b[i];
 			i++;
 		}
-	}
 	return (dst);
 }
-

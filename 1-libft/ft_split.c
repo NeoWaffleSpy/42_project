@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:05 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:38:09 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:52:22 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	**ft_split(const char *str, char c)
 	int		index_tab;
 
 	index_tab = 0;
-	tab = NULL;
 	if (!str)
 		return (tab);
 	tab = (char**)malloc(sizeof(char*) * get_nb_split(str, c) + 1);
@@ -57,9 +56,8 @@ char	**ft_split(const char *str, char c)
 			index = 0;
 			while (str[index] && str[index] != c)
 				index++;
-			tab[index_tab] = ft_substr(str, 0, index);
+			tab[index_tab++] = ft_substr(str, 0, index);
 			str += index;
-			index_tab++;
 		}
 	}
 	tab[index_tab] = 0;

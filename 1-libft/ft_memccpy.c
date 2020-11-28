@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:28:54 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/25 17:08:43 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:42:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	while (loop < n)
 	{
 		new_dest[loop] = new_src[loop];
-		if (new_src[loop] == (unsigned char) c)
+		if (new_src[loop] == (unsigned char)c)
 			return ((void*)&new_dest[loop + 1]);
 		loop++;
 	}

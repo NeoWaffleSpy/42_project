@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:35:56 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 01:41:35 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	rmspace(const char *nptr)
 {
 	t_boolean	is_space;
-	int		counter;
+	int			counter;
 
 	is_space = TRUE;
 	counter = 0;
@@ -36,7 +36,7 @@ int	rmspace(const char *nptr)
 int	ft_atoi(const char *nptr)
 {
 	t_boolean	is_negative;
-	int		result;
+	int			result;
 
 	is_negative = FALSE;
 	result = 0;
