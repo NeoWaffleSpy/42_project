@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 01:17:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/24 01:21:23 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/30 16:41:38 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
+	if (!s)
+		return;
 	while (*s)
 	{
 		ft_putchar_fd(*s, fd);
