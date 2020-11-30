@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/30 14:46:13 by ncaba            ###   ########.fr        #
+#    Updated: 2020/11/30 23:49:30 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,12 @@ SRCSFILES =	ft_atoi.c \
 			ft_isdigit.c \
 			ft_isprint.c \
 			ft_itoa.c \
+			ft_lstadd_back.c \
+			ft_lstadd_front.c \
+			ft_lstclear.c \
 			ft_lstdelone.c \
 			ft_lstiter.c \
+			ft_lstmap.c \
 			ft_lstmap.c \
 			ft_lstnew.c \
 			ft_lstsize.c \
