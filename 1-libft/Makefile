@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/27 23:31:44 by ncaba            ###   ########.fr        #
+#    Updated: 2020/11/30 14:46:13 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,7 @@ SRCSFILES =	ft_atoi.c \
 			ft_isdigit.c \
 			ft_isprint.c \
 			ft_itoa.c \
-			ft_lstadd.c \
-			ft_lstdel.c \
 			ft_lstdelone.c \
-			ft_lstdup.c \
 			ft_lstiter.c \
 			ft_lstmap.c \
 			ft_lstnew.c \
@@ -36,18 +33,12 @@ SRCSFILES =	ft_atoi.c \
 			ft_memcpy.c \
 			ft_memmove.c \
 			ft_memset.c \
-			ft_putchar.c \
 			ft_putchar_fd.c \
-			ft_putendl.c \
 			ft_putendl_fd.c \
-			ft_putnbr.c \
 			ft_putnbr_fd.c \
-			ft_putstr.c \
 			ft_putstr_fd.c \
 			ft_split.c \
-			ft_strcat.c \
 			ft_strchr.c \
-			ft_strcpy.c \
 			ft_strdup.c \
 			ft_strjoin.c \
 			ft_strlcat.c \
@@ -61,9 +52,18 @@ SRCSFILES =	ft_atoi.c \
 			ft_substr.c \
 			ft_tolower.c \
 			ft_toupper.c
+BNSFILES =	ft_putchar_bonus.c \
+			ft_putendl_bonus.c \
+			ft_putnbr_bonus.c \
+			ft_putstr_bonus.c \
+			ft_return0_bonus.c \
+			ft_strcat_bonus.c \
+			ft_strcpy_bonus.c
 SRCSDIR = ./
 SRCS = $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJS = $(SRCS:.c=.o)
+BSRCS = $(addprefix $(SRCSDIR), $(BNSFILES))
+BOBJS = $(BSRCS:.c=.o)
 HEADERS = libft.h
 HEADERFLAGS = $(addprefix -I, $(dir $(HEADERS)))
 
@@ -73,46 +73,33 @@ EXECTEST = a.out
 
 
 all: $(NAME)
-	
+
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+	ar rc $(NAME) $(OBJS) 
 	ranlib $(NAME)
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) $(HEADERFLAGS) -c -o $@ $<
 
 clean:
-	/bin/rm -f *.o
+	/bin/rm -f $(OBJS) $(BOBJS) $(OBJTEST)
 	/bin/rm -rf a.out.dSYM
-	/bin/rm -f *.gch
+	/bin/rm -f libft.gch
 	/bin/rm -f $(EXECTEST)
 
 fclean: clean
 	/bin/rm -f $(NAME)
 
-re: fclean all
+re: fclean $(NAME)
 
-prepare: fclean
-	rm -f main_.c main_test_.c svtest_.c svtest_.h test_.c
+retest: fclean maintest
 
-.PHONY: re fclean clean
+.PHONY: re fclean clean all maintest bonus retest
 
-check: all
-	#$(CC) $(CFLAGS) -$(CFLAGS) c -Wall -Wextra -Werror $(SRCTEST) -I $(HEADER)
-	#$(CC) $(OBJTEST) -L. -lft
-	$(CC) $(CFLAGS) $(SRCTEST) -L. -lft -I $(HEADERS)
-
-checkfclean: fclean
-	/bin/rm -f $(OBJTEST)
-	/bin/rm -f a.out
-
-recheck: checkfclean check
-
-rm: checkfclean
-
-retest: recheck
-	./a.out
-
-maintest: all
+maintest: bonus
 	$(CC) -c $(SRCTEST) -I $(HEADERS)
 	$(CC) $(OBJTEST) -o $(EXECTEST) -L. -lft
+
+bonus: $(OBJS) $(BOBJS)
+	ar rc $(NAME) $(OBJS) $(BOBJS)
+	ranlib $(NAME)

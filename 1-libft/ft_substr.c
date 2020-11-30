@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 15:55:12 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:57:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/28 16:57:38 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (start == len)
-		return ((char*)calloc(1, 1));
+	if (start >= ft_strlen(s) || len == 0)
+		return ((char*)ft_calloc(1, 1));
 	new_str = (char*)malloc(sizeof(char) * len + 1);
 	if (!new_str)
 		return (NULL);

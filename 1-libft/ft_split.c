@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:05 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:54:21 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/30 14:27:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		get_nb_split(const char *str, char c)
+static int	get_nb_split(const char *str, char c)
 {
 	int		nb_split;
 
@@ -35,7 +35,18 @@ int		get_nb_split(const char *str, char c)
 	return (nb_split);
 }
 
-char	**ft_split(const char *str, char c)
+static char	**free_all(char **tab, int countdown)
+{
+	while (countdown)
+	{
+		countdown--;
+		free(tab[countdown]);
+	}
+	free(tab);
+	return (NULL);
+}
+
+char		**ft_split(const char *str, char c)
 {
 	char	**tab;
 	int		index;
@@ -44,7 +55,7 @@ char	**ft_split(const char *str, char c)
 	index_tab = 0;
 	if (!str)
 		return (NULL);
-	tab = (char**)malloc(sizeof(char*) * get_nb_split(str, c) + 1);
+	tab = (char**)malloc(sizeof(char*) * (get_nb_split(str, c) + 1));
 	if (!tab)
 		return (NULL);
 	while (*str)
@@ -56,7 +67,8 @@ char	**ft_split(const char *str, char c)
 			index = 0;
 			while (str[index] && str[index] != c)
 				index++;
-			tab[index_tab++] = ft_substr(str, 0, index);
+			if (!(tab[index_tab++] = ft_substr(str, 0, index)))
+				return (free_all(tab, index_tab));
 			str += index;
 		}
 	}

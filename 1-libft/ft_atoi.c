@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:41:35 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/30 12:51:03 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	rmspace(const char *nptr)
+static int	rmspace(const char *nptr)
 {
 	t_boolean	is_space;
 	int			counter;
@@ -33,7 +33,7 @@ int	rmspace(const char *nptr)
 	return (counter);
 }
 
-int	ft_atoi(const char *nptr)
+int			ft_atoi(const char *nptr)
 {
 	t_boolean	is_negative;
 	int			result;

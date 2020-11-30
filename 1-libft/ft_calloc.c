@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 15:40:31 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:39:33 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/30 14:11:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*new_tab;
 
 	if (nmemb == 0 || size == 0)
-	{
-		nmemb = 1;
-		size = 1;
-	}
+		return (NULL);
 	new_tab = malloc(size * nmemb);
 	if (new_tab)
 		ft_bzero(new_tab, size * nmemb);

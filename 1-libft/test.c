@@ -60,9 +60,9 @@ int main(void)
 	//test_memset(); // OK
 	//test_putchar_fd(); // OK
 	//test_putendl_fd(); // OK
-	test_putnbr_fd(); // OK
+	//test_putnbr_fd(); // OK
 	//test_putstr_fd(); // OK
-	//test_split(); // OK mais pas de free a la fin ?
+	test_split(); // OK mais pas de free a la fin ?
 	//test_strcat(); // OK
 	//test_strchr(); // OK
 	//test_strcpy(); // OK

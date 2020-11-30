@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:35:13 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/11/30 13:29:18 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void				*ft_memmove(void *dst, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				*ft_calloc(size_t nmemb, size_t siez);
+void				*ft_return0();
 void				ft_bzero(void *s, size_t n);
 void				ft_putchar(int c);
 void				ft_putchar_fd(char c, int fd);

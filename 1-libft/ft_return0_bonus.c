@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdup.c                                        :+:      :+:    :+:   */
+/*   ft_return0_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 23:26:01 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/27 23:26:27 by ncaba            ###   ########.fr       */
+/*   Created: 2020/11/30 12:56:18 by ncaba             #+#    #+#             */
+/*   Updated: 2020/11/30 13:03:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list			*ft_lstdup(t_list *lst)
+void	*ft_return0()
 {
-	t_list	*link;
-	t_list	*first;
+	void	*s;
 
-	if (!lst)
+	s = malloc(sizeof(char));
+	if (!s)
 		return (NULL);
-	first = ft_lstnew(lst->content, lst->content_size);
-	lst = lst->next;
-	link = first;
-	while (lst)
-	{
-		link->next = ft_lstnew(lst->content, lst->content_size);
-		if (!link)
-			return (NULL);
-		link = link->next;
-		lst = lst->next;
-	}
-	return (first);
+	*(char*)s = '\0';
+	return (s);
 }
