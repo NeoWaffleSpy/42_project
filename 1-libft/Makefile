@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/11/30 23:49:30 by ncaba            ###   ########.fr        #
+#    Updated: 2020/12/03 19:05:03 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCSFILES =	ft_atoi.c \
 			ft_lstclear.c \
 			ft_lstdelone.c \
 			ft_lstiter.c \
-			ft_lstmap.c \
+			ft_lstlast.c \
 			ft_lstmap.c \
 			ft_lstnew.c \
 			ft_lstsize.c \
@@ -56,7 +56,9 @@ SRCSFILES =	ft_atoi.c \
 			ft_substr.c \
 			ft_tolower.c \
 			ft_toupper.c
-BNSFILES =	ft_putchar_bonus.c \
+BNSFILES =	ft_free_all_bonus.c \
+			ft_pow_bonus.c \
+			ft_putchar_bonus.c \
 			ft_putendl_bonus.c \
 			ft_putnbr_bonus.c \
 			ft_putstr_bonus.c \

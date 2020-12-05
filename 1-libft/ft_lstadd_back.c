@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 20:51:56 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/30 21:20:26 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/01 13:34:41 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 	if (!*alst)
 	{
 		*alst = new;
-		return;
+		return ;
 	}
 	last = *alst;
 	while (last->next)

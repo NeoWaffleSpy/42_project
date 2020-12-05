@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_pow_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 21:36:25 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/01 13:36:16 by ncaba            ###   ########.fr       */
+/*   Created: 2020/12/03 19:01:42 by ncaba             #+#    #+#             */
+/*   Updated: 2020/12/03 19:04:02 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+int	ft_pow(int chiffre, int expo)
 {
-	t_list	*tmp;
+	int	res;
+	int	loop;
 
-	if (!del)
-		return ;
-	while (*lst)
+	res = 1;
+	loop = 0;
+	while (loop < expo)
 	{
-		del((*lst)->content);
-		tmp = *lst;
-		*lst = tmp->next;
-		free(tmp);
+		res *= chiffre;
 	}
-	*lst = NULL;
+	return (chiffre);
 }

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 21:06:37 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/30 14:09:51 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/01 13:34:10 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,16 @@ char		*ft_itoa(int n)
 	char			*str;
 	int				i;
 	int				size;
-	int				neg;
 	unsigned int	tmp;
 
 	if (n == MININT)
 		return (ft_strdup("-2147483648"));
 	size = ft_itoa_size(n);
-	neg = (n < 0 ? 1 : 0);
 	i = 1;
 	if (!((str = (char *)malloc(sizeof(char) * ft_itoa_size(n) + 1))))
 		return (NULL);
 	tmp = (n < 0 ? -n : n);
+	*str = (n < 0 ? '-' : ' ');
 	if (tmp == 0)
 		str[tmp] = '0';
 	while (tmp >= 1)
@@ -61,8 +60,6 @@ char		*ft_itoa(int n)
 		tmp /= 10;
 		i++;
 	}
-	if (neg)
-		*str = '-';
 	str[size] = '\0';
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/30 23:49:17 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/03 19:04:40 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_atoi(const char *nptr);
+int					ft_pow(int chiffre, int expo);
 char				*ft_itoa(int chiffre);
 char				*ft_strnstr(const char *big,
 								const char *little, size_t len);
@@ -59,7 +60,8 @@ void				*ft_memmove(void *dst, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				*ft_calloc(size_t nmemb, size_t siez);
-void				*ft_return0();
+void				*ft_return0(void);
+void				ft_free_all(void	**s);
 void				ft_bzero(void *s, size_t n);
 void				ft_putchar(int c);
 void				ft_putchar_fd(char c, int fd);

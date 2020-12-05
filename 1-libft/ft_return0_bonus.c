@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 12:56:18 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/30 13:03:51 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/01 13:37:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_return0()
+void	*ft_return0(void)
 {
 	void	*s;
 

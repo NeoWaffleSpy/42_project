@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 20:39:34 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/30 22:07:49 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/01 13:36:07 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	ft_lstadd_front(t_list **alst, t_list *new)
 	if (!*alst)
 	{
 		*alst = new;
-		return;
+		return ;
 	}
 	if (!new)
-		return;
+		return ;
 	new->next = *alst;
 	*alst = new;
 }

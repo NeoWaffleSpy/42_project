@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:08:33 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:37:53 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/02 17:51:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	new_str = (char*)malloc(sizeof(char) * len + 1);
 	if (!new_str)
 		return (NULL);
-	ft_strcpy(new_str, s1);
-	ft_strcat(new_str, s2);
+	ft_strlcpy(new_str, s1, ft_strlen(s1));
+	ft_strlcat(new_str, s2, ft_strlen(s2));
 	return (new_str);
 }
