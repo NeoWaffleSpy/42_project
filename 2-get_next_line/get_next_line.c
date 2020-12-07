@@ -6,11 +6,12 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 17:20:39 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/05 22:31:13 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/07 13:46:00 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 static unsigned int		ft_strclen(char *save)
 {
@@ -61,6 +62,7 @@ int						get_next_line(int const fd, char **line)
 	int				res;
 	char			*ptr;
 
+	res = 1;
 	if (fd < 0 || BUFFER_SIZE < 1 || !line || read(fd, buff, 0) < 0)
 		return (-1);
 	if (!(save[fd]) && (save[fd] = (char*)ft_calloc(1, 1)) == NULL)

@@ -6,32 +6,28 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 17:28:12 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/05 22:23:41 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/07 13:51:52 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t index;
-
-	index = 0;
-	while (index < n)
-	{
-		*((char*)s) = '\0';
-		s++;
-		index++;
-	}
-}
-
 void	*ft_calloc(int nmemb, int size)
 {
 	void	*new_tab;
+	size_t	index;
 
 	new_tab = malloc(size * nmemb);
 	if (new_tab)
-		ft_bzero(new_tab, size * nmemb);
+	{
+		index = 0;
+		while (index < n)
+		{
+			*((char*)new_tab) = '\0';
+			s++;
+			index++;
+		}	
+	}
 	return (new_tab);
 }
 
