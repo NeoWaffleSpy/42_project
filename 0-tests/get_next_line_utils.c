@@ -6,27 +6,32 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 17:28:12 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/07 14:27:09 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/05 22:23:41 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+void	ft_bzero(void *s, size_t n)
+{
+	size_t index;
+
+	index = 0;
+	while (index < n)
+	{
+		*((char*)s) = '\0';
+		s++;
+		index++;
+	}
+}
+
 void	*ft_calloc(int nmemb, int size)
 {
 	void	*new_tab;
-	size_t	index;
 
 	new_tab = malloc(size * nmemb);
 	if (new_tab)
-	{
-		index = 0;
-		while (index < size)
-		{
-			((char*)new_tab)[index] = '\0';
-			index++;
-		}
-	}
+		ft_bzero(new_tab, size * nmemb);
 	return (new_tab);
 }
 
@@ -58,22 +63,29 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strcpy(char *dst, const char *src)
+static void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	index;
 	size_t	i;
 
-	index = ft_strlen(src);
-	if (!src)
-		return (NULL);
 	if (dst == src)
 		return (dst);
 	i = 0;
-	while (i < index + 1)
+	while (i < n)
 	{
 		((char*)dst)[i] = ((char*)src)[i];
 		i++;
 	}
+	return (dst);
+}
+
+char	*ft_strcpy(char *dst, const char *src)
+{
+	size_t	index;
+
+	index = ft_strlen(src);
+	if (!src)
+		return (NULL);
+	ft_memcpy(dst, src, index + 1);
 	return (dst);
 }
 
