@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/04 17:20:39 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/10 17:31:50 by ncaba            ###   ########.fr       */
+/*   Created: 2020/12/10 17:36:50 by ncaba             #+#    #+#             */
+/*   Updated: 2020/12/10 17:37:03 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 
 static unsigned int		ft_strclen(char *save)
