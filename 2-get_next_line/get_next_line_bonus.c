@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 17:36:50 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/10 17:37:03 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/10 17:47:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 static unsigned int		ft_strclen(char *save)
 {

@@ -6,12 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 17:37:36 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/10 17:37:43 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/10 17:47:42 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 void	*ft_calloc(int nmemb, int size)
 {
