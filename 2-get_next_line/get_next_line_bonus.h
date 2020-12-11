@@ -6,12 +6,12 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 17:37:12 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/10 17:37:18 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/11 16:48:47 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # define TRUE 1
 # define FALSE 0
 # define MAXINT 2147483647
