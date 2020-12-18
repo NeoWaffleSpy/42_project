@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earnaud <earnaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/08 15:10:32 by earnaud           #+#    #+#             */
-/*   Updated: 2020/12/17 15:17:45 by ncaba            ###   ########.fr       */
+/*   Created: 2020/12/17 14:52:33 by ncaba             #+#    #+#             */
+/*   Updated: 2020/12/17 15:35:39 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "../include/ft_printf.h"
 
 static char		*zero_case(char *base)
 {
