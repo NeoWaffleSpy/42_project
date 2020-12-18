@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 17:01:34 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/17 20:34:07 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/18 14:28:14 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,26 @@ void	ft_decimal_check(char *str, t_flags *flags, int *loop, va_list params)
 	flags->nb_dec = nbr;
 }
 
-void	ft_spacing_check(char *str, t_flags *flags, int *loop)
+void	ft_spacing_check(char *str, t_flags *flags, int *loop, va_list params)
 {
 	int	nbr;
 
-	nbr = ft_atoi(str);
-	while (ft_isdigit(*str))
+	if (*str != '*')
 	{
-		(*loop)++;
-		str++;
+		nbr = ft_atoi(str);
+		while (ft_isdigit(*str))
+		{
+			(*loop)++;
+			str++;
+		}
+		(*loop)--;
+		flags->nb_spaces =  nbr;
 	}
-	(*loop)--;
-	flags->nb_spaces =  nbr;
+	else
+		flags->nb_spaces = va_arg(params, int);
+	if (flags->nb_spaces < 0)
+	{
+		flags->nb_spaces *= -1;
+		flags->is_padded_left = 1;
+	}
 }

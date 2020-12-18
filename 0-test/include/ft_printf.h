@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:48:38 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/17 17:19:37 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/18 14:28:37 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char			*ft_parse(char **str, va_list params);
 char			*ft_itoa_base(long long n, char *base);
 void			ft_decimal_check(char *str, t_flags *flags, 
 								int *loop, va_list params);
-void			ft_spacing_check(char *str, t_flags *params, int *loop);
+void			ft_spacing_check(char *str, t_flags *flags,
+								int *loop, va_list params);
 void			ft_add_padd(char **str, t_flags flags, int type);
 void			ft_add_space(char **str, t_flags flags, int type);
 void			ft_add_precis(char **str, t_flags flags);

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:31:46 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/17 21:12:44 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/18 14:12:25 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static int	indicateur_flag(char *c, t_flags *fl, int *loop, va_list params)
 static int	width_flag(char *c, t_flags *fl, int *loop, va_list params)
 {
 	if (*c == '*')
-		fl->nb_spaces = va_arg(params, int);
+		ft_spacing_check(c, fl, loop, params);
 	if (*c != '0' && ft_isdigit(*c))
-		ft_spacing_check(c, fl, loop);
+		ft_spacing_check(c, fl, loop, params);
 	if (ft_strchr("*123456789", *c))
 		return (0);
 	return (-1);

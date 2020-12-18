@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2020/12/17 22:04:14 by ncaba            ###   ########.fr        #
+#    Updated: 2020/12/18 03:02:39 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ TESTFILES	=	runOnlyInt.c \
 				runComparative.c \
 				runFtPrintf.c \
 				runPrintf.c \
-				runAllTest.c
+				runAllTest.c \
+				runDatTest.c
 
 TESTDIR		= ./testfiles/
 SRCSTEST	= $(addprefix $(TESTDIR), $(TESTFILES))
