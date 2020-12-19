@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 04:11:51 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/19 16:01:52 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/19 16:20:59 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,6 @@ void		ft_add_precis(char **str, t_flags flags)
 		}
 		free(*str);
 		*str = tmp;
-	}
-	if (ft_atoi(*str) == 0 && flags.nb_dec == 0)
-	{
-		free(*str);
-		*str = ft_calloc(2, sizeof(char));
 	}
 }
 

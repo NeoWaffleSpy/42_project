@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 22:53:00 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/18 16:32:07 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/19 16:21:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ char	*ft_convert_int(t_flags flags, va_list params)
 	if (flags.nb_dec == 0 && ft_atoi(result) == 0)
 		result[0] = '\0';
 	ft_add_precis(&result, flags);
+	if (ft_atoi(result) == 0 && flags.nb_dec == 0)
+	{
+		free(result);
+		result = ft_calloc(2, sizeof(char));
+	}
 	ft_add_space(&result, flags, INT);
 	ft_add_padd(&result, flags, INT);
 	if (flags.is_padded_zero && value < 0)
