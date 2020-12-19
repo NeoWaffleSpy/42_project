@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 12:34:07 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/17 21:27:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/19 16:25:36 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ char	*ft_convert_hexa(t_flags flags, va_list params, boolean is_up)
 	else
 		result = ft_itoa_base(value, "0123456789abcdef");
 	ft_add_precis(&result, flags);
+	if (result[0] == '0' && result[1] == '\0' && flags.nb_dec == 0)
+	{
+		free(result);
+		result = ft_calloc(2, sizeof(char));
+	}
 	ft_alternative(&result, flags, type);
 	ft_add_space(&result, flags, type);
 	ft_add_padd(&result, flags, type);
