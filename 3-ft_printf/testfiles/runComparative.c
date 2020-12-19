@@ -5,9 +5,9 @@ int		main(int ac, char **av)
 {
 	if (ac == 3)
 	{
-		ft_printf(av[1], atoi(av[2]));
+		ft_printf(av[1], '\0');
 		ft_putchar('\n');
-		printf(av[1], atoi(av[2]));
+		printf(av[1], '\0');
 		printf("\n");
 	}
 	else

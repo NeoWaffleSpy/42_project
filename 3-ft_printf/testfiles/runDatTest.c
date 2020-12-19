@@ -24,17 +24,41 @@ int		main(void)
 	char	*t = "0x12345678";
 	char	*u = "-0";*/
 
-	ft_printf(" --- Return : %d\n",
+	ft_printf(" --- Return : %d at test 1\n",
 	ft_printf("%0*i, %0*d, %0*d, %0*d, %0*d, %0*d, %0*d, %0*d",
 				a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d));
-	printf(" --- Return : %d\n",
+	printf(" --- Return : %d at test 1\n",
 	printf("%0*i, %0*d, %0*d, %0*d, %0*d, %0*d, %0*d, %0*d",
 				a, i, a, j, a, k, a, l, a, m, a, c, a, e, a, d));
 	printf("----------------------------------------------------------------\n");
-	ft_printf(" --- Return : %d\n",
+	ft_printf(" --- Return : %d at test 2\n",
 	ft_printf("%0*.*i, %0*.*d, %0*.*d, %0*.*d, %0*.*d, %0*.*d, %0*.*d, %0*.*d",
 		a, b, i, a, b, j, a, b, k, a, b, l, a, b, m, a, b, c, a, b, e, a, b, d));
-	printf(" --- Return : %d\n",
+	printf(" --- Return : %d at test 2\n",
 	printf("%0*.*i, %0*.*d, %0*.*d, %0*.*d, %0*.*d, %0*.*d, %0*.*d, %0*.*d",
 		a, b, i, a, b, j, a, b, k, a, b, l, a, b, m, a, b, c, a, b, e, a, b, d));
+	printf("----------------------------------------------------------------\n");
+	ft_printf(" --- Return : %d at test 3\n",
+	ft_printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c",
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0));
+	printf(" --- Return : %d at test 3\n",
+	printf("%c, %-c, %12c, %-3c, %-1c, %1c, %-2c, %-4c, %5c, %3c, %-*c, %-*c, %*c, %*c",
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0));
+	printf("----------------------------------------------------------------\n");
+	ft_printf(" --- Return : %d at test 4\n",
+	ft_printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, %.*s, %.0s, %.1s, %.2s, %.4s, %.8s",
+			NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL));
+	printf(" --- Return : %d at test 4\n",
+	printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, %.*s, %.0s, %.1s, %.2s, %.4s, %.8s",
+			NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL));
+	printf("----------------------------------------------------------------\n");
+	ft_printf(" --- Return : %d at test 5\n",
+	ft_printf("(null)"));
+	printf(" --- Return : %d at test 5\n",
+	printf("(null)"));
+	printf("----------------------------------------------------------------\n");
+	ft_printf(" --- Return : %d at test 6\n",
+	ft_printf(""));
+	printf(" --- Return : %d at test 6\n",
+	printf(""));
 }
