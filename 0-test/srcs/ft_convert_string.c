@@ -6,17 +6,30 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 12:36:15 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/17 13:13:13 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/19 15:16:36 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
+
+static void	dec_check(char *str, t_flags flags)
+{
+	int loop;
+
+	loop = ft_strlen(str) - 1;
+	while (flags.nb_dec >= 0 && loop > (flags.nb_dec - 1))
+	{
+		str[loop] = '\0';
+		loop--;
+	}
+}
 
 char	*ft_convert_string(t_flags flags, va_list params)
 {
 	char	*result;
 
 	result = ft_strdup(va_arg(params, char*));
+	dec_check(result, flags);
 	ft_add_padd(&result, flags, STRING);
 	return (result);
 }
