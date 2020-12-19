@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:31:46 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/18 14:12:25 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/19 15:51:56 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ static int	precision_flag(char *c, t_flags *fl, int *loop, va_list params)
 {
 	if (*c == '.')
 	{
-		fl->is_padded_zero = FALSE;
 		ft_decimal_check(c, fl, loop, params);
+		if (fl->nb_dec >= 0)
+			fl->is_padded_zero = FALSE;
 	}
 	if (ft_strchr(".", *c))
 		return (0);
