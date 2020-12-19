@@ -6,11 +6,25 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 22:53:00 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/18 02:08:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/18 16:32:07 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
+
+void	move_sign(char *str)
+{
+	char *tmp;
+
+	tmp = str;
+	while (*str != '-')
+		str++;
+	*str = '0';
+	str = tmp;
+	while (*str != '0')
+		str++;
+	*str = '-';
+}
 
 char	*ft_convert_int(t_flags flags, va_list params)
 {
@@ -24,5 +38,7 @@ char	*ft_convert_int(t_flags flags, va_list params)
 	ft_add_precis(&result, flags);
 	ft_add_space(&result, flags, INT);
 	ft_add_padd(&result, flags, INT);
+	if (flags.is_padded_zero && value < 0)
+		move_sign(result);
 	return (result);
 }
