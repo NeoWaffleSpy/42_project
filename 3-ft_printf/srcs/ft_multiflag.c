@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 17:01:34 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 14:00:24 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 14:50:35 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*brancher(int type, t_flags flags, va_list params, int *len)
 	if (type == CHAR)
 		return (ft_convert_char(flags, params, len));
 	if (type == PERCENT)
-		return (ft_convert_percent());
+		return (ft_convert_percent(flags));
 	if (type == U_INT)
 		return (ft_convert_unsigned(flags, params));
 	return (NULL);
