@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 12:56:09 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 13:59:57 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 14:46:56 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char		*ft_parse(char **str, va_list params, int *len)
 	if (result == -1)
 	{
 		(*str)++;
-		str_result = return_percent();
+		str_result = return_percent(flags);
 		return (str_result);
 	}
 	str_result = brancher(result, flags, params, len);

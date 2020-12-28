@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:48:38 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 14:01:48 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 14:46:41 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char			*ft_convert_pointer(t_flags flags, va_list params);
 char			*ft_convert_int(t_flags flags, va_list params);
 char			*ft_convert_hexa(t_flags flags, va_list params, boolean is_up);
 char			*ft_convert_char(t_flags flags, va_list params, int *len);
-char			*ft_convert_percent();
+char			*ft_convert_percent(t_flags flags);
 char			*ft_convert_unsigned(t_flags flags, va_list params);
 
 #endif
