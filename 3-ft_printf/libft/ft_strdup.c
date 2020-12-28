@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 15:10:29 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/28 01:37:59 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 14:27:56 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strdup(const char *s)
 	char	*new_string;
 	int		index;
 
+	if (!s)
+		return (NULL);
 	if (*s == '\0')
 		return ((char*)ft_calloc(sizeof(char), (ft_strlen(s) + 1)));
 	new_string = (char*)malloc(sizeof(char) * (ft_strlen(s) + 1));
