@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:48:38 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/18 14:28:37 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 14:01:48 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_flags
 
 int				ft_printf(char *str, ...);
 int				ft_grab_type(char **str, t_flags *flags, va_list params);
-char			*ft_parse(char **str, va_list params);
+char			*ft_parse(char **str, va_list params, int *len);
 char			*ft_itoa_base(long long n, char *base);
 void			ft_decimal_check(char *str, t_flags *flags, 
 								int *loop, va_list params);
@@ -48,12 +48,12 @@ void			ft_add_padd(char **str, t_flags flags, int type);
 void			ft_add_space(char **str, t_flags flags, int type);
 void			ft_add_precis(char **str, t_flags flags);
 void			ft_alternative(char **str, t_flags flags, int type);
-char			*brancher(int type, t_flags flags, va_list params);
+char			*brancher(int type, t_flags flags, va_list params, int *len);
 char			*ft_convert_string(t_flags flags, va_list params);
 char			*ft_convert_pointer(t_flags flags, va_list params);
 char			*ft_convert_int(t_flags flags, va_list params);
 char			*ft_convert_hexa(t_flags flags, va_list params, boolean is_up);
-char			*ft_convert_char(t_flags flags, va_list params);
+char			*ft_convert_char(t_flags flags, va_list params, int *len);
 char			*ft_convert_percent();
 char			*ft_convert_unsigned(t_flags flags, va_list params);
 

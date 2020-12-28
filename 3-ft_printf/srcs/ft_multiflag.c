@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 17:01:34 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/18 14:53:53 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 14:00:24 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-char	*brancher(int type, t_flags flags, va_list params)
+char	*brancher(int type, t_flags flags, va_list params, int *len)
 {
 	if (type == STRING)
 		return (ft_convert_string(flags, params));
@@ -25,7 +25,7 @@ char	*brancher(int type, t_flags flags, va_list params)
 	if (type == HEX_LOW)
 		return (ft_convert_hexa(flags, params, FALSE));
 	if (type == CHAR)
-		return (ft_convert_char(flags, params));
+		return (ft_convert_char(flags, params, len));
 	if (type == PERCENT)
 		return (ft_convert_percent());
 	if (type == U_INT)

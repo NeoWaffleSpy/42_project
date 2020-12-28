@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:54:57 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/16 12:52:57 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 13:58:59 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	putstr_free(char *str)
 {
 	int len;
 
+	len = 0;
 	len = (int)ft_strlen(str);
 	ft_putstr(str);
 	free(str);
@@ -38,7 +39,7 @@ int			ft_printf(char *str, ...)
 			result++;
 		}
 		if (*str)
-			result += putstr_free(ft_parse(&str, params));
+			result += putstr_free(ft_parse(&str, params, &result));
 	}
 	va_end(params);
 	return (result);
