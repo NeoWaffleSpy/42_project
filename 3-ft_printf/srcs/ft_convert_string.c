@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 12:36:15 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 15:28:06 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/29 14:47:10 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ char		*ft_convert_string(t_flags flags, va_list params)
 	char	*result;
 
 	result = ft_strdup(va_arg(params, char*));
-	if (!result && (flags.nb_dec > 5 || flags.nb_dec < 0))
+	if (!result)
 		result = ft_strdup("(null)");
-	else if (!result)
-		result = ft_strdup("");
 	dec_check(result, flags);
 	ft_add_padd(&result, flags, STRING);
 	return (result);
