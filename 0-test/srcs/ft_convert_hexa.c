@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 12:34:07 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/29 15:28:06 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/29 15:39:46 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-char	*ft_convert_hexa(t_flags flags, va_list params, boolean is_up)
+char	*ft_convert_hexa(t_flags flags, va_list params, t_boolean is_up)
 {
 	char				*result;
 	long unsigned int	value;
