@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 04:11:51 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/29 15:13:33 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/29 15:30:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,12 @@ void		ft_add_space(char **str, t_flags flags, int type)
 	}
 }
 
-static void	decalage(char **str, char *tmp, char x, t_flags flags)
+static void	decalage(char **str, char *tmp, char x)
 {
-	int				loop;
-	unsigned long	spaces;
-
-	loop = 0;
-	spaces = (unsigned long)flags.nb_spaces;
 	tmp = (char*)malloc(sizeof(char) * ft_strlen(*str) + 3);
 	tmp[0] = '0';
 	tmp[1] = x;
-	while ((ft_strlen(&((*str)[loop])) + 2) > spaces && **str == '0')
-		loop++;
-	ft_strcpy(&(tmp[2]), &((*str)[loop]));
+	ft_strcpy(&(tmp[2]), *str);
 	free(*str);
 	*str = tmp;
 }
@@ -65,7 +58,7 @@ void		ft_alternative(char **str, t_flags flags, int type)
 		x = 'X';
 	if (flags.is_alternative || type == POINTER)
 		if (type == HEX_UP || type == HEX_LOW || type == POINTER)
-			decalage(str, tmp, x, flags);
+			decalage(str, tmp, x);
 }
 
 void		ft_add_precis(char **str, t_flags flags)
