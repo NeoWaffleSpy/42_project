@@ -6,14 +6,14 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/15 23:10:49 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/29 15:36:15 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # ifndef NULL
-#	define NULL 0
+#  define NULL 0
 # endif
 # define TRUE 1
 # define FALSE 0
@@ -21,8 +21,6 @@
 # define MININT -2147483648
 # include <stdlib.h>
 # include <unistd.h>
-
-typedef int			boolean;
 
 typedef struct		s_list
 {
