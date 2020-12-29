@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 12:32:29 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 14:02:15 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 15:08:15 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-static char *inline_write(t_flags flags, int *len)
+static char		*inline_write(t_flags flags, int *len)
 {
 	int loop;
 
@@ -22,7 +22,7 @@ static char *inline_write(t_flags flags, int *len)
 	while (loop < (flags.nb_spaces - 1))
 	{
 		ft_putchar(' ');
-		loop ++;
+		loop++;
 		(*len)++;
 	}
 	if (!flags.is_padded_left)
@@ -31,7 +31,7 @@ static char *inline_write(t_flags flags, int *len)
 	return ((char*)calloc(2, sizeof(char)));
 }
 
-char	*ft_convert_char(t_flags flags, va_list params, int *len)
+char			*ft_convert_char(t_flags flags, va_list params, int *len)
 {
 	char	c;
 	char	*result;

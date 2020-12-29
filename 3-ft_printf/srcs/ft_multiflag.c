@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 17:01:34 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 14:50:35 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 15:06:16 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_spacing_check(char *str, t_flags *flags, int *loop, va_list params)
 			str++;
 		}
 		(*loop)--;
-		flags->nb_spaces =  nbr;
+		flags->nb_spaces = nbr;
 	}
 	else
 		flags->nb_spaces = va_arg(params, int);

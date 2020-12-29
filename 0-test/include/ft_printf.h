@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:48:38 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 14:46:41 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 14:58:18 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define INT		3
 # define HEX_UP		4
 # define HEX_LOW	5
-# define CHAR		6
-# define PERCENT	7
+# define PERCENT	6
+# define CHAR		7
 # define POINTER	8
 
 typedef struct	s_flags

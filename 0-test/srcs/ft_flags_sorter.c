@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:31:46 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/19 15:51:56 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/29 14:38:16 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,13 @@ int			ft_grab_type(char **str, t_flags *flags, va_list params)
 	{
 		type = sort_letters((*str)[loop]);
 		if (type == 0)
-			while ((type = p[fc](&((*str)[loop]), flags, &loop, params)) == -1)
-			{
-				fc++;
+			while ((type = p[fc++](&((*str)[loop]), flags, &loop, params)) < 0)
 				if (fc >= 3)
 					return (-1);
-			}
 		loop++;
+		fc--;
 	}
 	free(p);
 	*str += loop;
 	return (type);
 }
-

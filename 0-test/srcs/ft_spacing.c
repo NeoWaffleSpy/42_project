@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 04:11:51 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/19 16:20:59 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 15:06:57 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		ft_add_space(char **str, t_flags flags, int type)
 {
 	char	*tmp;
-	
+
 	if (**str == '-' || type != INT)
 		return ;
 	if (flags.is_plus)
@@ -93,7 +93,7 @@ void		ft_add_padd(char **str, t_flags flags, int type)
 	char	*tmp;
 
 	padd = ' ';
-	if (flags.is_padded_zero && type > 1 && type < 6)
+	if (flags.is_padded_zero && type > 1 && type < 7)
 		padd = '0';
 	while (flags.nb_spaces > (int)ft_strlen(*str))
 	{

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 12:56:09 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 14:52:49 by ncaba            ###   ########.fr       */
+/*   Updated: 2020/12/28 15:06:30 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_flags(t_flags *fl)
 	fl->nb_dec = -1;
 }
 
-static char	*return_percent()
+static char	*return_percent(void)
 {
 	char	*str;
 
