@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 17:00:55 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/19 22:10:30 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,17 @@ int		call_update(t_graph *frame)
 	draw_pixel(&frame->img[1], 5, 5, 0x00FF0000);
 	commit_img(*frame);
 	return (0);
+}
+
+void	call_error(char *error, char *value)
+{
+	ft_printf("%s[%sError%s]: ", WHITE, RED, WHITE);
+	ft_printf("%s %s\n", error, value);
+	exit(1);
+}
+
+void	call_info(char *info, char *value)
+{
+	ft_printf("%s[%sInfo%s]: ", WHITE, GREEN, WHITE);
+	ft_printf("%s %s\n", info, value);
 }

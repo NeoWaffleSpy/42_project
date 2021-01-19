@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 19:52:20 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/19 22:16:17 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ size_t				ft_strlen(const char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcmp(const char *s1, const char *s2);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_tolower(int c);
 int					ft_toupper(int c);

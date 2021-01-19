@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 20:04:56 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/19 22:11:09 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,26 @@ typedef struct	s_graph
 	int			res_y;
 }				t_graph;
 
+typedef struct	s_map
+{
+	int			resolution[2];
+	int			map_size[2];
+	char		*color_floor;
+	char		*color_roof;
+	char		*sprite_entity;
+	char		(*sprite_wall)[4];
+	char		**map;
+}				t_map;
+
 t_keys			init_keys();
 t_graph			init_frame();
+t_map			parse(char *filename);
 void			init_hooks(t_graph frame, t_keys keys);
 void			draw_pixel(t_data *data, int x, int y, int color);
 void			commit_img(t_graph frame);
 void			call_destroy_frame(t_graph frame);
+void			call_error(char *error, char *value);
+void			call_info(char *info, char *value);
 int				call_loop_end(int keycode, t_graph *frame);
 int				call_update(t_graph *frame);
 

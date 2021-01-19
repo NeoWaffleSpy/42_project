@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/01/19 19:59:38 by ncaba            ###   ########.fr        #
+#    Updated: 2021/01/19 22:17:46 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ LFTFILES =	ft_atoi.c \
 			ft_putstr_fd.c \
 			ft_split.c \
 			ft_strchr.c \
+			ft_strcmp.c \
 			ft_strdup.c \
 			ft_strjoin.c \
 			ft_strlcat.c \

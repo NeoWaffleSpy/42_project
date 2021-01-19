@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:48:16 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 18:28:15 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/19 22:18:56 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ int		random_fun(int key, t_keys *param)
 	return (0);
 }
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_graph	frame;
 	t_keys	keys;
 
+	if (ac != 2)
+		call_error("Usage: %s <path_to_map>", av[0]);
+	parse(av[1]);
 	keys = init_keys();
 	frame = init_frame();
 	init_hooks(frame, keys);
