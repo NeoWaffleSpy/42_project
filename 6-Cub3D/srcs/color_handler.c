@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lib.h                                           :+:      :+:    :+:   */
+/*   color_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 19:48:56 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/20 15:58:22 by ncaba            ###   ########.fr       */
+/*   Created: 2021/01/20 15:23:41 by ncaba             #+#    #+#             */
+/*   Updated: 2021/01/20 15:29:13 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LIB_H
-# define FT_LIB_H
-# define WHITE "\x1B[37m"
-# define RED "\x1B[31m"
-# define GREEN "\x1B[32m"
-# define YELLOW "\x1B[33m"
-# define CYAN "\x1B[36m"
-# include <fcntl.h>
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
+#include "../includes/cub3D.h"
 
-#endif
+t_color		create_color(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+int			get_t(t_color color)
+{
+	return (color & (0xFF << 24));
+}
+
+int			get_r(t_color color)
+{
+	return (color & (0xFF << 16));
+}
+
+int			get_g(t_color color)
+{
+	return (color & (0xFF << 8));
+}
+
+int			get_b(t_color color)
+{
+	return (color & 0xFF);
+}

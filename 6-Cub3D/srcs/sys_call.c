@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 22:10:30 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/20 19:15:37 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int		call_update(t_graph *frame)
 void	call_error(char *error, char *value)
 {
 	ft_printf("%s[%sError%s]: ", WHITE, RED, WHITE);
-	ft_printf("%s %s\n", error, value);
+	ft_printf("%s %s%s%s\n", error, YELLOW, value, WHITE);
 	exit(1);
 }
 
 void	call_info(char *info, char *value)
 {
 	ft_printf("%s[%sInfo%s]: ", WHITE, GREEN, WHITE);
-	ft_printf("%s %s\n", info, value);
+	ft_printf("%-20s %s%s%s\n", info, CYAN, value, WHITE);
 }

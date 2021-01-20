@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/01/19 19:09:44 by ncaba            ###   ########.fr        #
+#    Updated: 2021/01/20 15:23:54 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ SRCSFILES	=	get_keys_code.c \
 				init_struct.c \
 				draw_pixel.c \
 				sys_call.c \
-				parse_file.c
+				parse_file.c \
+				ft_strcmp_to_space.c \
+				color_handler.c
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))
