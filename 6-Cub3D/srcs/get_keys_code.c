@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:48:16 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/20 19:08:54 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/23 18:49:59 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		random_fun(int key, t_keys *param)
 
 	keys = (*param);
 	if (key == ESCAPE)
-		return(0);
+		return (0);
 	else if (key == keys.up)
 		ft_printf("You moved up\n");
 	else if (key == keys.down)
@@ -47,7 +47,8 @@ int		main(int ac, char **av)
 	keys = init_keys();
 	frame = init_frame(av[1], &map);
 	init_hooks(frame, keys);
+	debug_print_map(&map);
 	mlx_loop(frame.mlx_ptr);
-	call_destroy_frame(frame);
+	call_destroy_frame(frame, &map);
 	return (0);
 }

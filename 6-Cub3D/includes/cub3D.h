@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/20 19:09:54 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/23 18:43:50 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,20 @@ typedef struct	s_map
 	t_color		color_roof;
 	void		*sprite_entity;
 	void		*sprite_wall[4];
-	char		**map;
+	int			**map;
+	double		player_pos[2];
 }				t_map;
 
 t_keys			init_keys();
 t_graph			init_frame(char *data, t_map *map);
 t_map			parse(char *filename, t_graph *frame);
+char			*is_part_map(char *line);
+void			get_map(t_map *map, char *filename);
 void			init_hooks(t_graph frame, t_keys keys);
 void			draw_pixel(t_data *data, int x, int y, int color);
 void			commit_img(t_graph frame);
-void			call_destroy_frame(t_graph frame);
+void			debug_print_map(t_map *map);
+void			call_destroy_frame(t_graph frame, t_map *map);
 void			call_error(char *error, char *value);
 void			call_info(char *info, char *value);
 int				call_loop_end(int keycode, t_graph *frame);
