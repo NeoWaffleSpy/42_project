@@ -6,11 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:39:00 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/16 17:11:29 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/24 00:07:33 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3d.h"
 
 void	draw_pixel(t_data *data, int x, int y, int color)
 {
@@ -20,10 +20,10 @@ void	draw_pixel(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	commit_img(t_graph frame)
+void	commit_img(t_graph *frame)
 {
-	mlx_put_image_to_window(frame.mlx_ptr,
-							frame.win_ptr,
-							frame.img[1].img_ptr,
+	mlx_put_image_to_window(frame->mlx_ptr,
+							frame->win_ptr,
+							frame->img[1].img_ptr,
 							0, 0);
 }

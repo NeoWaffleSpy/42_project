@@ -6,19 +6,19 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/23 17:18:56 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/24 00:24:16 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3d.h"
 
-static t_data	init_img(t_graph frame)
+static t_data	init_img(t_graph *frame)
 {
 	t_data	img;
 
-	img.img_ptr = mlx_new_image(frame.mlx_ptr,
-								frame.res[0],
-								frame.res[1]);
+	img.img_ptr = mlx_new_image(frame->mlx_ptr,
+								frame->res[0],
+								frame->res[1]);
 	img.addr = mlx_get_data_addr(img.img_ptr,
 								&img.bits_per_pixel,
 								&img.line_length,
@@ -49,15 +49,29 @@ t_graph			init_frame(char *data, t_map *map)
 									frame.res[0],
 									frame.res[1],
 									"test");
-	frame.img[0] = init_img(frame);
-	frame.img[1] = init_img(frame);
+	frame.img[0] = init_img(&frame);
+	frame.img[1] = init_img(&frame);
 	return (frame);
 }
 
-void			init_hooks(t_graph frame, t_keys keys)
+void			init_hooks(t_struct *data_struct)
 {
-	(void)keys;
-	mlx_hook(frame.win_ptr, 33, 1L << 17, mlx_loop_end, frame.mlx_ptr);
-	mlx_hook(frame.win_ptr, 2, 1L << 0, call_loop_end, &frame);
-	mlx_loop_hook(frame.mlx_ptr, &call_update, &frame);
+	t_graph	*frame;
+
+	frame = &data_struct->frame;
+	mlx_hook(frame->win_ptr, 33, 1L << 17, mlx_loop_end, frame->mlx_ptr);
+	mlx_hook(frame->win_ptr, 2, 1L << 0, call_loop_end, frame);
+	mlx_loop_hook(frame->mlx_ptr, &call_update, data_struct);
+}
+
+void			init_ray(t_ray *ray, t_map *map)
+{
+	ray->pos[0] = map->player_pos[0];
+	ray->pos[1] = map->player_pos[1];
+	ray->dir[0] = -1;
+	ray->dir[0] = 0;
+	ray->plane[0] = 0;
+	ray->plane[0] = 0.66;
+	ray->time = 0;
+	ray->old_time = 0;
 }

@@ -6,11 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:19:56 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/23 18:48:56 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/24 00:38:49 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3d.h"
 
 char			*is_part_map(char *line)
 {
@@ -55,7 +55,7 @@ static int		*fill_map(t_map *map, char *line, int pos_y)
 
 	loop = 0;
 	tab = (int*)calloc(sizeof(int), map->map_size[1] + 1);
-	while(line[loop])
+	while (line[loop])
 	{
 		if (line[loop] == ' ')
 			tab[loop] = -1;

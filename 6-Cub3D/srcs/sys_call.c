@@ -6,16 +6,20 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/23 16:22:11 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/24 00:39:15 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../includes/cub3d.h"
 
-void	call_destroy_frame(t_graph frame, t_map *map)
+void	call_destroy_frame(t_struct *data_struct)
 {
-	int	loop;
+	int		loop;
+	t_graph	*frame;
+	t_map	*map;
 
+	frame = &data_struct->frame;
+	map = &data_struct->map;
 	loop = 0;
 	while (loop < map->map_size[0])
 	{
@@ -23,16 +27,16 @@ void	call_destroy_frame(t_graph frame, t_map *map)
 		loop++;
 	}
 	free(map->map);
-	mlx_destroy_image(frame.mlx_ptr, map->sprite_entity);
-	mlx_destroy_image(frame.mlx_ptr, map->sprite_wall[0]);
-	mlx_destroy_image(frame.mlx_ptr, map->sprite_wall[1]);
-	mlx_destroy_image(frame.mlx_ptr, map->sprite_wall[2]);
-	mlx_destroy_image(frame.mlx_ptr, map->sprite_wall[3]);
-	mlx_destroy_image(frame.mlx_ptr, frame.img[0].img_ptr);
-	mlx_destroy_image(frame.mlx_ptr, frame.img[1].img_ptr);
-	mlx_destroy_window(frame.mlx_ptr, frame.win_ptr);
-	mlx_destroy_display(frame.mlx_ptr);
-	free(frame.mlx_ptr);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_entity);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[0]);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[1]);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[2]);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[3]);
+	mlx_destroy_image(frame->mlx_ptr, frame->img[0].img_ptr);
+	mlx_destroy_image(frame->mlx_ptr, frame->img[1].img_ptr);
+	mlx_destroy_window(frame->mlx_ptr, frame->win_ptr);
+	mlx_destroy_display(frame->mlx_ptr);
+	free(frame->mlx_ptr);
 }
 
 int		call_loop_end(int keycode, t_graph *frame)
@@ -42,10 +46,13 @@ int		call_loop_end(int keycode, t_graph *frame)
 	return (0);
 }
 
-int		call_update(t_graph *frame)
+int		call_update(t_struct *data_struct)
 {
+	t_graph	*frame;
+
+	frame = &data_struct->frame;
 	draw_pixel(&frame->img[1], 5, 5, 0x00FF0000);
-	commit_img(*frame);
+	commit_img(frame);
 	return (0);
 }
 

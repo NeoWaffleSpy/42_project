@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/23 18:43:50 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/24 00:20:37 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,38 @@ typedef struct	s_map
 	double		player_pos[2];
 }				t_map;
 
+typedef struct	s_ray
+{
+	double		pos[2];
+	double		dir[2];
+	double		plane[2];
+	double		time;
+	double		old_time;
+}				t_ray;
+
+typedef struct	s_struct
+{
+	t_keys		keys;
+	t_graph		frame;
+	t_map		map;
+	t_ray		ray;
+}				t_struct;
+
 t_keys			init_keys();
 t_graph			init_frame(char *data, t_map *map);
 t_map			parse(char *filename, t_graph *frame);
 char			*is_part_map(char *line);
 void			get_map(t_map *map, char *filename);
-void			init_hooks(t_graph frame, t_keys keys);
+void			init_hooks(t_struct *data_struct);
+void			init_ray(t_ray *ray, t_map *map);
 void			draw_pixel(t_data *data, int x, int y, int color);
-void			commit_img(t_graph frame);
+void			commit_img(t_graph *frame);
 void			debug_print_map(t_map *map);
-void			call_destroy_frame(t_graph frame, t_map *map);
+void			call_destroy_frame(t_struct *data_struct);
 void			call_error(char *error, char *value);
 void			call_info(char *info, char *value);
 int				call_loop_end(int keycode, t_graph *frame);
-int				call_update(t_graph *frame);
+int				call_update(t_struct *data_struct);
 int				ft_strcmp_to_space(const char *s1, const char *s2);
 t_color			create_color(int t, int r, int g, int b);
 int				get_t(t_color color);

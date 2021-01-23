@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/01/23 18:44:56 by ncaba            ###   ########.fr        #
+#    Updated: 2021/01/24 00:43:49 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJS		= $(SRCS:.c=.o)
 
-HEADERFILES	= cub3D.h
+HEADERFILES	= cub3d.h
 HEADERS		= $(addprefix -I ./include/, $(HEADERFILES))
 
 LIBFT		= ./includes/libft/libft.a
