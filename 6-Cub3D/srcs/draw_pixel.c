@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:39:00 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/27 16:08:45 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/27 19:12:39 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,27 +64,3 @@ void	commit_img(t_graph *frame)
 							frame->img[1].img_ptr,
 							0, 0);
 }
-/*
-void draw_line(int x0, int y0, int x1, int y1, t_data *data)
-{
-	int	m_new;
-	int	slope_new;
-	int	x;
-	int	y;
-
-	m_new = 2 * (y1 - y0);
-	slope_new = m_new - (x1 - x0);
-	x = x0;
-	y = y0;
-	while (x < x1)
-	{
-		draw_pixel(data, x, y, 0x00FFFF00);
-		slope_new += m_new;
-		if (slope_new >= 0)
-		{
-			y++;
-			slope_new -= (2 * (x1 - x0));
-		}
-		x++;
-	}
-} */

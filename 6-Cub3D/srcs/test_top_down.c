@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/27 16:08:27 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/27 19:35:20 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int		call_update(t_struct *data_struct)
 	draw_clear_image(&frame->img[1]);
 	update_key(data_struct);
 	draw_map(&frame->img[1], &data_struct->map);
-	draw_line(player->pos[0], player->pos[1], 100, 300, &frame->img[1]);
+	draw_line(get_line(player->pos[0], player->pos[1], 300, 300),
+				&frame->img[1]);
 	draw_square(&frame->img[1], get_rect_by_size(
 								player->pos[0] - 3, player->pos[1] - 3, 6),
 				0x0000AA00);

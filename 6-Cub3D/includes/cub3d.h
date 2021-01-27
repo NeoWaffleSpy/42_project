@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/27 16:27:22 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/27 19:25:01 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct	s_struct
 t_keys			init_keys();
 t_shapes		get_rect_by_size(int x0, int y0, int size);
 t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
+t_shapes		get_line(int x0, int y0, int x1, int y1);
 void			init_frame(char *data, t_graph *frame, t_map *map);
 void			parse(char *filename, t_graph *frame, t_map *map);
 char			*is_part_map(char *line);
@@ -97,6 +98,7 @@ void			init_player(t_player *player, t_map *map);
 void			draw_pixel(t_data *data, int x, int y, unsigned int color);
 void			draw_square(t_data *data, t_shapes shape, unsigned int color);
 void			draw_line(t_shapes shape, t_data *data);
+//void			draw_line(int x0, int y0, int x1, int y1, t_data *data);
 void			draw_map(t_data *data, t_map *map);
 void			draw_clear_image(t_data *data);
 void			commit_img(t_graph *frame);
