@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:09:55 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/23 17:22:56 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/26 17:50:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,8 @@ static void		fill_data(char *data, char *line, t_map *map, t_graph *frame)
 		call_error("Invalid option:", data);
 }
 
-t_map			parse(char *filename, t_graph *frame)
+void			parse(char *filename, t_graph *frame, t_map *map)
 {
-	t_map	map;
 	int		fd;
 	char	*line;
 
@@ -125,7 +124,7 @@ t_map			parse(char *filename, t_graph *frame)
 	{
 		if (ft_isdigit(*is_part_map(line)))
 			break ;
-		fill_data(is_part_map(line), line, &map, frame);
+		fill_data(is_part_map(line), line, map, frame);
 		free(line);
 	}
 	free(line);
@@ -133,6 +132,5 @@ t_map			parse(char *filename, t_graph *frame)
 		free(line);
 	free(line);
 	close(fd);
-	get_map(&map, filename);
-	return (map);
+	get_map(map, filename);
 }

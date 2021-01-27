@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:19:56 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/24 00:38:49 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/26 18:52:57 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static int		*fill_map(t_map *map, char *line, int pos_y)
 			tab[loop] = (int)(line[loop] - '0');
 		else if (ft_strchr("NSEW", line[loop]))
 		{
-			map->player_pos[1] = loop;
-			map->player_pos[0] = pos_y;
+			map->player_pos[0] = loop;
+			map->player_pos[1] = pos_y;
 			tab[loop] = 0;
 		}
 		else

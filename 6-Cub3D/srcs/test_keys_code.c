@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_keys_code.c                                    :+:      :+:    :+:   */
+/*   test_keys_code.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:48:16 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/24 00:22:07 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/24 19:22:08 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,15 @@ int		main(int ac, char **av)
 	debug_print_map(&data_struct.map);
 	mlx_loop(data_struct.frame.mlx_ptr);
 	call_destroy_frame(&data_struct);
+	return (0);
+}
+
+int		call_update(t_struct *data_struct)
+{
+	t_graph	*frame;
+
+	frame = &data_struct->frame;
+	draw_pixel(&frame->img[1], 5, 5, 0x00FF0000);
+	commit_img(frame);
 	return (0);
 }

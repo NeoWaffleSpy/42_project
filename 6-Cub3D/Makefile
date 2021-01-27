@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/01/24 00:43:49 by ncaba            ###   ########.fr        #
+#    Updated: 2021/01/27 16:03:26 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,18 @@ CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
 INC			= -I . -I ./includes/libft/include/ -I./includes/minilibx-linux -L ./includes/libft/ -lft -L ./includes/minilibx-linux -lmlx -lbsd -lm -lX11 -lXext
 
-SRCSFILES	=	get_keys_code.c \
+SRCSFILES	=	test_top_down.c \
 				init_struct.c \
 				draw_pixel.c \
+				draw_shapes.c \
 				sys_call.c \
 				parse_file.c \
 				parse_map.c \
 				ft_strcmp_to_space.c \
 				color_handler.c \
 				debug_tools.c \
-				raycasting.c
+				raycasting.c \
+				camera.c
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))

@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/24 00:20:37 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/27 16:27:22 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# include <math.h>
 # include "libft/include/ft_lib.h"
 # include "minilibx-linux/mlx.h"
 # define ESCAPE 65307
+# define BLOC_SIZE 15
 
 typedef int		t_color;
 
+typedef struct	s_key
+{
+	int			key_value;
+	t_boolean		is_pressed;
+}				t_key;
+
 typedef struct	s_keys
 {
-	int			up;
-	int			down;
-	int			left;
-	int			right;
-	int			rot_right;
-	int			rot_left;
+	t_key		up;
+	t_key		down;
+	t_key		left;
+	t_key		right;
+	t_key		rot_right;
+	t_key		rot_left;
 }				t_keys;
 
 typedef struct	s_data
@@ -35,6 +43,7 @@ typedef struct	s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	int			screen_size[2];
 }				t_data;
 
 typedef struct	s_graph
@@ -45,6 +54,12 @@ typedef struct	s_graph
 	int			res[2];
 }				t_graph;
 
+typedef struct	s_shapes
+{
+	int		pos_start[2];
+	int		pos_end[2];
+}				t_shapes;
+
 typedef struct	s_map
 {
 	int			map_size[2];
@@ -53,34 +68,37 @@ typedef struct	s_map
 	void		*sprite_entity;
 	void		*sprite_wall[4];
 	int			**map;
-	double		player_pos[2];
+	int			player_pos[2];
 }				t_map;
 
-typedef struct	s_ray
+typedef struct	s_player
 {
-	double		pos[2];
-	double		dir[2];
-	double		plane[2];
-	double		time;
-	double		old_time;
-}				t_ray;
+	int			pos[2];
+	int			angle;
+}				t_player;
 
 typedef struct	s_struct
 {
 	t_keys		keys;
 	t_graph		frame;
 	t_map		map;
-	t_ray		ray;
+	t_player	player;
 }				t_struct;
 
 t_keys			init_keys();
-t_graph			init_frame(char *data, t_map *map);
-t_map			parse(char *filename, t_graph *frame);
+t_shapes		get_rect_by_size(int x0, int y0, int size);
+t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
+void			init_frame(char *data, t_graph *frame, t_map *map);
+void			parse(char *filename, t_graph *frame, t_map *map);
 char			*is_part_map(char *line);
 void			get_map(t_map *map, char *filename);
 void			init_hooks(t_struct *data_struct);
-void			init_ray(t_ray *ray, t_map *map);
-void			draw_pixel(t_data *data, int x, int y, int color);
+void			init_player(t_player *player, t_map *map);
+void			draw_pixel(t_data *data, int x, int y, unsigned int color);
+void			draw_square(t_data *data, t_shapes shape, unsigned int color);
+void			draw_line(t_shapes shape, t_data *data);
+void			draw_map(t_data *data, t_map *map);
+void			draw_clear_image(t_data *data);
 void			commit_img(t_graph *frame);
 void			debug_print_map(t_map *map);
 void			call_destroy_frame(t_struct *data_struct);
@@ -94,5 +112,6 @@ int				get_t(t_color color);
 int				get_r(t_color color);
 int				get_g(t_color color);
 int				get_b(t_color color);
+int				key_state(int keycode, t_struct *data_struct);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/24 00:24:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/26 20:54:50 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static t_data	init_img(t_graph *frame)
 								&img.bits_per_pixel,
 								&img.line_length,
 								&img.endian);
+	img.screen_size[0] = frame->res[0];
+	img.screen_size[1] = frame->res[1];
 	return (img);
 }
 
@@ -30,28 +32,31 @@ t_keys			init_keys(void)
 {
 	t_keys keys;
 
-	keys.up = 122;
-	keys.down = 115;
-	keys.left = 113;
-	keys.right = 100;
-	keys.rot_right = 65363;
-	keys.rot_left = 65361;
+	keys.up.key_value = 122;
+	keys.up.is_pressed = FALSE;
+	keys.down.key_value = 115;
+	keys.down.is_pressed = FALSE;
+	keys.left.key_value = 113;
+	keys.left.is_pressed = FALSE;
+	keys.right.key_value = 100;
+	keys.right.is_pressed = FALSE;
+	keys.rot_right.key_value = 65363;
+	keys.rot_right.is_pressed = FALSE;
+	keys.rot_left.key_value = 65361;
+	keys.rot_left.is_pressed = FALSE;
 	return (keys);
 }
 
-t_graph			init_frame(char *data, t_map *map)
+void			init_frame(char *data, t_graph *frame, t_map *map)
 {
-	t_graph	frame;
-
-	frame.mlx_ptr = mlx_init();
-	*map = parse(data, &frame);
-	frame.win_ptr = mlx_new_window(frame.mlx_ptr,
-									frame.res[0],
-									frame.res[1],
+	frame->mlx_ptr = mlx_init();
+	parse(data, frame, map);
+	frame->win_ptr = mlx_new_window(frame->mlx_ptr,
+									frame->res[0],
+									frame->res[1],
 									"test");
-	frame.img[0] = init_img(&frame);
-	frame.img[1] = init_img(&frame);
-	return (frame);
+	frame->img[0] = init_img(frame);
+	frame->img[1] = init_img(frame);
 }
 
 void			init_hooks(t_struct *data_struct)
@@ -60,18 +65,14 @@ void			init_hooks(t_struct *data_struct)
 
 	frame = &data_struct->frame;
 	mlx_hook(frame->win_ptr, 33, 1L << 17, mlx_loop_end, frame->mlx_ptr);
-	mlx_hook(frame->win_ptr, 2, 1L << 0, call_loop_end, frame);
+	mlx_hook(frame->win_ptr, 2, 1L << 0, key_state, data_struct);
+	mlx_hook(frame->win_ptr, 3, 1L << 1, key_state, data_struct);
 	mlx_loop_hook(frame->mlx_ptr, &call_update, data_struct);
 }
 
-void			init_ray(t_ray *ray, t_map *map)
+void			init_player(t_player *player, t_map *map)
 {
-	ray->pos[0] = map->player_pos[0];
-	ray->pos[1] = map->player_pos[1];
-	ray->dir[0] = -1;
-	ray->dir[0] = 0;
-	ray->plane[0] = 0;
-	ray->plane[0] = 0.66;
-	ray->time = 0;
-	ray->old_time = 0;
+	player->pos[0] = map->player_pos[0] * BLOC_SIZE + BLOC_SIZE / 2;
+	player->pos[1] = map->player_pos[1] * BLOC_SIZE + BLOC_SIZE / 2;
+	player->angle = 0;
 }
