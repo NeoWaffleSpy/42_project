@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/01/27 16:03:26 by ncaba            ###   ########.fr        #
+#    Updated: 2021/01/31 20:00:32 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,10 @@ INC			= -I . -I ./includes/libft/include/ -I./includes/minilibx-linux -L ./inclu
 
 SRCSFILES	=	test_top_down.c \
 				init_struct.c \
+				init_shapes.c \
 				draw_pixel.c \
 				draw_shapes.c \
+				draw_triangle.c \
 				sys_call.c \
 				parse_file.c \
 				parse_map.c \
@@ -57,13 +59,13 @@ clean:
 	@/bin/rm -f $(OBJS) $(BOBJS) $(OBJTEST)
 	@/bin/rm -rf a.out.dSYM
 	@make -s clean -C ./includes/libft/
-	@make -si clean -C ./includes/minilibx-linux
 
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@make -s fclean -C ./includes/libft/
+	@make -si clean -C ./includes/minilibx-linux
 
-re: fclean $(NAME)
+re: clean $(NAME)
 
 retest: fclean maintest
 

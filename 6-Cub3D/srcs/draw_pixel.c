@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:39:00 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/27 19:12:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/31 16:18:19 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_map(t_data *data, t_map *map)
 			if (map->map[i][j] == 1)
 				color = 0x00555555;
 			if (map->map[i][j] == 2)
-				color = 0x00FF0000;
+				color = 0x0000AAAA;
 			draw_square(data, get_rect_by_size(
 							j * BLOC_SIZE, i * BLOC_SIZE, BLOC_SIZE - 1),
 							color);

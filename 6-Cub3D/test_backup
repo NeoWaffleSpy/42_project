@@ -1,0 +1,119 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/23 18:44:27 by ncaba             #+#    #+#             */
+/*   Updated: 2021/01/31 17:27:08 by ncaba            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3d.h"
+#include <stdio.h>
+
+void		draw_rays(t_player *player, t_map *map, t_data *data)
+{
+	int r, m[2], max_dist;
+	double ray[2], ra, delta[2], n_tan[2];
+
+	ra = player->angle;
+	r = 0;
+	while (r < 1)
+	{
+		/* Check horizontal */
+		max_dist = 0;
+		n_tan[0] = -1 / tan(ra);
+		if (ra > PI)
+		{
+			ray[1] = (((int)player->pos[1] / BLOC_SIZE) * BLOC_SIZE) - 0.0001;
+			ray[0] = (player->pos[1] - ray[1]) * n_tan[0] + player->pos[0];
+			delta[1] = -BLOC_SIZE;
+			delta[0] = -delta[1] * n_tan[0];
+		}
+		else if (ra < PI)
+		{
+			ray[1] = (((int)player->pos[1] / BLOC_SIZE) * BLOC_SIZE) + BLOC_SIZE;
+			ray[0] = (player->pos[1] - ray[1]) * n_tan[0] + player->pos[0];
+			delta[1] = BLOC_SIZE;
+			delta[0] = -delta[1] * n_tan[0];
+		}
+		else
+		{
+			ray[0] = player->pos[0];
+			ray[1] = player->pos[1];
+			max_dist = 8;
+		}
+		while (max_dist < 8)
+		{
+			m[0] = (int)(ray[0]) / BLOC_SIZE;
+			m[1] = (int)(ray[1]) / BLOC_SIZE;
+			if (m[0] >= 0 && m[1] >= 0 &&
+				m[1] < map->map_size[0] && m[0] < map->map_size[1] &&
+				map->map[m[1]][m[0]] == 1)
+			{
+				max_dist = 8;
+				draw_square(data, get_rect_by_size(m[0]*BLOC_SIZE, m[1]*BLOC_SIZE, BLOC_SIZE-1), 0x0000FF00);
+			}
+			else
+			{
+				ray[0] += delta[0];
+				ray[1] += delta[1];
+				max_dist++;
+			}
+		}
+		draw_line(get_line(player->pos[0], player->pos[1], ray[0], ray[1]),
+					data, 0x00FF0000);
+
+
+
+
+
+
+		/* Check vertical*/
+		max_dist = 0;
+		n_tan[1] = -tan(ra);
+		if (ra > (PI / 2) && ra < ((3 * PI) / 2))
+		{
+			ray[0] = (((int)player->pos[0] / BLOC_SIZE) * BLOC_SIZE) - 0.0001;
+			ray[1] = (player->pos[0] - ray[0]) * n_tan[1] + player->pos[1];
+			delta[0] = -BLOC_SIZE;
+			delta[1] = -delta[0] * n_tan[1];
+		}
+		else if (ra < (PI / 2) || ra > ((3 * PI) / 2))
+		{
+			ray[0] = (((int)player->pos[0] / BLOC_SIZE) * BLOC_SIZE) + BLOC_SIZE;
+			ray[1] = (player->pos[0] - ray[0]) * n_tan[1] + player->pos[1];
+			delta[0] = BLOC_SIZE;
+			delta[1] = -delta[0] * n_tan[1];
+		}
+		else
+		{
+			ray[0] = player->pos[0];
+			ray[1] = player->pos[1];
+			max_dist = 8;
+		}
+		while (max_dist < 8)
+		{
+			m[0] = (int)(ray[0]) / BLOC_SIZE;
+			m[1] = (int)(ray[1]) / BLOC_SIZE;
+			if (m[0] >= 0 && m[1] >= 0 &&
+				m[1] < map->map_size[0] && m[0] < map->map_size[1] &&
+				map->map[m[1]][m[0]] == 1)
+			{
+				max_dist = 8;
+				draw_square(data, get_rect_by_size(m[0]*BLOC_SIZE, m[1]*BLOC_SIZE, BLOC_SIZE-1), 0x0000FF00);
+			}
+			else
+			{
+				ray[0] += delta[0];
+				ray[1] += delta[1];
+				max_dist++;
+			}
+		}
+		draw_line(get_line(player->pos[0], player->pos[1], ray[0], ray[1]),
+					data, 0x00FF0000);
+		r++;
+	}
+}

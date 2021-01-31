@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/01/19 22:17:46 by ncaba            ###   ########.fr        #
+#    Updated: 2021/01/28 19:32:34 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ LFTFILES =	ft_atoi.c \
 			ft_strrchr.c \
 			ft_strtrim.c \
 			ft_substr.c \
+			ft_switch.c \
 			ft_tolower.c \
 			ft_toupper.c \
 			ft_free_all_bonus.c \

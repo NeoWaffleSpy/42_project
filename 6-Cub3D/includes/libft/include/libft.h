@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 22:16:17 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/01/28 19:55:48 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				*ft_calloc(size_t nmemb, size_t siez);
 void				*ft_return0(void);
 void				*ft_realloc(void *str, int new_size, int type);
-void				ft_free_all(void	**s);
+void				ft_switch(int *p0, int *p1);
+void				ft_free_all(void **s);
 void				ft_bzero(void *s, size_t n);
 void				ft_putchar(int c);
 void				ft_putchar_fd(char c, int fd);
