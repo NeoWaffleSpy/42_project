@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/31 20:02:55 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/03 18:38:41 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,19 @@ typedef struct	s_struct
 	t_player	player;
 }				t_struct;
 
+typedef struct	s_calculs
+{
+	int			dist;
+	int			max_dist;
+	int			m[2];
+	double		ray[2];
+	double		mem[2];
+	double		delta[2];
+	double		n_tan;
+	double		ra;
+	int			has_touched;
+}				t_calculs;
+
 t_keys			init_keys();
 t_shapes		get_rect_by_size(int x0, int y0, int size);
 t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
@@ -117,6 +130,7 @@ void			draw_map(t_data *data, t_map *map);
 void			draw_clear_image(t_data *data);
 void			draw_rays(t_data *data, t_player *player);
 void			ray_parse(t_player *player, t_map *map);
+void			check_val(t_calculs *c, t_player *player, t_map *map, int t);
 void			commit_img(t_graph *frame);
 void			debug_print_map(t_map *map);
 void			call_destroy_frame(t_struct *data_struct);

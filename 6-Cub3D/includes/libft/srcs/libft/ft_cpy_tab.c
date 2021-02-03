@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   ft_cpy_tab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/24 16:24:30 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/24 16:28:14 by ncaba            ###   ########.fr       */
+/*   Created: 2021/02/03 17:19:24 by ncaba             #+#    #+#             */
+/*   Updated: 2021/02/03 18:30:10 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../include/libft.h"
 
-float	to_radian(float degree)
+void			ft_cpy_tab(double dst[2], double src[2])
 {
-	return ((PI / 180) * degree);
-}
-
-float	d_cos(float degree)
-{
-	return (cos(to_radian(degree)));
-}
-
-float	d_sin(float degree)
-{
-	return (sin(to_radian(degree)));
+	dst[0] = src[0];
+	dst[1] = src[1];
 }

@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/01/28 19:32:34 by ncaba            ###   ########.fr        #
+#    Updated: 2021/02/03 18:29:48 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -g3
 LFTFILES =	ft_atoi.c \
 			ft_bzero.c \
 			ft_calloc.c \
+			ft_cpy_tab.c \
 			ft_isalnum.c \
 			ft_isalpha.c \
 			ft_isascii.c \

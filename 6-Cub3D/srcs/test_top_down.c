@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/31 19:47:20 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/03 17:05:19 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int			main(int ac, char **av)
 	init_hooks(&data_struct);
 	mlx_loop(data_struct.frame.mlx_ptr);
 	call_destroy_frame(&data_struct);
+	exit(0);
 }
 
 static void	update_key(t_struct *data_struct)
