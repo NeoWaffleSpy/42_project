@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/02/03 18:47:51 by ncaba            ###   ########.fr        #
+#    Updated: 2021/02/03 19:29:04 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,9 @@ SRCSFILES	=	test_top_down.c \
 				color_handler.c \
 				debug_tools.c \
 				raycasting.c \
-				raycasting_utils.c
+				raycasting_utils.c \
+				check_map.c \
+				keybinding.c
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))

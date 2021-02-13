@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:48:56 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/24 22:18:19 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/03 19:18:46 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define GREEN "\x1B[32m"
 # define YELLOW "\x1B[33m"
 # define CYAN "\x1B[36m"
+# define RESET_COLOR "\x1B[0m"
 # define PI 3.1415926535f
 # include <fcntl.h>
 # include "libft.h"

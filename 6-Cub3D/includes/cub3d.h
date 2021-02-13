@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 18:38:41 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/13 16:30:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ t_shapes		get_rect_by_size(int x0, int y0, int size);
 t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
 t_shapes		get_triangle(int x0, int y0, int x1, int y1, int x2, int y2);
 t_shapes		get_line(int x0, int y0, int x1, int y1);
+char			*is_part_map(char *line);
 void			init_frame(char *data, t_graph *frame, t_map *map);
 void			parse(char *filename, t_graph *frame, t_map *map);
-char			*is_part_map(char *line);
 void			get_map(t_map *map, char *filename);
 void			init_hooks(t_struct *data_struct);
 void			init_player(t_player *player, t_map *map);
@@ -133,17 +133,19 @@ void			ray_parse(t_player *player, t_map *map);
 void			check_val(t_calculs *c, t_player *player, t_map *map, int t);
 void			commit_img(t_graph *frame);
 void			debug_print_map(t_map *map);
+void			check_map(t_map *map);
+void			update_key(t_struct *data_struct);
 void			call_destroy_frame(t_struct *data_struct);
 void			call_error(char *error, char *value);
 void			call_info(char *info, char *value);
 int				call_loop_end(int keycode, t_graph *frame);
 int				call_update(t_struct *data_struct);
 int				ft_strcmp_to_space(const char *s1, const char *s2);
-t_color			create_color(int t, int r, int g, int b);
 int				get_t(t_color color);
 int				get_r(t_color color);
 int				get_g(t_color color);
 int				get_b(t_color color);
 int				key_state(int keycode, t_struct *data_struct);
+t_color			create_color(int t, int r, int g, int b);
 
 #endif

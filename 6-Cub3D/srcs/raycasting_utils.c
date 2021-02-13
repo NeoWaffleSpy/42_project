@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:36:24 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 18:39:25 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/13 16:57:29 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		check_loop(t_calculs *c, t_map *map)
 		c->m[1] = (int)(c->ray[1]) / BLOC_SIZE;
 		if (c->m[0] >= 0 && c->m[1] >= 0 &&
 			c->m[1] < map->map_size[0] && c->m[0] < map->map_size[1] &&
-			map->map[c->m[1]][c->m[0]] == 1)
+			(map->map[c->m[1]][c->m[0]] == 1 || map->map[c->m[1]][c->m[0]] < 0))
 		{
 			c->dist = c->max_dist;
 			c->has_touched = TRUE;

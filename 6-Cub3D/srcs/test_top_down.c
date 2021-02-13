@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 17:05:19 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/03 19:29:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,56 +21,12 @@ int			main(int ac, char **av)
 	data_struct.keys = init_keys();
 	init_frame(av[1], &data_struct.frame,
 				&data_struct.map);
+	check_map(&data_struct.map);
 	init_player(&data_struct.player, &data_struct.map);
 	init_hooks(&data_struct);
 	mlx_loop(data_struct.frame.mlx_ptr);
 	call_destroy_frame(&data_struct);
 	exit(0);
-}
-
-static void	update_key(t_struct *data_struct)
-{
-	t_keys		*keys;
-	t_player	*player;
-
-	keys = &data_struct->keys;
-	player = &data_struct->player;
-	if (keys->up.is_pressed == TRUE)
-	{
-		player->pos[1] += player->d_pos[1];
-		player->pos[0] += player->d_pos[0];
-	}
-	if (keys->down.is_pressed == TRUE)
-	{
-		player->pos[1] -= player->d_pos[1];
-		player->pos[0] -= player->d_pos[0];
-	}
-	if (keys->right.is_pressed == TRUE)
-	{
-		player->pos[1] += player->d_pos[0];
-		player->pos[0] -= player->d_pos[1];
-	}
-	if (keys->left.is_pressed == TRUE)
-	{
-		player->pos[1] -= player->d_pos[0];
-		player->pos[0] += player->d_pos[1];
-	}
-	if (keys->rot_right.is_pressed == TRUE)
-	{
-		player->angle += ROTATE_SPEED;
-		if (player->angle > 2 * PI)
-			player->angle -= 2 * PI;
-		player->d_pos[0] = cos(player->angle) * PLAYER_SPEED;
-		player->d_pos[1] = sin(player->angle) * PLAYER_SPEED;
-	}
-	if (keys->rot_left.is_pressed == TRUE)
-	{
-		player->angle -= ROTATE_SPEED;
-		if (player->angle < 0)
-			player->angle += 2 * PI;
-		player->d_pos[0] = cos(player->angle) * PLAYER_SPEED;
-		player->d_pos[1] = sin(player->angle) * PLAYER_SPEED;
-	}
 }
 
 int			call_update(t_struct *data_struct)
