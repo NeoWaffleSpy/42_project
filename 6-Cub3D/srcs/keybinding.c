@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 19:29:10 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/13 15:17:03 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/14 18:15:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@ static void		reset_rot(t_player *player, double rot)
 	player->d_pos[1] = sin(player->angle) * PLAYER_SPEED;
 }
 
-static void		move_player(t_player *player, double m[2], double angle, t_map *map)
+static void		move_player(t_player *player, double m[2], t_map *map)
 {
-	player->pos[1] += m[0];
-	player->pos[0] += m[1];
-	(void)angle;
-	(void)map;
+	int posX;
+	int posY;
+
+	posX = (player->pos[1] + m[0]) / BLOC_SIZE;
+	posY = (player->pos[0] + m[1]) / BLOC_SIZE;
+	if (map->map[posX][(int)player->pos[0] / BLOC_SIZE] == 0)
+		player->pos[1] += m[0];
+	if (map->map[(int)player->pos[1] / BLOC_SIZE][posY] == 0)
+		player->pos[0] += m[1];
 }
 /*
 
@@ -78,16 +83,16 @@ void			update_key(t_struct *data_struct)
 	p = &data_struct->player;
 	if (keys->up.is_pressed == TRUE)
 		move_player(p, update_move(m, p->d_pos[1], p->d_pos[0]),
-					p->angle, &data_struct->map);
+					&data_struct->map);
 	if (keys->down.is_pressed == TRUE)
 		move_player(p, update_move(m, -p->d_pos[1], -p->d_pos[0]),
-					p->angle + PI, &data_struct->map);
+					&data_struct->map);
 	if (keys->right.is_pressed == TRUE)
 		move_player(p, update_move(m, p->d_pos[0], -p->d_pos[1]),
-					p->angle + (3 * PI / 2), &data_struct->map);
+					&data_struct->map);
 	if (keys->left.is_pressed == TRUE)
 		move_player(p, update_move(m, -p->d_pos[0], p->d_pos[1]),
-					p->angle + (PI / 2), &data_struct->map);
+					&data_struct->map);
 	if (keys->rot_right.is_pressed == TRUE)
 		reset_rot(p, ROTATE_SPEED);
 	if (keys->rot_left.is_pressed == TRUE)

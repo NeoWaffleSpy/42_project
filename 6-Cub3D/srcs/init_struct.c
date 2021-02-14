@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/30 14:39:52 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/14 17:03:11 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void			init_player(t_player *player, t_map *map)
 {
 	player->pos[0] = map->player_pos[0] * BLOC_SIZE + BLOC_SIZE / 2;
 	player->pos[1] = map->player_pos[1] * BLOC_SIZE + BLOC_SIZE / 2;
-	player->angle = PI / 2;
+	player->angle = 0;
 	player->d_pos[0] = cos(player->angle) * PLAYER_SPEED;
 	player->d_pos[1] = sin(player->angle) * PLAYER_SPEED;
 }

@@ -6,20 +6,21 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/13 16:30:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/14 17:32:39 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <math.h>
+# include <stdio.h>
 # include "libft/include/ft_lib.h"
 # include "minilibx-linux/mlx.h"
 # define ESCAPE 65307
 # define BLOC_SIZE 16
 # define PLAYER_SPEED 2
 # define ROTATE_SPEED 0.02
-# define NB_RAYS 100
+# define NB_RAYS 300
 
 typedef int		t_color;
 

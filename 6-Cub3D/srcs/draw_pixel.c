@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:39:00 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 17:15:31 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/14 17:32:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ void	draw_rays(t_data *data, t_player *player)
 	loop = 0;
 	while (loop++ < NB_RAYS)
 	{
-		if (player->rays[loop].length < 0 ||
-			player->rays[loop].length > 10000)
-			continue ;
 		draw_line(get_line(player->pos[0], player->pos[1], 
 						player->rays[loop].pos[0], player->rays[loop].pos[1]),
 						data, 0x00FF0000);

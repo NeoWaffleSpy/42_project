@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:44:27 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 18:46:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/14 17:31:52 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void			ray_parse(t_player *player, t_map *map)
 	calcul.mem[0] = -1;
 	while (r++ < NB_RAYS)
 	{
+		calcul.mem[0] = -1;
 		player->rays[r].length = -1;
 		calcul.ra = calc_angle(r, player->angle);
 		calcul.n_tan = -1 / tan(calcul.ra);
@@ -63,7 +64,7 @@ void			ray_parse(t_player *player, t_map *map)
 				ft_cpy_tab(ray.pos, calcul.ray);
 		}
 		else
-			continue ;
+			ft_cpy_tab(ray.pos, calcul.ray);
 		ray.length = get_dist(player->pos, ray.pos);
 		player->rays[r] = ray;
 	}

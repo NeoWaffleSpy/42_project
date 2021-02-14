@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 19:29:54 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/14 18:15:04 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,21 @@ int			main(int ac, char **av)
 	exit(0);
 }
 
+static void	draw_2d_elem(t_graph *frame, t_player *player, t_map *map)
+{
+	draw_map(&frame->img[1], map);
+	ray_parse(player, map);
+	draw_rays(&frame->img[1], player);
+	draw_triangle(get_triangle(
+				player->pos[0] + player->d_pos[0] * 3,
+				player->pos[1] + player->d_pos[1] * 3,
+				player->pos[0] + player->d_pos[1] * 2 - player->d_pos[0] * 3,
+				player->pos[1] - player->d_pos[0] * 2 - player->d_pos[1] * 3,
+				player->pos[0] - player->d_pos[1] * 2 - player->d_pos[0] * 3,
+				player->pos[1] + player->d_pos[0] * 2 - player->d_pos[1] * 3),
+				&frame->img[1], 0x0000AA00);
+}
+
 int			call_update(t_struct *data_struct)
 {
 	t_graph		*frame;
@@ -38,17 +53,7 @@ int			call_update(t_struct *data_struct)
 	player = &data_struct->player;
 	draw_clear_image(&frame->img[1]);
 	update_key(data_struct);
-	draw_map(&frame->img[1], &data_struct->map);
-	ray_parse(player, &data_struct->map);
-	draw_rays(&frame->img[1], player);
-	draw_triangle(get_triangle(
-						player->pos[0] + player->d_pos[0] * 6,
-						player->pos[1] + player->d_pos[1] * 6,
-						player->pos[0] + player->d_pos[1] * 2,
-						player->pos[1] - player->d_pos[0] * 2,
-						player->pos[0] - player->d_pos[1] * 2,
-						player->pos[1] + player->d_pos[0] * 2),
-						&frame->img[1], 0x0000AA00);
+	draw_2d_elem(frame, player, &data_struct->map);
 	commit_img(frame);
 	return (0);
 }
