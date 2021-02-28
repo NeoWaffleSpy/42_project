@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 17:04:02 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/26 15:36:05 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	call_destroy_frame(t_struct *data_struct)
 		loop++;
 	}
 	free(map->map);
-	mlx_destroy_image(frame->mlx_ptr, map->sprite_entity);
-	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[0]);
-	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[1]);
-	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[2]);
-	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[3]);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_entity.img_ptr);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[0].img_ptr);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[1].img_ptr);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[2].img_ptr);
+	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[3].img_ptr);
 	mlx_destroy_image(frame->mlx_ptr, frame->img[0].img_ptr);
 	mlx_destroy_image(frame->mlx_ptr, frame->img[1].img_ptr);
 	mlx_destroy_window(frame->mlx_ptr, frame->win_ptr);

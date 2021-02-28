@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/14 17:03:11 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/28 16:36:45 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_keys			init_keys(void)
 	keys.rot_right.is_pressed = FALSE;
 	keys.rot_left.key_value = 65361;
 	keys.rot_left.is_pressed = FALSE;
+	keys.show_map.key_value = 109;
+	keys.show_map.is_pressed = FALSE;
 	return (keys);
 }
 

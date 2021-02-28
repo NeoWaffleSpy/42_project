@@ -6,30 +6,30 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:09:55 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/26 17:50:51 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/26 15:37:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void		*get_sprite(char *data, t_graph *frame)
+static t_data	get_sprite(char *data, t_graph *frame)
 {
-	void	*img;
-	int		x;
-	int		y;
+	t_data	img;
 
 	while (*data && *data != ' ')
 		data++;
 	data++;
-	if (ft_strnstr(data, ".xpm", ft_strlen(data)))
-	{
-		img = mlx_xpm_file_to_image(frame->mlx_ptr, data, &x, &y);
-		if (img == NULL)
-			call_error("Invalid file:", data);
-		return (img);
-	}
-	call_error("Invalid file format:", data);
-	return (NULL);
+	if (ft_strnstr(data, ".xpm", ft_strlen(data) == 0))
+		call_error("Invalid file format:", data);
+	img.img_ptr = mlx_xpm_file_to_image(frame->mlx_ptr, data,
+							&img.screen_size[0], &img.screen_size[1]);
+	if (img.img_ptr == NULL)
+		call_error("Invalid file:", data);
+	img.addr = mlx_get_data_addr(img.img_ptr,
+								&img.bits_per_pixel,
+								&img.line_length,
+								&img.endian);
+	return (img);
 }
 
 static void		fill_res(t_graph *frame, char *data)

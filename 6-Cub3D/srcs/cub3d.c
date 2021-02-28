@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_top_down.c                                    :+:      :+:    :+:   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/14 18:15:04 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/28 17:59:18 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int			main(int ac, char **av)
 
 	if (ac != 2)
 		call_error("Usage: %s <path_to_map>", av[0]);
+	data_struct.timer.old_t = 0;
 	data_struct.keys = init_keys();
 	init_frame(av[1], &data_struct.frame,
 				&data_struct.map);
@@ -31,17 +32,68 @@ int			main(int ac, char **av)
 
 static void	draw_2d_elem(t_graph *frame, t_player *player, t_map *map)
 {
+	int	posx;
+	int	posy;
+
+	posx = player->pos[0] * BLOC_MAP / BLOC_SIZE;
+	posy = player->pos[1] * BLOC_MAP / BLOC_SIZE;
+	draw_clear_image(&frame->img[1]);
 	draw_map(&frame->img[1], map);
-	ray_parse(player, map);
-	draw_rays(&frame->img[1], player);
 	draw_triangle(get_triangle(
-				player->pos[0] + player->d_pos[0] * 3,
-				player->pos[1] + player->d_pos[1] * 3,
-				player->pos[0] + player->d_pos[1] * 2 - player->d_pos[0] * 3,
-				player->pos[1] - player->d_pos[0] * 2 - player->d_pos[1] * 3,
-				player->pos[0] - player->d_pos[1] * 2 - player->d_pos[0] * 3,
-				player->pos[1] + player->d_pos[0] * 2 - player->d_pos[1] * 3),
+				posx + player->d_pos[0] * 0.06,
+				posy + player->d_pos[1] * 0.04,
+				posx + player->d_pos[1] * 0.04 - player->d_pos[0] * 0.06,
+				posy - player->d_pos[0] * 0.04 - player->d_pos[1] * 0.06,
+				posx - player->d_pos[1] * 0.04 - player->d_pos[0] * 0.06,
+				posy + player->d_pos[0] * 0.04 - player->d_pos[1] * 0.06),
 				&frame->img[1], 0x0000AA00);
+}
+
+static void	draw_3d_elem(t_graph *frame, t_struct *data_struct)
+{
+	double	loop;
+	double	offset;
+	double	ray_index;
+
+	loop = 0;
+	ray_index = 0;
+	offset = (double)frame->res[0] / (double)NB_RAYS;
+	while (loop < frame->res[0])
+	{
+		if (loop >= offset * (ray_index))
+			ray_index++;
+		draw_column(&frame->img[0], data_struct,
+					(int)loop, data_struct->player.rays[(int)ray_index]);
+		loop++;
+	}
+}
+
+static void	cpy_map(t_graph *frame, t_map *map)
+{
+	int			x, y;
+	t_shapes	coord;
+
+	x = 0;
+	while (x++ < map->map_size[1] * BLOC_MAP)
+	{
+		y = 0;
+		while (y++ < map->map_size[0] * BLOC_MAP)
+		{
+			coord = get_line(x, y, x, y);
+			draw_cpy(&frame->img[1], coord.pos_start,
+					&frame->img[0], coord.pos_end);
+		}
+	}
+}
+
+static void	get_delta(t_timer *timer)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	timer->new_t = ((double)time.tv_sec + ((double)time.tv_usec / 1000000));
+	timer->delta = (timer->new_t - timer->old_t);
+	timer->old_t = timer->new_t;
 }
 
 int			call_update(t_struct *data_struct)
@@ -51,10 +103,14 @@ int			call_update(t_struct *data_struct)
 
 	frame = &data_struct->frame;
 	player = &data_struct->player;
-	draw_clear_image(&frame->img[1]);
+	get_delta(&data_struct->timer);
 	update_key(data_struct);
+	ray_parse(player, &data_struct->map);
 	draw_2d_elem(frame, player, &data_struct->map);
-	commit_img(frame);
+	draw_3d_elem(frame, data_struct);
+	if (data_struct->keys.show_map.is_pressed)
+		cpy_map(frame, &data_struct->map);
+	commit_img(frame, 0);
 	return (0);
 }
 
@@ -77,5 +133,9 @@ int			key_state(int keycode, t_struct *data_struct)
 		keys->rot_right.is_pressed = !keys->rot_right.is_pressed;
 	else if (keycode == keys->rot_left.key_value)
 		keys->rot_left.is_pressed = !keys->rot_left.is_pressed;
+	else if (keycode == keys->show_map.key_value)
+		keys->show_map.is_pressed++;
+	else
+		ft_printf("new key: %d\n", keycode);
 	return (0);
 }

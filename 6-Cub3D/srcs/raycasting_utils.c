@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:36:24 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/14 16:38:15 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/16 14:33:21 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,8 @@ static void		def_dec(t_calculs *c, t_player *player, int t)
 	c->delta[!t] = -c->delta[t] * c->n_tan;
 }
 
-/*
-static void		calc(double p[2], double d[2], int m[2], t_boolean isX)
+static void		check_loop(t_calculs *c, t_map *map)
 {
-	double	coeff;
-
-	if (d[isX] >= 0)
-		coeff = ((m[!isX] * BLOC_SIZE) - p[isX]) / (d[isX] - p[isX]);
-	else
-		coeff = ((m[!isX] * BLOC_SIZE) + p[isX]) / (d[isX] - p[isX]);
-	if (coeff < 0)
-		coeff *= -1;
-	d[!isX] = coeff * (d[!isX] - p[!isX]) + p[!isX];
-	if (d[isX] < 0)
-		d[isX] = 0;
-	else
-		d[isX] = m[!isX];
-}
-
-static void		correc_values(t_calculs *c, t_map *map, t_player *p)
-{
-	if (c->m[0] < 0 || c->m[0] >= map->map_size[1])
-		calc(p->pos, c->ray, map->map_size, 0);
-	if (c->m[1] < 0 || c->m[1] >= map->map_size[0])
-		calc(p->pos, c->ray, map->map_size, 1);
-}
-*/
-
-static void		check_loop(t_calculs *c, t_map *map, t_player *player)
-{
-	(void)player;
 	while (c->dist < c->max_dist)
 	{
 		c->m[0] = (int)(c->ray[0]) / BLOC_SIZE;
@@ -65,10 +37,6 @@ static void		check_loop(t_calculs *c, t_map *map, t_player *player)
 		if (c->m[0] < 0 || c->m[1] < 0 ||
 			c->m[1] >= map->map_size[0] || c->m[0] >= map->map_size[1])
 		{
-/*			correc_values(c, map, player);
-			c->dist = c->max_dist;
-			c->has_touched = TRUE;
-			*/
 			c->ray[0] += c->delta[0];
 			c->ray[1] += c->delta[1];
 			c->dist++;
@@ -104,5 +72,5 @@ void			check_val(t_calculs *c, t_player *player, t_map *map, int t)
 		c->ray[1] = player->pos[1];
 		c->dist = c->max_dist;
 	}
-	check_loop(c, map, player);
+	check_loop(c, map);
 }

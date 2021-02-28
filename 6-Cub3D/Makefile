@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/02/03 19:29:04 by ncaba            ###   ########.fr        #
+#    Updated: 2021/02/16 13:07:46 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
 INC			= -I . -I ./includes/libft/include/ -I./includes/minilibx-linux -L ./includes/libft/ -lft -L ./includes/minilibx-linux -lmlx -lbsd -lm -lX11 -lXext
 
-SRCSFILES	=	test_top_down.c \
+SRCSFILES	=	cub3d.c \
 				init_struct.c \
 				init_shapes.c \
 				draw_pixel.c \

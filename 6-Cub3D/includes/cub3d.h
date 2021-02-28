@@ -6,28 +6,32 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/14 17:32:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/28 18:37:59 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <math.h>
+# include <sys/time.h>
 # include <stdio.h>
 # include "libft/include/ft_lib.h"
 # include "minilibx-linux/mlx.h"
 # define ESCAPE 65307
+# define BLOC_MAP 4
 # define BLOC_SIZE 16
-# define PLAYER_SPEED 2
-# define ROTATE_SPEED 0.02
-# define NB_RAYS 300
+# define PLAYER_SPEED 100
+# define ROTATE_SPEED 2
+# define NB_RAYS 1000
+# define S_RES 32
+# define C_BOX 3
 
 typedef int		t_color;
 
 typedef struct	s_key
 {
 	int			key_value;
-	t_boolean		is_pressed;
+	t_boolean	is_pressed;
 }				t_key;
 
 typedef struct	s_keys
@@ -38,6 +42,7 @@ typedef struct	s_keys
 	t_key		right;
 	t_key		rot_right;
 	t_key		rot_left;
+	t_key		show_map;
 }				t_keys;
 
 typedef struct	s_data
@@ -70,8 +75,8 @@ typedef struct	s_map
 	int			map_size[2];
 	t_color		color_floor;
 	t_color		color_roof;
-	void		*sprite_entity;
-	void		*sprite_wall[4];
+	t_data		sprite_entity;
+	t_data		sprite_wall[4];
 	int			**map;
 	int			player_pos[2];
 }				t_map;
@@ -81,6 +86,7 @@ typedef struct	s_rays
 	double		angle;
 	double		pos[2];
 	double		length;
+	int			orientation;
 }				t_rays;
 
 typedef struct	s_player
@@ -91,11 +97,19 @@ typedef struct	s_player
 	t_rays		rays[NB_RAYS];
 }				t_player;
 
+typedef struct	s_timer
+{
+	double	old_t;
+	double	new_t;
+	double	delta;
+}				t_timer;
+
 typedef struct	s_struct
 {
 	t_keys		keys;
 	t_graph		frame;
 	t_map		map;
+	t_timer		timer;
 	t_player	player;
 }				t_struct;
 
@@ -127,12 +141,15 @@ void			draw_pixel(t_data *data, int x, int y, unsigned int color);
 void			draw_square(t_data *data, t_shapes shape, unsigned int color);
 void			draw_line(t_shapes shape, t_data *data, unsigned int color);
 void			draw_triangle(t_shapes shape, t_data *data, unsigned int color);
+void			draw_column(t_data *data, t_struct *data_struct,
+							int index, t_rays ray);
+void			draw_cpy(t_data *src, int *c1, t_data *dst, int *c2);
 void			draw_map(t_data *data, t_map *map);
 void			draw_clear_image(t_data *data);
 void			draw_rays(t_data *data, t_player *player);
 void			ray_parse(t_player *player, t_map *map);
 void			check_val(t_calculs *c, t_player *player, t_map *map, int t);
-void			commit_img(t_graph *frame);
+void			commit_img(t_graph *frame, int img_nbr);
 void			debug_print_map(t_map *map);
 void			check_map(t_map *map);
 void			update_key(t_struct *data_struct);

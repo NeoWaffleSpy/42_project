@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:44:27 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/14 17:31:52 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/28 16:25:30 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ static double	calc_angle(int r, double player_angle)
 	return (angle);
 }
 
+static int		fill_data(double pos[2], double ray[2], double angle, int or)
+{
+	ft_cpy_tab(pos, ray);
+	if (!or)
+	{
+		if (angle < PI)
+			return (1);
+		else
+			return (0);
+	}
+	else
+	{
+		if (angle >= PI / 2 && angle < 3 * PI / 2)
+			return (3);
+		else
+			return (2);
+	}
+}
+
 void			ray_parse(t_player *player, t_map *map)
 {
 	int			r;
@@ -52,20 +71,21 @@ void			ray_parse(t_player *player, t_map *map)
 		calcul.n_tan = -tan(calcul.ra);
 		check_val(&calcul, player, map, 0);
 		if (calcul.has_touched && calcul.mem[0] == -1)
-			ft_cpy_tab(ray.pos, calcul.ray);
+			ray.orientation = fill_data(ray.pos, calcul.ray, calcul.ra, 1);
 		else if (!calcul.has_touched && calcul.mem[0] != -1)
-			ft_cpy_tab(ray.pos, calcul.mem);
+			ray.orientation = fill_data(ray.pos, calcul.mem, calcul.ra, 0);
 		else if (calcul.has_touched && calcul.mem[0] != -1)
 		{
 			if (get_dist(player->pos, calcul.mem) <
 				get_dist(player->pos, calcul.ray))
-				ft_cpy_tab(ray.pos, calcul.mem);
+				ray.orientation = fill_data(ray.pos, calcul.mem, calcul.ra, 0);
 			else
-				ft_cpy_tab(ray.pos, calcul.ray);
+				ray.orientation = fill_data(ray.pos, calcul.ray, calcul.ra, 1);
 		}
 		else
-			ft_cpy_tab(ray.pos, calcul.ray);
+			ray.orientation = fill_data(ray.pos, calcul.ray, calcul.ra, 1);
 		ray.length = get_dist(player->pos, ray.pos);
+		ray.angle = calcul.ra;
 		player->rays[r] = ray;
 	}
 }
