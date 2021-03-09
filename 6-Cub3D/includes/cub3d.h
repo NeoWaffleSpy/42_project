@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/28 18:37:59 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/03/09 17:34:47 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 # define BLOC_SIZE 16
 # define PLAYER_SPEED 100
 # define ROTATE_SPEED 2
-# define NB_RAYS 1000
-# define S_RES 32
+# define NB_RAYS 1300
 # define C_BOX 3
 
 typedef int		t_color;
@@ -86,6 +85,7 @@ typedef struct	s_rays
 	double		angle;
 	double		pos[2];
 	double		length;
+	double		pos_s[2];
 	int			orientation;
 }				t_rays;
 
@@ -120,6 +120,7 @@ typedef struct	s_calculs
 	int			m[2];
 	double		ray[2];
 	double		mem[2];
+	double		sprite[2];
 	double		delta[2];
 	double		n_tan;
 	double		ra;
@@ -144,6 +145,7 @@ void			draw_triangle(t_shapes shape, t_data *data, unsigned int color);
 void			draw_column(t_data *data, t_struct *data_struct,
 							int index, t_rays ray);
 void			draw_cpy(t_data *src, int *c1, t_data *dst, int *c2);
+void			draw_sprites(t_data *data, t_data *sprite, t_player *player);
 void			draw_map(t_data *data, t_map *map);
 void			draw_clear_image(t_data *data);
 void			draw_rays(t_data *data, t_player *player);

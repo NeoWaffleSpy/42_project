@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/28 17:59:18 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/03/09 17:03:04 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	draw_3d_elem(t_graph *frame, t_struct *data_struct)
 					(int)loop, data_struct->player.rays[(int)ray_index]);
 		loop++;
 	}
+	draw_sprites(&frame->img[0], &data_struct->map.sprite_entity,
+				&data_struct->player);
 }
 
 static void	cpy_map(t_graph *frame, t_map *map)

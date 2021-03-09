@@ -6,7 +6,7 @@ C 1, 12, 36
 S ./textures/sprite.xpm
 
 NO ./textures/wall_1.xpm
-SO ./textures/wall_2.xpm
+SO ./textures/map-of-france.xpm
 EA ./textures/wall_4.xpm
 WE ./textures/wall_3.xpm
 

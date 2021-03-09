@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:36:24 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/16 14:33:21 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/03/07 17:19:05 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void		check_loop(t_calculs *c, t_map *map)
 		}
 		else
 		{
+			if (map->map[c->m[1]][c->m[0]] == 2 && c->sprite[0] == -1)
+				ft_cpy_tab(c->sprite, c->ray);
 			c->ray[0] += c->delta[0];
 			c->ray[1] += c->delta[1];
 			c->dist++;
