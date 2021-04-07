@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/28 16:36:45 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/07 18:31:24 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,23 @@ t_keys			init_keys(void)
 	return (keys);
 }
 
-void			init_frame(char *data, t_graph *frame, t_map *map)
+void			init_frame(char *data, t_graph *frame, t_map *map, int boo)
 {
+	int		sizex;
+	int		sizey;
+
 	frame->mlx_ptr = mlx_init();
 	parse(data, frame, map);
-	frame->win_ptr = mlx_new_window(frame->mlx_ptr,
+	if (!boo)
+		frame->win_ptr = mlx_new_window(frame->mlx_ptr,
 									frame->res[0],
 									frame->res[1],
-									"test");
+									"Cub3D");
+	mlx_get_screen_size(&frame->mlx_ptr, &sizex, &sizey);
+	if (frame->res[0] > sizex)
+		frame->res[0] = sizex;
+	else if (frame->res[1] > sizey)
+		frame->res[1] = sizey;
 	frame->img[0] = init_img(frame);
 	frame->img[1] = init_img(frame);
 }

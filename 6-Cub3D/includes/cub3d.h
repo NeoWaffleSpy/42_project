@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/09 17:34:47 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/07 17:42:12 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define BLOC_SIZE 16
 # define PLAYER_SPEED 100
 # define ROTATE_SPEED 2
-# define NB_RAYS 1300
+# define NB_RAYS 1000
 # define C_BOX 3
 
 typedef int		t_color;
@@ -127,13 +127,22 @@ typedef struct	s_calculs
 	int			has_touched;
 }				t_calculs;
 
+typedef struct	s_tabint
+{
+	double		pos[2];
+	double		angle;
+	double		len;
+	int			r_index;
+}				t_tabint;
+
 t_keys			init_keys();
 t_shapes		get_rect_by_size(int x0, int y0, int size);
 t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
 t_shapes		get_triangle(int x0, int y0, int x1, int y1, int x2, int y2);
 t_shapes		get_line(int x0, int y0, int x1, int y1);
+float			get_dist(double p1[2], double p2[2]);
 char			*is_part_map(char *line);
-void			init_frame(char *data, t_graph *frame, t_map *map);
+void			init_frame(char *data, t_graph *frame, t_map *map, int boo);
 void			parse(char *filename, t_graph *frame, t_map *map);
 void			get_map(t_map *map, char *filename);
 void			init_hooks(t_struct *data_struct);
@@ -145,7 +154,7 @@ void			draw_triangle(t_shapes shape, t_data *data, unsigned int color);
 void			draw_column(t_data *data, t_struct *data_struct,
 							int index, t_rays ray);
 void			draw_cpy(t_data *src, int *c1, t_data *dst, int *c2);
-void			draw_sprites(t_data *data, t_data *sprite, t_player *player);
+void			draw_sprites(t_data *data, t_map *map, t_player *player);
 void			draw_map(t_data *data, t_map *map);
 void			draw_clear_image(t_data *data);
 void			draw_rays(t_data *data, t_player *player);
@@ -154,8 +163,9 @@ void			check_val(t_calculs *c, t_player *player, t_map *map, int t);
 void			commit_img(t_graph *frame, int img_nbr);
 void			debug_print_map(t_map *map);
 void			check_map(t_map *map);
+void			save_img(t_data *data);
 void			update_key(t_struct *data_struct);
-void			call_destroy_frame(t_struct *data_struct);
+void			call_destroy_frame(t_struct *data_struct, int boo);
 void			call_error(char *error, char *value);
 void			call_info(char *info, char *value);
 int				call_loop_end(int keycode, t_graph *frame);
@@ -166,6 +176,7 @@ int				get_r(t_color color);
 int				get_g(t_color color);
 int				get_b(t_color color);
 int				key_state(int keycode, t_struct *data_struct);
+unsigned int	get_pixel(t_data *data, int x, int y);
 t_color			create_color(int t, int r, int g, int b);
 
 #endif

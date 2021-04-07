@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/26 15:36:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/07 17:41:53 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	call_destroy_frame(t_struct *data_struct)
+void	call_destroy_frame(t_struct *data_struct, int boo)
 {
 	int		loop;
 	t_graph	*frame;
@@ -34,7 +34,8 @@ void	call_destroy_frame(t_struct *data_struct)
 	mlx_destroy_image(frame->mlx_ptr, map->sprite_wall[3].img_ptr);
 	mlx_destroy_image(frame->mlx_ptr, frame->img[0].img_ptr);
 	mlx_destroy_image(frame->mlx_ptr, frame->img[1].img_ptr);
-	mlx_destroy_window(frame->mlx_ptr, frame->win_ptr);
+	if (boo)
+		mlx_destroy_window(frame->mlx_ptr, frame->win_ptr);
 	mlx_destroy_display(frame->mlx_ptr);
 	free(frame->mlx_ptr);
 }

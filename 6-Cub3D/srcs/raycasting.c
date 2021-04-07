@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 13:44:27 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/07 17:22:49 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/03/14 16:52:52 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static float	get_dist(double p1[2], double p2[2])
+float			get_dist(double p1[2], double p2[2])
 {
 	return (sqrt((p1[0] - p2[0]) * (p1[0] - p2[0]) +
 					(p1[1] - p2[1]) * (p1[1] - p2[1])));

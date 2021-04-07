@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 23:03:30 by rasaboun          #+#    #+#             */
-/*   Updated: 2020/12/19 00:39:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/31 20:08:24 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ int		save_bitmap(unsigned int *color, int width, int height, int fd)
 	image_header[9] = (unsigned char)(height >> 8);
 	image_header[10] = (unsigned char)(height >> 16);
 	image_header[11] = (unsigned char)(height >> 24);
+	printf("%s\n", file_header);
 	if (write(fd, &file_header, 14) == 0)
 		return (0);
+	printf("%s\n", image_header);
 	if (write(fd, &image_header, 40) == 0)
 		return (0);
 	if (save_bmp(width, color, i, fd) == 0)

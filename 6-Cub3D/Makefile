@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/02/16 13:07:46 by ncaba            ###   ########.fr        #
+#    Updated: 2021/03/28 20:47:48 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCSFILES	=	cub3d.c \
 				init_shapes.c \
 				draw_pixel.c \
 				draw_shapes.c \
+				draw_sprites.c \
 				draw_triangle.c \
 				sys_call.c \
 				parse_file.c \
@@ -30,7 +31,8 @@ SRCSFILES	=	cub3d.c \
 				raycasting.c \
 				raycasting_utils.c \
 				check_map.c \
-				keybinding.c
+				keybinding.c \
+				save_img.c
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))
@@ -64,6 +66,7 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f images/*.bmp
 	@make -s fclean -C ./includes/libft/
 	@make -si clean -C ./includes/minilibx-linux
 

@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:39:00 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/09 17:50:28 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/03/31 18:43:32 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	draw_pixel(t_data *data, int x, int y, unsigned int color)
+void			draw_pixel(t_data *data, int x, int y, unsigned int color)
 {
 	char	*dst;
 
@@ -22,7 +22,17 @@ void	draw_pixel(t_data *data, int x, int y, unsigned int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_cpy(t_data *src, int *c1, t_data *dst, int *c2)
+unsigned int	get_pixel(t_data *data, int x, int y)
+{
+	char	*dst;
+
+	if (x < 0 || y < 0 || x > data->screen_size[0] || y > data->screen_size[1])
+		return (0);
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	return (*(unsigned int*)dst);
+}
+
+void			draw_cpy(t_data *src, int *c1, t_data *dst, int *c2)
 {
 	char	*tmp;
 
@@ -32,20 +42,23 @@ void	draw_cpy(t_data *src, int *c1, t_data *dst, int *c2)
 	if (c1[0] < 0 || c1[1] < 0 ||
 		c1[0] > src->screen_size[0] || c1[1] > src->screen_size[1])
 		return ;
+	if ((*(unsigned int*)(src->addr + (c1[1] * src->line_length + c1[0] *
+			(src->bits_per_pixel / 8)))) == 0xFF000000)
+		return ;
 	tmp = dst->addr + (c2[1] * dst->line_length + c2[0] *
 						(dst->bits_per_pixel / 8));
 	*(unsigned int*)tmp = *(unsigned int*)(src->addr + (c1[1] *
 						src->line_length + c1[0] * (src->bits_per_pixel / 8)));
 }
 
-void	draw_clear_image(t_data *data)
+void			draw_clear_image(t_data *data)
 {
 	draw_square(data, get_rect_by_coord(
 						0, 0, data->screen_size[0], data->screen_size[1]),
 				0x00000000);
 }
 
-void	draw_map(t_data *data, t_map *map)
+void			draw_map(t_data *data, t_map *map)
 {
 	int				i;
 	int				j;
@@ -73,7 +86,7 @@ void	draw_map(t_data *data, t_map *map)
 	}
 }
 
-void	draw_rays(t_data *data, t_player *player)
+void			draw_rays(t_data *data, t_player *player)
 {
 	int	loop;
 
@@ -128,7 +141,7 @@ void	draw_column(t_data *data, t_struct *data_struct, int index, t_rays ray)
 		data_struct->map.sprite_wall[ray.orientation].screen_size[1] /
 		(wall_pos[1] - wall_pos[0]);
 		if (loop[1] < wall_pos[0])
-			draw_pixel(data, loop[0], loop[1], 0x00555555);
+			draw_pixel(data, loop[0], loop[1], 0x00444444);
 		else if (loop[1] > wall_pos[1])
 			draw_pixel(data, loop[0], loop[1], 0x00666666);
 		else
@@ -138,59 +151,7 @@ void	draw_column(t_data *data, t_struct *data_struct, int index, t_rays ray)
 	}
 }
 
-static float	get_dist(double p1[2], double p2[2])
-{
-	return (sqrt((p1[0] - p2[0]) * (p1[0] - p2[0]) +
-					(p1[1] - p2[1]) * (p1[1] - p2[1])));
-}
-
-static void	correct_coord(double corrected[2], double pos[2])
-{
-	corrected[0] = (double)((int)pos[0] / BLOC_SIZE * BLOC_SIZE);
-	corrected[1] = (double)((int)pos[1] / BLOC_SIZE * BLOC_SIZE);
-}
-
-static void	calc_sprite(t_data *data, t_data *sprite, int index, t_player *p)
-{
-	double	corrected[2];
-	int		true_line;
-	int		line;
-	int		wall_pos[2];
-	int		loop;
-	int		col;
-
-	loop = 0;
-	(void)sprite;
-	correct_coord(corrected, p->rays[index].pos_s);
-	true_line = (30 * data->screen_size[1]) /
-					get_dist(p->pos, corrected);
-	line = (int)(true_line * 0.75);
-	wall_pos[0] = data->screen_size[1] / 2 - line / 4;
-	wall_pos[1] = data->screen_size[1] / 2 + line * 0.75;
-	while (loop < data->screen_size[1])
-	{
-		col = index * data->screen_size[0] / NB_RAYS;
-		if (loop >= wall_pos[0] && loop <= wall_pos[1])
-			while (col++ < ((index + 1) * data->screen_size[0] / NB_RAYS))
-				draw_pixel(data, col, loop, 0x00009999);
-		loop++;
-	}
-}
-
-void		draw_sprites(t_data *data, t_data *sprite, t_player *player)
-{
-	int		loop;
-
-	loop = 0;
-	while (loop < NB_RAYS)
-	{
-		if (player->rays[loop].pos_s[0] != -1)
-			calc_sprite(data, sprite, loop, player);
-		loop++;
-	}
-}
-
-void	commit_img(t_graph *frame, int img_nbr)
+void			commit_img(t_graph *frame, int img_nbr)
 {
 	mlx_put_image_to_window(frame->mlx_ptr,
 							frame->win_ptr,

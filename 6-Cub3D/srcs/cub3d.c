@@ -6,29 +6,11 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/09 17:03:04 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/07 17:45:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int			main(int ac, char **av)
-{
-	t_struct	data_struct;
-
-	if (ac != 2)
-		call_error("Usage: %s <path_to_map>", av[0]);
-	data_struct.timer.old_t = 0;
-	data_struct.keys = init_keys();
-	init_frame(av[1], &data_struct.frame,
-				&data_struct.map);
-	check_map(&data_struct.map);
-	init_player(&data_struct.player, &data_struct.map);
-	init_hooks(&data_struct);
-	mlx_loop(data_struct.frame.mlx_ptr);
-	call_destroy_frame(&data_struct);
-	exit(0);
-}
 
 static void	draw_2d_elem(t_graph *frame, t_player *player, t_map *map)
 {
@@ -39,14 +21,24 @@ static void	draw_2d_elem(t_graph *frame, t_player *player, t_map *map)
 	posy = player->pos[1] * BLOC_MAP / BLOC_SIZE;
 	draw_clear_image(&frame->img[1]);
 	draw_map(&frame->img[1], map);
-	draw_triangle(get_triangle(
+	draw_square(&frame->img[1],
+		get_rect_by_size(posx - BLOC_MAP / 2, posy - BLOC_MAP / 2, BLOC_MAP),
+		0x0000AA00);
+/*	draw_triangle(get_triangle(
 				posx + player->d_pos[0] * 0.06,
-				posy + player->d_pos[1] * 0.04,
+				posy + player->d_pos[1] * 0.06,
 				posx + player->d_pos[1] * 0.04 - player->d_pos[0] * 0.06,
 				posy - player->d_pos[0] * 0.04 - player->d_pos[1] * 0.06,
 				posx - player->d_pos[1] * 0.04 - player->d_pos[0] * 0.06,
 				posy + player->d_pos[0] * 0.04 - player->d_pos[1] * 0.06),
-				&frame->img[1], 0x0000AA00);
+				&frame->img[1], 0x0000AA00);*/
+/*	printf("pos: %f-%f\n     %f-%f\n     %f-%f\n",
+ *		posx + player->d_pos[0] * 0.06,
+ *		posy + player->d_pos[1] * 0.06,
+ *		posx + player->d_pos[1] * 0.04 - player->d_pos[0] * 0.06,
+ *		posy - player->d_pos[0] * 0.04 - player->d_pos[1] * 0.06,
+ *		posx - player->d_pos[1] * 0.04 - player->d_pos[0] * 0.06,
+ *		posy + player->d_pos[0] * 0.04 - player->d_pos[1] * 0.06);*/
 }
 
 static void	draw_3d_elem(t_graph *frame, t_struct *data_struct)
@@ -66,8 +58,7 @@ static void	draw_3d_elem(t_graph *frame, t_struct *data_struct)
 					(int)loop, data_struct->player.rays[(int)ray_index]);
 		loop++;
 	}
-	draw_sprites(&frame->img[0], &data_struct->map.sprite_entity,
-				&data_struct->player);
+	draw_sprites(&frame->img[0], &data_struct->map, &data_struct->player);
 }
 
 static void	cpy_map(t_graph *frame, t_map *map)
@@ -96,6 +87,45 @@ static void	get_delta(t_timer *timer)
 	timer->new_t = ((double)time.tv_sec + ((double)time.tv_usec / 1000000));
 	timer->delta = (timer->new_t - timer->old_t);
 	timer->old_t = timer->new_t;
+}
+
+static void	save_bmp(t_struct *data_struct)
+{
+	t_graph		*frame;
+	t_player	*player;
+
+	frame = &data_struct->frame;
+	player = &data_struct->player;
+	get_delta(&data_struct->timer);
+	update_key(data_struct);
+	ray_parse(player, &data_struct->map);
+	draw_2d_elem(frame, player, &data_struct->map);
+	draw_3d_elem(frame, data_struct);
+	if (data_struct->keys.show_map.is_pressed)
+		cpy_map(frame, &data_struct->map);
+	save_img(&frame->img[0]);
+}
+
+int			main(int ac, char **av)
+{
+	t_struct	data_struct;
+
+	if (ac != 2 && (ac != 3 && ft_strcmp(av[2], "--save")))
+		call_error("Usage: %s <path_to_map>", av[0]);
+	data_struct.timer.old_t = 0;
+	data_struct.keys = init_keys();
+	init_frame(av[1], &data_struct.frame, &data_struct.map, ac == 3);
+	check_map(&data_struct.map);
+	init_player(&data_struct.player, &data_struct.map);
+	if (ac == 3)
+		save_bmp(&data_struct);
+	else
+	{
+		init_hooks(&data_struct);
+		mlx_loop(data_struct.frame.mlx_ptr);
+	}
+	call_destroy_frame(&data_struct, ac == 3);
+	exit(0);
 }
 
 int			call_update(t_struct *data_struct)
