@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/03/28 20:47:48 by ncaba            ###   ########.fr        #
+#    Updated: 2021/04/07 18:33:16 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f *.bmp
 	@/bin/rm -f images/*.bmp
 	@make -s fclean -C ./includes/libft/
 	@make -si clean -C ./includes/minilibx-linux
