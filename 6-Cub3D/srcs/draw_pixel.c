@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:39:00 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/31 18:43:32 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/15 13:00:02 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ void	draw_column(t_data *data, t_struct *data_struct, int index, t_rays ray)
 		data_struct->map.sprite_wall[ray.orientation].screen_size[1] /
 		(wall_pos[1] - wall_pos[0]);
 		if (loop[1] < wall_pos[0])
-			draw_pixel(data, loop[0], loop[1], 0x00444444);
+			draw_pixel(data, loop[0], loop[1], data_struct->map.color_roof);
 		else if (loop[1] > wall_pos[1])
-			draw_pixel(data, loop[0], loop[1], 0x00666666);
+			draw_pixel(data, loop[0], loop[1], data_struct->map.color_floor);
 		else
 			draw_cpy(&data_struct->map.sprite_wall[ray.orientation], src,
 					data, loop);

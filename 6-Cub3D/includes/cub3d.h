@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/04/07 17:42:12 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/15 20:39:32 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 # include <math.h>
 # include <sys/time.h>
-# include <stdio.h>
 # include "libft/include/ft_lib.h"
 # include "minilibx-linux/mlx.h"
 # define ESCAPE 65307
@@ -22,8 +21,8 @@
 # define BLOC_SIZE 16
 # define PLAYER_SPEED 100
 # define ROTATE_SPEED 2
-# define NB_RAYS 1000
-# define C_BOX 3
+# define NB_RAYS 800
+# define C_BOX 2
 
 typedef int		t_color;
 
@@ -78,6 +77,7 @@ typedef struct	s_map
 	t_data		sprite_wall[4];
 	int			**map;
 	int			player_pos[2];
+	char		start_rot;
 }				t_map;
 
 typedef struct	s_rays

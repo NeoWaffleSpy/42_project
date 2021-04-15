@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/04/07 18:31:24 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/15 20:31:47 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ void			init_frame(char *data, t_graph *frame, t_map *map, int boo)
 
 	frame->mlx_ptr = mlx_init();
 	parse(data, frame, map);
+	mlx_get_screen_size(frame->mlx_ptr, &sizex, &sizey);
+	if (frame->res[0] > sizex)
+		frame->res[0] = sizex;
+	if (frame->res[1] > sizey)
+		frame->res[1] = sizey;
 	if (!boo)
 		frame->win_ptr = mlx_new_window(frame->mlx_ptr,
 									frame->res[0],
 									frame->res[1],
 									"Cub3D");
-	mlx_get_screen_size(&frame->mlx_ptr, &sizex, &sizey);
-	if (frame->res[0] > sizex)
-		frame->res[0] = sizex;
-	else if (frame->res[1] > sizey)
-		frame->res[1] = sizey;
 	frame->img[0] = init_img(frame);
 	frame->img[1] = init_img(frame);
 }
@@ -85,7 +85,16 @@ void			init_player(t_player *player, t_map *map)
 {
 	player->pos[0] = map->player_pos[0] * BLOC_SIZE + BLOC_SIZE / 2;
 	player->pos[1] = map->player_pos[1] * BLOC_SIZE + BLOC_SIZE / 2;
-	player->angle = 0;
+	if (map->start_rot == 'E')
+		player->angle = 0;
+	else if (map->start_rot == 'S')
+		player->angle = PI / 2;
+	else if (map->start_rot == 'W')
+		player->angle = PI;
+	else if (map->start_rot == 'N')
+		player->angle = 3 * PI / 2;
+	else
+		call_error("is it even possible ?", "init_player() in init_struct.c");
 	player->d_pos[0] = cos(player->angle) * PLAYER_SPEED;
 	player->d_pos[1] = sin(player->angle) * PLAYER_SPEED;
 }
