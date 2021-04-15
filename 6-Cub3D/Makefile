@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/04/07 18:33:16 by ncaba            ###   ########.fr        #
+#    Updated: 2021/04/15 21:14:24 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,14 @@ CFLAGS		= -Wall -Wextra -Werror
 INC			= -I . -I ./includes/libft/include/ -I./includes/minilibx-linux -L ./includes/libft/ -lft -L ./includes/minilibx-linux -lmlx -lbsd -lm -lX11 -lXext
 
 SRCSFILES	=	cub3d.c \
+				update.c \
 				init_struct.c \
 				init_shapes.c \
 				draw_pixel.c \
+				draw_pixel_2.c \
 				draw_shapes.c \
 				draw_sprites.c \
+				draw_sprites_2.c \
 				draw_triangle.c \
 				sys_call.c \
 				parse_file.c \
