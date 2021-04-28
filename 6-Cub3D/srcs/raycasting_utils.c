@@ -6,11 +6,17 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:36:24 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/07 17:19:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/28 17:11:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+float			get_dist(double p1[2], double p2[2])
+{
+	return (sqrt((p1[0] - p2[0]) * (p1[0] - p2[0]) +
+					(p1[1] - p2[1]) * (p1[1] - p2[1])));
+}
 
 static void		def_inc(t_calculs *c, t_player *player, int t)
 {
@@ -40,21 +46,20 @@ static void		check_loop(t_calculs *c, t_map *map)
 			c->ray[0] += c->delta[0];
 			c->ray[1] += c->delta[1];
 			c->dist++;
+			continue ;
 		}
 		else if (map->map[c->m[1]][c->m[0]] == 1 ||
 					map->map[c->m[1]][c->m[0]] < 0)
 		{
 			c->dist = c->max_dist;
 			c->has_touched = TRUE;
+			continue ;
 		}
-		else
-		{
-			if (map->map[c->m[1]][c->m[0]] == 2 && c->sprite[0] == -1)
-				ft_cpy_tab(c->sprite, c->ray);
-			c->ray[0] += c->delta[0];
-			c->ray[1] += c->delta[1];
-			c->dist++;
-		}
+		if (map->map[c->m[1]][c->m[0]] == 2 && c->sprite[0] == -1)
+			ft_cpy_tab(c->sprite, c->ray);
+		c->ray[0] += c->delta[0];
+		c->ray[1] += c->delta[1];
+		c->dist++;
 	}
 }
 

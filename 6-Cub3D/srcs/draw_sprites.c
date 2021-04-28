@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 16:01:26 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/28 19:42:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/27 19:11:59 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void		fill_sprites_pos(t_map *map, t_tabint *s_pos)
 	}
 }
 
-static void	sort_sprites(t_player *player, t_tabint *s_pos, int iter, int max)
+static void		sort_sprites(t_player *player, t_tabint *s_pos, int iter,
+								int max)
 {
 	double	tmp;
 
@@ -92,85 +93,7 @@ static double	get_angle(double p_pos[], double s_pos[], double t_pos[])
 	return (acos((a * a + b * b - c * c) / (2 * a * b)));
 }
 
-static double	abs_val(double y)
-{
-	if(y < 0)
-		return (y * -1);
-	return (y);
-}
-
-static void		get_col(t_tabint *s_pos, t_player *player)
-{
-	double	tmp_angle;
-	int		loop;
-
-	tmp_angle = s_pos->angle - player->angle + PI / 6;
-	if (s_pos->angle - player->angle <= -PI)
-		tmp_angle += 2 * PI;
-	if (s_pos->angle - player->angle >= PI)
-		tmp_angle -= 2 * PI;
-	if (tmp_angle >= 0 && tmp_angle <= PI / 3)
-	{
-//		printf("true : %f - ", tmp_angle);
-		s_pos->r_index = 0;
-		loop = 1;
-		while (loop < NB_RAYS)
-		{
-			if (abs_val(player->rays[loop].angle - s_pos->angle) <
-				abs_val(player->rays[s_pos->r_index].angle - s_pos->angle))
-				s_pos->r_index = loop;
-			loop++;
-		}
-//		printf("rayon %d\n", s_pos->r_index);
-		return ;
-	}
-	s_pos->r_index = -1;
-//	printf("false\n");
-}
-
-static void	real_draw(t_data *data, t_map *map, t_tabint *s_pos, t_player *p)
-{
-	int	line;
-	int	width;
-	int	i;
-	int	j;
-	int	pos_src[2];
-	int	pos_dst[2];
-
-	if (s_pos->r_index == -1)
-		return ;
-	line = (int)((30 * data->screen_size[1]) / s_pos->len) * 1.1;
-	width = line;
-	i = 0;
-	while (i < width)
-	{
-		j = 0;
-		int	index;
-		index = ((s_pos->r_index * data->screen_size[0] / NB_RAYS) + i + 1 - (width / 2)) * NB_RAYS / data->screen_size[0];
-		if (index < 0)
-			index = 0;
-		if (index > NB_RAYS)
-			index = NB_RAYS - 1;
-		if (p->rays[index].length < s_pos->len)
-		{
-			i++;
-			continue ;
-		}
-		while (j < line)
-		{
-			pos_src[0] = i * map->sprite_entity.screen_size[0] / width;
-			pos_src[1] = j * map->sprite_entity.screen_size[1] / line;
-			pos_dst[0] = (s_pos->r_index * data->screen_size[0] / NB_RAYS) +
-							i - (width / 2);
-			pos_dst[1] = data->screen_size[1] / 2 - line / 2 + j;
-			draw_cpy(&map->sprite_entity, pos_src, data, pos_dst);
-			j++;
-		}
-		i++;
-	}
-}
-
-void		draw_sprites(t_data *data, t_map *map, t_player *player)
+void			draw_sprites(t_data *data, t_map *map, t_player *player)
 {
 	t_tabint	*s_pos;
 	int			nb_sprites;
@@ -185,12 +108,10 @@ void		draw_sprites(t_data *data, t_map *map, t_player *player)
 		call_error("Malloc error", "s_pos in draw_sprites()");
 	fill_sprites_pos(map, s_pos);
 	sort_sprites(player, s_pos, nb_sprites - 2, nb_sprites);
-//	printf("player_angle = %f\n", player->angle);
 	while (loop < nb_sprites)
 	{
 		s_pos[loop].angle = get_angle(player->pos, s_pos[loop].pos, pos_tmp);
 		s_pos[loop].len = get_dist(s_pos[loop].pos, player->pos);
-//		printf("angle = %f : ", s_pos[loop].angle);
 		get_col(&s_pos[loop], player);
 		real_draw(data, map, &s_pos[loop], player);
 		loop++;

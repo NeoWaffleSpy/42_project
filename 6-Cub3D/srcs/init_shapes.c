@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 17:03:16 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/28 19:47:37 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/27 19:23:45 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,5 @@ t_shapes		get_line(int x0, int y0, int x1, int y1)
 	shape.pos_start[1] = y0;
 	shape.pos_end[0] = x1;
 	shape.pos_end[1] = y1;
-	return (shape);
-}
-
-t_shapes		get_triangle(int x0, int y0, int x1, int y1, int x2, int y2)
-{
-	t_shapes	shape;
-
-	shape.pos_start[0] = x0;
-	shape.pos_start[1] = y0;
-	shape.pos_bonus[0] = x1;
-	shape.pos_bonus[1] = y1;
-	shape.pos_end[0] = x2;
-	shape.pos_end[1] = y2;
 	return (shape);
 }

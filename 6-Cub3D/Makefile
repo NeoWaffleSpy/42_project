@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/04/15 21:14:24 by ncaba            ###   ########.fr        #
+#    Updated: 2021/04/27 19:25:02 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,10 @@ SRCSFILES	=	cub3d.c \
 				init_shapes.c \
 				draw_pixel.c \
 				draw_pixel_2.c \
+				draw_pixel_3.c \
 				draw_shapes.c \
 				draw_sprites.c \
 				draw_sprites_2.c \
-				draw_triangle.c \
 				sys_call.c \
 				parse_file.c \
 				parse_map.c \

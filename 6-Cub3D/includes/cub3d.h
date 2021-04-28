@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 15:49:02 by ncaba             #+#    #+#             */
-/*   Updated: 2021/04/15 20:57:03 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/27 19:16:24 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,26 @@ typedef struct	s_data
 	int			endian;
 	int			screen_size[2];
 }				t_data;
+
+typedef struct	s_wall
+{
+	int			line;
+	int			src[2];
+	int			loop[2];
+	int			wall_pos[2];
+	t_data		*wall;
+}				t_wall;
+
+typedef struct	s_draw
+{
+	int			line;
+	int			width;
+	int			i;
+	int			j;
+	int			pos_src[2];
+	int			pos_dst[2];
+	int			index;
+}				t_draw;
 
 typedef struct	s_graph
 {
@@ -160,6 +180,9 @@ void			draw_clear_image(t_data *data);
 void			draw_rays(t_data *data, t_player *player);
 void			draw_3d_elem(t_graph *frame, t_struct *data_struct);
 void			draw_2d_elem(t_graph *frame, t_player *player, t_map *map);
+void			real_draw(t_data *data, t_map *map, t_tabint *s_pos,
+							t_player *p);
+void			get_col(t_tabint *s_pos, t_player *player);
 void			ray_parse(t_player *player, t_map *map);
 void			check_val(t_calculs *c, t_player *player, t_map *map, int t);
 void			commit_img(t_graph *frame, int img_nbr);

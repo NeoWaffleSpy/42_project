@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 20:46:58 by ncaba             #+#    #+#             */
-/*   Updated: 2021/04/07 18:08:57 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/04/28 16:34:27 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ static int	save_colors(t_data *data, int fd)
 	return (0);
 }
 
-void	save_img(t_data *data)
+void		save_img(t_data *data)
 {
 	unsigned char	bmp_header[14];
 	unsigned char	bmp_info[40];
 	int				fd;
 
-	if ((fd = creat("img.bmp", S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)) == -1)
+	if ((fd = creat("img.bmp", S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1)
 		call_error("can't create file", "img.bmp");
 	ft_bzero(bmp_header, 14);
 	ft_bzero(bmp_info, 40);
