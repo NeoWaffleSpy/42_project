@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lib.h                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 19:48:56 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 19:18:46 by ncaba            ###   ########.fr       */
+/*   Created: 2020/11/17 13:23:07 by ncaba             #+#    #+#             */
+/*   Updated: 2021/01/19 22:18:07 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LIB_H
-# define FT_LIB_H
-# define WHITE "\x1B[37m"
-# define RED "\x1B[31m"
-# define GREEN "\x1B[32m"
-# define YELLOW "\x1B[33m"
-# define CYAN "\x1B[36m"
-# define RESET_COLOR "\x1B[0m"
-# define PI 3.1415926535f
-# include <fcntl.h>
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
+#include "../../include/libft.h"
 
-#endif
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	index;
+
+	index = 0;
+	while ((unsigned char)s1[index] == (unsigned char)s2[index] &&
+			s1[index] && s2[index])
+		index++;
+	if ((unsigned char)s1[index] != (unsigned char)s2[index])
+		return ((unsigned char)s1[index] - (unsigned char)s2[index]);
+	return (0);
+}

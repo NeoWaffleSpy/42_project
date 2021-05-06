@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 19:52:20 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/03/14 17:04:25 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ size_t				ft_strlen(const char *s);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcmp(const char *s1, const char *s2);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
@@ -64,7 +65,9 @@ void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				*ft_calloc(size_t nmemb, size_t siez);
 void				*ft_return0(void);
 void				*ft_realloc(void *str, int new_size, int type);
-void				ft_free_all(void	**s);
+void				ft_switch(void *p0, void *p1);
+void				ft_cpy_tab(double dst[2], double src[2]);
+void				ft_free_all(void **s);
 void				ft_bzero(void *s, size_t n);
 void				ft_putchar(int c);
 void				ft_putchar_fd(char c, int fd);

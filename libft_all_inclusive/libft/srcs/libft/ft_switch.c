@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lib.h                                           :+:      :+:    :+:   */
+/*   ft_switch.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 19:48:56 by ncaba             #+#    #+#             */
-/*   Updated: 2021/02/03 19:18:46 by ncaba            ###   ########.fr       */
+/*   Created: 2021/01/28 19:27:40 by ncaba             #+#    #+#             */
+/*   Updated: 2021/03/14 17:04:03 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LIB_H
-# define FT_LIB_H
-# define WHITE "\x1B[37m"
-# define RED "\x1B[31m"
-# define GREEN "\x1B[32m"
-# define YELLOW "\x1B[33m"
-# define CYAN "\x1B[36m"
-# define RESET_COLOR "\x1B[0m"
-# define PI 3.1415926535f
-# include <fcntl.h>
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
+#include "../../include/libft.h"
 
-#endif
+void	ft_switch(void *p0, void *p1)
+{
+	void	*tmp;
+
+	tmp = p0;
+	p0 = p1;
+	p1 = tmp;
+}

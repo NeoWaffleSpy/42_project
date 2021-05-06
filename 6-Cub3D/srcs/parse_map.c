@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:19:56 by ncaba             #+#    #+#             */
-/*   Updated: 2021/04/15 20:27:08 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/05/04 18:34:02 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,16 @@ static void		get_size(t_map *map, char *filename)
 	map->map_size[1] = 0;
 	while (get_next_line(fd, &line))
 	{
-		if (!has_map && !ft_isdigit(*is_part_map(line)))
+		if (has_map || ft_isdigit(*is_part_map(line)))
 		{
-			free(line);
-			continue ;
+			has_map = TRUE;
+			if (!ft_isdigit(*is_part_map(line)) && *is_part_map(line) != '\0')
+				call_error("Map has invalid format:", line);
+			if ((int)ft_strlen(line) > map->map_size[1])
+				map->map_size[1] = (int)ft_strlen(line);
+			if (*is_part_map(line) != '\0')
+				map->map_size[0]++;
 		}
-		has_map = TRUE;
-		if (!ft_isdigit(*is_part_map(line)) && *is_part_map(line) != '\0')
-			call_error("Map has invalid format:", line);
-		if ((int)ft_strlen(line) > map->map_size[1])
-			map->map_size[1] = (int)ft_strlen(line);
-		map->map_size[0]++;
 		free(line);
 	}
 	free(line);

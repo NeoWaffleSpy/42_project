@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 17:36:50 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/23 16:59:19 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/05/06 15:36:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int						get_next_line(int const fd, char **line)
 		save[fd] = ft_strrejoin(ptr, buff, res);
 		free(ptr);
 	}
+	if (res < 0)
+		return (-1);
 	*line = ft_substr(save[fd], 0, ft_strclen(save[fd]));
 	ft_chrandcpy(&save[fd]);
 	if (res == 0)

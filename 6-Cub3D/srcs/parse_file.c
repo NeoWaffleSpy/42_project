@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:09:55 by ncaba             #+#    #+#             */
-/*   Updated: 2021/04/07 18:29:18 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/05/06 15:45:53 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,15 @@ void			parse(char *filename, t_graph *frame, t_map *map)
 {
 	int		fd;
 	char	*line;
+	int		res;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		call_error("Invalid map path:", filename);
-	while (get_next_line(fd, &line))
+	while ((res = get_next_line(fd, &line)))
 	{
+		if (res == -1)
+			call_error("Not a valid file:", filename);
 		if (ft_isdigit(*is_part_map(line)))
 			break ;
 		fill_data(is_part_map(line), line, map, frame);

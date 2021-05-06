@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 19:17:20 by ncaba             #+#    #+#             */
-/*   Updated: 2021/04/15 20:49:28 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/05/04 17:47:35 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,5 @@ int			key_state(int keycode, t_struct *data_struct)
 		keys->rot_left.is_pressed = !keys->rot_left.is_pressed;
 	else if (keycode == keys->show_map.key_value)
 		keys->show_map.is_pressed++;
-	else
-		ft_printf("new key: %d\n", keycode);
 	return (0);
 }
