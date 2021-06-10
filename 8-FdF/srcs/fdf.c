@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:25:41 by ncaba             #+#    #+#             */
-/*   Updated: 2021/06/08 17:33:51 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/06/10 14:05:12 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int			main(int ac, char **av)
 	data_struct.timer.old_t = 0;
 	data_struct.keys = init_keys();
 	init_frame(av[1], &data_struct.frame, &data_struct.map);
-	check_map(&data_struct.map);
 	init_hooks(&data_struct);
 	mlx_loop(data_struct.frame.mlx_ptr);
 	call_destroy_frame(&data_struct);

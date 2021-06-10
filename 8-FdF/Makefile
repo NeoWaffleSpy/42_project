@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/06/08 17:53:22 by ncaba            ###   ########.fr        #
+#    Updated: 2021/06/10 13:31:44 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,22 +19,10 @@ SRCSFILES	=	fdf.c \
 				update.c \
 				init_struct.c \
 				draw_pixel.c \
-				draw_pixel_2.c \
-				draw_pixel_3.c \
 				draw_shapes.c \
-				draw_sprites.c \
-				draw_sprites_2.c \
 				sys_call.c \
-				parse_file.c \
-				parse_map.c \
-				ft_strcmp_to_space.c \
-				color_handler.c \
-				debug_tools.c \
-				raycasting.c \
-				raycasting_utils.c \
-				check_map.c \
-				keybinding.c \
-				save_img.c
+				parse_map.c
+#				keybinding.c
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))
@@ -68,13 +56,9 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@/bin/rm -f *.bmp
-	@/bin/rm -f images/*.bmp
 	@make -s fclean -C ./includes/libft/
 	@make -si clean -C ./includes/minilibx-linux
 
 re: clean $(NAME)
 
-retest: fclean maintest
-
-.PHONY: re fclean clean all maintest bonus retest
+.PHONY: re fclean clean all bonus
