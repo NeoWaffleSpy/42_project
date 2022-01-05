@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 20:44:47 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/18 22:16:41 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/01/05 10:48:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ int			call_update(t_struct *data_struct)
 	t_graph		*frame;
 
 	frame = &data_struct->frame;
+	ft_printf("passe 1\n");
 	get_delta(&data_struct->timer);
 	update_key(data_struct);
+	ft_printf("passe 2\n");
 	draw_grid(&data_struct->map, frame);
+	ft_printf("passe 3\n");
 	commit_img(frame, 0);
 	return (0);
 }

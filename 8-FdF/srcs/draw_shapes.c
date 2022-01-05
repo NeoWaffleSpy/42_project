@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:43:35 by ncaba             #+#    #+#             */
-/*   Updated: 2021/10/06 17:23:06 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/01/05 10:05:47 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void			draw_line(t_shapes shape, t_data *data, int color_mult)
 	err = d[0] + d[1];
 	while (loop++ < 1000)
 	{
-		draw_pixel(data, shape.pos_start[0], shape.pos_start[1], color);
+		draw_pixel(data, shape.pos_start[0], shape.pos_start[1], color_mult);
 		if (shape.pos_start[0] == shape.pos_end[0] &&
 			shape.pos_start[1] == shape.pos_end[1])
 			break ;
