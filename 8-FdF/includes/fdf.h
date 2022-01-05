@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:26:15 by ncaba             #+#    #+#             */
-/*   Updated: 2021/06/08 17:56:41 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/09/18 22:17:05 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "minilibx-linux/mlx.h"
 # define ESCAPE 65307
 # define ROT_SPEED 2
+# define GRID_SIZE 5
 
 typedef int		t_color;
 
@@ -60,31 +61,42 @@ typedef struct	s_shapes
 {
 	int			pos_start[2];
 	int			pos_end[2];
+	int			h1;
+	int			h2;
 }				t_shapes;
+
+typedef struct	s_coord
+{
+	int			x;
+	int			y;
+}				t_coord;
 
 typedef struct	s_map
 {
 	int			map_size[2];
 	int			**map;
+	t_coord		**grid;
+	int			max_val;
+	int			min_val;
 }				t_map;
 
 typedef struct	s_timer
 {
-	double	old_t;
-	double	new_t;
-	double	delta;
+	double		old_t;
+	double		new_t;
+	double		delta;
 }				t_timer;
 
 typedef struct	s_struct
 {
 	t_keys		keys;
 	t_graph		frame;
-	t_map		map;
 	t_timer		timer;
+	t_map		map;
 }				t_struct;
 
 t_keys			init_keys();
-t_shapes		get_line(int x0, int y0, int x1, int y1);
+t_shapes		get_line(t_coord p1, int h1, t_coord p2, int h2);
 t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
 float			get_dist(double p1[2], double p2[2]);
 char			*is_part_map(char *line);
@@ -94,7 +106,7 @@ void			get_map(t_map *map, char *filename);
 void			init_hooks(t_struct *data_struct);
 void			draw_pixel(t_data *data, int x, int y, unsigned int color);
 void			draw_square(t_data *data, t_shapes shape, unsigned int color);
-void			draw_line(t_shapes shape, t_data *data, unsigned int color);
+void			draw_line(t_shapes shape, t_data *data, int color_mult);
 void			draw_cpy(t_data *src, int *c1, t_data *dst, int *c2);
 void			draw_clear_image(t_data *data);
 void			commit_img(t_graph *frame, int img_nbr);
@@ -110,6 +122,7 @@ int				get_t(t_color color);
 int				get_r(t_color color);
 int				get_g(t_color color);
 int				get_b(t_color color);
+int				cycle_HSL(int angle);
 int				key_state(int keycode, t_struct *data_struct);
 unsigned int	get_pixel(t_data *data, int x, int y);
 t_color			create_color(int t, int r, int g, int b);

@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 19:29:10 by ncaba             #+#    #+#             */
-/*   Updated: 2021/06/08 17:51:03 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/09/06 13:54:47 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static void		reset_rot(t_player *player, double rot)
+/*static void		reset_rot(t_player *player, double rot)
 {
 	player->angle += rot;
 	if (player->angle > 2 * PI)
@@ -41,30 +41,24 @@ static double	*up_m(double m[2], double d1, double d2, double delta)
 	m[0] = d1 * delta;
 	m[1] = d2 * delta;
 	return (m);
-}
+}*/
 
 void			update_key(t_struct *d_s)
 {
 	t_keys		*keys;
-	t_player	*p;
 	double		delta;
 	double		m[2];
 
 	keys = &d_s->keys;
-	p = &d_s->player;
 	delta = d_s->timer.delta;
+	(void)m;
+	/*
 	if (keys->up.is_pressed == TRUE)
-		move_player(p, up_m(m, p->d_pos[1], p->d_pos[0], delta), &d_s->map);
 	if (keys->down.is_pressed == TRUE)
-		move_player(p, up_m(m, -p->d_pos[1], -p->d_pos[0], delta), &d_s->map);
 	if (keys->right.is_pressed == TRUE)
-		move_player(p, up_m(m, p->d_pos[0], -p->d_pos[1], delta), &d_s->map);
 	if (keys->left.is_pressed == TRUE)
-		move_player(p, up_m(m, -p->d_pos[0], p->d_pos[1], delta), &d_s->map);
 	if (keys->rot_right.is_pressed == TRUE)
-		reset_rot(p, ROTATE_SPEED * delta);
 	if (keys->rot_left.is_pressed == TRUE)
-		reset_rot(p, -ROTATE_SPEED * delta);
 	if (keys->show_map.is_pressed >= 4)
-		keys->show_map.is_pressed = 0;
+	*/
 }

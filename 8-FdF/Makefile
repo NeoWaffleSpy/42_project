@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/06/10 13:31:44 by ncaba            ###   ########.fr        #
+#    Updated: 2021/09/06 13:49:07 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,8 @@ SRCSFILES	=	fdf.c \
 				draw_pixel.c \
 				draw_shapes.c \
 				sys_call.c \
-				parse_map.c
-#				keybinding.c
+				parse_map.c \
+				keybinding.c
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))

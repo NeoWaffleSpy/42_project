@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2021/06/08 17:34:17 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/09/18 18:18:48 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void	call_destroy_frame(t_struct *data_struct)
 	while (loop < map->map_size[0])
 	{
 		free(map->map[loop]);
+		free(map->grid[loop]);
 		loop++;
 	}
 	free(map->map);
+	free(map->grid);
 	mlx_destroy_image(frame->mlx_ptr, frame->img[0].img_ptr);
 	mlx_destroy_image(frame->mlx_ptr, frame->img[1].img_ptr);
 	mlx_destroy_window(frame->mlx_ptr, frame->win_ptr);

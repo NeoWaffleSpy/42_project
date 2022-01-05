@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/06/10 13:15:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/09/06 15:43:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void			init_frame(char *filename, t_graph *frame, t_map *map)
 
 	frame->mlx_ptr = mlx_init();
 	get_map(map, filename);
-	frame->res[0] = map->map_size[0] * 20 + 300;
-	frame->res[1] = map->map_size[1] * 20 + 300;
+	frame->res[0] = map->map_size[1] * 20 + 300;
+	frame->res[1] = map->map_size[0] * 20 + 300;
 	mlx_get_screen_size(frame->mlx_ptr, &sizex, &sizey);
 	if (frame->res[0] > sizex)
 		frame->res[0] = sizex;

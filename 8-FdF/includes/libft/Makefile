@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/02/03 18:29:48 by ncaba            ###   ########.fr        #
+#    Updated: 2021/09/06 14:45:51 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ LFTFILES =	ft_atoi.c \
 			ft_isascii.c \
 			ft_isdigit.c \
 			ft_isprint.c \
+			ft_isspace.c \
 			ft_itoa.c \
 			ft_lstadd_back.c \
 			ft_lstadd_front.c \
