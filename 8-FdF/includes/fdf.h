@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:26:15 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/18 22:17:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/02/03 11:26:03 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,39 @@ typedef struct	s_data
 	int			screen_size[2];
 }				t_data;
 
+typedef struct	s_vertex
+{
+	float		x;
+	float		y;
+	float		z;
+}				t_vertex;
+
+typedef struct	s_vertices
+{
+	u_int16_t	x;
+	u_int16_t	y;
+	int			color;
+}				t_vertices;
+
+typedef struct	s_veclist
+{
+	t_vertices	**zbuff;
+	t_vec4		rot_mat[4] __attribute__((aligned(16)));
+	t_vertex	rot;
+	float		mv;
+	float		zoom;
+	int			rgb;
+	float		zh;
+	float		fov;
+}				t_veclist;
+
 typedef struct	s_graph
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_data		img[2];
 	int			res[2];
+	t_veclist	veclist;
 }				t_graph;
 
 typedef struct	s_shapes

@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 13:30:29 by ncaba             #+#    #+#             */
-/*   Updated: 2022/01/05 13:30:31 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/02/03 10:43:06 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ void		render(t_mlx *mlx, t_map *map, t_data *data)
 	mlx_clear_window(mlx->ptr, mlx->win);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img.ptr, 0, 0);
 	mlx_destroy_image(mlx->ptr, mlx->img.ptr);
-	ft_printf(" rendered in %.2fms\r",
-		(float)(clock() - t) / CLOCKS_PER_SEC * 1000);
+	ft_printf(" rendered in %3d ms\r",
+		(int)(clock() - t) / CLOCKS_PER_SEC * 1000);
 }
