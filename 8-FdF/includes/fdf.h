@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:26:15 by ncaba             #+#    #+#             */
-/*   Updated: 2022/02/03 11:26:03 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/02/22 18:20:40 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "minilibx-linux/mlx.h"
 # define ESCAPE 65307
 # define ROT_SPEED 2
-# define GRID_SIZE 5
 
 typedef int		t_color;
 
@@ -30,13 +29,16 @@ typedef struct	s_key
 
 typedef struct	s_keys
 {
-	t_key		up;
-	t_key		down;
-	t_key		left;
-	t_key		right;
-	t_key		rot_right;
-	t_key		rot_left;
-	t_key		show_map;
+	t_key		z_key;
+	t_key		s_key;
+	t_key		q_key;
+	t_key		d_key;
+	t_key		arrowR_key;
+	t_key		arrowL_key;
+	t_key		arrowU_key;
+	t_key		arrowD_key;
+	t_key		plus_key;
+	t_key		minus_key;
 }				t_keys;
 
 typedef struct	s_data
@@ -63,25 +65,12 @@ typedef struct	s_vertices
 	int			color;
 }				t_vertices;
 
-typedef struct	s_veclist
-{
-	t_vertices	**zbuff;
-	t_vec4		rot_mat[4] __attribute__((aligned(16)));
-	t_vertex	rot;
-	float		mv;
-	float		zoom;
-	int			rgb;
-	float		zh;
-	float		fov;
-}				t_veclist;
-
 typedef struct	s_graph
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_data		img[2];
 	int			res[2];
-	t_veclist	veclist;
 }				t_graph;
 
 typedef struct	s_shapes
@@ -105,6 +94,8 @@ typedef struct	s_map
 	t_coord		**grid;
 	int			max_val;
 	int			min_val;
+	double		zoom;
+	double		contraste;
 }				t_map;
 
 typedef struct	s_timer
@@ -133,7 +124,7 @@ void			get_map(t_map *map, char *filename);
 void			init_hooks(t_struct *data_struct);
 void			draw_pixel(t_data *data, int x, int y, unsigned int color);
 void			draw_square(t_data *data, t_shapes shape, unsigned int color);
-void			draw_line(t_shapes shape, t_data *data, int color_mult);
+void			draw_line(t_shapes shape, t_data *data, unsigned int color);
 void			draw_cpy(t_data *src, int *c1, t_data *dst, int *c2);
 void			draw_clear_image(t_data *data);
 void			commit_img(t_graph *frame, int img_nbr);
@@ -142,6 +133,7 @@ void			update_key(t_struct *data_struct);
 void			call_destroy_frame(t_struct *data_struct);
 void			call_error(char *error, char *value);
 void			call_info(char *info, char *value);
+void			set_grid(t_map *map);
 int				call_loop_end(int keycode, t_graph *frame);
 int				call_update(t_struct *data_struct);
 int				ft_strcmp_to_space(const char *s1, const char *s2);

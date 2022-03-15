@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:23:05 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/18 21:17:03 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/03/15 19:53:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static void		get_size(t_map *map, char *filename)
 	char		*line;
 	char		*tmp;
 
+	if (filename[ft_strlen(filename)-1] == '/')
+		call_error("Filename is a folder", filename);
 	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		call_error("Filename invalid", filename);
 	map->map_size[0] = 0;
 	map->map_size[1] = 0;
 	while (get_next_line(fd, &line))
@@ -109,7 +113,7 @@ static void		set_map(t_map *map, char *filename)
 	close(fd);
 }
 
-static void		set_grid(t_map *map)
+void			set_grid(t_map *map)
 {
 	int			startX;
 	int			startY;
@@ -122,35 +126,27 @@ static void		set_grid(t_map *map)
 	for (loop = 0; loop < map->map_size[0]; loop++)
 	{
 		map->grid[loop] = (t_coord*)calloc(sizeof(t_coord), map->map_size[1]);
-		startX = 5 + (map->map_size[0] - loop) * GRID_SIZE;
-		startY = 30 + loop * (GRID_SIZE * correc);
+		startX = 1 + (map->map_size[0] - loop) * (int)map->zoom;
+		startY = 6 + loop * ((int)map->zoom * correc);
 		for(i = 0; i < map->map_size[1]; i++)
 		{
-			startX += GRID_SIZE;
-			startY += (GRID_SIZE * correc);
+			startX += (int)map->zoom;
+			startY += ((int)map->zoom * correc);
 			map->grid[loop][i].x = startX;
-			map->grid[loop][i].y = startY - map->map[loop][i] * 2;
+			map->grid[loop][i].y = startY - map->map[loop][i] *
+									(int)(map->zoom / map->contraste);
 		}
 	}
 }
 
 void			get_map(t_map *map, char *filename)
 {
+	map->zoom = 10;
+	map->contraste = 2;
 	get_size(map, filename);
 	if (map->map_size[0] < 2 || map->map_size[1] < 1)
 		call_error("No map in file:", filename);
 	if (map->map_size[0] < 5 || map->map_size[1] < 5)
 		call_error("Map size must be at least 5x5:", filename);
 	set_map(map, filename);
-	set_grid(map);
-/*
-	for(int i = 0; i < map->map_size[0]; i++)
-	{
-		for(int j = 0; j < map->map_size[1]; j++)
-		{
-			ft_printf("%3d ", map->grid[i][j]);
-		}
-		ft_printf("\n");
-	}
-*/
 }

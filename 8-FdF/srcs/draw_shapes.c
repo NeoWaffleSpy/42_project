@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 15:43:35 by ncaba             #+#    #+#             */
-/*   Updated: 2022/01/05 10:05:47 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/02/22 15:33:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		add_value(int *err, int d, int *pos, int s)
 	*pos += s;
 }
 
-void			draw_line(t_shapes shape, t_data *data, int color_mult)
+void			draw_line(t_shapes shape, t_data *data, unsigned int color)
 {
 	int	d[2];
 	int	s[2];
@@ -52,7 +52,7 @@ void			draw_line(t_shapes shape, t_data *data, int color_mult)
 	err = d[0] + d[1];
 	while (loop++ < 1000)
 	{
-		draw_pixel(data, shape.pos_start[0], shape.pos_start[1], color_mult);
+		draw_pixel(data, shape.pos_start[0], shape.pos_start[1], color);
 		if (shape.pos_start[0] == shape.pos_end[0] &&
 			shape.pos_start[1] == shape.pos_end[1])
 			break ;

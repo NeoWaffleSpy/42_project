@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/06 15:43:43 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/03/15 18:56:33 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,26 @@ static t_data	init_img(t_graph *frame)
 	return (img);
 }
 
+static void		set_key(t_key *k, int value)
+{
+	k->key_value = value;
+	k->is_pressed = FALSE;
+}
+
 t_keys			init_keys(void)
 {
 	t_keys keys;
 
-	keys.up.key_value = 122;
-	keys.up.is_pressed = FALSE;
-	keys.down.key_value = 115;
-	keys.down.is_pressed = FALSE;
-	keys.left.key_value = 113;
-	keys.left.is_pressed = FALSE;
-	keys.right.key_value = 100;
-	keys.right.is_pressed = FALSE;
-	keys.rot_right.key_value = 65363;
-	keys.rot_right.is_pressed = FALSE;
-	keys.rot_left.key_value = 65361;
-	keys.rot_left.is_pressed = FALSE;
-	keys.show_map.key_value = 109;
-	keys.show_map.is_pressed = FALSE;
+	set_key(&keys.arrowR_key, 65363);
+	set_key(&keys.arrowL_key, 65361);
+	set_key(&keys.arrowU_key, 65362);
+	set_key(&keys.arrowD_key, 65364);
+	set_key(&keys.plus_key, 65451);
+	set_key(&keys.minus_key, 65453);
+	set_key(&keys.z_key, 122);
+	set_key(&keys.q_key, 113);
+	set_key(&keys.s_key, 115);
+	set_key(&keys.d_key, 100);
 	return (keys);
 }
 
@@ -56,8 +58,8 @@ void			init_frame(char *filename, t_graph *frame, t_map *map)
 
 	frame->mlx_ptr = mlx_init();
 	get_map(map, filename);
-	frame->res[0] = map->map_size[1] * 20 + 300;
-	frame->res[1] = map->map_size[0] * 20 + 300;
+	frame->res[0] = map->map_size[1] * 20 + 200;
+	frame->res[1] = map->map_size[0] * 10 + 200;
 	mlx_get_screen_size(frame->mlx_ptr, &sizex, &sizey);
 	if (frame->res[0] > sizex)
 		frame->res[0] = sizex;

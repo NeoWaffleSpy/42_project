@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:25:41 by ncaba             #+#    #+#             */
-/*   Updated: 2022/01/05 10:10:19 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/03/15 13:36:05 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,21 @@ int			key_state(int keycode, t_struct *data_struct)
 	keys = &data_struct->keys;
 	if (keycode == ESCAPE)
 		mlx_loop_end((&data_struct->frame)->mlx_ptr);
-	else if (keycode == keys->up.key_value)
-		keys->up.is_pressed = !keys->up.is_pressed;
-	else if (keycode == keys->down.key_value)
-		keys->down.is_pressed = !keys->down.is_pressed;
-	else if (keycode == keys->left.key_value)
-		keys->left.is_pressed = !keys->left.is_pressed;
-	else if (keycode == keys->right.key_value)
-		keys->right.is_pressed = !keys->right.is_pressed;
-	else if (keycode == keys->rot_right.key_value)
-		keys->rot_right.is_pressed = !keys->rot_right.is_pressed;
-	else if (keycode == keys->rot_left.key_value)
-		keys->rot_left.is_pressed = !keys->rot_left.is_pressed;
-	else if (keycode == keys->show_map.key_value)
-		keys->show_map.is_pressed++;
+	else if (keycode == keys->arrowU_key.key_value)
+		keys->arrowU_key.is_pressed = !keys->arrowU_key.is_pressed;
+	else if (keycode == keys->arrowD_key.key_value)
+		keys->arrowD_key.is_pressed = !keys->arrowD_key.is_pressed;
+	else if (keycode == keys->plus_key.key_value)
+		keys->plus_key.is_pressed = !keys->plus_key.is_pressed;
+	else if (keycode == keys->minus_key.key_value)
+		keys->minus_key.is_pressed = !keys->minus_key.is_pressed;
+	else if (keycode == keys->z_key.key_value)
+		keys->z_key.is_pressed = !keys->z_key.is_pressed;
+	else if (keycode == keys->q_key.key_value)
+		keys->q_key.is_pressed = !keys->q_key.is_pressed;
+	else if (keycode == keys->s_key.key_value)
+		keys->s_key.is_pressed = !keys->s_key.is_pressed;
+	else if (keycode == keys->d_key.key_value)
+		keys->d_key.is_pressed = !keys->d_key.is_pressed;
 	return (0);
 }
