@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:25:41 by ncaba             #+#    #+#             */
-/*   Updated: 2022/03/15 13:36:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 11:06:23 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int			main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_struct	data_struct;
 
@@ -27,7 +27,7 @@ int			main(int ac, char **av)
 	exit(0);
 }
 
-int			key_state(int keycode, t_struct *data_struct)
+int	key_state(int keycode, t_struct *data_struct)
 {
 	t_keys	*keys;
 
@@ -51,4 +51,11 @@ int			key_state(int keycode, t_struct *data_struct)
 	else if (keycode == keys->d_key.key_value)
 		keys->d_key.is_pressed = !keys->d_key.is_pressed;
 	return (0);
+}
+
+char	*get_next_value(char *line)
+{
+	while (!ft_isspace(*line) && *line != '\0')
+		line++;
+	return (line);
 }

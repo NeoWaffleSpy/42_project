@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2022/03/15 18:56:33 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 10:37:36 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,23 @@ static t_data	init_img(t_graph *frame)
 	t_data	img;
 
 	img.img_ptr = mlx_new_image(frame->mlx_ptr,
-								frame->res[0],
-								frame->res[1]);
-	img.addr = mlx_get_data_addr(img.img_ptr,
-								&img.bits_per_pixel,
-								&img.line_length,
-								&img.endian);
+			frame->res[0], frame->res[1]);
+	img.addr = mlx_get_data_addr(img.img_ptr, &img.bits_per_pixel,
+			&img.line_length, &img.endian);
 	img.screen_size[0] = frame->res[0];
 	img.screen_size[1] = frame->res[1];
 	return (img);
 }
 
-static void		set_key(t_key *k, int value)
+static void	set_key(t_key *k, int value)
 {
 	k->key_value = value;
 	k->is_pressed = FALSE;
 }
 
-t_keys			init_keys(void)
+t_keys	init_keys(void)
 {
-	t_keys keys;
+	t_keys	keys;
 
 	set_key(&keys.arrowR_key, 65363);
 	set_key(&keys.arrowL_key, 65361);
@@ -51,7 +48,7 @@ t_keys			init_keys(void)
 	return (keys);
 }
 
-void			init_frame(char *filename, t_graph *frame, t_map *map)
+void	init_frame(char *filename, t_graph *frame, t_map *map)
 {
 	int		sizex;
 	int		sizey;
@@ -65,15 +62,13 @@ void			init_frame(char *filename, t_graph *frame, t_map *map)
 		frame->res[0] = sizex;
 	if (frame->res[1] > sizey)
 		frame->res[1] = sizey;
-	frame->win_ptr = mlx_new_window(frame->mlx_ptr,
-									frame->res[0],
-									frame->res[1],
-									"Fil de Fer");
+	frame->win_ptr = mlx_new_window(frame->mlx_ptr, frame->res[0],
+			frame->res[1], "Fil de Fer");
 	frame->img[0] = init_img(frame);
 	frame->img[1] = init_img(frame);
 }
 
-void			init_hooks(t_struct *data_struct)
+void	init_hooks(t_struct *data_struct)
 {
 	t_graph	*frame;
 

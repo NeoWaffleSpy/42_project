@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 19:29:10 by ncaba             #+#    #+#             */
-/*   Updated: 2022/03/15 13:35:31 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 10:53:39 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static void		setZoom(double *zoom, double change)
+static void	set_zoom(double *zoom, double change)
 {
 	*zoom += change;
 	if (*zoom < 1)
@@ -21,7 +21,7 @@ static void		setZoom(double *zoom, double change)
 		*zoom = 100;
 }
 
-static void		setContraste(double *zoom, double change)
+static void	set_contraste(double *zoom, double change)
 {
 	*zoom += change;
 	if (*zoom < 0.1)
@@ -30,7 +30,7 @@ static void		setContraste(double *zoom, double change)
 		*zoom = 100;
 }
 
-void			update_key(t_struct *d_s)
+void	update_key(t_struct *d_s)
 {
 	t_keys		*keys;
 	double		delta;
@@ -38,11 +38,46 @@ void			update_key(t_struct *d_s)
 	keys = &d_s->keys;
 	delta = d_s->timer.delta;
 	if (keys->arrowU_key.is_pressed == TRUE)
-		setZoom(&d_s->map.zoom, 10 * delta);
+		set_zoom(&d_s->map.zoom, 10 * delta);
 	if (keys->arrowD_key.is_pressed == TRUE)
-		setZoom(&d_s->map.zoom, -10 * delta);
+		set_zoom(&d_s->map.zoom, -10 * delta);
 	if (keys->plus_key.is_pressed == TRUE)
-		setContraste(&d_s->map.contraste, 1 * delta);
+		set_contraste(&d_s->map.contraste, -1 * delta);
 	if (keys->minus_key.is_pressed == TRUE)
-		setContraste(&d_s->map.contraste, -1 * delta);
+		set_contraste(&d_s->map.contraste, 1 * delta);
+}
+
+char	*is_part_map(char *line)
+{
+	while (*line && *line == ' ')
+		line++;
+	return (line);
+}
+
+void	set_grid(t_map *map)
+{
+	int			start_x;
+	int			start_y;
+	int			loop;
+	int			i;
+
+	map->grid = (t_coord **)calloc(sizeof(t_coord *), map->map_size[0]);
+	loop = 0;
+	while (loop < map->map_size[0])
+	{
+		map->grid[loop] = (t_coord *)calloc(sizeof(t_coord), map->map_size[1]);
+		start_x = 1 + (map->map_size[0] - loop) * (int)map->zoom;
+		start_y = 6 + loop * ((int)map->zoom * 0.6);
+		i = 0;
+		while (i < map->map_size[1])
+		{
+			start_x += (int)map->zoom;
+			start_y += ((int)map->zoom * 0.6);
+			map->grid[loop][i].x = start_x;
+			map->grid[loop][i].y = start_y - map->map[loop][i]
+				* (int)(map->zoom / map->contraste);
+			i++;
+		}
+	loop++;
+	}
 }

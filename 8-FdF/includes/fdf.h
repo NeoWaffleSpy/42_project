@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:26:15 by ncaba             #+#    #+#             */
-/*   Updated: 2022/02/22 18:20:40 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 11:13:57 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,27 @@
 
 typedef int		t_color;
 
-typedef struct	s_key
+typedef struct s_key
 {
 	int			key_value;
 	t_boolean	is_pressed;
 }				t_key;
 
-typedef struct	s_keys
+typedef struct s_keys
 {
 	t_key		z_key;
 	t_key		s_key;
 	t_key		q_key;
 	t_key		d_key;
-	t_key		arrowR_key;
-	t_key		arrowL_key;
-	t_key		arrowU_key;
-	t_key		arrowD_key;
+	t_key		arrow_r_key;
+	t_key		arrow_l_key;
+	t_key		arrow_u_key;
+	t_key		arrow_d_key;
 	t_key		plus_key;
 	t_key		minus_key;
 }				t_keys;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void		*img_ptr;
 	char		*addr;
@@ -51,21 +51,21 @@ typedef struct	s_data
 	int			screen_size[2];
 }				t_data;
 
-typedef struct	s_vertex
+typedef struct s_vertex
 {
 	float		x;
 	float		y;
 	float		z;
 }				t_vertex;
 
-typedef struct	s_vertices
+typedef struct s_vertices
 {
 	u_int16_t	x;
 	u_int16_t	y;
 	int			color;
 }				t_vertices;
 
-typedef struct	s_graph
+typedef struct s_graph
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -73,7 +73,7 @@ typedef struct	s_graph
 	int			res[2];
 }				t_graph;
 
-typedef struct	s_shapes
+typedef struct s_shapes
 {
 	int			pos_start[2];
 	int			pos_end[2];
@@ -81,13 +81,13 @@ typedef struct	s_shapes
 	int			h2;
 }				t_shapes;
 
-typedef struct	s_coord
+typedef struct s_coord
 {
 	int			x;
 	int			y;
 }				t_coord;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	int			map_size[2];
 	int			**map;
@@ -98,14 +98,14 @@ typedef struct	s_map
 	double		contraste;
 }				t_map;
 
-typedef struct	s_timer
+typedef struct s_timer
 {
 	double		old_t;
 	double		new_t;
 	double		delta;
 }				t_timer;
 
-typedef struct	s_struct
+typedef struct s_struct
 {
 	t_keys		keys;
 	t_graph		frame;
@@ -113,11 +113,12 @@ typedef struct	s_struct
 	t_map		map;
 }				t_struct;
 
-t_keys			init_keys();
+t_keys			init_keys(void);
 t_shapes		get_line(t_coord p1, int h1, t_coord p2, int h2);
 t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
 float			get_dist(double p1[2], double p2[2]);
 char			*is_part_map(char *line);
+char			*get_next_value(char *line);
 void			init_frame(char *data, t_graph *frame, t_map *map);
 void			parse(char *filename, t_graph *frame, t_map *map);
 void			get_map(t_map *map, char *filename);

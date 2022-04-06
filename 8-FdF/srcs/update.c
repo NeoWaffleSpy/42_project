@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 20:44:47 by ncaba             #+#    #+#             */
-/*   Updated: 2022/02/22 17:50:19 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 11:10:23 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,29 @@ static void	draw_grid(t_map *map, t_graph *frame)
 	int			i;
 	int			j;
 
-	for(i = 0; i < map->map_size[0]; i++)
+	i = 0;
+	while (i < map->map_size[0])
 	{
-		for(j = 0; j < map->map_size[1]; j++)
+		j = 0;
+		while (j < map->map_size[1])
 		{
-			if(i < map->map_size[0] - 1)
+			if (i < map->map_size[0] - 1)
 				draw_line(
 					get_line(map->grid[i][j], map->map[i][j],
-					map->grid[i + 1][j], map->map[i + 1][j]),
+						map->grid[i + 1][j], map->map[i + 1][j]),
 					&frame->img[0], 0x00AA2222);
-			if(j < map->map_size[1] - 1)
+			if (j < map->map_size[1] - 1)
 				draw_line(
 					get_line(map->grid[i][j], map->map[i][j],
-					map->grid[i][j + 1], map->map[i][j + 1]),
+						map->grid[i][j + 1], map->map[i][j + 1]),
 					&frame->img[0], 0x00AA2222);
+			j++;
 		}
+		i++;
 	}
 }
 
-int			call_update(t_struct *data_struct)
+int	call_update(t_struct *data_struct)
 {
 	t_graph		*frame;
 

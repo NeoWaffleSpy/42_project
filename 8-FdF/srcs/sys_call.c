@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/18 18:18:48 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 11:07:42 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	call_destroy_frame(t_struct *data_struct)
 	free(frame->mlx_ptr);
 }
 
-int		call_loop_end(int keycode, t_graph *frame)
+int	call_loop_end(int keycode, t_graph *frame)
 {
 	if (keycode == ESCAPE)
 		mlx_loop_end(frame->mlx_ptr);
