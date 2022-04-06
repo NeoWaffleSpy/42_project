@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:25:41 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 11:06:23 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 11:42:22 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	key_state(int keycode, t_struct *data_struct)
 	keys = &data_struct->keys;
 	if (keycode == ESCAPE)
 		mlx_loop_end((&data_struct->frame)->mlx_ptr);
-	else if (keycode == keys->arrowU_key.key_value)
-		keys->arrowU_key.is_pressed = !keys->arrowU_key.is_pressed;
-	else if (keycode == keys->arrowD_key.key_value)
-		keys->arrowD_key.is_pressed = !keys->arrowD_key.is_pressed;
+	else if (keycode == keys->arrow_u_key.key_value)
+		keys->arrow_u_key.is_pressed = !keys->arrow_u_key.is_pressed;
+	else if (keycode == keys->arrow_d_key.key_value)
+		keys->arrow_d_key.is_pressed = !keys->arrow_d_key.is_pressed;
 	else if (keycode == keys->plus_key.key_value)
 		keys->plus_key.is_pressed = !keys->plus_key.is_pressed;
 	else if (keycode == keys->minus_key.key_value)

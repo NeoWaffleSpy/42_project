@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 10:37:36 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 11:43:02 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ t_keys	init_keys(void)
 {
 	t_keys	keys;
 
-	set_key(&keys.arrowR_key, 65363);
-	set_key(&keys.arrowL_key, 65361);
-	set_key(&keys.arrowU_key, 65362);
-	set_key(&keys.arrowD_key, 65364);
+	set_key(&keys.arrow_r_key, 65363);
+	set_key(&keys.arrow_l_key, 65361);
+	set_key(&keys.arrow_u_key, 65362);
+	set_key(&keys.arrow_d_key, 65364);
 	set_key(&keys.plus_key, 65451);
 	set_key(&keys.minus_key, 65453);
 	set_key(&keys.z_key, 122);

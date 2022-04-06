@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 19:29:10 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 10:53:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/06 11:43:18 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	update_key(t_struct *d_s)
 
 	keys = &d_s->keys;
 	delta = d_s->timer.delta;
-	if (keys->arrowU_key.is_pressed == TRUE)
+	if (keys->arrow_u_key.is_pressed == TRUE)
 		set_zoom(&d_s->map.zoom, 10 * delta);
-	if (keys->arrowD_key.is_pressed == TRUE)
+	if (keys->arrow_d_key.is_pressed == TRUE)
 		set_zoom(&d_s->map.zoom, -10 * delta);
 	if (keys->plus_key.is_pressed == TRUE)
 		set_contraste(&d_s->map.contraste, -1 * delta);
