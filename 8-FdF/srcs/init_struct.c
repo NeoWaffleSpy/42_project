@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 11:43:02 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/19 14:15:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,9 @@ void	init_frame(char *filename, t_graph *frame, t_map *map)
 
 	frame->mlx_ptr = mlx_init();
 	get_map(map, filename);
-	frame->res[0] = map->map_size[1] * 20 + 200;
-	frame->res[1] = map->map_size[0] * 10 + 200;
 	mlx_get_screen_size(frame->mlx_ptr, &sizex, &sizey);
-	if (frame->res[0] > sizex)
-		frame->res[0] = sizex;
-	if (frame->res[1] > sizey)
-		frame->res[1] = sizey;
+	frame->res[0] = sizex;
+	frame->res[1] = sizey;
 	frame->win_ptr = mlx_new_window(frame->mlx_ptr, frame->res[0],
 			frame->res[1], "Fil de Fer");
 	frame->img[0] = init_img(frame);

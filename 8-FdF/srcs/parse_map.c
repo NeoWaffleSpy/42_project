@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:23:05 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 11:06:20 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/19 15:07:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	loop_size(t_map *map, int fd)
 			if (map->map_size[1] == 0)
 				map->map_size[1] = buff;
 			else if (map->map_size[1] != buff)
-				call_error("Map not consistent", tmp);
+				call_error("Map not consistent - 1", tmp);
 		}
 		free(tmp);
 	}
@@ -47,6 +47,8 @@ static void	get_size(t_map *map, char *filename)
 
 	if (filename[ft_strlen(filename)-1] == '/')
 		call_error("Filename is a folder", filename);
+	if (ft_strcmp(&filename[ft_strlen(filename)-4], ".fdf"))
+		call_error("Filename extension is not .fdf", filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		call_error("Filename invalid", filename);
@@ -107,12 +109,14 @@ static void	set_map(t_map *map, char *filename)
 
 void	get_map(t_map *map, char *filename)
 {
-	map->zoom = 10;
 	map->contraste = 2;
 	get_size(map, filename);
 	if (map->map_size[0] < 2 || map->map_size[1] < 1)
 		call_error("No map in file:", filename);
-	if (map->map_size[0] < 5 || map->map_size[1] < 5)
-		call_error("Map size must be at least 5x5:", filename);
+	if (map->map_size[0] < 4 || map->map_size[1] < 4)
+		call_error("Map size must be at least 4x4:", filename);
+	map->zoom = 60 - (map->map_size[0] / 2);
+	if (map->zoom < 2)
+		map->zoom = 2;
 	set_map(map, filename);
 }
