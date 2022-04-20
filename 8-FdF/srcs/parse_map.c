@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:23:05 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/19 15:07:44 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/20 15:07:15 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ static void	set_map(t_map *map, char *filename)
 
 void	get_map(t_map *map, char *filename)
 {
+	int loop;
+
 	map->contraste = 2;
 	get_size(map, filename);
 	if (map->map_size[0] < 2 || map->map_size[1] < 1)
@@ -119,4 +121,11 @@ void	get_map(t_map *map, char *filename)
 	if (map->zoom < 2)
 		map->zoom = 2;
 	set_map(map, filename);
+	map->grid = (t_coord **)calloc(sizeof(t_coord *), map->map_size[0]);
+	loop = 0;
+	while (loop < map->map_size[0])
+	{
+		map->grid[loop] = (t_coord *)calloc(sizeof(t_coord), map->map_size[1]);
+		loop++;
+	}
 }

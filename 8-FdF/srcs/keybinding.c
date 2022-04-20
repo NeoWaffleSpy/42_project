@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 19:29:10 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 11:43:18 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/20 15:16:16 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,9 @@ void	set_grid(t_map *map)
 	int			loop;
 	int			i;
 
-	map->grid = (t_coord **)calloc(sizeof(t_coord *), map->map_size[0]);
 	loop = 0;
 	while (loop < map->map_size[0])
 	{
-		map->grid[loop] = (t_coord *)calloc(sizeof(t_coord), map->map_size[1]);
 		start_x = 1 + (map->map_size[0] - loop) * (int)map->zoom;
 		start_y = 6 + loop * ((int)map->zoom * 0.6);
 		i = 0;
