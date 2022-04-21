@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:45:17 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 15:59:01 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/21 14:13:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	rmspace(const char *nptr)
 	return (counter);
 }
 
-int			ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	t_boolean	is_negative;
 	int			result;
