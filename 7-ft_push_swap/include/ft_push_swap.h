@@ -6,11 +6,12 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:34:51 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 13:39:24 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/26 13:31:24 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PUSH_SWAP
 # define FT_PUSH_SWAP
+# include "libft/include/ft_lib.h"
 
 #endif

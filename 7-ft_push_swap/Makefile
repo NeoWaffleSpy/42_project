@@ -6,38 +6,31 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/04/06 13:23:24 by ncaba            ###   ########.fr        #
+#    Updated: 2022/04/26 14:00:42 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= fdf
+NAME		= ft_push_swap
 CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
-INC			= -I . -I ./includes/libft/include/ -L ./includes/libft/ -lft
+INC			= -I . -I ./include/libft/include/ -L ./include/libft/ -lft
 
-SRCSFILES	=	fdf.c \
-				update.c \
-				init_struct.c \
-				draw_pixel.c \
-				draw_shapes.c \
-				sys_call.c \
-				parse_map.c \
-				keybinding.c
+SRCSFILES	=	ft_push_swap.c \
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))
 OBJS		= $(SRCS:.c=.o)
 
-HEADERFILES	= fdf.h
+HEADERFILES	= ft_push_swap.h
 HEADERS		= $(addprefix -I ./include/, $(HEADERFILES))
 
-LIBFT		= ./includes/libft/libft.a
+LIBFT		= ./include/libft/libft.a
 
 all: $(NAME)
 	@echo "Compiled !"
 
 $(LIBFT):
-	@make -s -C ./includes/libft/
+	@make -s -C ./include/libft/
 
 $(NAME): $(LIBFT) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(INC) -o $(NAME) -g
@@ -48,11 +41,11 @@ $(NAME): $(LIBFT) $(OBJS)
 clean:
 	@/bin/rm -f $(OBJS) $(BOBJS) $(OBJTEST)
 	@/bin/rm -rf a.out.dSYM
-	@make -s clean -C ./includes/libft/
+	@make -s clean -C ./include/libft/
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@make -s fclean -C ./includes/libft/
+	@make -s fclean -C ./include/libft/
 
 re: clean $(NAME)
 
