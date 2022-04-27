@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:43 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/01 13:36:27 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 10:46:32 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-void			ft_lstdelone(t_list *alst, void (*del)(void *))
+void	ft_lstdelone(t_list *alst, void (*del)(void *))
 {
 	if (!alst)
 		return ;

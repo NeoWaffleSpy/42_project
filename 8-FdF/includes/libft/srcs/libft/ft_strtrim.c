@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:45:58 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/01 13:40:01 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 10:03:52 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ static t_boolean	is_ref(char c, const char *ref)
 	return (FALSE);
 }
 
-static void			*return_null(void)
+static void	*return_null(void)
 {
 	void	*s;
 
 	s = malloc(sizeof(char));
 	if (!s)
 		return (NULL);
-	*(char*)s = '\0';
+	*(char *)s = '\0';
 	return (s);
 }
 
-char				*ft_strtrim(const char *s1, const char *ref)
+char	*ft_strtrim(const char *s1, const char *ref)
 {
 	int		endroit;
 	int		envers;
@@ -50,7 +50,7 @@ char				*ft_strtrim(const char *s1, const char *ref)
 	while (is_ref(s1[endroit], ref))
 		endroit++;
 	if (!s1[endroit])
-		return ((char*)return_null());
+		return ((char *)return_null());
 	while (is_ref(s1[envers], ref))
 		envers--;
 	return (ft_substr(s1, endroit, envers - endroit + 1));

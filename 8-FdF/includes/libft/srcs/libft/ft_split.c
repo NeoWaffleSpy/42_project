@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:05 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/30 16:54:01 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 11:29:27 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,24 @@ static char	**free_all(char **tab, int countdown)
 	return (NULL);
 }
 
-char		**ft_split(const char *str, char c)
+static int	init(int *index_tab, const char *str, char c, char ***tab)
+{
+	index_tab = 0;
+	if (!str)
+		return (0);
+	*tab = (void *)malloc(sizeof(char *) * (get_nb_split(str, c) + 1));
+	if (!*tab)
+		return (0);
+	return (1);
+}
+
+char	**ft_split(const char *str, char c)
 {
 	char	**tab;
 	int		index;
 	int		index_tab;
 
-	index_tab = 0;
-	if (!str)
-		return (NULL);
-	if (!(tab = (char**)malloc(sizeof(char*) * (get_nb_split(str, c) + 1))))
+	if (init(&index_tab, str, c, &tab) == 0)
 		return (NULL);
 	while (*str)
 	{
@@ -66,7 +74,8 @@ char		**ft_split(const char *str, char c)
 			index = 0;
 			while (str[index] && str[index] != c)
 				index++;
-			if (!(tab[index_tab++] = ft_substr(str, 0, index)))
+			tab[index_tab++] = ft_substr(str, 0, index);
+			if (!tab[index_tab++])
 				return (free_all(tab, index_tab));
 			str += index;
 		}

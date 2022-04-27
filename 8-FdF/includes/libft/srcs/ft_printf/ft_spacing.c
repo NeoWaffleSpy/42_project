@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 04:11:51 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/29 15:30:55 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 12:32:21 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ft_printf.h"
 
-void		ft_add_space(char **str, t_flags flags, int type)
+void	ft_add_space(char **str, t_flags flags, int type)
 {
 	char	*tmp;
 
@@ -20,7 +20,7 @@ void		ft_add_space(char **str, t_flags flags, int type)
 		return ;
 	if (flags.is_plus)
 	{
-		tmp = (char*)malloc(sizeof(char) * ft_strlen(*str) + 2);
+		tmp = (char *)malloc(sizeof(char) * ft_strlen(*str) + 2);
 		tmp[0] = '+';
 		ft_strcpy(&(tmp[1]), *str);
 		free(*str);
@@ -29,7 +29,7 @@ void		ft_add_space(char **str, t_flags flags, int type)
 	}
 	if (flags.is_single_space)
 	{
-		tmp = (char*)malloc(sizeof(char) * ft_strlen(*str) + 2);
+		tmp = (char *)malloc(sizeof(char) * ft_strlen(*str) + 2);
 		tmp[0] = ' ';
 		ft_strcpy(&(tmp[1]), *str);
 		free(*str);
@@ -39,7 +39,7 @@ void		ft_add_space(char **str, t_flags flags, int type)
 
 static void	decalage(char **str, char *tmp, char x)
 {
-	tmp = (char*)malloc(sizeof(char) * ft_strlen(*str) + 3);
+	tmp = (char *)malloc(sizeof(char) * ft_strlen(*str) + 3);
 	tmp[0] = '0';
 	tmp[1] = x;
 	ft_strcpy(&(tmp[2]), *str);
@@ -47,7 +47,7 @@ static void	decalage(char **str, char *tmp, char x)
 	*str = tmp;
 }
 
-void		ft_alternative(char **str, t_flags flags, int type)
+void	ft_alternative(char **str, t_flags flags, int type)
 {
 	char	*tmp;
 	char	x;
@@ -61,7 +61,7 @@ void		ft_alternative(char **str, t_flags flags, int type)
 			decalage(str, tmp, x);
 }
 
-void		ft_add_precis(char **str, t_flags flags)
+void	ft_add_precis(char **str, t_flags flags)
 {
 	char	padd;
 	char	*tmp;
@@ -71,7 +71,7 @@ void		ft_add_precis(char **str, t_flags flags)
 		flags.nb_dec++;
 	while (flags.nb_dec > (int)ft_strlen(*str))
 	{
-		tmp = (char*)malloc(sizeof(char) * ft_strlen(*str) + 2);
+		tmp = (char *)malloc(sizeof(char) * ft_strlen(*str) + 2);
 		tmp[0] = padd;
 		ft_strcpy(&(tmp[1]), *str);
 		if (**str == '-')
@@ -84,7 +84,7 @@ void		ft_add_precis(char **str, t_flags flags)
 	}
 }
 
-void		ft_add_padd(char **str, t_flags flags, int type)
+void	ft_add_padd(char **str, t_flags flags, int type)
 {
 	char	padd;
 	char	*tmp;
@@ -94,7 +94,7 @@ void		ft_add_padd(char **str, t_flags flags, int type)
 		padd = '0';
 	while (flags.nb_spaces > (int)ft_strlen(*str))
 	{
-		tmp = (char*)malloc(sizeof(char) * ft_strlen(*str) + 2);
+		tmp = (char *)malloc(sizeof(char) * ft_strlen(*str) + 2);
 		if (flags.is_padded_left)
 		{
 			ft_strcpy(tmp, *str);

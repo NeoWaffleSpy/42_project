@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 21:06:37 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/01 13:34:10 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 10:59:50 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,15 @@ static int	ft_itoa_size(int n)
 	return (size);
 }
 
-char		*ft_itoa(int n)
+static double	ternary(int boo, double a, double b)
+{
+	if (boo)
+		return (a);
+	else
+		return (b);
+}
+
+char	*ft_itoa(int n)
 {
 	char			*str;
 	int				i;
@@ -48,10 +56,11 @@ char		*ft_itoa(int n)
 		return (ft_strdup("-2147483648"));
 	size = ft_itoa_size(n);
 	i = 1;
-	if (!((str = (char *)malloc(sizeof(char) * ft_itoa_size(n) + 1))))
+	str = (char *)malloc(sizeof(char) * ft_itoa_size(n) + 1);
+	if (!str)
 		return (NULL);
-	tmp = (n < 0 ? -n : n);
-	*str = (n < 0 ? '-' : ' ');
+	tmp = (int)ternary(n < 0, (double)-n, (double)n);
+	*str = (char)ternary(n < 0, (double) '-', (double) ' ');
 	if (tmp == 0)
 		str[tmp] = '0';
 	while (tmp >= 1)

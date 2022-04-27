@@ -6,20 +6,20 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 14:39:01 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/06 14:42:51 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 11:04:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-int		ft_isspace(char c)
+int	ft_isspace(char c)
 {
-	if (c == ' ' ||
-		c == '\t' ||
-		c == '\n' ||
-		c == '\v' ||
-		c == '\f' ||
-		c == '\r')
+	if (c == ' '
+		|| c == '\t'
+		|| c == '\n'
+		|| c == '\v'
+		|| c == '\f'
+		|| c == '\r')
 		return (1);
 	return (0);
 }

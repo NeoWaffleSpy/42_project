@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:54:57 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/20 17:32:48 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 12:32:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	putstr_free(char *str)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	len = (int)ft_strlen(str);
@@ -23,7 +23,7 @@ static int	putstr_free(char *str)
 	return (len);
 }
 
-int			ft_printf(char *str, ...)
+int	ft_printf(char *str, ...)
 {
 	va_list	params;
 	int		result;

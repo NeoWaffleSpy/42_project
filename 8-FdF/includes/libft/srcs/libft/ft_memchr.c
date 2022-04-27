@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:20:17 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/25 23:31:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 10:41:23 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	tmp = NULL;
 	while (index < n)
 	{
-		if (*((char*)s) == (char)c)
-			return ((void*)s);
+		if (*((char *)s) == (char)c)
+			return ((void *)s);
 		s++;
 		index++;
 	}
