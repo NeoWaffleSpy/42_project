@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:23:05 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/20 15:07:15 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/30 16:44:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	loop_size(t_map *map, int fd)
 			if (map->map_size[1] == 0)
 				map->map_size[1] = buff;
 			else if (map->map_size[1] != buff)
-				call_error("Map not consistent - 1", tmp);
+				call_error("Map not consistent", tmp);
 		}
 		free(tmp);
 	}

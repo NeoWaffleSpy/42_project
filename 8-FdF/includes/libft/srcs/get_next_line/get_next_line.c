@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 17:36:50 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/27 12:31:20 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/30 16:43:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ static void	ft_chrandcpy(char **save)
 	return ;
 }
 
+static void	loopskip(char *buff, int *res, char **ptr, char **save, int fd)
+{
+	if (!(ft_strchr(save[fd], '\n')))
+		*res = read(fd, buff, BUFFER_SIZE);
+	buff[*res] = '\0';
+	*ptr = save[fd];
+	save[fd] = ft_strrejoin(*ptr, buff, *res);
+	free(*ptr);
+}
+
 int	get_next_line(int const fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
@@ -61,17 +71,10 @@ int	get_next_line(int const fd, char **line)
 	res = 1;
 	if (fd < 0 || BUFFER_SIZE < 1 || !line || read(fd, buff, 0) < 0)
 		return (-1);
-	save[fd] = (char *)ft_calloc(1, 1);
-	if (!(save[fd]) && save[fd] == NULL)
-		return (-1);
-	res = read(fd, buff, BUFFER_SIZE);
-	while (!(ft_strchr(save[fd], '\n')) && res > 0)
-	{
-		buff[res] = '\0';
-		ptr = save[fd];
-		save[fd] = ft_strrejoin(ptr, buff, res);
-		free(ptr);
-	}
+	if (!(save[fd]))
+		save[fd] = (char *)ft_calloc(1, 1);
+	while (!(ft_strchr(save[fd], '\n') || res <= 0))
+		loopskip(buff, &res, &ptr, save, fd);
 	if (res < 0)
 		return (-1);
 	*line = ft_substr(save[fd], 0, ft_strclen(save[fd]));
