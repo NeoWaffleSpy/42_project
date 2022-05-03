@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 12:56:09 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 15:06:30 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 12:33:22 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static char	*return_percent(void)
 {
 	char	*str;
 
-	str = (char*)malloc(sizeof(char) * (1 + 1));
+	str = (char *)malloc(sizeof(char) * (1 + 1));
 	str[0] = '%';
 	str[1] = '\0';
 	return (str);
 }
 
-char		*ft_parse(char **str, va_list params, int *len)
+char	*ft_parse(char **str, va_list params, int *len)
 {
 	t_flags	flags;
 	int		result;

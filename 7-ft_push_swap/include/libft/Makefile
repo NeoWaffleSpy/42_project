@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/01/05 12:22:16 by ncaba            ###   ########.fr        #
+#    Updated: 2021/09/06 14:45:51 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ LFTFILES =	ft_atoi.c \
 			ft_isascii.c \
 			ft_isdigit.c \
 			ft_isprint.c \
+			ft_isspace.c \
 			ft_itoa.c \
 			ft_lstadd_back.c \
 			ft_lstadd_front.c \
@@ -83,27 +84,14 @@ PFFILES =	ft_printf.c \
 			ft_spacing.c \
 			ft_itoa_base.c
 GNLFILES =	get_next_line.c
-VECFILES =	vec4_abs_sqr.c \
-			vec4_add_sub.c \
-			vec4_cross.c \
-			vec4_div.c \
-			vec4_dot.c \
-			vec4_mat.c \
-			vec4_mod.c \
-			vec4_mul.c \
-			vec4_new.c \
-			vec4_newa.c \
-			vec4_norm.c
 SRCSDIR = ./srcs/
 SRCS =	$(addprefix $(SRCSDIR)libft/, $(LFTFILES)) \
 		$(addprefix $(SRCSDIR)ft_printf/, $(PFFILES)) \
-		$(addprefix $(SRCSDIR)get_next_line/, $(GNLFILES)) \
-		$(addprefix $(SRCSDIR)t_vec4/, $(VECFILES))
+		$(addprefix $(SRCSDIR)get_next_line/, $(GNLFILES))
 OBJS = $(SRCS:.c=.o)
 HEADERS = 	libft.h \
 			ft_printf.h \
 			get_next_line.h \
-			intrisics.h \
 			ft_lib.h
 HEADDIR = ./include/
 HEADERFLAGS = $(addprefix -I $(HEADDIR), $(HEADERS))

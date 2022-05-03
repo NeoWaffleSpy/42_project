@@ -6,24 +6,25 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:52:33 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/17 15:35:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 12:41:21 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/ft_printf.h"
 
-static char		*zero_case(char *base)
+static char	*zero_case(char *base)
 {
-	char *str;
+	char	*str;
 
-	if (!(str = malloc(sizeof(char) * 2)))
+	str = malloc(sizeof(char) * 2);
+	if (!str)
 		return (NULL);
 	str[0] = base[0];
 	str[1] = '\0';
 	return (str);
 }
 
-static int		base_size(char *base)
+static int	base_size(char *base)
 {
 	int	i;
 
@@ -33,7 +34,7 @@ static int		base_size(char *base)
 	return (i);
 }
 
-static int		size_forecast(long long n, char *base)
+static int	size_forecast(long long n, char *base)
 {
 	int	i;
 	int	sign;
@@ -53,7 +54,7 @@ static int		size_forecast(long long n, char *base)
 	return (i + sign);
 }
 
-static void		str_rev(char *str)
+static void	str_rev(char *str)
 {
 	int		i;
 	int		size;
@@ -73,7 +74,7 @@ static void		str_rev(char *str)
 	}
 }
 
-char			*ft_itoa_base(long long n, char *base)
+char	*ft_itoa_base(long long n, char *base)
 {
 	int		i;
 	char	*str;
@@ -83,7 +84,8 @@ char			*ft_itoa_base(long long n, char *base)
 	n = neg == 1 ? n * -1 : n;
 	if (n == 0)
 		return (zero_case(base));
-	if (!(str = (char*)malloc(sizeof(char) * (size_forecast(n, base) + 1))))
+	str = (char *)malloc(sizeof(char) * (size_forecast(n, base) + 1));
+	if (!str)
 		return (NULL);
 	i = 0;
 	while (n > 0)

@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec4_norm.c                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 13:33:37 by ncaba             #+#    #+#             */
-/*   Updated: 2022/01/05 13:33:38 by ncaba            ###   ########.fr       */
+/*   Created: 2021/09/06 14:39:01 by ncaba             #+#    #+#             */
+/*   Updated: 2022/04/27 11:04:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
-#include "../../include/intrisics.h"
-#include <math.h>
 
-t_vec4	vec4_norm(const t_vec4 v)
+int	ft_isspace(char c)
 {
-	return (vec4_divf(v, vec4_mod(v)));
+	if (c == ' '
+		|| c == '\t'
+		|| c == '\n'
+		|| c == '\v'
+		|| c == '\f'
+		|| c == '\r')
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 13:02:56 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/26 00:05:35 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 10:06:30 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t size;
+	size_t	size;
 
 	size = 0;
 	while (s[size] != '\0')

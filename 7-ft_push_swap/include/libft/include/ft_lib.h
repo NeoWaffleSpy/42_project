@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:48:56 by ncaba             #+#    #+#             */
-/*   Updated: 2022/01/05 13:36:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/02/03 19:18:46 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "get_next_line.h"
-# include "intrisics.h"
 
 #endif

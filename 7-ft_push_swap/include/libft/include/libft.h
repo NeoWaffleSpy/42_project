@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2021/03/14 17:04:25 by ncaba            ###   ########.fr       */
+/*   Updated: 2021/09/06 14:42:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int					ft_isprint(int c);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
+int					ft_isspace(char c);
 int					ft_atoi(const char *nptr);
 int					ft_pow(int chiffre, int expo);
 char				*ft_itoa(int chiffre);

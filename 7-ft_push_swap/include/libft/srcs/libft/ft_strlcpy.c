@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 13:49:51 by ncaba             #+#    #+#             */
-/*   Updated: 2020/11/30 16:32:53 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/04/27 10:06:41 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t index;
+	size_t	index;
 
 	if (!src || !dst)
 		return (0);
