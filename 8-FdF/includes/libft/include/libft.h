@@ -6,15 +6,12 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/06 14:42:43 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 15:43:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# ifndef NULL
-#  define NULL 0
-# endif
 # define TRUE 1
 # define FALSE 0
 # define MAXINT 2147483647
@@ -22,7 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -47,7 +44,7 @@ int					ft_atoi(const char *nptr);
 int					ft_pow(int chiffre, int expo);
 char				*ft_itoa(int chiffre);
 char				*ft_strnstr(const char *big,
-								const char *little, size_t len);
+						const char *little, size_t len);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strdup(const char *s);
@@ -87,7 +84,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void*));
 void				ft_lstadd_front(t_list **alst, t_list *new);
 t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(void*),
-								void (*del)(void*));
+						void (*del)(void*));
 t_list				*ft_lstdup(t_list *lst);
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *list);

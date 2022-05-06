@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 14:31:46 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/29 14:38:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 14:45:37 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,38 +59,22 @@ static int	precision_flag(char *c, t_flags *fl, int *loop, va_list params)
 	return (-1);
 }
 
-static int	sort_letters(char c)
+static void	set_fun(int (*(*p))())
 {
-	if (c == 'u')
-		return (U_INT);
-	if (c == 's')
-		return (STRING);
-	if (c == 'p')
-		return (POINTER);
-	if (c == 'd' || c == 'i')
-		return (INT);
-	if (c == 'x')
-		return (HEX_LOW);
-	if (c == 'X')
-		return (HEX_UP);
-	if (c == 'c')
-		return (CHAR);
-	if (c == '%')
-		return (PERCENT);
-	return (0);
+	p[0] = indicateur_flag;
+	p[1] = width_flag;
+	p[2] = precision_flag;
 }
 
-int			ft_grab_type(char **str, t_flags *flags, va_list params)
+int	ft_grab_type(char **str, t_flags *flags, va_list params)
 {
 	int		loop;
 	int		type;
 	int		fc;
 	int		(*(*p))(char*, t_flags*, int*, va_list);
 
-	p = malloc(sizeof(void*) * 3);
-	p[0] = indicateur_flag;
-	p[1] = width_flag;
-	p[2] = precision_flag;
+	p = malloc(sizeof(void *) * 3);
+	set_fun(p);
 	fc = 0;
 	loop = 1;
 	type = 0;
@@ -98,7 +82,8 @@ int			ft_grab_type(char **str, t_flags *flags, va_list params)
 	{
 		type = sort_letters((*str)[loop]);
 		if (type == 0)
-			while ((type = p[fc++](&((*str)[loop]), flags, &loop, params)) < 0)
+			while (get_type(&type, p[fc++](&((*str)[loop]),
+				flags, &loop, params)) < 0)
 				if (fc >= 3)
 					return (-1);
 		loop++;

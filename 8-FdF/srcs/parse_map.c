@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:23:05 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/30 16:44:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 15:45:52 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	set_map(t_map *map, char *filename)
 
 void	get_map(t_map *map, char *filename)
 {
-	int loop;
+	int	loop;
 
 	map->contraste = 2;
 	get_size(map, filename);

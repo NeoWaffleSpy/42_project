@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 14:52:33 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/27 12:41:21 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 15:06:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ char	*ft_itoa_base(long long n, char *base)
 	char	*str;
 	int		neg;
 
-	neg = n < 0 ? 1 : 0;
-	n = neg == 1 ? n * -1 : n;
+	get_neg(&n, &neg);
 	if (n == 0)
 		return (zero_case(base));
 	str = (char *)malloc(sizeof(char) * (size_forecast(n, base) + 1));

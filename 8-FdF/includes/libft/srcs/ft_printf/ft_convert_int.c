@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 22:53:00 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/19 16:21:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 14:50:58 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	move_sign(char *str)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = str;
 	while (*str != '-')

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 17:01:34 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/28 15:06:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 15:07:49 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,15 @@ void	ft_spacing_check(char *str, t_flags *flags, int *loop, va_list params)
 		flags->is_padded_left = 1;
 		flags->is_padded_zero = FALSE;
 	}
+}
+
+void	get_neg(long long *n, int *neg)
+{
+	if (*n < 0)
+	{
+		*neg = 1;
+		*n *= -1;
+	}
+	else
+		*neg = 0;
 }
