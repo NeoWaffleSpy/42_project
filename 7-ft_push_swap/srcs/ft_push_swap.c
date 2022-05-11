@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:23:38 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/04 17:53:38 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/11 23:31:56 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,14 @@ static void	print_iter(t_list *lst)
 
 static void operate(t_list **a, t_list **b)
 {
-//	print_iter(*a);
 	sa(a, b);
-	print_iter(*a);
 	pb(a, b);
-	print_iter(*a);
-	print_iter(*b);
-	ft_lstclear(a, free);
+	ra(a, b);
+	rra(a, b);
+	if (check_sorted(a))
+		call_info("List sorted", "");
+	else
+		call_info("List not sorted", "");
 }
 
 int	main(int argc, char **argv)
@@ -64,6 +65,7 @@ int	main(int argc, char **argv)
 	t_list	**a;
 	t_list	**b;
 
+	(void)print_iter;
 	a = (t_list**)malloc(sizeof(int*));
 	b = (t_list**)malloc(sizeof(int*));
 	*a = 0;
@@ -72,6 +74,8 @@ int	main(int argc, char **argv)
 		return(0);
 	create_pile(argc, argv, a);
 	operate(a, b);
+	ft_lstclear(a, free);
+	ft_lstclear(b, free);
 	free(a);
 	free(b);
 }

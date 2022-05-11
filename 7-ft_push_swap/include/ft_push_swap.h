@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:34:51 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/04 17:29:47 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/11 23:29:53 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	rrr(t_list **a, t_list **b);
 t_list	*get_chain(t_list *a, int iter);
 void	call_error(char *error, char *value);
 void	call_info(char *info, char *value);
+int		check_sorted(t_list **a);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/05/04 16:06:35 by ncaba            ###   ########.fr        #
+#    Updated: 2022/05/11 23:30:14 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCSFILES	=	ft_push_swap.c \
 				push.c \
 				rev_rotate.c \
 				rotate.c \
+				sorter.c \
 				swap.c \
 				sys_call.c \
 
