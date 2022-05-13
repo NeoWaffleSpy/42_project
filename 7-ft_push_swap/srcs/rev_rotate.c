@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:23:46 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/11 23:08:51 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/13 06:06:57 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_push_swap.h"
 
-void	rra(t_list **a, t_list **b)
+void	rra(t_list **a, t_list **b, int dual)
 {
 	t_list	*tmp;
 
@@ -25,17 +25,31 @@ void	rra(t_list **a, t_list **b)
 	ft_lstadd_front(a, ft_lstnew(tmp->content));
 	get_chain(*a, ft_lstsize(*a)-2)->next = 0;
 	free(tmp);
-	ft_printf("rra\n");
+	if (dual)
+		ft_printf("rra\n");
 }
 
-void	rrb(t_list **a, t_list **b)
+void	rrb(t_list **a, t_list **b, int dual)
 {
+	t_list	*tmp;
+
 	(void)a;
-	(void)b;
+	if (ft_lstsize(*b) < 1)
+		call_error("Invalid operation:", "RRB on empty list B");
+	if (ft_lstsize(*b) == 1)
+		call_error("Invalid operation:", "RRB on single member list B");
+	tmp = get_chain(*b, ft_lstsize(*b)-1);
+	ft_lstadd_front(b, ft_lstnew(tmp->content));
+	get_chain(*b, ft_lstsize(*b)-2)->next = 0;
+	free(tmp);
+	if (dual)
+		ft_printf("rrb\n");
 }
 
-void	rrr(t_list **a, t_list **b)
+void	rrr(t_list **a, t_list **b, int dual)
 {
-	(void)a;
-	(void)b;
+	(void)dual;
+	rra(a, b, 0);
+	rrb(a, b, 0);
+	ft_printf("rrr\n");
 }

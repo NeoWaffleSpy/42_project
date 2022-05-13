@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:23:22 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/11 21:40:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/13 07:26:13 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_push_swap.h"
 
-void	pa(t_list **a, t_list **b)
+void	pa(t_list **a, t_list **b, int dual)
 {
 	t_list	*tmp;
 
@@ -27,11 +27,15 @@ void	pa(t_list **a, t_list **b)
 		free(tmp);
 	}
 	else
-		ft_lstdelone(*b, free);
-	ft_printf("pa\n");
+	{
+		free(*b);
+		*b = NULL;
+	}
+	if (dual)
+		ft_printf("pa\n");
 }
 
-void	pb(t_list **a, t_list **b)
+void	pb(t_list **a, t_list **b, int dual)
 {
 	t_list	*tmp;
 
@@ -46,6 +50,10 @@ void	pb(t_list **a, t_list **b)
 		free(tmp);
 	}
 	else
-		ft_lstdelone(*a, free);
-	ft_printf("pb\n");
+	{
+		free(*b);
+		*a = NULL;
+	}
+	if (dual)
+		ft_printf("pb\n");
 }

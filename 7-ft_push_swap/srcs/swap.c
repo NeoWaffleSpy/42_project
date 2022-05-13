@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:22:32 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/04 17:38:59 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/13 06:18:26 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,15 @@ t_list	*get_chain(t_list *list, int place)
 	return (iter);
 }
 
-void	sa(t_list **a, t_list **b)
+int	get_content(t_list *list, int place)
+{
+	int	*tmp;
+
+	tmp = get_chain(list, place)->content;
+	return (*tmp);
+}
+
+void	sa(t_list **a, t_list **b, int dual)
 {
 	t_list	*tmp_list;
 	int	*tmp_val;
@@ -41,10 +49,11 @@ void	sa(t_list **a, t_list **b)
 	tmp_val = tmp_list->content;
 	tmp_list->content = (*a)->content;
 	(*a)->content = tmp_val;
-	ft_printf("sa\n");
+	if (dual)
+		ft_printf("sa\n");
 }
 
-void	sb(t_list **a, t_list **b)
+void	sb(t_list **a, t_list **b, int dual)
 {
 	t_list *tmp;
 	int	*tmp_val;
@@ -56,11 +65,14 @@ void	sb(t_list **a, t_list **b)
 	tmp_val = tmp->content;
 	tmp->content = (*b)->content;
 	(*b)->content = tmp_val;
-	ft_printf("sb\n");
+	if (dual)
+		ft_printf("sb\n");
 }
 
-void	ss(t_list **a, t_list **b)
+void	ss(t_list **a, t_list **b, int dual)
 {
-	sa(a, b);
-	sb(a, b);
+	(void)dual;
+	sa(a, b, 0);
+	sb(a, b, 0);
+	ft_printf("ss\n");
 }

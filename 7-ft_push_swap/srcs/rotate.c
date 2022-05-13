@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:23:34 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/11 23:02:50 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/13 06:05:14 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_push_swap.h"
 
-void	ra(t_list **a, t_list **b)
+void	ra(t_list **a, t_list **b, int dual)
 {
 	t_list	*tmp;
 
@@ -26,10 +26,11 @@ void	ra(t_list **a, t_list **b)
 	(*a)->content = tmp->content;
 	(*a)->next = tmp->next;
 	free(tmp);
-	ft_printf("ra\n");
+	if (dual)
+		ft_printf("ra\n");
 }
 
-void	rb(t_list **a, t_list **b)
+void	rb(t_list **a, t_list **b, int dual)
 {
 	t_list	*tmp;
 
@@ -43,11 +44,14 @@ void	rb(t_list **a, t_list **b)
 	(*b)->content = tmp->content;
 	(*b)->next = tmp->next;
 	free(tmp);
-	ft_printf("rb\n");
+	if (dual)
+		ft_printf("rb\n");
 }
 
-void	rr(t_list **a, t_list **b)
+void	rr(t_list **a, t_list **b, int dual)
 {
-	ra(a, b);
-	rb(a, b);
+	(void)dual;
+	ra(a, b, 0);
+	rb(a, b, 0);
+	ft_printf("rr\n");
 }
