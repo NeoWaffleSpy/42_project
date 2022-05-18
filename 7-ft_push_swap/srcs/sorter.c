@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:17:16 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/13 07:23:12 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/18 13:57:08 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,21 @@ void	sort_big(t_list **a, t_list **b)
 
 	size = ft_lstsize(*a);
 	max_bit = 0;
-	while ((size - 1) >> max_bit != 0)
+	while (83 >> max_bit != 0)
 		max_bit++;
-	i = -1;
-	while (++i < max_bit)
+	i = 0;
+	while (!check_sorted(a))
 	{
 		j = -1;
-		while (++j < size)
+		while (++j < size - 1)
 		{
 			if (((get_content(*a, 0) >> i) & 1) == 1)
 				ra(a, b, 1);
 			else
 				pb(a, b, 1);
 		}
-		print_iter(*a);
-		print_iter(*b);
 		while (ft_lstsize(*b) > 0)
 			pa(a, b, 1);
-		print_iter(*a);
-		print_iter(*b);
+		i++;
 	}
 }

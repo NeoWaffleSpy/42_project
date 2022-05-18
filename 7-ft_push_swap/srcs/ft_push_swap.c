@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:23:38 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/13 07:21:25 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/18 14:00:27 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,14 @@ void	print_iter(t_list *lst)
 
 static void operate(t_list **a, t_list **b)
 {
-	print_iter(*a);
-	if (ft_lstsize(*a) == 2 && get_content(*a, 0) > get_content(*a, 1))
-		sa(a, b, 1);
-	if (ft_lstsize(*a) == 3)
-		sort_3(a, b);
-	if (ft_lstsize(*a) == 4)
-		sort_4_5(a, b, 1);
-	if (ft_lstsize(*a) == 5)
-		sort_4_5(a, b, 2);
-	if (ft_lstsize(*a) > 5)
-		sort_big(a, b);
 	if (check_sorted(a))
-		call_info("List sorted", "");
-	else
-		call_info("List not sorted", "");
-	print_iter(*a);
+		return;
+	else if (ft_lstsize(*a) == 2)
+		sa(a, b, 1);
+	else if (ft_lstsize(*a) == 3)
+		sort_3(a, b);
+	else if (ft_lstsize(*a) > 3)
+		sort_big(a, b);
 }
 
 int	main(int argc, char **argv)
