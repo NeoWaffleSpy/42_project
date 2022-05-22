@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:23:22 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/13 07:26:13 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/22 17:50:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	pb(t_list **a, t_list **b, int dual)
 	}
 	else
 	{
-		free(*b);
+		free(*a);
 		*a = NULL;
 	}
 	if (dual)

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:17:16 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/18 13:57:08 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/22 18:09:32 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,10 @@ void	sort_4_5(t_list **a, t_list **b, int median)
 void	sort_big(t_list **a, t_list **b)
 {
 	int	size;
-	int	max_bit;
 	int	i;
 	int	j;
 
 	size = ft_lstsize(*a);
-	max_bit = 0;
-	while (83 >> max_bit != 0)
-		max_bit++;
 	i = 0;
 	while (!check_sorted(a))
 	{
@@ -111,4 +107,116 @@ void	sort_big(t_list **a, t_list **b)
 			pa(a, b, 1);
 		i++;
 	}
+}
+
+static void	set_pos(int *lst_order, int num, int len)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	while (i < len)
+	{
+		if (lst_order[i] < num)
+		{
+			tmp = lst_order[i];
+			lst_order[i] = num;
+			num = tmp;
+		}
+		i++;
+	}
+	lst_order[i] = num;
+}
+
+static int	get_offset(int *lst_order, int num, int pos, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		ft_printf("i = %d\n", i);
+		if (lst_order[i] == num)
+		{
+			ft_printf("pass 1 and pos = %d\n", pos);
+			if (i == 0 && pos > len / 2 && lst_order[len - 1] < num)
+				return (i - pos + len - 1);
+			if (i >= pos || (i < len && lst_order[i + 1] != num) || pos - i > len / 2)
+			{
+				if (len > 2 && i - pos > len / 2)
+					return (i - pos - len);
+				else if (len > 2 && i - pos < len / 2 * -1)
+					return (i - pos + len);
+				else
+					return (i - pos);
+			}
+			ft_printf("...or not\n");
+		}
+		i++;
+	}
+	call_error("WTF", "get_offset");
+	return (0);
+}
+
+void	sort_big_new(t_list **a, t_list **b)
+{
+	int	*lst_order;
+	int	len;
+	int	pos;
+	int offset;
+
+	pos = 0;
+	len = ft_lstsize(*a);
+	lst_order = malloc(sizeof(int) * (len + 1));
+	lst_order[0] = get_content(*a, 0);
+	print_iter(*a);
+	print_iter(*b);
+	pb(a, b, 1);
+	while (ft_lstsize(*a) > 0)
+	{
+		pos = pos % (len - (ft_lstsize(*a)));
+		set_pos(lst_order, get_content(*a, 0), len - ft_lstsize(*a));
+		offset = get_offset(lst_order, get_content(*a, 0),
+			pos, len - ft_lstsize(*a) + 1);
+		while ((offset > 0 || offset < -1) && ft_lstsize(*b) >= 2)
+		{
+			if (offset < 0)
+			{
+				rrb(a, b, 1);
+				offset++;
+				pos--;
+			}
+			else if (offset > 0)
+			{
+				rb(a, b, 1);
+				offset--;
+				pos++;
+			}
+		}
+		if (pos == ft_lstsize(*b))
+			pos++;
+		pb(a, b, 1);
+		if (offset == -1)
+			pos--;
+		if (ft_lstsize(*b) == 2 && offset != 0)
+			sb(a, b, 1);
+		print_iter(*a);
+		print_iter(*b);
+	}
+	pos = pos % (len - (ft_lstsize(*a)));
+	while (pos > len / 2 && pos < len)
+	{
+		pos++;
+		rb(a, b, 1);
+	}
+	while (pos < len / 2 && pos > 0)
+	{
+		pos--;
+		rrb(a, b, 1);
+	}
+	while (ft_lstsize(*b) > 0)
+		pa(a, b, 1);
+	free(lst_order);
+	print_iter(*a);
+	print_iter(*b);
 }

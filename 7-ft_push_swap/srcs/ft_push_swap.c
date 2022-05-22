@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:23:38 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/18 14:00:27 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/21 17:54:52 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void operate(t_list **a, t_list **b)
 	else if (ft_lstsize(*a) == 3)
 		sort_3(a, b);
 	else if (ft_lstsize(*a) > 3)
-		sort_big(a, b);
+		sort_big_new(a, b);
 }
 
 int	main(int argc, char **argv)
