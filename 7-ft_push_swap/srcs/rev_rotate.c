@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:23:46 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/13 06:06:57 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/26 16:32:05 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	rra(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*a) < 1)
 		call_error("Invalid operation:", "RRA on empty list A");
 	if (ft_lstsize(*a) == 1)
-		call_error("Invalid operation:", "RRA on single member list A");
+		return;
 	tmp = get_chain(*a, ft_lstsize(*a)-1);
 	ft_lstadd_front(a, ft_lstnew(tmp->content));
 	get_chain(*a, ft_lstsize(*a)-2)->next = 0;
@@ -37,7 +37,7 @@ void	rrb(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*b) < 1)
 		call_error("Invalid operation:", "RRB on empty list B");
 	if (ft_lstsize(*b) == 1)
-		call_error("Invalid operation:", "RRB on single member list B");
+		return;
 	tmp = get_chain(*b, ft_lstsize(*b)-1);
 	ft_lstadd_front(b, ft_lstnew(tmp->content));
 	get_chain(*b, ft_lstsize(*b)-2)->next = 0;
