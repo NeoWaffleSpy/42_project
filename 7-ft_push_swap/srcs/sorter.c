@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 23:17:16 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/26 18:25:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/30 17:53:11 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_push_swap.h"
 
-int	check_sorted(t_list **a)
+int	check_sorted(t_list **a, int rev)
 {
 	t_list	*tmp;
 	t_list	*tmp_next;
@@ -25,7 +25,9 @@ int	check_sorted(t_list **a)
 		tmp_next = tmp->next;
 		val1 = tmp->content;
 		val2 = tmp_next->content;
-		if (*val1 > *val2)
+		if (rev == 0 && *val1 > *val2)
+			return (0);
+		else if (rev == 1 && *val1 < *val2)
 			return (0);
 		tmp = tmp->next;
 	}
@@ -155,7 +157,7 @@ void	sort_big_2(t_list **a, t_list **b)
 	int	k;
 
 	k = 0;
-	while (!check_sorted(a) && k < 10)
+	while (!check_sorted(a, 0) && k < 10)
 	{
 		i = -10;
 		while (++i < 10)
@@ -198,8 +200,14 @@ void	sort_big_3_1(t_list **a, t_list **b, int k)
 			else
 				pb(a, b, 1);
 		}
+		
 	}
-	sort_big_3_2(b, a, k + 1);
+//	print_iter(*b);
+	if (!check_sorted(b, 1))
+		sort_big_3_2(a, b, k + 1);
+	else
+		while (ft_lstsize(*b))
+			pa(a, b, 1);
 }
 
 void	sort_big_3_2(t_list **a, t_list **b, int k)
@@ -211,20 +219,21 @@ void	sort_big_3_2(t_list **a, t_list **b, int k)
 	i = 10;
 	while (--i > -10)
 	{
-		size = ft_lstsize(*a);
-		if (!check_exist(*a, i, k))
+		size = ft_lstsize(*b);
+		if (!check_exist(*b, i, k))
 			continue;
 		j = -1;
 		while (++j < size)
 		{
-			if (((get_content(*a, 0) / ft_pow(10, k)) % 10) != i)
-				ra(a, b, 1);
+			if (((get_content(*b, 0) / ft_pow(10, k)) % 10) != i)
+				rb(a, b, 1);
 			else
-				pb(a, b, 1);
+				pa(a, b, 1);
 		}
 	}
-	if (!check_sorted(b))
-		sort_big_3_1(b, a, k + 1);
+//	print_iter(*a);
+	if (!check_sorted(a, 0))
+		sort_big_3_1(a, b, k + 1);
 }
 
 
@@ -240,7 +249,7 @@ static void	set_pos(int *lst_order, int num, int len, int *pos)
 	{
 		if (lst_order[i] < num)
 		{
-			if (check && *pos >= i)
+			if (check && *pos > i)
 			{
 				*pos += 1;
 				check = 0;
@@ -274,6 +283,7 @@ static int	get_offset(int *lst_order, int num, int pos, int len)
 	int	neg;
 
 	i = 0;
+	ft_printf("pos = %d - num = %d\n", pos, num);
 	while (i <= len / 2)
 	{
 		posi = (pos + i) % len;
@@ -311,6 +321,7 @@ void	sort_big_new(t_list **a, t_list **b)
 		set_pos(lst_order, get_content(*a, 0), len - ft_lstsize(*a), &pos);
 		offset = get_offset(lst_order, get_content(*a, 0),
 			pos, len - ft_lstsize(*a) + 1);
+		ft_printf("offset = %d\n", offset);
 		while ((offset > 0 || offset < -1) && ft_lstsize(*b) >= 2)
 		{
 			if (offset < -1)
@@ -350,6 +361,4 @@ void	sort_big_new(t_list **a, t_list **b)
 	while (ft_lstsize(*b) > 0)
 		pa(a, b, 1);
 	free(lst_order);
-//	print_iter(*a);
-//	print_iter(*b);
 }
