@@ -6,18 +6,20 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:23:05 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/06 15:45:52 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:45:19 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static void	loop_size(t_map *map, int fd)
+static void	loop_size(t_map *map, int fd, t_struct *data)
 {
 	int			buff;
 	char		*line;
 	char		*tmp;
+	int			err;
 
+	err = 0;
 	while (get_next_line(fd, &line))
 	{
 		tmp = line;
@@ -34,27 +36,29 @@ static void	loop_size(t_map *map, int fd)
 			if (map->map_size[1] == 0)
 				map->map_size[1] = buff;
 			else if (map->map_size[1] != buff)
-				call_error("Map not consistent", tmp);
+				err = map->map_size[0];
 		}
 		free(tmp);
 	}
 	free(line);
+	if (err > 0)
+		call_destroy("Map not consistent", "", 1, data);
 }
 
-static void	get_size(t_map *map, char *filename)
+static void	get_size(t_map *map, char *filename, t_struct *data)
 {
 	int			fd;
 
 	if (filename[ft_strlen(filename)-1] == '/')
-		call_error("Filename is a folder", filename);
+		call_destroy("Filename is a folder", filename, 1, data);
 	if (ft_strcmp(&filename[ft_strlen(filename)-4], ".fdf"))
-		call_error("Filename extension is not .fdf", filename);
+		call_destroy("Filename extension is not .fdf", filename, 1, data);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		call_error("Filename invalid", filename);
+		call_destroy("Filename invalid", filename, 1, data);
 	map->map_size[0] = 0;
 	map->map_size[1] = 0;
-	loop_size(map, fd);
+	loop_size(map, fd, data);
 	close(fd);
 }
 
@@ -72,7 +76,7 @@ static int	*fill_map(t_map *map, char *line)
 		if (*line == '-' || ft_isdigit(*line))
 			tab[loop] = (int)(ft_atoi(line));
 		else
-			call_error("Invalid character in map - 1:", line);
+			tab[loop] = 0;
 		loop++;
 		line = is_part_map(get_next_value(line));
 		if (tab[loop] > map->max_val)
@@ -83,44 +87,45 @@ static int	*fill_map(t_map *map, char *line)
 	return (tab);
 }
 
-static void	set_map(t_map *map, char *filename)
+static void	set_map(t_map *map, char *filename, t_struct *data)
 {
 	char		*line;
 	int			fd;
 	int			loop;
+	int			err;
 
 	loop = 0;
+	err = 0;
 	fd = open(filename, O_RDONLY);
 	map->map = (int **)calloc(sizeof(int *), map->map_size[0]);
 	while (get_next_line(fd, &line))
 	{
 		if (!ft_isdigit(*is_part_map(line)) && *is_part_map(line) != '-')
-		{
-			free(line);
-			call_error("Invalid character in map - 2:", line);
-		}
+			err = loop;
 		map->map[loop] = fill_map(map, line);
 		loop++;
 		free(line);
 	}
 	free(line);
 	close(fd);
+	if (err > 0)
+		call_destroy("Invalid character in line:", ft_itoa(err), 2, data);
 }
 
-void	get_map(t_map *map, char *filename)
+void	get_map(t_map *map, char *filename, t_struct *data)
 {
 	int	loop;
 
 	map->contraste = 2;
-	get_size(map, filename);
+	get_size(map, filename, data);
 	if (map->map_size[0] < 2 || map->map_size[1] < 1)
-		call_error("No map in file:", filename);
+		call_destroy("No map in file:", filename, 1, data);
 	if (map->map_size[0] < 4 || map->map_size[1] < 4)
-		call_error("Map size must be at least 4x4:", filename);
+		call_destroy("Map size must be at least 4x4:", filename, 1, data);
 	map->zoom = 60 - (map->map_size[0] / 2);
 	if (map->zoom < 2)
 		map->zoom = 2;
-	set_map(map, filename);
+	set_map(map, filename, data);
 	map->grid = (t_coord **)calloc(sizeof(t_coord *), map->map_size[0]);
 	loop = 0;
 	while (loop < map->map_size[0])

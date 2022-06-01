@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:04:59 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/20 14:01:32 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:07:49 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ t_keys	init_keys(void)
 	return (keys);
 }
 
-void	init_frame(char *filename, t_graph *frame, t_map *map)
+void	init_frame(char *filename, t_graph *frame, t_map *map, t_struct *data)
 {
 	int		sizex;
 	int		sizey;
 
 	frame->mlx_ptr = mlx_init();
-	get_map(map, filename);
+	get_map(map, filename, data);
 	mlx_get_screen_size(frame->mlx_ptr, &sizex, &sizey);
 	frame->res[0] = sizex;
 	frame->res[1] = sizey;

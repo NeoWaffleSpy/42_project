@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/20 14:02:20 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:48:56 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,36 @@ void	call_error(char *error, char *value)
 {
 	ft_printf("%s[%sError%s]: ", WHITE, RED, WHITE);
 	ft_printf("%s %s%s%s\n", error, YELLOW, value, WHITE);
+	exit(1);
+}
+
+void	call_destroy(char *error, char *value, int free_bool, t_struct *data)
+{
+	int		loop;
+	t_graph	*frame;
+	t_map	*map;
+
+	ft_printf("%s[%sError%s]: ", WHITE, RED, WHITE);
+	ft_printf("%s %s%s%s\n", error, YELLOW, value, WHITE);
+	if (free_bool > 1)
+	{
+		map = &data->map;
+		loop = 0;
+		while (loop < map->map_size[0])
+		{
+			free(map->map[loop]);
+			loop++;
+		}
+		free(map->map);
+	}
+	if (free_bool > 0)
+	{
+		frame = &data->frame;
+		mlx_destroy_display(frame->mlx_ptr);
+		free(frame->mlx_ptr);
+	}
+	else
+		call_destroy_frame(data);
 	exit(1);
 }
 

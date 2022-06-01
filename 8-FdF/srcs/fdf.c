@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:25:41 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/27 11:02:52 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:06:09 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	main(int ac, char **av)
 	t_struct	data_struct;
 
 	if (ac != 2)
-		call_error("Usage: %s <path_to_map>", av[0]);
+		call_error("Usage: ./fdf <path_to_map>", av[0]);
 	data_struct.timer.old_t = 0;
 	data_struct.keys = init_keys();
-	init_frame(av[1], &data_struct.frame, &data_struct.map);
+	init_frame(av[1], &data_struct.frame, &data_struct.map, &data_struct);
 	init_hooks(&data_struct);
 	mlx_loop(data_struct.frame.mlx_ptr);
 	call_destroy_frame(&data_struct);

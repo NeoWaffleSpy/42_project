@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 17:26:15 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/06 11:13:57 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/01 13:10:39 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,10 @@ t_shapes		get_rect_by_coord(int x0, int y0, int x1, int y1);
 float			get_dist(double p1[2], double p2[2]);
 char			*is_part_map(char *line);
 char			*get_next_value(char *line);
-void			init_frame(char *data, t_graph *frame, t_map *map);
+void			init_frame(char *data, t_graph *frame, t_map *map,
+					t_struct *data_struct);
 void			parse(char *filename, t_graph *frame, t_map *map);
-void			get_map(t_map *map, char *filename);
+void			get_map(t_map *map, char *filename, t_struct *data);
 void			init_hooks(t_struct *data_struct);
 void			draw_pixel(t_data *data, int x, int y, unsigned int color);
 void			draw_square(t_data *data, t_shapes shape, unsigned int color);
@@ -133,6 +134,8 @@ void			check_map(t_map *map);
 void			update_key(t_struct *data_struct);
 void			call_destroy_frame(t_struct *data_struct);
 void			call_error(char *error, char *value);
+void			call_destroy(char *error, char *value, int free_bool,
+					t_struct *data);
 void			call_info(char *info, char *value);
 void			set_grid(t_map *map);
 int				call_loop_end(int keycode, t_graph *frame);
