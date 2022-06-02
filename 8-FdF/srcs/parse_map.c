@@ -6,20 +6,18 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:23:05 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/01 13:45:19 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/02 15:53:11 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static void	loop_size(t_map *map, int fd, t_struct *data)
+static void	loop_size(t_map *map, int fd, int *err)
 {
 	int			buff;
 	char		*line;
 	char		*tmp;
-	int			err;
 
-	err = 0;
 	while (get_next_line(fd, &line))
 	{
 		tmp = line;
@@ -36,19 +34,19 @@ static void	loop_size(t_map *map, int fd, t_struct *data)
 			if (map->map_size[1] == 0)
 				map->map_size[1] = buff;
 			else if (map->map_size[1] != buff)
-				err = map->map_size[0];
+				*err = map->map_size[0];
 		}
 		free(tmp);
 	}
 	free(line);
-	if (err > 0)
-		call_destroy("Map not consistent", "", 1, data);
 }
 
 static void	get_size(t_map *map, char *filename, t_struct *data)
 {
 	int			fd;
+	int			err;
 
+	err = 0;
 	if (filename[ft_strlen(filename)-1] == '/')
 		call_destroy("Filename is a folder", filename, 1, data);
 	if (ft_strcmp(&filename[ft_strlen(filename)-4], ".fdf"))
@@ -58,7 +56,9 @@ static void	get_size(t_map *map, char *filename, t_struct *data)
 		call_destroy("Filename invalid", filename, 1, data);
 	map->map_size[0] = 0;
 	map->map_size[1] = 0;
-	loop_size(map, fd, data);
+	loop_size(map, fd, &err);
+	if (err > 0)
+		call_destroy("Map not consistent", "", 1, data);
 	close(fd);
 }
 
