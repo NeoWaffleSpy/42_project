@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:05 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/27 11:29:27 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/04 22:08:21 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	**free_all(char **tab, int countdown)
 
 static int	init(int *index_tab, const char *str, char c, char ***tab)
 {
-	index_tab = 0;
+	*index_tab = 0;
 	if (!str)
 		return (0);
 	*tab = (void *)malloc(sizeof(char *) * (get_nb_split(str, c) + 1));
@@ -74,7 +74,7 @@ char	**ft_split(const char *str, char c)
 			index = 0;
 			while (str[index] && str[index] != c)
 				index++;
-			tab[index_tab++] = ft_substr(str, 0, index);
+			tab[index_tab] = ft_substr(str, 0, index);
 			if (!tab[index_tab++])
 				return (free_all(tab, index_tab));
 			str += index;

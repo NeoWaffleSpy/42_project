@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 23:18:35 by ncaba             #+#    #+#             */
-/*   Updated: 2021/09/06 14:42:43 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/04 02:04:10 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 typedef struct		s_list
 {
 	void			*content;
+	int				index;
 	struct s_list	*next;
 }					t_list;
 typedef int			t_boolean;
@@ -89,7 +90,7 @@ t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(void*),
 								void (*del)(void*));
 t_list				*ft_lstdup(t_list *lst);
-t_list				*ft_lstnew(void *content);
+t_list				*ft_lstnew(void *content, int index);
 int					ft_lstsize(t_list *list);
 
 #endif

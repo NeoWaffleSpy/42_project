@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:23:34 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/26 16:31:56 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/04 02:20:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	ra(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*a) == 1)
 		return;
 	tmp = get_chain(*a, 1);
-	ft_lstadd_back(a, ft_lstnew((*a)->content));
+	ft_lstadd_back(a, ft_lstnew((*a)->content, (*a)->index));
 	(*a)->content = tmp->content;
+	(*a)->index = tmp->index;
 	(*a)->next = tmp->next;
 	free(tmp);
 	if (dual)
@@ -40,8 +41,9 @@ void	rb(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*b) == 1)
 		return;
 	tmp = get_chain(*b, 1);
-	ft_lstadd_back(b, ft_lstnew((*b)->content));
+	ft_lstadd_back(b, ft_lstnew((*b)->content, (*b)->index));
 	(*b)->content = tmp->content;
+	(*b)->index = tmp->index;
 	(*b)->next = tmp->next;
 	free(tmp);
 	if (dual)

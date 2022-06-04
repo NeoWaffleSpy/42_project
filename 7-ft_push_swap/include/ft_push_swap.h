@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:34:51 by ncaba             #+#    #+#             */
-/*   Updated: 2022/05/30 17:44:08 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/04 01:20:42 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		get_content(t_list *list, int place);
 void	sort_3(t_list **a, t_list **b);
 void	sort_4_5(t_list **a, t_list **b, int median);
 void	sort_big(t_list **a, t_list **b);
+void	sort_big_index(t_list **a, t_list **b);
 void	sort_big_2(t_list **a, t_list **b);
 void	sort_big_3_1(t_list **a, t_list **b, int k);
 void	sort_big_3_2(t_list **a, t_list **b, int k);

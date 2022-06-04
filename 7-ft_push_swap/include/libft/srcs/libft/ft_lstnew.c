@@ -6,13 +6,13 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:48 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/27 10:43:42 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/04 02:03:44 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(void *content, int index)
 {
 	t_list		*item;
 
@@ -20,6 +20,7 @@ t_list	*ft_lstnew(void *content)
 	if (!item)
 		return (NULL);
 	item->content = content;
+	item->index = index;
 	item->next = NULL;
 	return (item);
 }

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:08 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/27 10:45:02 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/04 02:05:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(void*), void (*del)(void*))
 
 	if (!lst || !f)
 		return (NULL);
-	new_elem = ft_lstnew(f(lst->content));
+	new_elem = ft_lstnew(f(lst->content), 0);
 	if (!new_elem)
 		return (NULL);
 	new_lst = new_elem;
 	lst = lst->next;
 	while (lst)
 	{
-		new_elem = ft_lstnew(f(lst->content));
+		new_elem = ft_lstnew(f(lst->content), 0);
 		if (!new_elem)
 		{
 			ft_lstclear(&new_lst, del);
