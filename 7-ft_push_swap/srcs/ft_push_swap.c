@@ -6,22 +6,32 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:23:38 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/04 22:44:17 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/06 00:19:39 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_push_swap.h"
 
 static int	test_val(int i, char *lst)
-{}
+{
+	if (ft_strlen(lst) > 11 || ft_isalpha(lst[0]))
+		return (1);
+	if (lst[0] != '-' && ft_atoi(lst) < 0)
+		return (1);
+	else if (lst[0] == '-' && i == 0 && lst[1] != '0')
+		return (1);
+	return (0);
+}
 
 static int	create_pile(int ac, char **av, t_list **a)
 {
 	int	i;
 	int	*tmp;
 	char	**lst;
+	int	cancel;
 
 	i = 0;
+	cancel = 0;
 	if (ac == 2)
 	{
 		lst = ft_split(av[1], ' ');
@@ -30,23 +40,23 @@ static int	create_pile(int ac, char **av, t_list **a)
 			tmp = (int*)malloc(sizeof(int));
 			*tmp = ft_atoi(lst[i]);
 			if (test_val(*tmp, lst[i]))
-				return (1);
+				cancel++;
 			ft_lstadd_back(a, ft_lstnew(tmp, 0));
 			free(lst[i]);
 			i++;
 		}
 		free(lst);
-		return (0);
+		return (cancel);
 	}
 	while (++i < ac)
 	{
 		tmp = (int*)malloc(sizeof(int));
 		*tmp = ft_atoi(av[i]);
 		if (test_val(*tmp, av[i]))
-			return (1);
+			cancel++;
 		ft_lstadd_back(a, ft_lstnew(tmp, 0));
 	}
-	return (0);
+	return (cancel);
 }
 
 void	print_iter(t_list *lst)
@@ -81,7 +91,7 @@ static void operate(t_list **a, t_list **b)
 		sort_3(a, b);
 	else if (ft_lstsize(*a) > 3)
 		sort_big_index(a, b);
-	print_iter(*a);
+//	print_iter(*a);
 }
 
 int	main(int argc, char **argv)
@@ -93,9 +103,15 @@ int	main(int argc, char **argv)
 	b = (t_list**)malloc(sizeof(int*));
 	*a = 0;
 	*b = 0;
-	create_pile(argc, argv, a);
+	if (create_pile(argc, argv, a))
+	{
+		ft_lstclear(a, free);
+		ft_lstclear(b, free);
+		free(a);
+		free(b);
+		call_error("Incorrect value", "");
+	}
 	operate(a, b);
-	print_iter(*a);
 	ft_lstclear(a, free);
 	ft_lstclear(b, free);
 	free(a);
