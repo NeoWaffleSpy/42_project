@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:23:38 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/06 00:19:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/06 21:57:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,75 +23,68 @@ static int	test_val(int i, char *lst)
 	return (0);
 }
 
+static int	handle_string(t_list **a, char **av, int i)
+{
+	int	j;
+	char	**lst;
+	int	*tmp;
+	int	cancel;
+
+	cancel = 0;
+	lst = ft_split(av[i], ' ');
+	j = 0;
+	while (lst[j])
+	{
+		tmp = (int*)malloc(sizeof(int));
+		*tmp = ft_atoi(lst[j]);
+		if (test_val(*tmp, lst[j]))
+			cancel++;
+		ft_lstadd_back(a, ft_lstnew(tmp, 0));
+		free(lst[j]);
+		j++;
+	}
+	free(lst);
+	return (cancel);
+}
+
 static int	create_pile(int ac, char **av, t_list **a)
 {
 	int	i;
 	int	*tmp;
-	char	**lst;
 	int	cancel;
 
 	i = 0;
 	cancel = 0;
-	if (ac == 2)
-	{
-		lst = ft_split(av[1], ' ');
-		while (lst[i])
-		{
-			tmp = (int*)malloc(sizeof(int));
-			*tmp = ft_atoi(lst[i]);
-			if (test_val(*tmp, lst[i]))
-				cancel++;
-			ft_lstadd_back(a, ft_lstnew(tmp, 0));
-			free(lst[i]);
-			i++;
-		}
-		free(lst);
-		return (cancel);
-	}
 	while (++i < ac)
 	{
-		tmp = (int*)malloc(sizeof(int));
-		*tmp = ft_atoi(av[i]);
-		if (test_val(*tmp, av[i]))
-			cancel++;
-		ft_lstadd_back(a, ft_lstnew(tmp, 0));
+		if (ft_strrchr(av[i], ' ') != NULL)
+			cancel += handle_string(a, av, i);
+		else
+		{
+			tmp = (int*)malloc(sizeof(int));
+			*tmp = ft_atoi(av[i]);
+			if (test_val(*tmp, av[i]))
+				cancel++;
+			ft_lstadd_back(a, ft_lstnew(tmp, 0));
+		}
 	}
 	return (cancel);
 }
 
-void	print_iter(t_list *lst)
-{
-	int	*tmp;
-	int	i;
-
-	i = 0;
-	if (ft_lstsize(lst) < 1)
-	{
-		call_info("empty list", "");
-		return;
-	}
-	while (lst)
-	{
-		tmp = lst->content;
-		ft_printf("-%3d", *tmp);
-//		ft_printf("/%2d", lst->index);
-		lst = lst->next;
-		i++;
-	}
-	ft_printf("\n", *tmp);
-}
-
 static void operate(t_list **a, t_list **b)
 {
+	print_iter(*a);
 	if (check_sorted(a, 0))
 		return;
 	else if (ft_lstsize(*a) == 2)
 		sa(a, b, 1);
 	else if (ft_lstsize(*a) == 3)
 		sort_3(a, b);
-	else if (ft_lstsize(*a) > 3)
+	else if (ft_lstsize(*a) <= 5)
+		sort_4_5(a, b);
+	else if (ft_lstsize(*a) > 5)
 		sort_big_index(a, b);
-//	print_iter(*a);
+	print_iter(*a);
 }
 
 int	main(int argc, char **argv)
@@ -111,7 +104,8 @@ int	main(int argc, char **argv)
 		free(b);
 		call_error("Incorrect value", "");
 	}
-	operate(a, b);
+	if (ft_lstsize(*a))
+		operate(a, b);
 	ft_lstclear(a, free);
 	ft_lstclear(b, free);
 	free(a);
