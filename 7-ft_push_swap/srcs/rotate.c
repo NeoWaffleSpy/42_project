@@ -20,7 +20,7 @@ void	ra(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*a) < 1)
 		call_error("Invalid operation:", "RA on empty list A");
 	if (ft_lstsize(*a) == 1)
-		return;
+		return ;
 	tmp = get_chain(*a, 1);
 	ft_lstadd_back(a, ft_lstnew((*a)->content, (*a)->index));
 	(*a)->content = tmp->content;
@@ -39,7 +39,7 @@ void	rb(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*b) < 1)
 		call_error("Invalid operation:", "RB on empty list B");
 	if (ft_lstsize(*b) == 1)
-		return;
+		return ;
 	tmp = get_chain(*b, 1);
 	ft_lstadd_back(b, ft_lstnew((*b)->content, (*b)->index));
 	(*b)->content = tmp->content;

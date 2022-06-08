@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 12:36:15 by ncaba             #+#    #+#             */
-/*   Updated: 2020/12/29 14:47:10 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 14:50:42 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	dec_check(char *str, t_flags flags)
 {
-	int loop;
+	int	loop;
 
 	loop = ft_strlen(str) - 1;
 	while (flags.nb_dec >= 0 && loop > (flags.nb_dec - 1))
@@ -24,11 +24,11 @@ static void	dec_check(char *str, t_flags flags)
 	}
 }
 
-char		*ft_convert_string(t_flags flags, va_list params)
+char	*ft_convert_string(t_flags flags, va_list params)
 {
 	char	*result;
 
-	result = ft_strdup(va_arg(params, char*));
+	result = ft_strdup(va_arg(params, char *));
 	if (!result)
 		result = ft_strdup("(null)");
 	dec_check(result, flags);

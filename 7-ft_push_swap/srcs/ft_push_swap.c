@@ -12,32 +12,38 @@
 
 #include "../include/ft_push_swap.h"
 
-static int	test_val(int i, char *lst)
+static int	test_val(int i, char *lst, t_list **a)
 {
+	int	j;
+
 	if (ft_strlen(lst) > 11 || ft_isalpha(lst[0]))
 		return (1);
 	if (lst[0] != '-' && ft_atoi(lst) < 0)
 		return (1);
-	else if (lst[0] == '-' && i == 0 && lst[1] != '0')
+	if (lst[0] == '-' && i == 0 && lst[1] != '0')
 		return (1);
+	j = -1;
+	while (++j < ft_lstsize(*a))
+		if (get_content(*a, j) == i)
+			return (1);
 	return (0);
 }
 
 static int	handle_string(t_list **a, char **av, int i)
 {
-	int	j;
+	int		j;
 	char	**lst;
-	int	*tmp;
-	int	cancel;
+	int		*tmp;
+	int		cancel;
 
 	cancel = 0;
 	lst = ft_split(av[i], ' ');
 	j = 0;
 	while (lst[j])
 	{
-		tmp = (int*)malloc(sizeof(int));
+		tmp = malloc(sizeof(int));
 		*tmp = ft_atoi(lst[j]);
-		if (test_val(*tmp, lst[j]))
+		if (test_val(*tmp, lst[j], a))
 			cancel++;
 		ft_lstadd_back(a, ft_lstnew(tmp, 0));
 		free(lst[j]);
@@ -61,9 +67,9 @@ static int	create_pile(int ac, char **av, t_list **a)
 			cancel += handle_string(a, av, i);
 		else
 		{
-			tmp = (int*)malloc(sizeof(int));
+			tmp = malloc(sizeof(int));
 			*tmp = ft_atoi(av[i]);
-			if (test_val(*tmp, av[i]))
+			if (test_val(*tmp, av[i], a))
 				cancel++;
 			ft_lstadd_back(a, ft_lstnew(tmp, 0));
 		}
@@ -71,11 +77,10 @@ static int	create_pile(int ac, char **av, t_list **a)
 	return (cancel);
 }
 
-static void operate(t_list **a, t_list **b)
+static void	operate(t_list **a, t_list **b)
 {
-	print_iter(*a);
 	if (check_sorted(a, 0))
-		return;
+		return ;
 	else if (ft_lstsize(*a) == 2)
 		sa(a, b, 1);
 	else if (ft_lstsize(*a) == 3)
@@ -84,7 +89,6 @@ static void operate(t_list **a, t_list **b)
 		sort_4_5(a, b);
 	else if (ft_lstsize(*a) > 5)
 		sort_big_index(a, b);
-	print_iter(*a);
 }
 
 int	main(int argc, char **argv)
@@ -92,8 +96,8 @@ int	main(int argc, char **argv)
 	t_list	**a;
 	t_list	**b;
 
-	a = (t_list**)malloc(sizeof(int*));
-	b = (t_list**)malloc(sizeof(int*));
+	a = malloc(sizeof(int *));
+	b = malloc(sizeof(int *));
 	*a = 0;
 	*b = 0;
 	if (create_pile(argc, argv, a))

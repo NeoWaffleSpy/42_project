@@ -14,8 +14,8 @@
 
 void	call_error(char *error, char *value)
 {
-	ft_printf("%s[%sError%s]: ", WHITE, RED, WHITE);
-	ft_printf("%s %s%s%s\n", error, YELLOW, value, WHITE);
+	ft_printf_fd(2, "%s[%sError%s]: ", WHITE, RED, WHITE);
+	ft_printf_fd(2, "%s %s%s%s\n", error, YELLOW, value, WHITE);
 	exit(1);
 }
 
@@ -34,13 +34,12 @@ void	print_iter(t_list *lst)
 	if (ft_lstsize(lst) < 1)
 	{
 		call_info("empty list", "");
-		return;
+		return ;
 	}
 	while (lst)
 	{
 		tmp = lst->content;
 		ft_printf("-%3d", *tmp);
-//		ft_printf("/%2d", lst->index);
 		lst = lst->next;
 		i++;
 	}

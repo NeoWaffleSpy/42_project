@@ -16,8 +16,8 @@ int	check_sorted(t_list **a, int rev)
 {
 	t_list	*tmp;
 	t_list	*tmp_next;
-	int	*val1;
-	int	*val2;
+	int		*val1;
+	int		*val2;
 
 	tmp = *a;
 	while (tmp->next)
@@ -40,8 +40,8 @@ void	sort_3(t_list **a, t_list **b)
 
 	(void)b;
 	val[0] = get_content(*a, 0);
-	val[1]  = get_content(*a, 1);
-	val[2]  = get_content(*a, 2);
+	val[1] = get_content(*a, 1);
+	val[2] = get_content(*a, 2);
 	if (val[0] > val[1] && val[1] < val[2] && val[0] < val[2])
 		sa(a, b, 1);
 	if (val[0] > val[1] && val[1] < val[2] && val[0] > val[2])
@@ -95,6 +95,6 @@ void	sort_4_5(t_list **a, t_list **b)
 	while (ft_lstsize(*a) > 3)
 		get_smallest(a, b);
 	sort_3(a, b);
-	pa(a, b, 1);
-	pa(a, b, 1);
+	while (ft_lstsize(*b) > 0)
+		pa(a, b, 1);
 }

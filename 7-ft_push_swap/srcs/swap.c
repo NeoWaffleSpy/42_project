@@ -14,7 +14,7 @@
 
 t_list	*get_chain(t_list *list, int place)
 {
-	int i;
+	int		i;
 	t_list	*iter;
 
 	i = 0;
@@ -40,8 +40,8 @@ int	get_content(t_list *list, int place)
 void	sa(t_list **a, t_list **b, int dual)
 {
 	t_list	*tmp_list;
-	int	*tmp_val;
-	int	tmp_index;
+	int		*tmp_val;
+	int		tmp_index;
 
 	if (ft_lstsize(*a) < 2)
 		call_error("Called function on invalid list", "SA");
@@ -59,9 +59,9 @@ void	sa(t_list **a, t_list **b, int dual)
 
 void	sb(t_list **a, t_list **b, int dual)
 {
-	t_list *tmp;
-	int	*tmp_val;
-	int	tmp_index;
+	t_list	*tmp;
+	int		*tmp_val;
+	int		tmp_index;
 
 	if (ft_lstsize(*b) < 2)
 		call_error("Called function on invalid list", "SB");

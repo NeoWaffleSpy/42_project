@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PUSH_SWAP
-# define FT_PUSH_SWAP
+#ifndef FT_PUSH_SWAP_H
+# define FT_PUSH_SWAP_H
 # include "libft/include/ft_lib.h"
-
 
 void	sa(t_list **a, t_list **b, int dual);
 void	sb(t_list **a, t_list **b, int dual);

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:48:38 by ncaba             #+#    #+#             */
-/*   Updated: 2021/01/19 15:51:00 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 15:16:35 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 ** int          nb_dec:             Définis le nombre max de decimale
 */
 
-typedef struct	s_flags
+typedef struct s_flags
 {
 	t_boolean	is_alternative;
 	t_boolean	is_padded_zero;
@@ -47,13 +47,17 @@ typedef struct	s_flags
 }				t_flags;
 
 int				ft_printf(char *str, ...);
+int				ft_printf_fd(int fd, char *str, ...);
 int				ft_grab_type(char **str, t_flags *flags, va_list params);
+int				get_type(int *type, int p);
+int				sort_letters(char c);
 char			*ft_parse(char **str, va_list params, int *len);
 char			*ft_itoa_base(long long n, char *base);
+void			get_neg(long long *n, int *neg);
 void			ft_decimal_check(char *str, t_flags *flags,
-								int *loop, va_list params);
+					int *loop, va_list params);
 void			ft_spacing_check(char *str, t_flags *flags,
-								int *loop, va_list params);
+					int *loop, va_list params);
 void			ft_add_padd(char **str, t_flags flags, int type);
 void			ft_add_space(char **str, t_flags flags, int type);
 void			ft_add_precis(char **str, t_flags flags);
@@ -63,7 +67,7 @@ char			*ft_convert_string(t_flags flags, va_list params);
 char			*ft_convert_pointer(t_flags flags, va_list params);
 char			*ft_convert_int(t_flags flags, va_list params);
 char			*ft_convert_hexa(t_flags flags, va_list params,
-								t_boolean is_up);
+					t_boolean is_up);
 char			*ft_convert_char(t_flags flags, va_list params, int *len);
 char			*ft_convert_percent(t_flags flags);
 char			*ft_convert_unsigned(t_flags flags, va_list params);

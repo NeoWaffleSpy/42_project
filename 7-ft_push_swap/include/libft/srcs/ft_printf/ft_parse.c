@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 12:56:09 by ncaba             #+#    #+#             */
-/*   Updated: 2022/04/27 12:33:22 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/05/06 14:44:34 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,31 @@ char	*ft_parse(char **str, va_list params, int *len)
 	}
 	str_result = brancher(result, flags, params, len);
 	return (str_result);
+}
+
+int	get_type(int *type, int p)
+{
+	*type = p;
+	return (*type);
+}
+
+int	sort_letters(char c)
+{
+	if (c == 'u')
+		return (U_INT);
+	if (c == 's')
+		return (STRING);
+	if (c == 'p')
+		return (POINTER);
+	if (c == 'd' || c == 'i')
+		return (INT);
+	if (c == 'x')
+		return (HEX_LOW);
+	if (c == 'X')
+		return (HEX_UP);
+	if (c == 'c')
+		return (CHAR);
+	if (c == '%')
+		return (PERCENT);
+	return (0);
 }

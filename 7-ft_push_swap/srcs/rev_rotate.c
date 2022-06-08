@@ -20,10 +20,10 @@ void	rra(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*a) < 1)
 		call_error("Invalid operation:", "RRA on empty list A");
 	if (ft_lstsize(*a) == 1)
-		return;
-	tmp = get_chain(*a, ft_lstsize(*a)-1);
+		return ;
+	tmp = get_chain(*a, ft_lstsize(*a) - 1);
 	ft_lstadd_front(a, ft_lstnew(tmp->content, tmp->index));
-	get_chain(*a, ft_lstsize(*a)-2)->next = 0;
+	get_chain(*a, ft_lstsize(*a) - 2)->next = 0;
 	free(tmp);
 	if (dual)
 		ft_printf("rra\n");
@@ -37,10 +37,10 @@ void	rrb(t_list **a, t_list **b, int dual)
 	if (ft_lstsize(*b) < 1)
 		call_error("Invalid operation:", "RRB on empty list B");
 	if (ft_lstsize(*b) == 1)
-		return;
-	tmp = get_chain(*b, ft_lstsize(*b)-1);
+		return ;
+	tmp = get_chain(*b, ft_lstsize(*b) - 1);
 	ft_lstadd_front(b, ft_lstnew(tmp->content, tmp->index));
-	get_chain(*b, ft_lstsize(*b)-2)->next = 0;
+	get_chain(*b, ft_lstsize(*b) - 2)->next = 0;
 	free(tmp);
 	if (dual)
 		ft_printf("rrb\n");

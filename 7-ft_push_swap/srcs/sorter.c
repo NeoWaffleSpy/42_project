@@ -73,7 +73,6 @@ void	sort_big_index(t_list **a, t_list **b)
 	i = 0;
 	while (i < 10 && !check_sorted(a, 0))
 	{
-//		print_iter(*a);
 		j = -1;
 		while (++j < size)
 		{

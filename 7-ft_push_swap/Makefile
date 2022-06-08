@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= ft_push_swap
+NAME		= push_swap
 CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
 INC			= -I . -I ./include/libft/include/ -L ./include/libft/ -lft
