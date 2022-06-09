@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 13:23:38 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/06 21:57:54 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/09 17:37:55 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ static int	test_val(int i, char *lst, t_list **a)
 		return (1);
 	if (lst[0] == '-' && i == 0 && lst[1] != '0')
 		return (1);
+	j = -1;
+	while (++j < (int)ft_strlen(lst))
+		if (!ft_isdigit(lst[j]) && (j != 0 || (lst[j] != '-' && lst[j] != '+')))
+			return (1);
 	j = -1;
 	while (++j < ft_lstsize(*a))
 		if (get_content(*a, j) == i)
@@ -39,6 +43,8 @@ static int	handle_string(t_list **a, char **av, int i)
 	cancel = 0;
 	lst = ft_split(av[i], ' ');
 	j = 0;
+	if (!lst[j])
+		cancel++;
 	while (lst[j])
 	{
 		tmp = malloc(sizeof(int));
@@ -69,7 +75,7 @@ static int	create_pile(int ac, char **av, t_list **a)
 		{
 			tmp = malloc(sizeof(int));
 			*tmp = ft_atoi(av[i]);
-			if (test_val(*tmp, av[i], a))
+			if (test_val(*tmp, av[i], a) || *(av[i]) == '\0')
 				cancel++;
 			ft_lstadd_back(a, ft_lstnew(tmp, 0));
 		}
