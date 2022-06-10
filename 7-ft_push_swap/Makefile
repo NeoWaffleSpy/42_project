@@ -50,6 +50,7 @@ $(LIBFT):
 
 $(NAME): $(LIBFT) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(INC) -o $(NAME) -g
+	@echo "\033[0;33mUse command: \033[0;32mARG=$`ruby -e \"puts (0..499).to_a.shuffle.join(' ')\"\033[0m"
 
 $(NAME_CHECK): $(LIBFT) $(OBJS_CHECK)
 	@$(CC) $(OBJS_CHECK) $(CFLAGS) $(INC) -o $(NAME_CHECK) -g

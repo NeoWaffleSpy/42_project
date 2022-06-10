@@ -40,7 +40,9 @@ void static  compute_operations(t_list **a, t_list **b)
             rrb(a, b, 0);
         else if (!ft_strcmp(operation, "rrr"))
             rrr(a, b, 0);
+        free(operation);
     }
+    free(operation);
 }
 
 int main(int ac, char **av)
@@ -62,7 +64,7 @@ int main(int ac, char **av)
 	}
 	if (ft_lstsize(*a))
         compute_operations(a, b);
-    if (check_sorted(a, 0))
+    if (ft_lstsize(*a) == 0 || check_sorted(a, 0))
         ft_printf("OK\n");
     else
         ft_printf("KO\n");
