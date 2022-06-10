@@ -73,7 +73,7 @@ int	main(int argc, char *argv[])
 
 	if (!parse_args(&args, argc, argv))
 	{
-		ft_putendl_fd("Invalid CLI arguments", 2);
+		ft_printf_fd(2, "%s[%sError%s] %sUsage: %s%s <server_pid> \"<string>\"\n", WHITE, RED, WHITE, YELLOW, GREEN, argv[0]);
 		return (1);
 	}
 	send_message(&args);

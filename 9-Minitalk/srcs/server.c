@@ -21,10 +21,10 @@ static void	display_pid(void)
 	str_pid = ft_itoa(pid);
 	if (!str_pid)
 	{
-		ft_putendl_fd("Error at ft_itoa()", 2);
+		ft_printf_fd(2, "Error at ft_itoa()");
 		return ;
 	}
-	ft_putendl_fd(str_pid, 1);
+	ft_printf("%s\n", str_pid);
 	free(str_pid);
 }
 
