@@ -82,5 +82,6 @@ void	ss(t_list **a, t_list **b, int dual)
 	(void)dual;
 	sa(a, b, 0);
 	sb(a, b, 0);
-	ft_printf("ss\n");
+	if (dual)
+		ft_printf("ss\n");
 }

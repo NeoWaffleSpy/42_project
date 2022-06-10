@@ -55,5 +55,6 @@ void	rr(t_list **a, t_list **b, int dual)
 	(void)dual;
 	ra(a, b, 0);
 	rb(a, b, 0);
-	ft_printf("rr\n");
+	if (dual)
+		ft_printf("rr\n");
 }
