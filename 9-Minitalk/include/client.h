@@ -17,12 +17,13 @@
 # include <unistd.h>
 # include <signal.h>
 
-# define DELAY_US 0
+# define DELAY_US 20000
 
 struct		s_args
 {
 	int		pid;
 	char	*str;
+	int		wait;
 };
 
 #endif

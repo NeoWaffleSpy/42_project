@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/06/06 20:26:15 by ncaba            ###   ########.fr        #
+#    Updated: 2022/06/11 16:25:49 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCSFILES	=	create_pile.c \
 				sys_call.c
 
 PUSH_SWAP	=	ft_push_swap.c
-CHECKER     =	checker.c
+CHECKER		=	checker.c
 
 SRCSDIR		=	./srcs/
 SRCS		=	$(addprefix $(SRCSDIR), $(PUSH_SWAP)) \
@@ -50,7 +50,7 @@ $(LIBFT):
 
 $(NAME): $(LIBFT) $(OBJS) 
 	@$(CC) $(OBJS) $(CFLAGS) $(INC) -o $(NAME) -g
-	@echo "\033[0;33mUse command: \033[0;32mARG=$`ruby -e \"puts (0..499).to_a.shuffle.join(' ')\"\033[0m"
+	@echo "\033[0;33mUse command: \033[0;32mARG=\`ruby -e \"puts (0..499).to_a.shuffle.join(' ')\"\`\033[0m"
 
 $(NAME_CHECK): $(LIBFT) $(OBJS_CHECK)
 	@$(CC) $(OBJS_CHECK) $(CFLAGS) $(INC) -o $(NAME_CHECK) -g

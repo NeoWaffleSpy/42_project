@@ -12,11 +12,14 @@
 
 #include "../include/client.h"
 
+bool	wait;
+
 static void	send_char(int pid, char character)
 {
 	int	current_bit;
 
 	current_bit = 0;
+	wait = FALSE;
 	while (current_bit < 8)
 	{
 		if (character & (1 << current_bit))
@@ -25,12 +28,16 @@ static void	send_char(int pid, char character)
 			kill(pid, SIGUSR1);
 		usleep(DELAY_US);
 		current_bit++;
+		wait = TRUE;
+		while (wait)
+			;
 	}
 }
 
 static void	send_message(struct s_args *args)
 {
 	size_t	i;
+
 
 	i = 0;
 	while (args->str[i])
@@ -58,6 +65,13 @@ static bool	is_natural(const char *str)
 	return (not_empty);
 }
 
+static void	acknowledgment_handler(int sig)
+{
+	(void)sig;
+	wait = FALSE;
+	ft_printf("ok\n");
+}
+
 static bool	parse_args(struct s_args *args, int argc, char *argv[])
 {
 	if (!args || argc != 3 || !is_natural(argv[1]))
@@ -71,6 +85,7 @@ int	main(int argc, char *argv[])
 {
 	struct s_args	args;
 
+	signal(SIGUSR1, acknowledgment_handler);
 	if (!parse_args(&args, argc, argv))
 	{
 		ft_printf_fd(2, "%s[%sError%s] %sUsage: %s%s <server_pid> \"<string>\"\n",

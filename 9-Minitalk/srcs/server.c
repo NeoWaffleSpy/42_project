@@ -28,10 +28,11 @@ static void	display_pid(void)
 	free(str_pid);
 }
 
-static void	handler_msg(int sig)
+static void	handler_msg(int sig, siginfo_t *info, void *ucontext)
 {
 	static struct s_character	chr = {0, 0};
 
+	(void)ucontext;
 	if (sig == SIGUSR2)
 		chr.character |= 1 << chr.current_bit;
 	chr.current_bit++;
@@ -41,6 +42,7 @@ static void	handler_msg(int sig)
 		chr.character = 0;
 		chr.current_bit = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
 }
 
 static void	handler_exit(int sig)
@@ -51,9 +53,15 @@ static void	handler_exit(int sig)
 
 int	main(void)
 {
+	struct sigaction sa;
+
 	display_pid();
-	signal(SIGUSR1, handler_msg);
-	signal(SIGUSR2, handler_msg);
+	sa.sa_handler = SIG_DFL;
+	sa.sa_sigaction = handler_msg;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	signal(SIGINT, handler_exit);
 	signal(SIGTERM, handler_exit);
 	while (1)
