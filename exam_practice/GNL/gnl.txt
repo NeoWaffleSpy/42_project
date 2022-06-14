@@ -1,0 +1,11 @@
+1: VARIABLES
+
+> char buff[x]			(Buffer of the max length to read)
+> static char *save		(save read part that don't get sent)
+> int res				(result from read, -1 if nothing read)
+> char *ptr				(tmp pointer fo free old save pointer)
+
+2: ERROR RETURNS
+
+> "fd < 0"				(check incorrect FD)
+> "!line"				(check if 
