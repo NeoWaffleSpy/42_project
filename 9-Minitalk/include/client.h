@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 19:01:00 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/09 19:01:05 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/14 19:48:11 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
 # include <unistd.h>
 # include <signal.h>
 
-# define DELAY_US 20000
+# define DELAY_US 0
 
 struct		s_args
 {
 	int		pid;
 	char	*str;
-	int		wait;
+	int		character;
+	int		current_bit;
 };
 
 #endif

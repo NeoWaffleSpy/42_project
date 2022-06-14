@@ -6,45 +6,45 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:42:57 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/09 18:43:03 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/14 19:48:49 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/client.h"
 
-bool	wait;
-
-static void	send_char(int pid, char character)
+static void	send_char(int pid, char character, int current_bit)
 {
-	int	current_bit;
-
-	current_bit = 0;
-	wait = FALSE;
-	while (current_bit < 8)
-	{
-		if (character & (1 << current_bit))
-			kill(pid, SIGUSR2);
-		else
-			kill(pid, SIGUSR1);
-		usleep(DELAY_US);
-		current_bit++;
-		wait = TRUE;
-		while (wait)
-			;
-	}
+	if (character & (1 << current_bit))
+		kill(pid, SIGUSR2);
+	else
+		kill(pid, SIGUSR1);
+	usleep(DELAY_US);
+	current_bit++;
 }
 
 static void	send_message(struct s_args *args)
 {
-	size_t	i;
+	static struct s_args	*arg;
 
-
-	i = 0;
-	while (args->str[i])
+	if (args)
 	{
-		send_char(args->pid, args->str[i]);
-		i++;
+		arg = args;
+		arg->character = 0;
+		arg->current_bit = 0;
 	}
+	else
+	{
+		arg->current_bit++;
+		if (arg->current_bit >= 8)
+		{
+			arg->current_bit = 0;
+			arg->character++;
+		}
+	}
+	if (arg->character >= (int)ft_strlen(arg->str))
+		return;
+//	ft_printf("writing char %d (%c), bit %d\n", arg->character, arg->str[arg->character], arg->current_bit);
+	send_char(arg->pid, arg->str[arg->character], arg->current_bit);
 }
 
 static bool	is_natural(const char *str)
@@ -68,8 +68,7 @@ static bool	is_natural(const char *str)
 static void	acknowledgment_handler(int sig)
 {
 	(void)sig;
-	wait = FALSE;
-	ft_printf("ok\n");
+	send_message(NULL);
 }
 
 static bool	parse_args(struct s_args *args, int argc, char *argv[])
