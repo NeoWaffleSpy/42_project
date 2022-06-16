@@ -19,7 +19,6 @@ static void	send_char(int pid, char character, int current_bit)
 	else
 		kill(pid, SIGUSR1);
 	usleep(DELAY_US);
-	current_bit++;
 }
 
 static void	send_message(struct s_args *args)
@@ -42,8 +41,7 @@ static void	send_message(struct s_args *args)
 		}
 	}
 	if (arg->character >= (int)ft_strlen(arg->str))
-		return;
-//	ft_printf("writing char %d (%c), bit %d\n", arg->character, arg->str[arg->character], arg->current_bit);
+		exit(0);
 	send_char(arg->pid, arg->str[arg->character], arg->current_bit);
 }
 
@@ -92,5 +90,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	send_message(&args);
+	while (1)
+		pause();
 	return (0);
 }
