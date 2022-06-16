@@ -12,15 +12,6 @@
 
 #include "../include/client.h"
 
-static void	send_char(int pid, char character, int current_bit)
-{
-	if (character & (1 << current_bit))
-		kill(pid, SIGUSR2);
-	else
-		kill(pid, SIGUSR1);
-	usleep(DELAY_US);
-}
-
 static void	send_message(struct s_args *args)
 {
 	static struct s_args	*arg;
@@ -63,12 +54,6 @@ static bool	is_natural(const char *str)
 	return (not_empty);
 }
 
-static void	acknowledgment_handler(int sig)
-{
-	(void)sig;
-	send_message(NULL);
-}
-
 static bool	parse_args(struct s_args *args, int argc, char *argv[])
 {
 	if (!args || argc != 3 || !is_natural(argv[1]))
@@ -76,6 +61,12 @@ static bool	parse_args(struct s_args *args, int argc, char *argv[])
 	args->pid = ft_atoi(argv[1]);
 	args->str = argv[2];
 	return (true);
+}
+
+static void	acknowledgment_handler(int sig)
+{
+	(void)sig;
+	send_message(NULL);
 }
 
 int	main(int argc, char *argv[])

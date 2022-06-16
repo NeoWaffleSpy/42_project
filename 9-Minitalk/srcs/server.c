@@ -53,7 +53,7 @@ static void	handler_exit(int sig)
 
 int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	display_pid();
 	sa.sa_handler = SIG_DFL;

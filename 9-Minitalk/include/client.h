@@ -27,4 +27,13 @@ struct		s_args
 	int		current_bit;
 };
 
+void	send_char(int pid, char character, int current_bit)
+{
+	if (character & (1 << current_bit))
+		kill(pid, SIGUSR2);
+	else
+		kill(pid, SIGUSR1);
+	usleep(DELAY_US);
+}
+
 #endif
