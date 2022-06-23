@@ -6,13 +6,15 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:40 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/22 19:00:41 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/23 15:45:31 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 # include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
 
@@ -26,44 +28,50 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef struct  s_philosopher
-{
-	int			    position;
-	int			    *l_fork;
-	int			    *r_fork;
-	int			    meals;
-	int			    last_meal;
-    t_rules         *rules;
-}			    t_philosopher;
+typedef int		t_boolean;
+typedef struct s_rules	t_rules;
 
-typedef struct  s_rules
+typedef struct	s_philosopher
 {
-    int             nb_philo;
-    int             ttdie;
-    int             tteat;
-    int             ttsleep;
-    int             max_iteration;
+	int				position;
+	int				*l_fork;
+	int				*r_fork;
+	int				meals;
+	int				last_meal;
+	t_rules			*rules;
+}				t_philosopher;
+
+struct	s_rules
+{
+	int				nb_philo;
+	int				ttdie;
+	int				tteat;
+	int				ttsleep;
+	int				max_iteration;
 	int				*forks;
+	int				finished;
+	t_boolean		dead;
 	t_philosopher	*philosophers;
+	pthread_mutex_t	finish_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*forks_mutex;
 	pthread_mutex_t	die_mutex;
-}               t_rules;
+};
 
-typedef int		t_boolean;
+int		set_rules(int ac, char** av, t_rules* rules);
+int		init_philo(t_rules *rules);
+int		init_mutex(t_rules *rules);
 
-int     set_rules(int ac, char** av, t_rules* rules);
-int     init_philo(t_rules *rules);
-int     init_mutex(t_rules *rules);
+void	*routine(void *tmp_philo);
 
-void    routine(t_philosopher philo);
+int		ft_atoi(const char *nptr);
+int		ft_isdigit(int c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
-int 	ft_atoi(const char *nptr);
-int	    ft_isdigit(int c);
-int	    ft_strncmp(const char *s1, const char *s2, size_t n);
-
-int     call_error(char* error, char* value);
+int		get_time();
+int		call_error(char* error, char* value);
 void	call_info(char *info, char *value);
 void	free_all(t_rules *rules);
+void	free_malloc(t_rules *rules);
 
 #endif

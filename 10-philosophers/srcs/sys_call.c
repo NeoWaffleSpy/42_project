@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/02 15:58:11 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/23 15:41:01 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,30 @@ void	free_all(t_rules *rules)
 {
 	int	i;
 
-    i = 0;
-    while (i < rules->nb_philo)
-    {
-        pthread_mutex_destroy(&(rules->forks_mutex[i]));
-        i++;
-    }
+	i = 0;
+	while (i < rules->nb_philo)
+	{
+		pthread_mutex_destroy(&(rules->forks_mutex[i]));
+		i++;
+	}
 	pthread_mutex_destroy(&(rules->print_mutex));
 	pthread_mutex_destroy(&(rules->die_mutex));
+	pthread_mutex_destroy(&(rules->finish_mutex));
 	free(rules->philosophers);
 	free(rules->forks);
 	free(rules->forks_mutex);
+}
+
+void	free_malloc(t_rules *rules)
+{
+	free(rules->philosophers);
+	free(rules->forks);
+}
+
+int	get_time()
+{
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	return ((int)(t.tv_sec * 1000 + t.tv_usec / 1000));
 }
