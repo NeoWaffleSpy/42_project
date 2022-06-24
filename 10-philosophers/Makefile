@@ -6,14 +6,14 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2021/09/06 13:49:07 by ncaba            ###   ########.fr        #
+#    Updated: 2022/06/24 13:56:37 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philosophers
 CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
-INC			= -I .
+INC			= -I . -lpthread
 
 SRCSFILES	=	main.c \
 				init.c \

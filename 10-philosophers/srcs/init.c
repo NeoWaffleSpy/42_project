@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:23:59 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/23 15:26:21 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/24 14:26:39 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,15 @@ int	init_philo(t_rules *rules)
 	i = 0;
 	while (i < rules->nb_philo)
 	{
-		rules->forks[i] = -1;
-		rules->philosophers[i].position = i;
+		rules->forks[i] = 0;
+		rules->philosophers[i].position = i + 1;
 		rules->philosophers[i].meals = 0;
 		rules->philosophers[i].last_meal = rules->ttdie;
 		rules->philosophers[i].r_fork = &(rules->forks[i]);
 		rules->philosophers[i].rules = rules;
-		if (i < rules->nb_philo - 1)
+		if (rules->nb_philo == 1)
+			rules->philosophers[i].l_fork = NULL;
+		else if (i < rules->nb_philo - 1)
 			rules->philosophers[i].l_fork = &(rules->forks[i+1]);
 		else
 			rules->philosophers[i].l_fork = &(rules->forks[0]);

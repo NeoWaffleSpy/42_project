@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:40 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/23 15:45:31 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/24 14:05:14 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ struct	s_rules
 	int				max_iteration;
 	int				*forks;
 	int				finished;
+	long long		start_time;
 	t_boolean		dead;
 	t_philosopher	*philosophers;
 	pthread_mutex_t	finish_mutex;
@@ -68,7 +69,7 @@ int		ft_atoi(const char *nptr);
 int		ft_isdigit(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
-int		get_time();
+int		get_time(t_rules *rules);
 int		call_error(char* error, char* value);
 void	call_info(char *info, char *value);
 void	free_all(t_rules *rules);

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:24 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/23 15:24:50 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/06/24 14:08:25 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 static int	boot_philo(t_rules *rules)
 {
 	int	i;
-	int	time;
 	pthread_t	tid;
 
 	i = 0;
-	time = get_time();
+	rules->start_time = get_time(rules);
 	pthread_mutex_lock(&(rules->die_mutex));
 	while (i < rules->nb_philo)
 	{
-		rules->philosophers[i].last_meal = time + rules->ttdie;
+		rules->philosophers[i].last_meal = rules->ttdie;
 		if (pthread_create(&tid, NULL, &routine, &(rules->philosophers[i])))
 			return (call_error("Failed Philosopher boot", ""));
 		pthread_detach(tid);
