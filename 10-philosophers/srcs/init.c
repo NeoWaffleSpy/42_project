@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:23:59 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/24 14:26:39 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/01 16:12:51 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	init_philo(t_rules *rules)
 	int	i;
 
 	rules->finished = 0;
+	rules->start_time = 0;
 	rules->dead = FALSE;
 	rules->philosophers = malloc(sizeof(t_philosopher) * rules->nb_philo);
 	rules->forks = malloc(sizeof(int) * rules->nb_philo);

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/24 14:07:09 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/01 16:14:01 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ int	get_time(t_rules *rules)
 
 	gettimeofday(&t, NULL);
 	deltatime = (t.tv_sec * 1000 + t.tv_usec / 1000) - rules->start_time;
-	return ((int)deltatime);
+	return (deltatime);
 }

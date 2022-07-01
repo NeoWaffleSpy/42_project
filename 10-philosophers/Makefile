@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/06/24 13:56:37 by ncaba            ###   ########.fr        #
+#    Updated: 2022/07/01 16:32:55 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCSFILES	=	main.c \
 				init.c \
 				routine.c \
 				sys_call.c \
-				ft_atoi.c
+				ft_atoi.c \
+				ft_printf.c
 
 SRCSDIR		= ./srcs/
 SRCS		= $(addprefix $(SRCSDIR), $(SRCSFILES))

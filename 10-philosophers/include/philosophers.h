@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:40 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/24 14:05:14 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/01 16:48:45 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define YELLOW "\x1B[33m"
 # define CYAN "\x1B[36m"
 # define RESET_COLOR "\x1B[0m"
+
+# define MAXINT 2147483647
+# define MININT -2147483648
 
 # define TRUE 1
 # define FALSE 0
@@ -74,5 +77,7 @@ int		call_error(char* error, char* value);
 void	call_info(char *info, char *value);
 void	free_all(t_rules *rules);
 void	free_malloc(t_rules *rules);
+
+void	ft_printf(int time, int philo, char *str);
 
 #endif

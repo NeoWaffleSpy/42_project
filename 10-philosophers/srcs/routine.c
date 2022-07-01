@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:31 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/29 19:00:34 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/01 17:39:48 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,37 @@ static void	ft_sleep(int time, t_philosopher *philo)
 	int	finish;
 
 	finish = get_time(philo->rules) + time;
-	if (time == -1)
-		usleep(10);
 	while (get_time(philo->rules) < finish)
 		usleep(10);
 }
 
-static void	thread_print(t_philosopher *philo, char *str)
+static int	thread_print(t_philosopher *philo, char *str)
 {
-	if (philo->position != 1)
-		return;
+//	if (philo->position != 1)
+//		return;
 	pthread_mutex_lock(&(philo->rules->print_mutex));
-	printf("| %3d |%3d %s\n", get_time(philo->rules), philo->position, str);
+	if (philo->rules->dead)
+		return (1);
+	printf("| %3d | %3d %s\n", get_time(philo->rules), philo->position, str);
+//	ft_printf(get_time(philo->rules), philo->position, str);
 	pthread_mutex_unlock(&(philo->rules->print_mutex));
+	return (0);
 }
 
 static int	set_fork(t_philosopher *philo, int pos, int *fork)
 {
-	pthread_mutex_lock(&(philo->rules->forks_mutex[pos-1]));
 	if (fork == NULL)
-	{
-		pthread_mutex_unlock(&(philo->rules->forks_mutex[pos-1]));
 		return(1);
-	}
 	else if (*fork == pos)
 		*fork = 0;
 	else if (*fork == 0)
 	{
 		*fork = pos;
-		thread_print(philo, "took a fork");
+		if (thread_print(philo, "took a fork"))
+			return (1);
 	}
 	else
-	{
-		pthread_mutex_unlock(&(philo->rules->forks_mutex[pos-1]));
 		return(1);
-	}
-	pthread_mutex_unlock(&(philo->rules->forks_mutex[pos-1]));
 	return (0);
 }
 
@@ -62,25 +57,37 @@ static int	kill_philo(t_philosopher *philo)
 		return (1);
 	philo->rules->dead = TRUE;
 	pthread_mutex_lock(&(philo->rules->print_mutex));
-	printf("| %3d |%3d %s\n", get_time(philo->rules),
-		philo->position, "died");
+	printf("| %3d | %3d %s\n", get_time(philo->rules), philo->position, "died");
+//	ft_printf(get_time(philo->rules), philo->position, "died");
 	pthread_mutex_unlock(&(philo->rules->die_mutex));
 	return (1);
 }
 
 static int	take_fork(t_philosopher *philo)
 {
+	int	looped;
+
+	if (philo->position == philo->rules->nb_philo)
+		looped = 0;
+	else
+		looped = philo->position;
 	while (!philo->l_fork || *(philo->r_fork) != philo->position ||
 		*(philo->l_fork) != philo->position)
 	{
+		usleep(5);
 		if (philo->last_meal <= get_time(philo->rules) ||
 			philo->rules->dead == TRUE)
 			return (kill_philo(philo));
+		pthread_mutex_lock(&(philo->rules->forks_mutex[philo->position - 1]));
 		if (*(philo->r_fork) != philo->position)
 			set_fork(philo, philo->position, philo->r_fork);
-		if (philo->l_fork && *(philo->l_fork) != philo->position)
+		pthread_mutex_unlock(&(philo->rules->forks_mutex[philo->position - 1]));
+		if (!philo->l_fork)
+			continue;
+		pthread_mutex_lock(&(philo->rules->forks_mutex[looped]));
+		if (*(philo->l_fork) != philo->position)
 			set_fork(philo, philo->position, philo->l_fork);
-		ft_sleep(-1, philo);
+		pthread_mutex_lock(&(philo->rules->forks_mutex[looped]));
 	}
 	/*
 	pthread_mutex_lock(&(philo->rules->print_mutex));
@@ -101,7 +108,8 @@ static int	eat(t_philosopher *philo)
 	if (philo->last_meal <= get_time(philo->rules) ||
 		philo->rules->dead == TRUE)
 		return (kill_philo(philo));
-	thread_print(philo, "is eating");
+	if (thread_print(philo, "is eating"))
+		return (1);
 	philo->last_meal = get_time(philo->rules) + philo->rules->ttdie;
 	philo->meals += 1;
 	if (philo->rules->ttdie < philo->rules->tteat)
@@ -130,12 +138,14 @@ static int	sleeping(t_philosopher *philo)
 	if (philo->last_meal <= get_time(philo->rules) ||
 		philo->rules->dead == TRUE)
 		return (kill_philo(philo));
-	thread_print(philo, "is sleeping");
+	if (thread_print(philo, "is sleeping"))
+		return (1);
 	if (get_time(philo->rules) + philo->rules->ttsleep >= philo->last_meal)
 		ft_sleep(philo->last_meal - get_time(philo->rules), philo);
 	else
 		ft_sleep(philo->rules->ttsleep, philo);
-	thread_print(philo, "is thinking");
+	if (thread_print(philo, "is thinking"))
+		return (1);
 	return (0);
 }
 
@@ -146,7 +156,7 @@ void	*routine(void *tmp_philo)
 	philo = (t_philosopher *)tmp_philo;
 //	printf("time is: %d - ttdie: %d\n", get_time(philo->rules), philo->last_meal);
 	if (philo->position % 2)
-		ft_sleep(1, philo);
+		ft_sleep(2, philo);
 	while (1)
 	{
 		if (philo->rules->max_iteration >= 0 &&
