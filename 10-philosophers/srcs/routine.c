@@ -6,11 +6,21 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:31 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/01 17:39:48 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/01 18:40:43 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
+
+static int	check_dead(t_philosopher *philo)
+{
+	if (pthread_mutex_trylock(&(philo->rules->die_mutex)) == 0)
+	{
+		pthread_mutex_unlock(&(philo->rules->die_mutex));
+		return (1);
+	}
+	return (0);
+}
 
 static void	ft_sleep(int time, t_philosopher *philo)
 {
@@ -53,7 +63,7 @@ static int	set_fork(t_philosopher *philo, int pos, int *fork)
 
 static int	kill_philo(t_philosopher *philo)
 {
-	if (philo->rules->dead == TRUE)
+	if (check_dead(philo))
 		return (1);
 	philo->rules->dead = TRUE;
 	pthread_mutex_lock(&(philo->rules->print_mutex));
