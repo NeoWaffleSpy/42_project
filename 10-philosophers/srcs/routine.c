@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:31 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/01 18:40:43 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/03 22:01:06 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static int	check_dead(t_philosopher *philo)
 {
-	if (pthread_mutex_trylock(&(philo->rules->die_mutex)) == 0)
+	pthread_mutex_lock(&(philo->rules->die_mutex));
+	if (philo->rules->dead == TRUE)
 	{
 		pthread_mutex_unlock(&(philo->rules->die_mutex));
 		return (1);
 	}
+	pthread_mutex_unlock(&(philo->rules->die_mutex));
 	return (0);
 }
 
@@ -35,9 +37,9 @@ static int	thread_print(t_philosopher *philo, char *str)
 {
 //	if (philo->position != 1)
 //		return;
-	pthread_mutex_lock(&(philo->rules->print_mutex));
-	if (philo->rules->dead)
+	if (check_dead(philo))
 		return (1);
+	pthread_mutex_lock(&(philo->rules->print_mutex));
 	printf("| %3d | %3d %s\n", get_time(philo->rules), philo->position, str);
 //	ft_printf(get_time(philo->rules), philo->position, str);
 	pthread_mutex_unlock(&(philo->rules->print_mutex));
@@ -65,12 +67,30 @@ static int	kill_philo(t_philosopher *philo)
 {
 	if (check_dead(philo))
 		return (1);
+	pthread_mutex_lock(&(philo->rules->die_mutex));
 	philo->rules->dead = TRUE;
+	pthread_mutex_unlock(&(philo->rules->die_mutex));
 	pthread_mutex_lock(&(philo->rules->print_mutex));
 	printf("| %3d | %3d %s\n", get_time(philo->rules), philo->position, "died");
 //	ft_printf(get_time(philo->rules), philo->position, "died");
-	pthread_mutex_unlock(&(philo->rules->die_mutex));
+	pthread_mutex_unlock(&(philo->rules->print_mutex));
 	return (1);
+}
+
+static int	check_fork(t_philosopher *philo, int pos1, int pos2)
+{
+	int	ret;
+
+	ret = 2;
+	pthread_mutex_lock(&(philo->rules->forks_mutex[pos1]));
+	if (*(philo->r_fork) == philo->position)
+		ret--;
+	pthread_mutex_unlock(&(philo->rules->forks_mutex[pos1]));
+	pthread_mutex_lock(&(philo->rules->forks_mutex[pos2]));
+	if (*(philo->l_fork) == philo->position)
+		ret--;
+	pthread_mutex_unlock(&(philo->rules->forks_mutex[pos2]));
+	return (ret);
 }
 
 static int	take_fork(t_philosopher *philo)
@@ -81,23 +101,24 @@ static int	take_fork(t_philosopher *philo)
 		looped = 0;
 	else
 		looped = philo->position;
-	while (!philo->l_fork || *(philo->r_fork) != philo->position ||
-		*(philo->l_fork) != philo->position)
+	while (1)
 	{
+		if (philo->l_fork != NULL &&
+			check_fork(philo, philo->position - 1, looped) == 0)
+			break;
 		usleep(5);
-		if (philo->last_meal <= get_time(philo->rules) ||
-			philo->rules->dead == TRUE)
+		if (philo->last_meal <= get_time(philo->rules) || check_dead(philo))
 			return (kill_philo(philo));
 		pthread_mutex_lock(&(philo->rules->forks_mutex[philo->position - 1]));
 		if (*(philo->r_fork) != philo->position)
 			set_fork(philo, philo->position, philo->r_fork);
 		pthread_mutex_unlock(&(philo->rules->forks_mutex[philo->position - 1]));
-		if (!philo->l_fork)
+		if (philo->rules->nb_philo < 2)
 			continue;
 		pthread_mutex_lock(&(philo->rules->forks_mutex[looped]));
 		if (*(philo->l_fork) != philo->position)
 			set_fork(philo, philo->position, philo->l_fork);
-		pthread_mutex_lock(&(philo->rules->forks_mutex[looped]));
+		pthread_mutex_unlock(&(philo->rules->forks_mutex[looped]));
 	}
 	/*
 	pthread_mutex_lock(&(philo->rules->print_mutex));
@@ -108,15 +129,19 @@ static int	take_fork(t_philosopher *philo)
 	printf("r_fork || l_fork == pos : %d\n", (*(philo->r_fork) != philo->position || *(philo->l_fork) != philo->position));
 	printf("%4d |%3d %s\n", get_time(philo->rules),
 		philo->position, "has both forks");
-	pthread_mutex_unlock(&(philo->rules->die_mutex));
 	*/
 	return (0);
 }
 
 static int	eat(t_philosopher *philo)
 {
-	if (philo->last_meal <= get_time(philo->rules) ||
-		philo->rules->dead == TRUE)
+	int	looped;
+
+	if (philo->position == philo->rules->nb_philo)
+		looped = 0;
+	else
+		looped = philo->position;
+	if (philo->last_meal <= get_time(philo->rules) || check_dead(philo))
 		return (kill_philo(philo));
 	if (thread_print(philo, "is eating"))
 		return (1);
@@ -126,18 +151,16 @@ static int	eat(t_philosopher *philo)
 		ft_sleep(philo->rules->ttdie, philo);
 	else
 		ft_sleep(philo->rules->tteat, philo);
+	pthread_mutex_lock(&(philo->rules->forks_mutex[philo->position - 1]));
 	set_fork(philo, philo->position, philo->r_fork);
+	pthread_mutex_unlock(&(philo->rules->forks_mutex[philo->position - 1]));
+	pthread_mutex_lock(&(philo->rules->forks_mutex[looped]));
 	set_fork(philo, philo->position, philo->l_fork);
+	pthread_mutex_unlock(&(philo->rules->forks_mutex[looped]));
 	if (philo->rules->max_iteration >= 0 &&
 		philo->meals >= philo->rules->max_iteration)
 	{
-		pthread_mutex_lock(&(philo->rules->finish_mutex));
-		philo->rules->finished++;
 		thread_print(philo, "has finished his meals");
-		printf("-----------> %d philo have finished\n", philo->rules->finished);
-		pthread_mutex_unlock(&(philo->rules->finish_mutex));
-		if (philo->rules->finished == philo->rules->nb_philo)
-			pthread_mutex_unlock(&(philo->rules->die_mutex));
 		return (1);
 	}
 	return (0);
@@ -145,8 +168,7 @@ static int	eat(t_philosopher *philo)
 
 static int	sleeping(t_philosopher *philo)
 {
-	if (philo->last_meal <= get_time(philo->rules) ||
-		philo->rules->dead == TRUE)
+	if (philo->last_meal <= get_time(philo->rules) || check_dead(philo))
 		return (kill_philo(philo));
 	if (thread_print(philo, "is sleeping"))
 		return (1);
@@ -175,5 +197,11 @@ void	*routine(void *tmp_philo)
 		if (take_fork(philo) || eat(philo) || sleeping(philo))
 			break;
 	}
+	pthread_mutex_lock(&(philo->rules->finish_mutex));
+	philo->rules->finished++;
+	pthread_mutex_unlock(&(philo->rules->finish_mutex));
+	pthread_mutex_lock(&(philo->rules->print_mutex));
+	printf("-----------> philo have finished\n");
+	pthread_mutex_unlock(&(philo->rules->print_mutex));
 	return (NULL);
 }

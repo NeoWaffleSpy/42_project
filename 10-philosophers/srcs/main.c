@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:24 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/24 14:08:25 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/03 22:10:22 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	boot_philo(t_rules *rules)
 
 	i = 0;
 	rules->start_time = get_time(rules);
-	pthread_mutex_lock(&(rules->die_mutex));
 	while (i < rules->nb_philo)
 	{
 		rules->philosophers[i].last_meal = rules->ttdie;
@@ -47,7 +46,14 @@ int	main(int ac, char **av)
 		free_all(&rules);
 		return (1);
 	}
-	pthread_mutex_lock(&(rules.die_mutex));
-	pthread_mutex_unlock(&(rules.die_mutex));
+	sleep(10);
+	while (1)
+	{
+		pthread_mutex_lock(&(rules.finish_mutex));
+		if (rules.finished == rules.nb_philo)
+			break;
+		pthread_mutex_unlock(&(rules.finish_mutex));
+		usleep(100);
+	}
 	free_all(&rules);
 }
