@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:24 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/03 22:10:22 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/06 18:38:16 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	main(int ac, char **av)
 		free_all(&rules);
 		return (1);
 	}
-	sleep(10);
 	while (1)
 	{
 		pthread_mutex_lock(&(rules.finish_mutex));
@@ -55,5 +54,6 @@ int	main(int ac, char **av)
 		pthread_mutex_unlock(&(rules.finish_mutex));
 		usleep(100);
 	}
+	pthread_mutex_unlock(&(rules.finish_mutex));
 	free_all(&rules);
 }
