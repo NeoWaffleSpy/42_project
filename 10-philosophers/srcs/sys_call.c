@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 16:06:42 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/06 18:37:02 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/09 17:27:00 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	call_error(char *error, char *value)
 {
 	printf("%s[%sError%s]: ", WHITE, RED, WHITE);
 	printf("%s %s%s%s\n", error, YELLOW, value, RESET_COLOR);
-	return(1);
+	return (1);
 }
 
 void	call_info(char *info, char *value)
@@ -51,7 +51,7 @@ void	free_malloc(t_rules *rules)
 
 int	get_time(t_rules *rules)
 {
-	long long	deltatime;
+	long long		deltatime;
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);

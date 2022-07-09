@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:40 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/01 16:48:45 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/09 17:24:30 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef int		t_boolean;
+typedef int				t_boolean;
 typedef struct s_rules	t_rules;
 
-typedef struct	s_philosopher
+typedef struct s_philosopher
 {
 	int				position;
 	int				*l_fork;
 	int				*r_fork;
+	int				l_fork_pos;
 	int				meals;
 	int				last_meal;
 	t_rules			*rules;
+	pthread_t		thread;
 }				t_philosopher;
 
 struct	s_rules
@@ -62,7 +64,7 @@ struct	s_rules
 	pthread_mutex_t	die_mutex;
 };
 
-int		set_rules(int ac, char** av, t_rules* rules);
+int		set_rules(int ac, char **av, t_rules *rules);
 int		init_philo(t_rules *rules);
 int		init_mutex(t_rules *rules);
 
@@ -73,11 +75,15 @@ int		ft_isdigit(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 int		get_time(t_rules *rules);
-int		call_error(char* error, char* value);
+int		call_error(char *error, char *value);
 void	call_info(char *info, char *value);
 void	free_all(t_rules *rules);
 void	free_malloc(t_rules *rules);
 
-void	ft_printf(int time, int philo, char *str);
+int		check_dead(t_philosopher *philo);
+void	ft_sleep(int time, t_philosopher *philo);
+int		kill_philo(t_philosopher *philo);
+int		thread_print(t_philosopher *philo, char *str);
+int		check_fork(t_philosopher *philo, int pos1, int pos2);
 
 #endif

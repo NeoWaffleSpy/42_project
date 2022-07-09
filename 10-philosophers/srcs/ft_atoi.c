@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:35:07 by ncaba             #+#    #+#             */
-/*   Updated: 2022/06/23 15:19:19 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/09 16:05:45 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	rmspace(const char *nptr)
 	counter = 0;
 	while (is_space)
 	{
-		if (*nptr == ' ' || *nptr == '\n' || *nptr == '\v' ||
-			*nptr == '\t' || *nptr == '\r' || *nptr == '\f')
+		if (*nptr == ' ' || *nptr == '\n' || *nptr == '\v'
+			|| *nptr == '\t' || *nptr == '\r' || *nptr == '\f')
 		{
 			nptr++;
 			counter++;
@@ -38,8 +38,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	size_t	index;
 
 	index = 0;
-	while ((unsigned char)s1[index] == (unsigned char)s2[index] &&
-			s1[index] && s2[index] && index < n - 1)
+	while ((unsigned char)s1[index] == (unsigned char)s2[index]
+		&& s1[index] && s2[index] && index < n - 1)
 		index++;
 	if (index < n)
 		return ((unsigned char)s1[index] - (unsigned char)s2[index]);
@@ -95,5 +95,5 @@ int	ft_atoi(const char *nptr)
 			return (-1);
 		i++;
 	}
-	return(ft_atoi_2(nptr));
+	return (ft_atoi_2(nptr));
 }

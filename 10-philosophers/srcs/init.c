@@ -6,16 +6,17 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:23:59 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/01 16:12:51 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/09 16:31:28 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	set_rules(int   ac, char** av, t_rules *rules)
+int	set_rules(int ac, char **av, t_rules *rules)
 {
 	if (ac < 5 || ac > 6)
-		return (call_error("Usage:", "<NbPhilo> <TimeToDie> <TimeToEat> <TimeToSleep>"));
+		return (call_error("Usage:",
+				"<NbPhilo> <TimeToDie> <TimeToEat> <TimeToSleep>"));
 	rules->nb_philo = ft_atoi(av[1]);
 	if (rules->nb_philo <= 0)
 		return (call_error("Number of philosophers incorrect:", av[1]));
@@ -39,6 +40,24 @@ int	set_rules(int   ac, char** av, t_rules *rules)
 	return (0);
 }
 
+static void	init_philo_2(t_rules *rules, int i)
+{
+	rules->forks[i] = 0;
+	rules->philosophers[i].position = i + 1;
+	rules->philosophers[i].meals = 0;
+	rules->philosophers[i].last_meal = rules->ttdie;
+	rules->philosophers[i].r_fork = &(rules->forks[i]);
+	rules->philosophers[i].rules = rules;
+	if (rules->nb_philo == 1)
+		rules->philosophers[i].l_fork = NULL;
+	else if (i < rules->nb_philo - 1)
+		rules->philosophers[i].l_fork_pos = i + 1;
+	else
+		rules->philosophers[i].l_fork_pos = 0;
+	rules->philosophers[i].l_fork
+		= &(rules->forks[rules->philosophers[i].l_fork_pos]);
+}
+
 int	init_philo(t_rules *rules)
 {
 	int	i;
@@ -54,33 +73,24 @@ int	init_philo(t_rules *rules)
 			free(rules->philosophers);
 		if (rules->forks)
 			free(rules->forks);
-		return(call_error("Malloc error in:", "init_philo"));
+		return (call_error("Malloc error in:", "init_philo"));
 	}
 	i = 0;
 	while (i < rules->nb_philo)
 	{
-		rules->forks[i] = 0;
-		rules->philosophers[i].position = i + 1;
-		rules->philosophers[i].meals = 0;
-		rules->philosophers[i].last_meal = rules->ttdie;
-		rules->philosophers[i].r_fork = &(rules->forks[i]);
-		rules->philosophers[i].rules = rules;
-		if (rules->nb_philo == 1)
-			rules->philosophers[i].l_fork = NULL;
-		else if (i < rules->nb_philo - 1)
-			rules->philosophers[i].l_fork = &(rules->forks[i+1]);
-		else
-			rules->philosophers[i].l_fork = &(rules->forks[0]);
+		init_philo_2(rules, i);
 		i++;
 	}
 	return (0);
 }
+
 int	init_mutex(t_rules *rules)
 {
 	int	i;
+
 	rules->forks_mutex = malloc(sizeof(pthread_mutex_t) * rules->nb_philo);
 	if (!rules->forks_mutex)
-		return(call_error("Malloc error in:", "init_mutex"));
+		return (call_error("Malloc error in:", "init_mutex"));
 	i = 0;
 	while (i < rules->nb_philo)
 	{

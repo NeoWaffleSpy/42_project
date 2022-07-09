@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:24 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/06 18:38:16 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/09 19:15:02 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,36 @@
 
 static int	boot_philo(t_rules *rules)
 {
-	int	i;
-	pthread_t	tid;
+	int			i;
 
 	i = 0;
 	rules->start_time = get_time(rules);
 	while (i < rules->nb_philo)
 	{
 		rules->philosophers[i].last_meal = rules->ttdie;
-		if (pthread_create(&tid, NULL, &routine, &(rules->philosophers[i])))
+		if (pthread_create(&(rules->philosophers[i].thread),
+				NULL, &routine, &(rules->philosophers[i])))
 			return (call_error("Failed Philosopher boot", ""));
-		pthread_detach(tid);
 		i++;
 	}
 	return (0);
 }
 
+static void	join_threads(t_rules *rules)
+{
+	int	i;
+
+	i = 0;
+	while (i < rules->nb_philo)
+	{
+		pthread_join(rules->philosophers[i].thread, NULL);
+		i++;
+	}
+}
+
 int	main(int ac, char **av)
 {
-	t_rules rules;
+	t_rules	rules;
 
 	if (set_rules(ac, av, &rules) || init_philo(&rules))
 		return (1);
@@ -50,10 +61,11 @@ int	main(int ac, char **av)
 	{
 		pthread_mutex_lock(&(rules.finish_mutex));
 		if (rules.finished == rules.nb_philo)
-			break;
+			break ;
 		pthread_mutex_unlock(&(rules.finish_mutex));
 		usleep(100);
 	}
 	pthread_mutex_unlock(&(rules.finish_mutex));
+	join_threads(&rules);
 	free_all(&rules);
 }
