@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:09:50 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/09 17:02:37 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/09 22:17:42 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	kill_philo(t_philosopher *philo)
 	philo->rules->dead = TRUE;
 	pthread_mutex_unlock(&(philo->rules->die_mutex));
 	pthread_mutex_lock(&(philo->rules->print_mutex));
-	printf("| %3d | %3d %s\n", get_time(philo->rules), philo->position, "died");
+	printf("| %5d | %3d %s\n", get_time(philo->rules), philo->position, "died");
 	pthread_mutex_unlock(&(philo->rules->print_mutex));
 	return (1);
 }
@@ -51,7 +51,7 @@ int	thread_print(t_philosopher *philo, char *str)
 	if (check_dead(philo))
 		return (1);
 	pthread_mutex_lock(&(philo->rules->print_mutex));
-	printf("| %3d | %3d %s\n", get_time(philo->rules), philo->position, str);
+	printf("| %5d | %3d %s\n", get_time(philo->rules), philo->position, str);
 	pthread_mutex_unlock(&(philo->rules->print_mutex));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:00:31 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/09 21:41:57 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/09 22:36:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	*routine(void *tmp_philo)
 			ft_sleep(philo->rules->tteat / 10, philo);
 		while (1)
 		{
+			philo->last_meal = get_time(philo->rules) + philo->rules->ttdie;
 			if ((philo->rules->max_iteration >= 0
 					&& philo->meals >= philo->rules->max_iteration)
 				|| take_fork(philo) || eat(philo) || sleeping(philo))
