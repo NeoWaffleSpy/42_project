@@ -6,7 +6,7 @@
 /*   By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 19:35:07 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/09 16:05:45 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/11 13:56:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int	ft_atoi_2(const char *nptr)
 int	ft_atoi(const char *nptr)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
 	if (nptr[i] == '-')
@@ -95,5 +96,12 @@ int	ft_atoi(const char *nptr)
 			return (-1);
 		i++;
 	}
-	return (ft_atoi_2(nptr));
+	ret = ft_atoi_2(nptr);
+	if (i > 11 || (ft_isdigit(nptr[0]) && ret < 0)
+		|| (nptr[0] == '-' && ret == 0))
+	{
+		call_error("Invalid value:", (char *)nptr);
+		exit(0);
+	}
+	return (ret);
 }

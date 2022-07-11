@@ -6,7 +6,7 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/07/09 18:15:13 by ncaba            ###   ########.fr        #
+#    Updated: 2022/07/11 16:26:05 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ HEADERS		= $(addprefix -I ./include/, $(HEADERFILES))
 all: $(NAME)
 	@echo "Compiled !"
 
-$(NAME): $(OBJS) 
+norminette:
+	@norminette
+
+$(NAME): norminette $(OBJS)
 	@$(CC) $(OBJS) $(CFLAGS) $(INC) -o $(NAME) -g
 
 %.o: %.c
@@ -47,4 +50,4 @@ fclean: clean
 
 re: clean $(NAME)
 
-.PHONY: re fclean clean all bonus
+.PHONY: re fclean clean all norminette

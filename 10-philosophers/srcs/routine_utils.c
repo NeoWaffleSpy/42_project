@@ -6,7 +6,7 @@
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:09:50 by ncaba             #+#    #+#             */
-/*   Updated: 2022/07/09 22:17:42 by ncaba            ###   ########.fr       */
+/*   Updated: 2022/07/11 16:38:29 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ void	ft_sleep(int time, t_philosopher *philo)
 
 int	kill_philo(t_philosopher *philo)
 {
-	if (check_dead(philo))
-		return (1);
 	pthread_mutex_lock(&(philo->rules->die_mutex));
+	if (philo->rules->dead == TRUE)
+	{
+		pthread_mutex_unlock(&(philo->rules->die_mutex));
+		return (1);
+	}
 	philo->rules->dead = TRUE;
 	pthread_mutex_unlock(&(philo->rules->die_mutex));
 	pthread_mutex_lock(&(philo->rules->print_mutex));
@@ -48,9 +51,12 @@ int	kill_philo(t_philosopher *philo)
 
 int	thread_print(t_philosopher *philo, char *str)
 {
-	if (check_dead(philo))
-		return (1);
 	pthread_mutex_lock(&(philo->rules->print_mutex));
+	if (check_dead(philo))
+	{
+		pthread_mutex_unlock(&(philo->rules->print_mutex));
+		return (1);
+	}
 	printf("| %5d | %3d %s\n", get_time(philo->rules), philo->position, str);
 	pthread_mutex_unlock(&(philo->rules->print_mutex));
 	return (0);
