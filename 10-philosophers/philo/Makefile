@@ -6,11 +6,11 @@
 #    By: ncaba <nathancaba.etu@outlook.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/07/11 16:26:05 by ncaba            ###   ########.fr        #
+#    Updated: 2022/07/12 14:31:57 by ncaba            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= philosophers
+NAME		= philo
 CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
 INC			= -I . -lpthread
