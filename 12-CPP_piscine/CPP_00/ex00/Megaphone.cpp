@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Annuaire.hpp                                       :+:      :+:    :+:   */
+/*   Megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncaba <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/12 21:43:21 by ncaba             #+#    #+#             */
-/*   Updated: 2022/08/12 21:43:22 by ncaba            ###   ########.fr       */
+/*   Created: 2022/08/12 19:49:52 by ncaba             #+#    #+#             */
+/*   Updated: 2022/08/12 19:49:54 by ncaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANNUAIRE_H
-# define ANNUAIRE_H
+#include <iostream>
+#include <string>
+#include <locale>
 
-# include <iostream>
-# include <iomanip>
-# include <string>
-# include "Contact.hpp"
-
-class Annuaire
+int
+	main(int argc, char const *argv[])
 {
-private:
-    Contact contact[8];
-    int     number;
-    Contact clear;
-
-public:
-    Annuaire();
-    ~Annuaire();
-    void    add_contact(void);
-    void    show_list(void);
-    void    show_contact(int index);
-};
-
-#endif // ANNUAIRE_H
+	if (argc > 1)
+	{
+		for (int i = 1; i < argc; i++)
+		{
+			std::string str(argv[i]);
+			for (size_t j = 0; j < str.length(); j++)
+				std::cout << (char)std::toupper(str[j]);
+		}
+		std::cout << std::endl;
+	}
+	else
+		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
+	return (0);
+}

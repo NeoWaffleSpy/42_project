@@ -31,6 +31,7 @@ public:
     void    set_info(int index);
     void    display_small(void);
     void    display_full(void);
+    void 	clean_spaces(std::string *str);
 };
 
 #endif

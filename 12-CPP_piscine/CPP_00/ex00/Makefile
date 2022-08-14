@@ -10,21 +10,18 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= PhoneBook
+NAME		= megaphone
 CXX			= clang++
 CPPFLAGS	= -Wall -Wextra -Werror
 INC			=
 
-SRC			=	Annuaire.cpp \
-				Contact.cpp \
-				main.cpp \
+SRC			=	Megaphone.cpp
 
 #SRC			=	$(addprefix ./srcs/, $(SRCS))
 OBJ			=	$(SRC:.cpp=.o)
 
-HEADERS	=	Annuaire.hpp \
-				Contact.hpp
-#HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))
+HEADERFILES	=	
+HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))
 
 all: $(NAME)
 	@echo "Compiled !"
