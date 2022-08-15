@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME		= BrainRef
-CXX			= clang++
+CXX			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
 INC			=
 

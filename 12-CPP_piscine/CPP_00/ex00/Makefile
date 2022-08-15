@@ -11,8 +11,8 @@
 # **************************************************************************** #
 
 NAME		= megaphone
-CXX			= clang++
-CPPFLAGS	= -Wall -Wextra -Werror
+CXX			= c++
+CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
 INC			=
 
 SRC			=	Megaphone.cpp

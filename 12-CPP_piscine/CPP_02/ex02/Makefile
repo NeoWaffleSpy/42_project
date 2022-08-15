@@ -10,18 +10,18 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= Harle
-CXX			= clang++
+NAME		= Fixed
+CXX			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
 INC			=
 
 SRC			=	main.cpp \
-				Harl.cpp
+				Fixed.cpp
 
 #SRC			=	$(addprefix ./srcs/, $(SRCS))
 OBJ			=	$(SRC:.cpp=.o)
 
-HEADERS		=	Harl.hpp
+HEADERS		=	Fixed.hpp
 #HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))
 
 all: $(NAME)
