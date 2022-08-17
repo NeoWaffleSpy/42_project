@@ -25,5 +25,8 @@ void	HumanB::setWeapon(Weapon &var)
 
 void    HumanB::attack()
 {
-    std::cout << this->name << " attacked with " << this->weapon->getType() << std::endl;
+    if (this->weapon == NULL)
+        std::cout << this->name << " injured himself trying to hit with his bare hands" << std::endl;
+    else
+        std::cout << this->name << " attacked with " << this->weapon->getType() << std::endl;
 }

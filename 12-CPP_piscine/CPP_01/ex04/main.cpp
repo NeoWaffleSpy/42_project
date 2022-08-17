@@ -22,7 +22,9 @@ int	main(int ac, char** av)
 	std::ofstream	fs_out;
 	std::string		str;
 	int				pos;
+	bool			first;
 
+	first = true;
 	if (ac != 4)
 	{
 		std::cout << "Invalid parameters, use " << av[0] << " <Filemame> <PatternToReplace> <PatternThatReplace>" << std::endl;
@@ -43,6 +45,9 @@ int	main(int ac, char** av)
 	}
 	do
 	{
+		if (!first)
+			fs_out << std::endl;
+		first = false;
 		getline(fs_in, str);
 		pos = str.find(av[2]);
 		while (pos != -1)
@@ -51,7 +56,7 @@ int	main(int ac, char** av)
 			str.insert((unsigned long)pos, std::string(av[3]));
 			pos = str.find(av[2]);
 		}
-		fs_out << str << std::endl;
+		fs_out << str;
 	} while (!fs_in.eof());
 	fs_in.close();
 	fs_out.close();

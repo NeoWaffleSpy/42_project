@@ -37,7 +37,7 @@ void    Annuaire::show_list()
 	std::cout << "|" << std::right << std::setw(10) << "Nickname" << "|" << std::endl;
     std::cout << "|----------|----------|----------|----------|" << std::endl;
     num = 8;
-    if (this->number < 7)
+    if (this->number < 8)
         num = this->number;
     for (int i = 0; i < num; i++)
     {
