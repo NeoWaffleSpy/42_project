@@ -25,7 +25,7 @@ private:
     /* data */
 
 public:
-    ScavTrap(std::string name);
+    ScavTrap(std::string = "Unnamed");
     ScavTrap(ScavTrap& copy);
     ~ScavTrap();
     ScavTrap &operator=(ScavTrap &src);

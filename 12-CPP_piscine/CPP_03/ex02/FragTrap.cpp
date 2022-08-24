@@ -12,7 +12,7 @@
 
 # include "FragTrap.hpp"
 
-FragTrap::FragTrap(std::string name = "Unnamed"): ClapTrap(name)
+FragTrap::FragTrap(std::string name): ClapTrap(name)
 {
 	this->HP = 100;
     this->EP = 100;

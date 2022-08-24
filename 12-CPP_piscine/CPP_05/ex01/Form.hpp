@@ -29,7 +29,7 @@ private:
     bool                isSigned;
 
 public:
-    Form(std::string name, const int gradeToSign, const int gradeToExec);
+    Form(std::string = "Unnamed", const int = 150, const int = 150);
     Form(Form& copy);
     ~Form();
     Form &operator=(Form &src);

@@ -28,7 +28,7 @@ private:
     /* data */
 
 public:
-    RobotomyRequestForm(std::string target);
+    RobotomyRequestForm(std::string = "Unnamed");
     RobotomyRequestForm(RobotomyRequestForm& copy);
     ~RobotomyRequestForm();
     RobotomyRequestForm &operator=(RobotomyRequestForm &src);

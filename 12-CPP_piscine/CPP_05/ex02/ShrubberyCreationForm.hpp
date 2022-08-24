@@ -28,7 +28,7 @@ private:
     /* data */
 
 public:
-    ShrubberyCreationForm(std::string target);
+    ShrubberyCreationForm(std::string = "Unnamed");
     ShrubberyCreationForm(ShrubberyCreationForm& copy);
     ~ShrubberyCreationForm();
     ShrubberyCreationForm &operator=(ShrubberyCreationForm &src);

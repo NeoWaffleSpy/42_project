@@ -27,7 +27,7 @@ private:
     /* data */
 
 public:
-    PresidentialPardonForm(std::string target);
+    PresidentialPardonForm(std::string = "Unnamed");
     PresidentialPardonForm(PresidentialPardonForm& copy);
     ~PresidentialPardonForm();
     PresidentialPardonForm &operator=(PresidentialPardonForm &src);

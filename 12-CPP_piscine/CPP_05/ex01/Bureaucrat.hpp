@@ -27,7 +27,7 @@ private:
     int                 grade;
 
 public:
-	Bureaucrat(const std::string name, int grade);
+	Bureaucrat(const std::string = "Unnamed", int = 150);
     Bureaucrat(Bureaucrat& copy);
     ~Bureaucrat();
     Bureaucrat &operator=(Bureaucrat &src);

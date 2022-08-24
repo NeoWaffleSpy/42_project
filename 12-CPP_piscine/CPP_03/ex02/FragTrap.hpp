@@ -24,7 +24,7 @@ private:
     /* data */
 
 public:
-    FragTrap(std::string name);
+    FragTrap(std::string = "Unnamed");
     FragTrap(FragTrap& copy);
     ~FragTrap();
     FragTrap &operator=(FragTrap &src);

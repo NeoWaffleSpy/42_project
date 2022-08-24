@@ -26,7 +26,7 @@ private:
     unsigned int    Attack;
 
 public:
-    ClapTrap(std::string name);
+    ClapTrap(std::string = "Unnamed");
     ClapTrap(ClapTrap& copy);
     ~ClapTrap();
     ClapTrap &operator=(ClapTrap &src);
