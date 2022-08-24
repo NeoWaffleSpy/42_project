@@ -13,7 +13,9 @@
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap(std::string name): name(name), HP(10), EP(10), Attack(0)
-{}
+{
+    std::cout << "ClapTrap creation: " << this->name << std::endl;
+}
 
 ClapTrap::ClapTrap(ClapTrap& copy)
 {
@@ -21,7 +23,9 @@ ClapTrap::ClapTrap(ClapTrap& copy)
 }
 
 ClapTrap::~ClapTrap()
-{}
+{
+    std::cout << "ClapTrap destruction: " << this->name << std::endl;
+}
 
 ClapTrap &ClapTrap::operator=(ClapTrap &src)
 {

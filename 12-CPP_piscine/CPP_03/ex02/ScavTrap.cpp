@@ -43,6 +43,19 @@ ScavTrap &ScavTrap::operator=(ScavTrap &src)
 	return *this;
 }
 
+void    ScavTrap::attack(const std::string& target)
+{
+    if (this->HP <= 0)
+        std::cout << this->name <<" is dead and can't attack. but SCAVTRAP!" << std::endl;
+    else if (this->EP <= 0)
+        std::cout << this->name << " is tired and can't attack. but SCAVTRAP!" << std::endl;
+    else
+    {
+        std::cout << this->name << " attacked " << target << " dealing him " << this->Attack << " damages. but SCAVTRAP!" << std::endl;
+        this->EP--;
+    }
+}
+
 void    ScavTrap::guardGate(void)
 {
     if (this->HP <= 0)
