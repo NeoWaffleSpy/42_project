@@ -12,7 +12,7 @@
 
 # include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(std::string name): ClapTrap(name)
+ScavTrap::ScavTrap(std::string name = "Unnamed"): ClapTrap(name)
 {
 	this->HP = 100;
     this->EP = 50;
