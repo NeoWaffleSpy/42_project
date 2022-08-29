@@ -31,10 +31,12 @@ Convert &Convert::operator=(Convert &src)
     return *this;
 }
 
-bool    Convert::isFloat(std::string val)
+int    Convert::isFloat(std::string val)
 {
     int i;
     i = 0;
+    if (val[i] == '-')
+        i++;
     for (; i < (int)val.length(); i++)
     {
         if (!isdigit(val[i]))
@@ -58,13 +60,20 @@ bool    Convert::isFloat(std::string val)
     }
     if (val[i + 1])
         return 0;
+    long num = strtol(val.c_str(), 0, 10);
+    if ((num == LONG_MIN || num == LONG_MAX) && errno == ERANGE)
+    {
+        return 8;
+    }
     return 1;
 }
 
-bool    Convert::isDouble(std::string val)
+int    Convert::isDouble(std::string val)
 {
     int i;
     i = 0;
+    if (val[i] == '-')
+        i++;
     for (; i < (int)val.length(); i++)
     {
         if (!isdigit(val[i]))
@@ -80,29 +89,46 @@ bool    Convert::isDouble(std::string val)
     for (; i < (int)val.length(); i++)
         if (!isdigit(val[i]))
             return 0;
+
+    long num = strtol(val.c_str(), 0, 10);
+    if ((num == LONG_MIN || num == LONG_MAX) && errno == ERANGE)
+    {
+        return 4;
+    }
     return 1;
 }
 
-bool    Convert::isChar(std::string val)
+int    Convert::isChar(std::string val)
 {
     if (val.length() > 1 || !isalpha(val[0]))
         return 0;
     return 1;
 }
 
-bool    Convert::isInt(std::string val)
+int    Convert::isInt(std::string val)
 {
-    for (int i = 0; i < (int)val.length(); i++)
+    int i;
+    i = 0;
+    if (val[i] == '-')
+        i++;
+    for (; i < (int)val.length(); i++)
     {
         if (!isdigit(val[i]))
             return 0;
+    }
+
+    long num = strtol(val.c_str(), 0, 10);
+    if (((num == LONG_MIN || num == LONG_MAX) && errno == ERANGE) ||
+        num > (long)INT_MAX || num < (long)INT_MIN)
+    {
+        return 2;
     }
     return 1;
 }
 
 int Convert::getType(std::string val)
 {
-    std::cout << std::fixed;
+    // std::cout << std::fixed;
     if (val.compare("nan") == 0 || val.compare("+inf") == 0 ||
 		val.compare("-inf") == 0 || val.compare("+inff") == 0 ||
 		val.compare("-inff") == 0)
@@ -116,24 +142,6 @@ int Convert::getType(std::string val)
     return (isInt(val) * 4);
 }
 
-void    Convert::printFloat(float val)
-{
-    std::cout << std::setw(10) << std::right << "char : ";
-    if (val < 32 || val > 126)
-        std::cout << "Non displayable" << std::endl;
-    else
-        std::cout << "'" << static_cast<char>(val) << "'" << std::endl;
-
-    std::cout << std::setw(10) << std::right << "int : ";
-    std::cout << static_cast<int>(val) << std::endl;
-
-    std::cout << std::setw(10) << std::right << "float : ";
-    std::cout << val << "f" << std::endl;
-
-    std::cout << std::setw(10) << std::right << "double : ";
-    std::cout << static_cast<double>(val) << std::endl;
-}
-
 void    Convert::printDouble(double val)
 {
     std::cout << std::setw(10) << std::right << "char : ";
@@ -143,7 +151,10 @@ void    Convert::printDouble(double val)
         std::cout << "'" << static_cast<char>(val) << "'" << std::endl;
 
     std::cout << std::setw(10) << std::right << "int : ";
-    std::cout << static_cast<int>(val) << std::endl;
+    if (val > (double)INT_MAX || val < (double)INT_MIN)
+        std::cout << "overflow" << std::endl;
+    else
+        std::cout << static_cast<int>(val) << std::endl;
 
     std::cout << std::setw(10) << std::right << "float : ";
     std::cout << static_cast<float>(val) << "f" << std::endl;

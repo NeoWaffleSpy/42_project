@@ -10,18 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= Spanner
+NAME		= MutantStack
 CXX			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
 INC			=
 
-SRC			=	main.cpp \
-				Span.cpp
+SRC			=	main.cpp
 
 #SRC			=	$(addprefix ./srcs/, $(SRCS))
 OBJ			=	$(SRC:.cpp=.o)
 
-HEADERS		=	Span.hpp
+HEADERS		=	MutantStack.hpp
 
 #HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))
 

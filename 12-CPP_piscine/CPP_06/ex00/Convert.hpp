@@ -17,14 +17,16 @@
 # include <iomanip>
 # include <cstdlib>
 # include <string>
+# include <climits>
+# include <errno.h>
 
 class Convert
 {
 private:
-    static bool isFloat(std::string val);
-    static bool isDouble(std::string val);
-    static bool isChar(std::string val);
-    static bool isInt(std::string val);
+    static int isFloat(std::string val);
+    static int isDouble(std::string val);
+    static int isChar(std::string val);
+    static int isInt(std::string val);
 
 public:
     Convert();
@@ -33,7 +35,6 @@ public:
     Convert &operator=(Convert &src);
 
     static int  getType(std::string val);
-    static void printFloat(float val);
     static void printDouble(double val);
     static void printChar(char val);
     static void printInt(int val);

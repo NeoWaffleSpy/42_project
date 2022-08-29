@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	switch (Convert::getType(argv[1]))
 	{
 	case 1:
-		Convert::printFloat(atof(argv[1]));
+		Convert::printDouble(atof(argv[1]));
 		break;
 	case 2:
 		Convert::printDouble(atof(argv[1]));
@@ -35,6 +35,9 @@ int main(int argc, char **argv)
 		break;
 	case 5:
 		Convert::printNan(argv[1]);
+		break;
+	case 8:
+		std::cout << "Overfow of value" << std::endl;
 		break;
 	
 	default:

@@ -15,6 +15,7 @@
 
 // LIBS ========================================================================
 # include <iostream>
+# include <cstdlib>
 # include "Base.hpp"
 # include "A.hpp"
 # include "B.hpp"
@@ -22,8 +23,9 @@
 // =============================================================================
 
 // PROTOYPES ===================================================================
-void identify_from_pointer(Base * p);
-void identify_from_reference( Base & p);
+void identify(Base * p);
+void identify( Base & p);
+Base *generate(void);
 // =============================================================================
 
 #endif

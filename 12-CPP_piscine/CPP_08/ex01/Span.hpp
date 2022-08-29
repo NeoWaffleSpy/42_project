@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <iomanip>
+# include <cstdlib>
 # include <string>
 # include <algorithm>
 # include <iterator>
@@ -32,9 +33,42 @@ public:
     ~Span();
     Span &operator=(Span &src);
 
-    void    Span::addNumber(int val);
-    void    Span::shortestSpan();
-    void    Span::longestSpan();
+    void            addNumber(int val);
+    int             shortestSpan();
+    int             longestSpan();
+    unsigned int    getLength();
+    void            randomFill();
 };
+ 
+struct Spanner
+{
+    int min;
+    int max;
+    Spanner()
+    {
+        min = -1;
+        max = -1;
+    }
+    void operator()(int n)
+    {
+        pile.push_back(n);
+        if (pile.size() >= 3)
+            pile.erase(pile.begin());
+        if (pile.size() >= 2)
+        {
+            int tmp;
+            tmp = pile[0] - pile[1];
+            if (tmp < 0)
+                tmp *= -1;
+            if (min == -1 || tmp < min)
+                min = tmp;
+            if (max == -1 || tmp > max)
+                max = tmp;
+        }
+    }
+    std::vector<int> pile;
+};
+
+std::ostream	&operator<<(std::ostream &o, Span &a);
 
 #endif

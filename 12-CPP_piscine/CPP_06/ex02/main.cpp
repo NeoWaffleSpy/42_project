@@ -14,18 +14,30 @@
 
 int main()
 {
+    srand (time(NULL));
+    
     A a;
     B b;
     C c;
 
     std::cout << "Pointers :" << std::endl;
-    identify_from_pointer(&b);
-    identify_from_pointer(&a);
-    identify_from_pointer(&c);
+    identify(&b);
+    identify(&a);
+    identify(&c);
 
     std::cout << "References :" << std::endl;
-    identify_from_reference(c);
-    identify_from_reference(b);
-    identify_from_reference(a);
+    identify(c);
+    identify(b);
+    identify(a);
 
+    std::cout << "Random Generation:" << std::endl;
+    for (int i = 0; i < 5; i++)
+    {
+        Base *tmp;
+        tmp = generate();
+        identify(*tmp);
+        identify(tmp);
+        delete tmp;
+        std::cout << std::endl;
+    }
 }
