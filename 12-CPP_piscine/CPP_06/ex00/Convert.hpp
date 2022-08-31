@@ -17,8 +17,9 @@
 # include <iomanip>
 # include <cstdlib>
 # include <string>
-# include <climits>
+# include <limits>
 # include <errno.h>
+# include <stdlib.h>
 
 class Convert
 {

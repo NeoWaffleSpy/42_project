@@ -60,8 +60,10 @@ int    Convert::isFloat(std::string val)
     }
     if (val[i + 1])
         return 0;
-    long num = strtol(val.c_str(), 0, 10);
-    if ((num == LONG_MIN || num == LONG_MAX) && errno == ERANGE)
+    double num = strtod(val.c_str(), NULL);
+    if (num <= std::numeric_limits<float>::min() ||
+        num >= std::numeric_limits<float>::max() ||
+        errno == ERANGE)
     {
         return 8;
     }
@@ -90,8 +92,9 @@ int    Convert::isDouble(std::string val)
         if (!isdigit(val[i]))
             return 0;
 
-    long num = strtol(val.c_str(), 0, 10);
-    if ((num == LONG_MIN || num == LONG_MAX) && errno == ERANGE)
+    double num = strtod(val.c_str(), NULL);
+    (void)num;
+    if (errno == ERANGE)
     {
         return 4;
     }
@@ -118,8 +121,11 @@ int    Convert::isInt(std::string val)
     }
 
     long num = strtol(val.c_str(), 0, 10);
-    if (((num == LONG_MIN || num == LONG_MAX) && errno == ERANGE) ||
-        num > (long)INT_MAX || num < (long)INT_MIN)
+    if (((num == std::numeric_limits<long>::min() ||
+        num == std::numeric_limits<long>::max()) &&
+        errno == ERANGE) ||
+        num < std::numeric_limits<int>::min() ||
+        num > std::numeric_limits<int>::max())
     {
         return 2;
     }
@@ -151,7 +157,7 @@ void    Convert::printDouble(double val)
         std::cout << "'" << static_cast<char>(val) << "'" << std::endl;
 
     std::cout << std::setw(10) << std::right << "int : ";
-    if (val > (double)INT_MAX || val < (double)INT_MIN)
+    if (val > (double)std::numeric_limits<int>::max() || val < (double)std::numeric_limits<int>::min())
         std::cout << "overflow" << std::endl;
     else
         std::cout << static_cast<int>(val) << std::endl;
@@ -160,7 +166,7 @@ void    Convert::printDouble(double val)
     std::cout << static_cast<float>(val) << "f" << std::endl;
 
     std::cout << std::setw(10) << std::right << "double : ";
-    std::cout << val << std::endl;
+    std::cout << static_cast<double>(val) << std::endl;
 }
 
 void    Convert::printChar(char val)
