@@ -7,10 +7,10 @@
 typedef struct	s_data
 {
 	int	old_stdin;
-	int	pipe;
+	int pipe;
 }				t_data;
 
-int		ft_strlen(char *str)
+int ft_strlen(char *str)
 {
 	if (!str)
 		return 0;
@@ -28,28 +28,28 @@ void	ft_putstr_err(char *str)
 
 void	fatal(int old_stdin)
 {
-	ft_putstr_err("error: fatal\n");
+	ft_putstr_err("error:fatal\n");
 	close(old_stdin);
 	exit(1);
 }
 
-void	ft_cd(char **cmd)
+void	ft_cd(char **av)
 {
-	if (!cmd[1] || cmd[2])
+	if (!av[1] || av[2])
 		return (ft_putstr_err("error: cd: bad arguments\n"));
-	if (chdir(cmd[1]) < 0)
+	if (chdir(av[1]) < 0)
 	{
-		ft_putstr_err("error: cannot change directory to ");
-		ft_putstr_err(cmd[1]);
+		ft_putstr_err("error: cd: cannot change directory to ");
+		ft_putstr_err(av[1]);
 		ft_putstr_err("\n");
 	}
 }
 
-void	exec(t_data data, char **cmd, char **env)
+void	exec(t_data data, char **av, char **env)
 {
-	if (!strcmp(cmd[0], "cd"))
-		return (ft_cd(cmd));
-
+	if (!strcmp(av[0], "cd"))
+		return (ft_cd(av));
+	
 	int	fd[2];
 	int	pid;
 
@@ -65,9 +65,9 @@ void	exec(t_data data, char **cmd, char **env)
 			dup2(fd[1], 1);
 			close(fd[1]);
 		}
-		execve(cmd[0], cmd, env);
+		execve(av[0], av, env);
 		ft_putstr_err("error: cannot execute ");
-		ft_putstr_err(cmd[0]);
+		ft_putstr_err(av[0]);
 		ft_putstr_err("\n");
 		close(data.old_stdin);
 		exit(1);
@@ -79,29 +79,22 @@ void	exec(t_data data, char **cmd, char **env)
 		close(fd[0]);
 	}
 	else
-		dup2(data.old_stdin, 0);
+		dup2(data.old_stdin, 1);
 	waitpid(pid, 0, 0);
 }
 
-int		main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	(void)ac;
-	t_data data;
 	int i = 1;
 	int j = 1;
+	t_data data;
 
 	data.old_stdin = dup(0);
-	data.pipe = 0;
 	while (av[i])
 	{
-		if (!strcmp(av[i], "|") || !strcmp(av[i], ";"))
+		if (!strcmp(av[i], "|") ||  !strcmp(av[i], ";"))
 		{
-			if (i == j)
-			{
-				i++;
-				j++;
-				continue;
-			}
 			if (!strcmp(av[i], "|"))
 				data.pipe = 1;
 			av[i] = NULL;

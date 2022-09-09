@@ -96,12 +96,6 @@ int		main(int ac, char **av, char **env)
 	{
 		if (!strcmp(av[i], "|") || !strcmp(av[i], ";"))
 		{
-			if (i == j)
-			{
-				i++;
-				j++;
-				continue;
-			}
 			if (!strcmp(av[i], "|"))
 				data.pipe = 1;
 			av[i] = NULL;

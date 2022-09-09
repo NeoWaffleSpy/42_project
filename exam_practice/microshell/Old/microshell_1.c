@@ -4,109 +4,278 @@
 #include <sys/wait.h>
 #include <string.h>
 
-typedef struct  s_data
-{
-    int old_stdin;
-    int pipe;
-}               t_data;
+int     ft_strlen(char *str);
+void    ft_putstr_fd(char *str, int fd);
+char    *ft_strdup(char *str);
+int     ft_strcmp(char *str1, char *str2);
+int     get_cmd(char ***cmd, int ac, char *av[]);
+int     get_cmd_size(char **cmd);
+void    clear_cmd(char ***cmd);
+int     cd(char **cmd);
+int     find_pipe(char **cmd);
+void    exec_comm(char **cmd, char **envp);
+int     exec_child(char** cmd, char** env, char** tmp, int fd_in, int fd_pipe[2]);
 
 int     ft_strlen(char *str)
 {
-    if (!str)
-        return 0;
-    int i = -1;
-    while (str[++i]);
-    return i;
+    int i;
+
+    i = 0;
+    while (str[i])
+        i++;
+    return (i);
 }
 
-void    ft_putstr_err(char *str)
+void    ft_putstr_fd(char *str, int fd)
 {
     if (!str)
-        return 0;
-    write(2, str, ft_strlen(str));
+        return ;
+    write(fd, str, ft_strlen(str));
 }
 
-void    fatal(int   old_stdin)
+void    print_error(char *str, char *opt)
 {
-    ft_putstr_err("error: fatal\n");
-    close(old_stdin);
+    ft_putstr_fd("error: ", 2);
+    ft_putstr_fd(str, 2);
+    ft_putstr_fd(opt, 2);
+    ft_putstr_fd("\n", 2);
+}
+
+void    print_fatal(char **cmd)
+{
+    ft_putstr_fd("error: fatal\n", 2);
+    clear_cmd(&cmd);
     exit(1);
 }
 
-void    ft_cd(char **cmd)
+char    *ft_strdup(char *str)
 {
-    if (!cmd[1] || cmd[2])
-        return (ft_putstr_err("error: cd: bad arguments\n"));
-    if (chdir(cmd[1]) < 0)
+    char    *new;
+    int     i;
+
+    i = 0;
+    new = malloc(sizeof(char) * ft_strlen(str) + 1);
+    while (str[i])
     {
-        ft_putstr_err("error: cd: cannot change directory to ");
-        ft_putstr_err(cmd[1]);
-        ft_putstr_err("\n");
-    }
-}
-
-void    exec(t_data data, char **cmd, char **env)
-{
-    if (!strcmp(cmd[0], "cd"))
-        return (ft_cd(cmd));
-
-    int fd[2];
-    int pid;
-    char **tmp = cmd;
-
-    if (data.pipe && pipe(fd) < 0)
-        fatal(data.old_stdin);
-    if ((pid = fork()) < 0)
-        fatal(data.old_stdin);
-    if (!pid)
-    {
-        if (data.pipe)
-        {
-            close(fd[0]);
-            dup2(fd[1], 1);
-            close(fd[1]);
-        }
-        execve(cmd[0], cmd, env);
-        ft_putstr_err("error: cqnnot execute ");
-        ft_putstr_err(cmd[0]);
-        ft_putstr_err("\n");
-        close(data.old_stdin);
-        exit(1);
-    }
-    if (data.pipe)
-    {
-        close(fd[1]);
-        dup2(fd[0], 0);
-        close(fd[0]);
-    }
-    else
-        dup2(data.old_stdin, 0);
-    waitpid(pid, 0, 0);
-}
-
-int     main(int ac, char **av, char **env)
-{
-    (void)ac;
-    t_data data;
-    int i = 1;
-    int j = 1;
-
-    data.pipe 
-    = 0;
-    while (av[i])
-    {
-        if (!strcmp(av[i], "|" || !strcmp(av[i], ";"))
-        {
-            if (!strcmp(av[i], "|")
-                data.pipe = 1;
-            av[i] = NULL;
-            exec(data, &av[j], env);
-            data.pipe = 0;
-            j = i + 1;
-        }
-        else if (!av[i + 1])
-            exec(data, &av[j], env);
+        new[i] = str[i];
         i++;
     }
-    close(data.old_stdin);
+    new[i] = 0;
+    return (new);
+}
+
+int     ft_strcmp(char *str1, char *str2)
+{
+    int i;
+
+    i = 0;
+    if (!str1 || !str2)
+        return (-1);
+    while (str1[i] && str2[i])
+    {
+        if (str1[i] != str2[i])
+            return (str1[i] - str2[i]);
+        i++;
+    }
+    return (str1[i] - str2[i]);
+}
+
+int     get_cmd(char ***cmd, int ac, char *av[])
+{
+    int i;
+
+    i = 0;
+    while (i < ac)
+    {
+        if (!ft_strcmp(av[i], ";"))
+            break;
+        i++;
+    }
+    if (i == 0)
+        return 1;
+    *cmd = malloc(sizeof(char*) * (i + 1));
+    i = 0;
+    while (i < ac)
+    {
+        if (!ft_strcmp(av[i], ";"))
+            break;
+        (*cmd)[i] = ft_strdup(av[i]);
+        i++;
+    }
+    (*cmd)[i] = 0;
+    return (i + 1);
+}
+
+void    clear_cmd(char ***cmd)
+{
+    int i;
+
+    i = 0;
+    if (!*cmd)
+        return ;
+    while ((*cmd)[i])
+    {
+        free((*cmd)[i]);
+        i++;
+    }
+    free(*cmd);
+    *cmd = NULL;
+}
+
+int     get_cmd_size(char **cmd)
+{
+    int i;
+
+    i = 0;
+    while ((*cmd)[i])
+        i++;
+    return (i);
+}
+
+int    cd(char **cmd)
+{
+    if (get_cmd_size(cmd) != 2)
+    {
+        print_error("cd: bad arguments", "");
+        return (1);
+    }
+    if (chdir(cmd[1]) < 0)
+    {
+        print_error("cd: cannot change directory to ", cmd[1]);
+        return (1);
+    }
+    return (0);
+}
+
+int     find_pipe(char **cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if (!ft_strcmp(cmd[i], "|"))
+            return (i);
+        i++;
+    }
+    return -1;
+}
+
+void    exec_single(char **cmd, char **envp)
+{
+    pid_t pid;
+
+    pid = fork();
+    if (pid < 0)
+        print_fatal(cmd);
+    if (!pid)
+    {
+        if (execve(cmd[0], cmd, envp) < 0)
+        {
+            print_error("cannot execute ", cmd[0]);
+        }
+        clear_cmd(&cmd);
+        exit(0);
+    }
+    waitpid(0, NULL, 0);
+    return ;
+}
+
+int exec_child(char** cmd, char** envp, char** tmp, int fd_in, int fd_pipe[2])
+{
+    ft_putstr_fd("Pass 1\n", 2);
+    if (dup2(fd_in, STDIN_FILENO) < 0)
+        print_fatal(cmd);
+    ft_putstr_fd("Pass 2\n", 2);
+    if (dup2(fd_pipe[1], STDOUT_FILENO) < 0)
+    {
+        print_fatal(cmd);
+    }
+    ft_putstr_fd("Pass 3\n", 2);
+	close(fd_in);
+	close(fd_pipe[0]);
+	close(fd_pipe[1]);
+
+    ft_putstr_fd("Pass 4\n", 2);
+    tmp[find_pipe(tmp)] = NULL;
+    if (execve(cmd[0], cmd, envp) < 0)
+    {
+        print_error("cannot execute ", cmd[0]);
+    }
+    ft_putstr_fd("Pass 5\n", 2);
+    clear_cmd(&cmd);
+    exit(0);
+}
+
+void    exec_comm(char **cmd, char **envp)
+{
+    int nb_wait;
+
+    nb_wait = 0;
+    if (find_pipe(cmd) == -1)
+        return (exec_single(cmd, envp));
+
+    int fd_in;
+    int fd_pipe[2];
+    char **tmp;
+    pid_t pid;
+
+    tmp = cmd;
+    fd_in = dup(STDIN_FILENO);
+    if (fd_in < 0)
+        print_fatal(cmd);
+    
+    while (tmp)
+    {
+        if (pipe(fd_pipe) < 0 || (pid = fork()) < 0)
+            print_fatal(cmd);
+
+        if (!pid)
+            exec_child(cmd, envp, tmp, fd_in, fd_pipe);
+        else
+        {
+            if (dup2(fd_pipe[0], fd_in) < 0)
+                print_fatal(cmd);
+            close(fd_pipe[0]);
+            close(fd_pipe[1]);
+            nb_wait++;
+            if (find_pipe(tmp) != -1)
+                tmp += find_pipe(tmp) + 1;
+            else
+                tmp = NULL;
+        }
+    }
+    close(fd_in);
+    while (nb_wait > 0)
+    {
+		waitpid(0, NULL, 0);
+        nb_wait--;
+    }
+}
+
+int main(int ac, char *av[], char *envp[])
+{
+    char    **cmd;
+    int     count;
+
+    count = 1;
+    while (1)
+    {
+        if (count >= ac)
+            break;
+        count += get_cmd(&cmd, ac - count, &av[count]);
+        if (cmd)
+        {
+            if (!ft_strcmp(cmd[0], "cd"))
+            {
+                if (cd(cmd))
+                    break ;
+            }
+            else
+                exec_comm(cmd, envp);
+            clear_cmd(&cmd);
+        }
+        clear_cmd(&cmd);
+    }
+    return 0;
 }

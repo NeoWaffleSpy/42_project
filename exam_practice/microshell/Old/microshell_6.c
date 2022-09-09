@@ -6,7 +6,7 @@
 
 typedef struct	s_data
 {
-	int	old_stdin;
+	int	old_fd;
 	int	pipe;
 }				t_data;
 
@@ -26,37 +26,36 @@ void	ft_putstr_err(char *str)
 	write(2, str, ft_strlen(str));
 }
 
-void	fatal(int old_stdin)
+void fatal(int old_fd)
 {
 	ft_putstr_err("error: fatal\n");
-	close(old_stdin);
+	close(old_fd);
 	exit(1);
 }
 
-void	ft_cd(char **cmd)
+void ft_cd(char **av)
 {
-	if (!cmd[1] || cmd[2])
+	if (!av[1] || av[2])
 		return (ft_putstr_err("error: cd: bad arguments\n"));
-	if (chdir(cmd[1]) < 0)
+	if (chdir(av[1]) < 0)
 	{
 		ft_putstr_err("error: cannot change directory to ");
-		ft_putstr_err(cmd[1]);
+		ft_putstr_err(av[1]);
 		ft_putstr_err("\n");
 	}
 }
 
-void	exec(t_data data, char **cmd, char **env)
+void exec(t_data data, char **av, char **env)
 {
-	if (!strcmp(cmd[0], "cd"))
-		return (ft_cd(cmd));
-
-	int	fd[2];
 	int	pid;
+	int	fd[2];
 
+	if (!strcmp(av[0], "cd"))
+		return (ft_cd(av));
 	if (data.pipe && pipe(fd) < 0)
-		fatal(data.old_stdin);
+		fatal(data.old_fd);
 	if ((pid = fork()) < 0)
-		fatal(data.old_stdin);
+		fatal(data.old_fd);
 	if (!pid)
 	{
 		if (data.pipe)
@@ -65,11 +64,11 @@ void	exec(t_data data, char **cmd, char **env)
 			dup2(fd[1], 1);
 			close(fd[1]);
 		}
-		execve(cmd[0], cmd, env);
+		execve(av[0], av, env);
 		ft_putstr_err("error: cannot execute ");
-		ft_putstr_err(cmd[0]);
+		ft_putstr_err(av[0]);
 		ft_putstr_err("\n");
-		close(data.old_stdin);
+		close(data.old_fd);
 		exit(1);
 	}
 	if (data.pipe)
@@ -79,29 +78,23 @@ void	exec(t_data data, char **cmd, char **env)
 		close(fd[0]);
 	}
 	else
-		dup2(data.old_stdin, 0);
+		dup2(data.old_fd, 1);
 	waitpid(pid, 0, 0);
 }
 
-int		main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
 	(void)ac;
-	t_data data;
 	int i = 1;
 	int j = 1;
+	t_data data;
 
-	data.old_stdin = dup(0);
+	data.old_fd = dup(0);
 	data.pipe = 0;
 	while (av[i])
 	{
 		if (!strcmp(av[i], "|") || !strcmp(av[i], ";"))
 		{
-			if (i == j)
-			{
-				i++;
-				j++;
-				continue;
-			}
 			if (!strcmp(av[i], "|"))
 				data.pipe = 1;
 			av[i] = NULL;
@@ -109,9 +102,9 @@ int		main(int ac, char **av, char **env)
 			data.pipe = 0;
 			j = i + 1;
 		}
-		else if (!av[i + 1])
+		else if (av[i + 1] == NULL)
 			exec(data, av + j, env);
 		i++;
 	}
-	close(data.old_stdin);
+	close(data.old_fd);
 }

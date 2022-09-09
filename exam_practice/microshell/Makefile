@@ -1,14 +1,27 @@
 NAME	= microshell
-CC		= gcc
 
-SRCS	= microshell.c
-OBJS	= $(SRCS:.c=.o)
+CC		= clang
+
+FLAGS	= -Wall -Wextra -Werror
+
+FILES	= microshell.c
+
+OBJS	= $(FILES:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
-	$(CC) $(OBJS) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 
-.PHONY all
+clean	:
+	@rm -rf $(OBJS);
 
-%.o: %.c
+fclean	:	clean
+	@rm -rf $(NAME)
+
+re		:	fclean $(NAME)
+
+.PHONY	: clean fclean re
+
+%.o		:	%.c
+	$(CC) $(FLAGS) -o $@ -c $<

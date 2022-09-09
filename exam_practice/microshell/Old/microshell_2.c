@@ -4,109 +4,131 @@
 #include <sys/wait.h>
 #include <string.h>
 
-typedef struct  s_data
-{
-    int old_stdin;
-    int pipe;
-}               t_data;
+int		ft_strlen(char *str);
+void	ft_putstr_fd(int fd, char *str);
+void	error(char *str1, char *str2);
+void	fatal(char **cmd);
+void	clear_cmd(char ***cmd);
+int		find_pipe(char **cmd);
+int		cmd_size(char **cmd);
+char	*ft_strdup(char *str);
+int		get_cmd(char ***cmd, int ac, char **av);
 
-int     ft_strlen(char *str)
+int		ft_strlen(char *str)
 {
-    if (!str)
-        return 0;
-    int i = -1;
-    while (str[++i]);
-    return i;
+	int i;
+
+	i = 0;
+	if (!str)
+		return -1;
+	while (str[i])
+		i++;
+	return i;
 }
 
-void    ft_putstr_err(char *str)
+char	*ft_strdup(char *str)
 {
-    if (!str)
-        return 0;
-    write(2, str, ft_strlen(str));
+	int i;
+	char *new;
+
+	if (!str)
+		return NULL;
+	i = 0;
+	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	while (str[i])
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = 0;
+	return new;
 }
 
-void    fatal(int   old_stdin)
+void	ft_putstr_fd(int fd, char *str)
 {
-    ft_putstr_err("error: fatal\n");
-    close(old_stdin);
-    exit(1);
+	if (!str)
+		return;
+	write(fd, str, ft_strlen(str));
 }
 
-void    ft_cd(char **cmd)
+void	error(char *str1, char *str2)
 {
-    if (!cmd[1] || cmd[2])
-        return(ft_putstr_err("error: cd: bad arguments\n"));
-    if (chdir(cmd[1]) < 0)
-    {
-        ft_putstr_err("error: cd: cannot change directory to ");
-        ft_putstr_err(cmd[1]);
-        ft_putstr_err("\n");
-    }
+	ft_putstr_fd(2, "error: ");
+	ft_putstr_fd(2, str1);
+	ft_putstr_fd(2, str2);
+	ft_putstr_fd(2, "\n");
 }
 
-void    exec(t_data data, char **cmd, char **env)
+void	fatal(char **cmd)
 {
-    if (!strcmp(cmd[0], "cd"))
-        return (ft_cd(cmd));
-    
-    int     fd[2];
-    int     pid;
-    char    **tmp = cmd;
-
-    if (data.pipe && pipe(fd) < 0)
-        fatal(data.old_stdin);
-    if ((pid = fork()) < 0)
-        fatal(data.old_stdin);
-    if (!pid)
-    {
-        if (data.pipe)
-        {
-            close(fd[0]);
-            dup2(fd[1], 1);
-            close(fd[1]);
-        }
-        execve(cmd[0], cmd, env);
-        ft_putstr_err("error: cannot execute command ");
-        ft_putstr_err(cmd[0]);
-        ft_putstr_err("\n");
-        close(data.old_stdin);
-        exit(1);
-    }
-    if (data.pipe)
-    {
-        close(fd[1]);
-        dup2(fd[0], 0);
-        close(fd[0]);
-    }
-    else
-        dup2(data.old_stdin, 0);
-    waitpid(pid, 0, 0);
+	error("fatal", "");
+	clear_cmd(&cmd);
 }
 
-int     main(int ac, char **av, char **env)
+void	clear_cmd(char ***cmd)
 {
-    (void)ac;
-    t_data data;
-    int i = 1;
-    int j = 1;
+	int i;
 
-    data.old_stdin = dup(0);
-    data.pipe = 0;
-    while(av[i])
-    {
-        if (!strcmp(av[i], "|") || !strcmp(av[i], ";"))
-        {
-            if (!strcmp(av[i], "|"))
-                data.pipe = 1;
-            av[i] = NULL;
-            exec(data, &av[j], env);
-            data.pipe = 0;
-            j = i + 1;
-        }
-        else if (av[i + 1] == NULL)
-            exec(data, &av[j], env);
-        i++;
-    }
-    close(data.old_stdin);
+	i = 0;
+	if (!*cmd)
+		return;
+	while ((*cmd)[i])
+		free((*cmd)[i]);
+	free(*cmd);
+	*cmd = NULL;
+}
+
+int		cmd_size(char **cmd)
+{
+	int i;
+
+	i = 0;
+	if (!cmd)
+		return -1;
+	while (cmd[i++]);
+	return i;
+}
+
+int		find_pipe(char **cmd)
+{
+	int i;
+
+	i = 0;
+	if (!cmd)
+		return -1;
+	while (cmd[i][0] != '|')
+		i++;
+	return i;
+}
+
+int		get_cmd(char ***cmd, int ac, char **av)
+{
+	int i;
+
+	i = 0;
+	if (ac <= 0)
+		return -1;
+	while (i < ac && av[i][0] != ';')
+		(*cmd)[i] = ft_strdup(av[i]);
+	(*cmd)[i] = NULL;
+	return (i + 1);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	char **cmd;
+	int	count;
+
+	count = 1;
+	while (1)
+	{
+		if (count >= ac)
+			break;
+		count += get_cmd(&cmd, ac - count, &av[count]);
+		if (!cmd)
+			break;
+
+		clear_cmd(&cmd);
+	}
+	clear_cmd(&cmd);
 }
