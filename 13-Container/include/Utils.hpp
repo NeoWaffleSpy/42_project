@@ -45,13 +45,13 @@ static class nullptr_t
 namespace ft
 {
     template <typename T>
-        std::string to_string(T n)
-        {
-            /* Stream used to convert */
-            std::ostringstream ss;
-            ss << n;
-            return (ss.str());
-        }
+    std::string to_string(T n)
+    {
+        /* Stream used to convert */
+        std::ostringstream ss;
+        ss << n;
+        return (ss.str());
+    }
     
     /*
     ** Base class for standard binary function objects.
@@ -62,7 +62,7 @@ namespace ft
     ** template parameters.
     ** (the operator "()", permet to use a class with the same syntax
     ** as a function call).
-    *
+    */
     template <class Arg1, class Arg2, class Result>
         struct binary_function
         {
@@ -80,7 +80,7 @@ namespace ft
     ** A binary function object class who will return
     ** whether the first arguement compares less than the second.
     ** (using "<" operator).
-    *
+    */
     template <class T>
         struct less : binary_function<T, T, bool>
         {
@@ -125,55 +125,55 @@ namespace ft
     ** @brief Equal comparison between two pair object.
     */
     template <class T1, class T2>
-        bool operator== (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
-        {
-            return (lhs.first == rhs.first && lhs.second == rhs.second);
-        }
+    bool operator== (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
+    {
+        return (lhs.first == rhs.first && lhs.second == rhs.second);
+    }
 
     /*
     ** @brief Difference comparison between two pair object.
     */
     template <class T1, class T2>
-        bool operator!= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
-        {
-            return !(lhs == rhs);
-        }
+    bool operator!= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
+    {
+        return !(lhs == rhs);
+    }
     
     /*
     ** @brief Inferior comparison between two pair object.
     */
     template <class T1, class T2>
-        bool operator<  (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
-        {
-            return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
-        }
+    bool operator<  (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
+    {
+        return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
+    }
 
     /*
     ** @brief Inferior or equal comparison between two pair object.
     */
     template <class T1, class T2>
-        bool operator<= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
-        {
-            return !(rhs < lhs);
-        }
+    bool operator<= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
+    {
+        return !(rhs < lhs);
+    }
 
     /*
     ** @brief Superior comparison between two pair object.
     */
     template <class T1, class T2>
-        bool operator>  (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
-        {
-            return (rhs < lhs);
-        }
+    bool operator>  (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
+    {
+        return (rhs < lhs);
+    }
 
     /*
     ** @brief Superior or equal comparison between two pair object.
     */
     template <class T1, class T2>
-        bool operator>= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
-        {
-            return !(lhs < rhs);
-        }
+    bool operator>= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
+    {
+        return !(lhs < rhs);
+    }
     
     /*
     ** @bref Construct a pair object with
@@ -246,51 +246,39 @@ namespace ft
     template <typename>
     struct is_integral_type : public is_integral_res<false, bool> {};
 
-    /* @brief is_integral_type for bool. "value is true".*/
     template <>
     struct is_integral_type<bool> : public is_integral_res<true, bool> {};
 
-    /* @brief is_integral_type for char. "value is true".*/
     template <>
     struct is_integral_type<char> : public is_integral_res<true, char> {};
 
-    /* @brief is_integral_type for signed char. "value is true".*/
     template <>
     struct is_integral_type<signed char> : public is_integral_res<true, signed char> {};
 
-    /* @brief is_integral_type for short int. "value is true".*/
     template <>
     struct is_integral_type<short int> : public is_integral_res<true, short int> {};
     
-    /* @brief is_integral_type for int. "value is true".*/
     template <>
     struct is_integral_type<int> : public is_integral_res<true, int> {};
 
-    /* @brief is_integral_type for long int. "value is true".*/
     template <>
     struct is_integral_type<long int> : public is_integral_res<true, long int> {};
 
-    /* @brief is_integral_type for long long int. "value is true".*/
     template <>
     struct is_integral_type<long long int> : public is_integral_res<true, long long int> {};
 
-    /* @brief is_integral_type for unsigned char. "value is true".*/
     template <>
     struct is_integral_type<unsigned char> : public is_integral_res<true, unsigned char> {};
 
-    /* @brief is_integral_type for unsigned short int. "value is true".*/
     template <>
     struct is_integral_type<unsigned short int> : public is_integral_res<true, unsigned short int> {};
 
-    /* @brief is_integral_type for unsigned int. "value is true".*/
     template <>
     struct is_integral_type<unsigned int> : public is_integral_res<true, unsigned int> {};
 
-    /* @brief is_integral_type for unsigned long int. "value is true".*/
     template <>
     struct is_integral_type<unsigned long int> : public is_integral_res<true, unsigned long int> {};
     
-    /* @brief is_integral_type for unsigned long long int. "value is true".*/
     template <>
     struct is_integral_type<unsigned long long int> : public is_integral_res<true, unsigned long long int> {};
 
@@ -311,7 +299,7 @@ namespace ft
     ** allow to access elements at an arbitrary offset.
     ** Take a look :
     ** http://www.cplusplus.com/reference/iterator/RandomAccessIterator/
-    *
+    */
     class random_access_iterator_tag { };
 
     /*
@@ -320,7 +308,7 @@ namespace ft
     ** the sequence of elements in a range in both directions.
     ** Take a look :
     ** http://www.cplusplus.com/reference/iterator/BidirectionalIterator/
-    *
+    */
     class bidirectional_iterator_tag { };
 
     /*
@@ -330,7 +318,7 @@ namespace ft
     ** that goes (begin to end).
     ** Take a look :
     ** http://www.cplusplus.com/reference/iterator/ForwardIterator/
-    *
+    */
     class forward_iterator_tag { };
 
     /*
@@ -340,7 +328,7 @@ namespace ft
     ** is icremented.
     ** Take a look :
     ** http://www.cplusplus.com/reference/iterator/InputIterator/
-    *
+    */
     class input_iterator_tag { };
 
     /*
@@ -350,7 +338,7 @@ namespace ft
     ** a value only once and the iterator is incremented.
     ** Take a look :
     ** http://www.cplusplus.com/reference/iterator/OutputIterator/
-    *
+    */
     class output_iterator_tag { };
 
     /*
@@ -358,7 +346,7 @@ namespace ft
     ** This is the base struct for all is_..._iterator_tag.
     ** A boolean is defined by the template and saved in
     ** structure. Type too.
-    *
+    */
     template <bool is_valid, typename T>
     struct valid_iterator_tag_res { typedef T type; const static bool value = is_valid; };
     
@@ -367,26 +355,21 @@ namespace ft
     ** is an input_iterator. Based on valid_iterator_tag_res.
     ** In this if the typename is not from the possible
     ** input iterator form, validity is set to false.
-    *
+    */
     template <typename T>
         struct is_input_iterator_tagged : public valid_iterator_tag_res<false, T> { };
 
-    /* Check is_input_iterator_tagged from ft::random_access_iterator_tag *
     template <>
-        struct is_input_iterator_tagged<ft::random_access_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::random_access_iterator_tag> : public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
 
-    /* Check is_input_iterator_tagged from ft::bidirectional_iterator_tag *
     template <>
         struct is_input_iterator_tagged<ft::bidirectional_iterator_tag>
             : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
 
-    /* Check is_input_iterator_tagged from ft::forward_iterator_tag *
     template <>
         struct is_input_iterator_tagged<ft::forward_iterator_tag>
             : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
 
-    /* Check is_input_iterator_tagged from ft::input_iterator_tag *
     template <>
         struct is_input_iterator_tagged<ft::input_iterator_tag>
             : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
@@ -397,31 +380,25 @@ namespace ft
     ** that contain a boolean "value" true if the
     ** iterator given is tagged with a ft iterator
     ** tag, otherwise "value" is false.
-    *
+    */
     template <typename T>
         struct is_ft_iterator_tagged : public valid_iterator_tag_res<false, T> { };
     
-    /* Check is_ft_iterator_tagged from ft::random_access_iterator_tag *
     template <>
-        struct is_ft_iterator_tagged<ft::random_access_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::random_access_iterator_tag> : public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
 
-    /* Check is_ft_iterator_tagged from ft::bidirectional_iterator_tag *
     template <>
         struct is_ft_iterator_tagged<ft::bidirectional_iterator_tag>
             : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
 
-    /* Check is_ft_iterator_tagged from ft::forward_iterator_tag *
     template <>
         struct is_ft_iterator_tagged<ft::forward_iterator_tag>
             : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
 
-    /* Check is_ft_iterator_tagged from ft::input_iterator_tag *
     template <>
         struct is_ft_iterator_tagged<ft::input_iterator_tag>
             : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
 
-    /* Check is_ft_iterator_tagged from ft::output_iterator_tag *
     template <>
         struct is_ft_iterator_tagged<ft::output_iterator_tag>
             : public valid_iterator_tag_res<true, ft::output_iterator_tag> { };
@@ -449,22 +426,13 @@ namespace ft
     ** @brief Iterator traits class defining properties of
     ** iterators. In this, iterator_traits obtains information
     ** from Iterator class in template argument.
-    *
+    */
     template <class Iterator> struct iterator_traits
     {
-        /* Result of subtracting one iterator from another, from Iterator. *
         typedef typename Iterator::difference_type       difference_type;
-
-        /* Type of the element where iterator point, from Iterator. *
         typedef typename Iterator::value_type            value_type;
-
-        /* Type of a pointer to an element where the iterator point, from Iterator. *
         typedef typename Iterator::pointer               pointer;
-
-        /* Type of a reference where iterator point, from Iterator. *
         typedef typename Iterator::reference             reference;
-
-        /* The iterator category from Iterator. *
         typedef typename Iterator::iterator_category     iterator_category;
     };
     
@@ -472,22 +440,13 @@ namespace ft
     ** @brief Iterator traits class defining properties of
     ** iterators. This create a default operation with an
     ** object (first argument in tempate argument).
-    *
+    */
     template <class T> struct iterator_traits<T*>
     {
-        /* Result of subtracting one iterator from another. *
         typedef ptrdiff_t                       difference_type;
-
-        /* Type of the element where iterator point. *
         typedef T                               value_type;
-
-        /* Type of a pointer to an element where the iterator point. *
         typedef T*                              pointer;
-
-        /* Type of a reference where iterator point. *
         typedef T&                              reference;
-
-        /* The iterator category from Iterator. *
         typedef ft::random_access_iterator_tag  iterator_category;
     };
     
@@ -495,22 +454,13 @@ namespace ft
     ** @brief Iterator traits class defining properties of
     ** iterators. This create a default operation with a
     ** const object (first argument in tempate argument).
-    *
+    */
     template <class T> class iterator_traits<const T*>
     {
-        /* Result of subtracting one iterator from another. *
         typedef ptrdiff_t                       difference_type;
-
-        /* Type of the element where iterator point. *
         typedef T                               value_type;
-
-        /* Type of a pointer to an element where the iterator point. *
         typedef const T*                        pointer;
-
-        /* Type of a reference where iterator point. *
         typedef const T&                        reference;
-
-        /* The iterator category from Iterator. *
         typedef ft::random_access_iterator_tag  iterator_category;
     };
 
@@ -522,125 +472,71 @@ namespace ft
     ** @param first The first iterator.
     ** @param last The last iterator.
     ** @return The difference.
-    *
+    */
     template<class InputIterator>
-        typename ft::iterator_traits<InputIterator>::difference_type
-            distance (InputIterator first, InputIterator last)
+    typename ft::iterator_traits<InputIterator>::difference_type distance (InputIterator first, InputIterator last)
+    {
+        typename ft::iterator_traits<InputIterator>::difference_type rtn = 0;
+        while (first != last)
         {
-            typename ft::iterator_traits<InputIterator>::difference_type rtn = 0;
-            while (first != last)
-            {
-                first++;
-                rtn++;
-            }
-            return (rtn);
+            first++;
+            rtn++;
         }
+        return (rtn);
+    }
 
     /*
     ** @brief Base class for iterator, not really usefull, but type
     ** defined can be use for iterator_traits. An iterator permeted to
     ** take any element range in an object and using a set of operators.
-    *
+    */
     template <class Category, class T, class Distance = ptrdiff_t,
-        class Pointer = T*, class Reference = T&>
-        class iterator
-        {
-            public:
-                /* Type of elements pointed. *
-                typedef T           value_type;
-
-                /* Type to represent the difference between two iterators. *
-                typedef Distance    difference_type;
-
-                /* Type to represent a pointer to an element pointed *
-                typedef Pointer     pointer;
-
-                /* Type to represent a reference to an element pointed *
-                typedef Reference   reference;
-
-                /* Category of the iterator. *
-                typedef Category    iterator_category;
-        };
+    class Pointer = T*, class Reference = T&>
+    class iterator
+    {
+        public:
+            typedef T           value_type;
+            typedef Distance    difference_type;
+            typedef Pointer     pointer;
+            typedef Reference   reference;
+            typedef Category    iterator_category;
+    };
 
     template <class T>
-        class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
-        {  
-            /* Category of the iterator. *
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
-            
-            /* Type of elements pointed. *
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type            value_type;
-            
-            /* Type to represent the difference between two iterators. *
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type       difference_type;
-            
-            /* Type to represent a pointer to an element pointed *
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer               pointer;
-            
-            /* Type to represent a reference to an element pointed *
-            typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference             reference;
-            
-            private:
-                /* Element pointed by the iterator. *
-                pointer _elem;
-        };
+    class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
+    {  
+        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
+        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type            value_type;
+        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type       difference_type;
+        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer               pointer;
+        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference             reference;
+        
+        private:
+            pointer _elem;
+    };
 
     template <class Iterator>
     class reverse_iterator
     {
         public:
-
-            /* Iterator's type. *
             typedef Iterator    iterator_type;
-
-            /* Preserves Iterator's category. *
-            typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
+            typedef typename ft::iterator_traits<Iterator>::iterator_category                       iterator_category;
+            typedef typename ft::iterator_traits<Iterator>::value_type                              value_type;
+            typedef typename ft::iterator_traits<Iterator>::difference_type                         difference_type;
+            typedef typename ft::iterator_traits<Iterator>::pointer                                 pointer;
+            typedef typename ft::iterator_traits<Iterator>::reference                               reference;
             
-            /* Preserves Iterator's value type. *
-            typedef typename ft::iterator_traits<Iterator>::value_type      value_type;
-            
-            /* Preserves Iterator's difference type. *
-            typedef typename ft::iterator_traits<Iterator>::difference_type     difference_type;
-            
-            /* Preserves Iterator's pointer. *
-            typedef typename ft::iterator_traits<Iterator>::pointer     pointer;
-            
-            /* Preserves Iterator's reference. *
-            typedef typename ft::iterator_traits<Iterator>::reference   reference;
-            
-            /*
-            ** @brief Default.
-            ** Construct a reverse iterator object.
-            ** This will points to no object.
-            *
             reverse_iterator() : _elem()
             {}
 
-            /*
-            ** @brief Initialization.
-            ** Construct a reverse iterator object from
-            ** an original iteretor "it".
-            ** The behavior of the constructed object
-            ** replicate the orignal, but he iterates
-            ** in the reverse order.
-            **
-            ** @param it The iterator to replicate.
-            *
             explicit reverse_iterator (iterator_type it) : _elem(it)
             {}
 
-            /*
-            ** @brief Copy.
-            ** Contruct a reverse iterator from other reverse iterator.
-            ** Save the sense of iterateration as "rev_it".
-            **
-            ** @param rev_it original reverse iterator.
-            *
             template <class Iter>
             reverse_iterator (const reverse_iterator<Iter>& rev_it) : _elem(rev_it.base())
             {}
 
-            /* Added to follow subject obligation *
+            /* Added to follow subject obligation */
             virtual ~reverse_iterator() {}
 
             /*
@@ -651,7 +547,7 @@ namespace ft
             ** an offset of -1).
             **
             ** @return A copy of the base iterator.
-            *
+            */
             iterator_type base() const
             { return (_elem); }
 
@@ -660,7 +556,7 @@ namespace ft
             ** by the iterator.
             **
             ** @return The reference.
-            *
+            */
             reference operator*() const
             {
                 iterator_type tmp = _elem;
@@ -677,7 +573,7 @@ namespace ft
             ** @param "n" Number of elements to offset.
             ** @return An iterator pointing to the element at "n"
             ** position away.
-            *
+            */
             reverse_iterator operator+ (difference_type n) const { return (reverse_iterator(_elem - n)); }
 
             /*
@@ -685,7 +581,7 @@ namespace ft
             ** Pre-increment.
             **
             ** @return return "(*this)" incremented.
-            *
+            */
             reverse_iterator& operator++()
             {
                 --_elem;
@@ -698,7 +594,7 @@ namespace ft
             **
             ** @return the value "(*this)" value had before the
             ** call.
-            *
+            */
             reverse_iterator operator++(int)
             {
                 reverse_iterator tmp = *this;
@@ -713,7 +609,7 @@ namespace ft
             **
             ** @param n the number of element.
             ** @return the reverse iterator itself (*this).
-            *
+            */
             reverse_iterator& operator+= (difference_type n)
             {
                 _elem -= n;
@@ -730,14 +626,14 @@ namespace ft
             ** @param n the number of element.
             ** @return An iterator pointing to the element
             ** n position before the currently pointed one.
-            *
+            */
             reverse_iterator operator- (difference_type n) const { return (reverse_iterator(_elem + n)); }
 
             /*
             ** @brief Decreases the reverse iterator by one position.
             **
             ** @return "(*this)".
-            *
+            */
             reverse_iterator& operator--()
             {
                 ++_elem;
@@ -748,7 +644,7 @@ namespace ft
             ** @brief Decreases the reverse iterator by one position.
             **
             ** @retun "(*this)" value before the call.
-            *
+            */
             reverse_iterator operator--(int)
             {
                 reverse_iterator tmp = *this;
@@ -764,7 +660,7 @@ namespace ft
             **
             ** @param n Number of elements to offset.
             ** @return "(*this)".
-            *
+            */
             reverse_iterator& operator-= (difference_type n)
             {
                 _elem += n;
@@ -776,7 +672,7 @@ namespace ft
             ** pointed.
             **
             ** @return A pointer to the element pointed.
-            *
+            */
             pointer operator->() const { return &(operator*()); }
 
             /*
@@ -787,7 +683,7 @@ namespace ft
             **
             ** @param n The number of positions.
             ** @return A reference at "n".
-            *
+            */
             reference operator[] (difference_type n) const { return (this->base()[-n - 1]); }
 
         private:
