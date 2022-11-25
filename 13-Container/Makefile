@@ -40,4 +40,4 @@ fclean: clean
 
 re: clean $(NAME)
 
-.PHONY: re fclean clean all norminette vtest
+.PHONY: re fclean clean all

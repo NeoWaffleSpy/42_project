@@ -1,17 +1,24 @@
 {
     "files.associations": {
-        "memory_resource": "cpp",
-        "*.tcc": "cpp",
-        "deque": "cpp",
-        "string": "cpp",
-        "unordered_map": "cpp",
-        "vector": "cpp",
-        "string_view": "cpp",
-        "memory": "cpp",
-        "iosfwd": "cpp",
-        "sstream": "cpp",
-        "tuple": "cpp",
-        "functional": "cpp",
-        "type_traits": "cpp"
-    }
+		"memory_resource": "cpp",
+		"*.tcc": "cpp",
+		"deque": "cpp",
+		"string": "cpp",
+		"unordered_map": "cpp",
+		"vector": "cpp",
+		"string_view": "cpp",
+		"memory": "cpp",
+		"iosfwd": "cpp",
+		"sstream": "cpp",
+		"tuple": "cpp",
+		"functional": "cpp",
+		"type_traits": "cpp",
+		"array": "cpp",
+		"atomic": "cpp",
+		"iterator": "cpp",
+		"ranges": "cpp",
+		"algorithm": "cpp",
+		"initializer_list": "cpp",
+		"numeric": "cpp"
+	}
 }

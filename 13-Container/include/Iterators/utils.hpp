@@ -66,13 +66,13 @@ namespace ft
     template <class Arg1, class Arg2, class Result>
         struct binary_function
         {
-            /* The first argument type *
+            /* The first argument type */
             typedef Arg1 first_argument_type;
 
-            /* The second arguement type *
+            /* The second arguement type */
             typedef Arg2 second_argument_type;
 
-            /* The result type *
+            /* The result type */
             typedef Result result_type;
         };
     
@@ -357,22 +357,24 @@ namespace ft
     ** input iterator form, validity is set to false.
     */
     template <typename T>
-        struct is_input_iterator_tagged : public valid_iterator_tag_res<false, T> { };
+    struct is_input_iterator_tagged
+		: public valid_iterator_tag_res<false, T> { };
 
     template <>
-    struct is_input_iterator_tagged<ft::random_access_iterator_tag> : public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::random_access_iterator_tag>
+		: public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
 
     template <>
-        struct is_input_iterator_tagged<ft::bidirectional_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::bidirectional_iterator_tag>
+        : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
 
     template <>
-        struct is_input_iterator_tagged<ft::forward_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::forward_iterator_tag>
+        : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
 
     template <>
-        struct is_input_iterator_tagged<ft::input_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::input_iterator_tag>
+        : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
 
 
     /*
@@ -382,26 +384,27 @@ namespace ft
     ** tag, otherwise "value" is false.
     */
     template <typename T>
-        struct is_ft_iterator_tagged : public valid_iterator_tag_res<false, T> { };
+    struct is_ft_iterator_tagged : public valid_iterator_tag_res<false, T> { };
     
     template <>
-    struct is_ft_iterator_tagged<ft::random_access_iterator_tag> : public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::random_access_iterator_tag> 
+		: public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
 
     template <>
-        struct is_ft_iterator_tagged<ft::bidirectional_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::bidirectional_iterator_tag>
+        : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
 
     template <>
-        struct is_ft_iterator_tagged<ft::forward_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::forward_iterator_tag>
+        : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
 
     template <>
-        struct is_ft_iterator_tagged<ft::input_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::input_iterator_tag>
+        : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
 
     template <>
-        struct is_ft_iterator_tagged<ft::output_iterator_tag>
-            : public valid_iterator_tag_res<true, ft::output_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::output_iterator_tag>
+        : public valid_iterator_tag_res<true, ft::output_iterator_tag> { };
 
     /*
     ** @Brief Invalid iterator Exception.
@@ -490,8 +493,7 @@ namespace ft
     ** defined can be use for iterator_traits. An iterator permeted to
     ** take any element range in an object and using a set of operators.
     */
-    template <class Category, class T, class Distance = ptrdiff_t,
-    class Pointer = T*, class Reference = T&>
+    template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
     class iterator
     {
         public:
@@ -539,15 +541,6 @@ namespace ft
             /* Added to follow subject obligation */
             virtual ~reverse_iterator() {}
 
-            /*
-            ** @brief Return a copy of the base iterator.
-            ** Same type as the usert to construct the reverse_iterator.
-            ** But pointing to the element next of this.
-            ** (A reverse iterator always pointing to an element at
-            ** an offset of -1).
-            **
-            ** @return A copy of the base iterator.
-            */
             iterator_type base() const
             { return (_elem); }
 

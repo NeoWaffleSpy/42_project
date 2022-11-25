@@ -5,6 +5,8 @@
 # include <algorithm>
 # include <cstddef>
 # include <tgmath.h>
+# include "./Iterators/random_access_iterator.hpp"
+# include "./Iterators/utils.hpp"
 
 namespace ft
 {
@@ -179,8 +181,8 @@ namespace ft
 			}
 		}
 
-		template< class InputIt >
-		void assign( InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
+		template< class InputIterator >
+		void assign( InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
 		{
 			bool is_valid;
 			if (!(is_valid = ft::is_ft_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category>::value))
@@ -188,10 +190,8 @@ namespace ft
 			this->clear();
 			size_type dist = ft::distance(first, last);
 			if (size_type(_end_capacity - _start) >= dist)
-			{
 				for(; &(*first) != &(*last); first++, _end++)
 					_alloc.construct(_end, *first);
-			}
 			else
 			{
 				pointer new_start = pointer();
