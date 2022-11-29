@@ -1,6 +1,7 @@
 #ifndef RANDOM_ACCESS_ITERATOR_HPP
 #define RANDOM_ACCESS_ITERATOR_HPP
 
+# include "utils.hpp"
 /* TRY REPLACE ALL `difference_type` WITH `long` */
 
 namespace ft
@@ -15,9 +16,6 @@ namespace ft
 	template <typename T>
 	class random_access_iterator : ft::iterator<ft::random_access_iterator_tag, T>
 	{
-	private:
-		pointer _elem;
-
 	public:
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::value_type		value_type;
@@ -51,9 +49,9 @@ namespace ft
 		}
 		random_access_iterator	operator++(int)
 		{
-			random_access_iterator rtn(*this);
-			operator++();
-			return (rtn);
+			random_access_iterator tmp = *this;
+			_elem++;
+			return (tmp);
 		}
 		random_access_iterator	&operator--(void)
 		{
@@ -62,9 +60,9 @@ namespace ft
 		}
 		random_access_iterator	operator--(int)
 		{
-			random_access_iterator rtn(*this);
-			operator--();
-			return (rtn);
+			random_access_iterator tmp = *this;
+			_elem--;
+			return (tmp);
 		}
 		random_access_iterator	&operator+=(difference_type n)
 		{
@@ -81,6 +79,9 @@ namespace ft
 		{
 			return (random_access_iterator<const T>(this->_elem));
 		}
+
+	private:
+		pointer _elem;
 	};
 
 	template <typename T>

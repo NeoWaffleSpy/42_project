@@ -14,21 +14,21 @@
 **
 ** From : (Take a look)
 ** https://www.amazon.com/dp/0201924889
-*
+*/
 static class nullptr_t
 {
     public:
         /*
         ** @brief For conversion to any type
         ** of null non-member pointer.
-        *
+        */
         template<class T>
         operator T*() const { return (0); }
 
         /*
         ** @brief For conversion to any type of null
         ** member pointer.
-        *
+        */
         template<class C, class T>
         operator T C::*() const { return (0); }
 
@@ -37,13 +37,17 @@ static class nullptr_t
         /*
         ** @brief It's imposible to get an address of
         ** a nullptr.
-        *
+        */
         void operator&() const;
 
 } u_nullptr = {};
-*/
+
 namespace ft
 {
+
+	template< class T > struct remove_cv                { typedef T type; };
+	template< class T > struct remove_cv<const T>       { typedef T type; };
+
     template <typename T>
     std::string to_string(T n)
     {
@@ -174,6 +178,22 @@ namespace ft
     {
         return !(lhs < rhs);
     }
+
+	template <class InputIterator1, class InputIterator2>
+	bool equal( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
+	{
+		int i = 0;
+		while (first1!=last1 && first2!=last2)
+		{
+			if (*first1 != *first2)
+				return false;
+			++first1;
+			++first2;
+		}
+		if (first1 == last1 && first2 == last2)
+			return true;
+		return false;
+	}
     
     /*
     ** @bref Construct a pair object with
@@ -232,7 +252,7 @@ namespace ft
     template <bool is_integral, typename T>
     struct is_integral_res 
     {
-        typedef T type;
+        typedef typename ft::remove_cv<T>::type type;
         static const bool value = is_integral;
     };
 
@@ -288,7 +308,7 @@ namespace ft
     ** stocked in "value".
     */
     template <typename T>
-    struct is_integral : public is_integral_type<T> { };
+    struct is_integral : public is_integral_type<typename ft::remove_cv<T>::type> { };
 
     /*  End of is_integral. */
 
@@ -384,27 +404,37 @@ namespace ft
     ** tag, otherwise "value" is false.
     */
     template <typename T>
-    struct is_ft_iterator_tagged : public valid_iterator_tag_res<false, T> { };
+    struct is_ft_iterator_tagged									: public valid_iterator_tag_res<false, T> { };
     
     template <>
-    struct is_ft_iterator_tagged<ft::random_access_iterator_tag> 
-		: public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::random_access_iterator_tag>	: public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
+    
+    template <>
+    struct is_ft_iterator_tagged<std::random_access_iterator_tag>	: public valid_iterator_tag_res<true, std::random_access_iterator_tag> { };
 
     template <>
-    struct is_ft_iterator_tagged<ft::bidirectional_iterator_tag>
-        : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::bidirectional_iterator_tag>	: public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
 
     template <>
-    struct is_ft_iterator_tagged<ft::forward_iterator_tag>
-        : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
+    struct is_ft_iterator_tagged<std::bidirectional_iterator_tag>	: public valid_iterator_tag_res<true, std::bidirectional_iterator_tag> { };
 
     template <>
-    struct is_ft_iterator_tagged<ft::input_iterator_tag>
-        : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
+    struct is_ft_iterator_tagged<ft::forward_iterator_tag>			: public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
 
     template <>
-    struct is_ft_iterator_tagged<ft::output_iterator_tag>
-        : public valid_iterator_tag_res<true, ft::output_iterator_tag> { };
+    struct is_ft_iterator_tagged<std::forward_iterator_tag>			: public valid_iterator_tag_res<true, std::forward_iterator_tag> { };
+
+    template <>
+    struct is_ft_iterator_tagged<ft::input_iterator_tag>			: public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
+
+    template <>
+    struct is_ft_iterator_tagged<std::input_iterator_tag>			: public valid_iterator_tag_res<true, std::input_iterator_tag> { };
+
+    template <>
+    struct is_ft_iterator_tagged<ft::output_iterator_tag>			: public valid_iterator_tag_res<true, ft::output_iterator_tag> { };
+
+    template <>
+    struct is_ft_iterator_tagged<std::output_iterator_tag>			: public valid_iterator_tag_res<true, std::output_iterator_tag> { };
 
     /*
     ** @Brief Invalid iterator Exception.
@@ -538,56 +568,26 @@ namespace ft
             reverse_iterator (const reverse_iterator<Iter>& rev_it) : _elem(rev_it.base())
             {}
 
-            /* Added to follow subject obligation */
             virtual ~reverse_iterator() {}
 
-            iterator_type base() const
-            { return (_elem); }
+            iterator_type base() const { return (_elem); }
+            typename reverse_iterator<Iterator>::difference_type  base2() const { return (_elem); }
 
-            /*
-            ** @brief Return a reference to the element pointed
-            ** by the iterator.
-            **
-            ** @return The reference.
-            */
             reference operator*() const
             {
                 iterator_type tmp = _elem;
                 return (*(--tmp));
             }
 
-            /*
-            ** @brief Return a reverse iterator pointing to
-            ** the element at n position away from the pointed
-            ** element of the iterator.
-            ** This function need the base iterator to be a
-            ** "random-access iterator".
-            **
-            ** @param "n" Number of elements to offset.
-            ** @return An iterator pointing to the element at "n"
-            ** position away.
-            */
             reverse_iterator operator+ (difference_type n) const { return (reverse_iterator(_elem - n)); }
+            reverse_iterator operator- (difference_type n) const { return (reverse_iterator(_elem + n)); }
 
-            /*
-            ** @brief Advances the reverse_iterator by one position.
-            ** Pre-increment.
-            **
-            ** @return return "(*this)" incremented.
-            */
             reverse_iterator& operator++()
             {
                 --_elem;
                 return (*this);
             }
 
-            /*
-            ** @brief Advances the reverse_iterator by one position.
-            ** Post-increment.
-            **
-            ** @return the value "(*this)" value had before the
-            ** call.
-            */
             reverse_iterator operator++(int)
             {
                 reverse_iterator tmp = *this;
@@ -595,220 +595,99 @@ namespace ft
                 return (tmp);
             }
 
-            /*
-            ** @brief Advances the "reverse_iterator" by n element positions.
-            ** This function need the base iterator to be a
-            ** "random-access iterator".
-            **
-            ** @param n the number of element.
-            ** @return the reverse iterator itself (*this).
-            */
             reverse_iterator& operator+= (difference_type n)
             {
                 _elem -= n;
                 return (*this);
             }
 
-            /*
-            ** @brief Return a reverse iterator pointing to the element
-            ** located n positions before the element the iterator
-            ** currently points to.
-            ** This function need the base iterator to be a
-            ** "random-access iterator".
-            **
-            ** @param n the number of element.
-            ** @return An iterator pointing to the element
-            ** n position before the currently pointed one.
-            */
-            reverse_iterator operator- (difference_type n) const { return (reverse_iterator(_elem + n)); }
-
-            /*
-            ** @brief Decreases the reverse iterator by one position.
-            **
-            ** @return "(*this)".
-            */
             reverse_iterator& operator--()
             {
                 ++_elem;
                 return (*this);
             }
-
-            /*
-            ** @brief Decreases the reverse iterator by one position.
-            **
-            ** @retun "(*this)" value before the call.
-            */
+			
             reverse_iterator operator--(int)
             {
                 reverse_iterator tmp = *this;
                 --(*this);
                 return (tmp);
             }
-
-            /*
-            ** @brief Decreases the reverse iterator by "n" element
-            ** postion.
-            ** This function need the base iterator to be a
-            ** "random-access iterator".
-            **
-            ** @param n Number of elements to offset.
-            ** @return "(*this)".
-            */
+			
             reverse_iterator& operator-= (difference_type n)
             {
                 _elem += n;
                 return (*this);
             }
-
-            /*
-            ** @brief Give a pointer to the element
-            ** pointed.
-            **
-            ** @return A pointer to the element pointed.
-            */
+			
             pointer operator->() const { return &(operator*()); }
 
-            /*
-            ** @brief Accesse the element at "n" positions
-            ** away from the element currently pointed.
-            ** Cause undefined behavior if the element
-            ** does not exist.
-            **
-            ** @param n The number of positions.
-            ** @return A reference at "n".
-            */
             reference operator[] (difference_type n) const { return (this->base()[-n - 1]); }
 
         private:
             iterator_type     _elem;
     };
 
-    /*
-    ** @brief Equal comparison between two reverse iterator.
-    **
-    ** @param lhs Base of comparison.
-    ** @param rhs To compare with "lsh".
-    ** @return True if the condition is hold, otherwise false.
-    *
     template <class Iterator>
-        bool operator== (const reverse_iterator<Iterator>& lhs,
-                        const reverse_iterator<Iterator>& rhs) { return (lhs.base() == rhs.base()); }
+    bool operator== (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	{ return (lhs.base() == rhs.base()); }
 
-    /* For reverser_iterator == const_reverse_iterator *
     template <class Iterator_L, class Iterator_R>
-        bool operator== (const reverse_iterator<Iterator_L>& lhs,
-                        const reverse_iterator<Iterator_R>& rhs) { return (lhs.base() == rhs.base()); }
+    bool operator== (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	{ return (lhs.base() == rhs.base()); }
 
-    /*
-    ** @brief Different comparison between two reverse iterator.
-    **
-    ** @param lhs Base of comparison.
-    ** @param rhs To compare with "lsh".
-    ** @return True if the condition is hold, otherwise false.
-    *
     template <class Iterator>
-        bool operator!= (const reverse_iterator<Iterator>& lhs,
-                        const reverse_iterator<Iterator>& rhs) { return (lhs.base() != rhs.base()); }
+	bool operator!= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	{ return (lhs.base() != rhs.base()); }
 
-    /* For reverser_iterator != const_reverse_iterator *
     template <class Iterator_L, class Iterator_R>
-        bool operator!= (const reverse_iterator<Iterator_L>& lhs,
-                        const reverse_iterator<Iterator_R>& rhs) { return (lhs.base() != rhs.base()); }
+	bool operator!= (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	{ return (lhs.base() != rhs.base()); }
 
-    /*
-    ** @brief Inferior comparison between two reverse iterator.
-    **
-    ** @param lhs Base of comparison.
-    ** @param rhs To compare with "lsh".
-    ** @return True if the condition is hold, otherwise false.
-    *
     template <class Iterator>
-        bool operator<  (const reverse_iterator<Iterator>& lhs,
-                        const reverse_iterator<Iterator>& rhs) { return (lhs.base() > rhs.base()); }
+	bool operator<  (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	{ return (lhs.base() > rhs.base()); }
 
-    /* For reverser_iterator < const_reverse_iterator *
     template <class Iterator_L, class Iterator_R>
-        bool operator< (const reverse_iterator<Iterator_L>& lhs,
-                        const reverse_iterator<Iterator_R>& rhs) { return (lhs.base() > rhs.base()); }
+	bool operator< (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	{ return (lhs.base() > rhs.base()); }
 
-    /*
-    ** @brief Inferior or equal comparison between two reverse iterator.
-    **
-    ** @param lhs Base of comparison.
-    ** @param rhs To compare with "lsh".
-    ** @return True if the condition is hold, otherwise false.
-    *
     template <class Iterator>
-        bool operator<= (const reverse_iterator<Iterator>& lhs,
-                        const reverse_iterator<Iterator>& rhs) { return (lhs.base() >= rhs.base()); }
+	bool operator<= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	{ return (lhs.base() >= rhs.base()); }
 
-    /* For reverser_iterator <= const_reverse_iterator *
     template <class Iterator_L, class Iterator_R>
-        bool operator<= (const reverse_iterator<Iterator_L>& lhs,
-                        const reverse_iterator<Iterator_R>& rhs) { return (lhs.base() >= rhs.base()); }
+	bool operator<= (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	{ return (lhs.base() >= rhs.base()); }
 
-    /*
-    ** @brief Superior comparison between two reverse iterator.
-    **
-    ** @param lhs Base of comparison.
-    ** @param rhs To compare with "lsh".
-    ** @return True if the condition is hold, otherwise false.
-    *
     template <class Iterator>
-        bool operator> (const reverse_iterator<Iterator>& lhs,
-                        const reverse_iterator<Iterator>& rhs) { return (lhs.base() < rhs.bash()); }
+	bool operator> (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	{ return (lhs.base() < rhs.base()); }
 
-    /* For reverser_iterator > const_reverse_iterator *
     template <class Iterator_L, class Iterator_R>
-        bool operator> (const reverse_iterator<Iterator_L>& lhs,
-                        const reverse_iterator<Iterator_R>& rhs) { return (lhs.base() < rhs.base()); }
-    /*
-    ** @brief Superior or equal comparison between two reverse iterator.
-    **
-    ** @param lhs Base of comparison.
-    ** @param rhs To compare with "lsh".
-    ** @return True if the condition is hold, otherwise false.
-    *
-    template <class Iterator>
-        bool operator>= (const reverse_iterator<Iterator>& lhs,
-                        const reverse_iterator<Iterator>& rhs) { return (lhs.base() <= rhs.base()); }
+	bool operator> (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	{ return (lhs.base() < rhs.base()); }
 
-    /* For reverser_iterator >= const_reverse_iterator *
+    template <class Iterator>
+	bool operator>= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	{ return (lhs.base() <= rhs.base()); }
+
+    /* For reverser_iterator >= const_reverse_iterator */
     template <class Iterator_L, class Iterator_R>
-        bool operator>= (const reverse_iterator<Iterator_L>& lhs,
-                        const reverse_iterator<Iterator_R>& rhs) { return (lhs.base() <= rhs.base()); }
+	bool operator>= (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	{ return (lhs.base() <= rhs.base()); }
 
-    /*
-    ** @brief Give a reverse iterator pointing to
-    ** "rev_it" plus "n".
-    **
-    ** @param n The number of location away the element pointed 
-    ** by rev_it.
-    ** @param rev_it The reverse iterator.
-    ** @return A reverse iterator pointing to n element
-    ** after rev_it pointed element.
-    *
     template <class Iterator>
-        reverse_iterator<Iterator> operator+ (
-            typename reverse_iterator<Iterator>::difference_type n,
-            const reverse_iterator<Iterator>& rev_it) { return (rev_it + n); }
+	reverse_iterator<Iterator> operator+ (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& rev_it)
+	{ return (rev_it + n); }
 
-    /*
-    ** @brief The distance between lhs and rhs.
-    **
-    ** @param lhs Base of comparison.
-    ** @param rhs To compare with "lsh".
-    ** @return The number of elements between lsh and rhs.
-    *
     template <class Iterator>
-        typename reverse_iterator<Iterator>::difference_type operator- (
-            const reverse_iterator<Iterator>& lhs,
-            const reverse_iterator<Iterator>& rhs) { return (lhs.base() - rhs.base()); }
+	typename reverse_iterator<Iterator>::difference_type operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+	{ return (lhs.base() - rhs.base()); }
 
-    /* For reverser_iterator - const_reverse_iterator *
     template <class Iterator_L, class Iterator_R>
-        bool operator- (const reverse_iterator<Iterator_L>& lhs,
-                        const reverse_iterator<Iterator_R>& rhs) { return (lhs.base() - rhs.base()); }
+	bool operator- (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	{ return (lhs.base() - rhs.base()); }
 
     /* Lexicographical comparison */
 
@@ -820,7 +699,7 @@ namespace ft
     ** @param first2, last2 the start and the end of the second range.
     ** @return true if the first range compares lexicographically less
     ** than the second, false otherwise.
-    *
+    */
     template <class InputIterator1, class InputIterator2>
         bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
                                         InputIterator2 first2, InputIterator2 last2)
@@ -845,7 +724,7 @@ namespace ft
     ** @param comp the function that will compare.
     ** @return true if the first range compares lexicographically less
     ** than the second, false otherwise.
-    *
+    */
     template <class InputIterator1, class InputIterator2, class Compare>
         bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
                                         InputIterator2 first2, InputIterator2 last2,
@@ -860,13 +739,13 @@ namespace ft
             }
             return (first2 != last2);
         }
-    
+	
     template <typename T>
     struct BST_Node
     {
         public :
 
-            /* First template argument, the type of stocked value *
+            /* First template argument, the type of stocked value */
             typedef T   value_type;
 
             value_type value;
@@ -878,7 +757,7 @@ namespace ft
             ** @brief Default.
             ** Create a BST_Node with default initisialized value.
             ** Left and right branch pointer to a "u_nullptr" (t_nullptr).
-            *
+            */
             BST_Node () : value(), parent(u_nullptr), left(u_nullptr), right(u_nullptr)
             {}
 
@@ -886,7 +765,7 @@ namespace ft
             ** @brief Default.
             ** Create a BST_Node with default initisialized value.
             ** Left and right branch pointer to a "u_nullptr" (t_nullptr).
-            *
+            */
             BST_Node (BST_Node* parent = u_nullptr, BST_Node* left = u_nullptr, BST_Node* right = u_nullptr) : value(), parent(parent), left(left), right(right)
             {}
             
@@ -896,7 +775,7 @@ namespace ft
             ** Left and right branch pointer to a "u_nullptr" (t_nullptr).
             **
             ** @param val the value to copy.
-            *
+            */
             BST_Node (const value_type& val, BST_Node* parent = u_nullptr, BST_Node* left = u_nullptr, BST_Node* right = u_nullptr)
             : value(val), parent(parent), left(left), right(right)
             {}
@@ -908,7 +787,7 @@ namespace ft
             ** Left and right branch point to the same than "nb" branches.
             **
             ** @param nd the BST_Node to copy.
-            *
+            */
             BST_Node (const BST_Node& nd) : value(nd.value), parent(nd.parent), left(nd.left), right(nd.right)
             {}
 
@@ -922,7 +801,7 @@ namespace ft
             **
             ** @param nd the BST_Node to copy.
             ** @return *this.
-            *
+            */
             BST_Node &operator=(const BST_Node& nd)
             {
                 if (nd == *this)
@@ -943,7 +822,7 @@ namespace ft
             ** @param nd the BST_Node to compare.
             ** @return true if the value are the same,
             ** otherwise no.
-            *
+            */
             bool operator==(const BST_Node& nd)
             {
                 if (value == nd.value)
@@ -952,7 +831,7 @@ namespace ft
             }
     };
 
-    /* List Node : *
+    /* List Node : */
     template <class Data_T>
     struct Doubly_Linked_Node 
     {
@@ -967,7 +846,7 @@ namespace ft
             ** Create a node with next and prev
             ** value that pointing to u_nullptr.
             ** data is unitialized.
-            *
+            */
             Doubly_Linked_Node()
             :
                 prev(u_nullptr),
@@ -981,7 +860,7 @@ namespace ft
             ** data is itialized to "val".
             **
             ** @param val the data of this node.
-            *
+            */
             Doubly_Linked_Node(const Data_T& val) : prev(u_nullptr), next(u_nullptr), data(val)
             {}
 
@@ -993,7 +872,7 @@ namespace ft
             **
             ** @param val the data of this node.
             ** @param prev,next the previous and next node. 
-            *
+            */
             Doubly_Linked_Node(const Data_T& val,
                 Doubly_Linked_Node *prev, Doubly_Linked_Node *next)
             :
@@ -1002,8 +881,6 @@ namespace ft
                 data(val)
             {}
     };
-
-*/
 } /* End of namespace */
 
 # endif
