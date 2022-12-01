@@ -35,7 +35,7 @@ exec:
 
 unit_test:
 	@make -s -C ./unit_tests/
-	@./unit_tests/unit_test "[vector]"
+	@./unit_tests/unit_test "[stack]"
 	@make -s fclean -C ./unit_tests/
 
 clean:

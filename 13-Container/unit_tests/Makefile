@@ -41,22 +41,18 @@ SRCS += $(SRCS_BASE)
 
 ifneq ("$(wildcard $(HDRS)/vector.hpp)","")
 SRCS += $(VECTORS_SRCS)
-$(info vector detected)
 endif
 
 ifneq ("$(wildcard $(HDRS)/map.hpp)","")
 SRCS += $(MAP_SRCS)
-$(info map detected)
 endif
 
 ifneq ("$(wildcard $(HDRS)/stack.hpp)","")
 SRCS += $(STACK_SRCS)
-$(info stack detected)
 endif
 
 ifneq ("$(wildcard $(HDRS)/set.hpp)","")
 SRCS += $(SET_SRCS)
-$(info set detected)
 endif
 
 ifeq ("$(SRCS)", "$(SRCS_BASE)")

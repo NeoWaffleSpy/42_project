@@ -13,55 +13,6 @@
 		// 	std::cout << *it;
 		// std::cout << std::endl;
 
-void	tests()
-{
-	typedef	int													T;
-	typedef ft::reverse_iterator<ft::random_access_iterator<T> >	ft_rev_it;
-	typedef std::reverse_iterator<std::vector<T>::iterator>			std_rev_it;
-	std::vector<T> ref;
-	for (int i = 0; i < REF_SIZE; i++)
-		ref.push_back(rand());
-	ft::vector<T>	vec(ref.begin(), ref.end());
-
-	std_rev_it	r_ref_tmp = ++(++(--(++(++ref.rbegin()))));
-	ft_rev_it		r_tmp = ++(++(--(++(++vec.rbegin()))));
-
-	r_ref_tmp = ref.rbegin() + REF_SIZE / 2;
-	r_tmp = vec.rbegin() + REF_SIZE / 2;
-
-	std::cout << "Std vector " << *r_ref_tmp << std::endl << *ref.rbegin() << std::endl;
-	std::cout << "Our vector " << *r_tmp << std::endl << *vec.rbegin() << std::endl;
-
-	r_ref_tmp = r_ref_tmp + 15;
-	r_tmp = r_tmp + 15;
-	std::cout << "Std vector " << *r_ref_tmp << std::endl;
-	std::cout << "Our vector " << *r_tmp << std::endl;
-	if (*r_ref_tmp == *r_tmp)
-		std::cout << "oui" << std::endl;
-
-	r_ref_tmp = 30 + r_ref_tmp;
-	r_tmp = 30 + r_tmp;
-	std::cout << "Std vector " << *r_ref_tmp << std::endl;
-	std::cout << "Our vector " << *r_tmp << std::endl;
-	if (*r_ref_tmp == *r_tmp)
-		std::cout << "oui" << std::endl;
-
-	r_ref_tmp = r_ref_tmp - 5;
-	r_tmp = r_tmp - 5;
-	std::cout << "Std vector " << *r_ref_tmp << std::endl;
-	std::cout << "Our vector " << *r_tmp << std::endl;
-	if (*r_ref_tmp == *r_tmp)
-		std::cout << "oui" << std::endl;
-
-	size_t r_ref_diff = r_ref_tmp - ref.rbegin();
-	size_t r_diff = r_tmp - vec.rbegin();
-	std::cout << "n1 = " << r_ref_diff << " - n2 = " << r_diff << std::endl;
-	if (r_ref_diff == r_diff) // it - it2
-		std::cout << "oui" << std::endl;
-	else
-		std::cout << "non" << std::endl;
-}
-
 template <typename T_vector, typename T_iter>
 void	exec_test(std::string msg)
 {
