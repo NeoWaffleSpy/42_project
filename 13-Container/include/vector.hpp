@@ -81,7 +81,7 @@ namespace ft
 		// 	}
 		// }
 
-		vector (const vector& x)
+		vector (const vector& x) : _alloc(x._alloc), _start(u_nullptr), _end(u_nullptr), _end_capacity(u_nullptr)
 		{
 			this->insert(this->begin(), x.begin(), x.end());
 		}
@@ -186,11 +186,6 @@ namespace ft
 			if (size_type(_end_capacity - _start) >= n)
 				for (; n; n--)
 					_alloc.construct(_end++ , val);
-				// while (n)
-				// {
-				// 	_alloc.construct(_end++ , val);
-				// 	n--;
-				// }
 			else
 			{
 				_alloc.deallocate(_start, this->capacity());
@@ -205,30 +200,9 @@ namespace ft
 		template< class InputIterator >
 		void assign( InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
 		{
-			bool is_valid;
-			if (!(is_valid = ft::is_ft_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category>::value))
-				throw (ft::InvalidIteratorException<typename ft::is_ft_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::type>());
-			this->clear();
-			size_type dist = ft::distance(first, last);
-			if (size_type(_end_capacity - _start) >= dist)
-				for(; &(*first) != &(*last); first++, _end++)
-					_alloc.construct(_end, *first);
-			else
-			{
-				pointer new_start = pointer();
-				pointer new_end = pointer();
-				pointer new_end_capacity = pointer();
-				new_start = _alloc.allocate(dist);
-				new_end = new_start;
-				new_end_capacity = new_start + dist;
-				for(; &(*first) != &(*last); first++, new_end++)
-					_alloc.construct(new_end, *first);
-				
-				_alloc.deallocate(_start, this->capacity());
-				_start = new_start;
-				_end = new_end;
-				_end_capacity = new_end_capacity;
-			}
+			clear();
+			for (; first != last; first++)
+				push_back(*first);
 		}
 
 		void push_back (const value_type& val)

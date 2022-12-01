@@ -12,24 +12,31 @@
 
 NAME		= Container
 CXX			= c++
-CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
+CPPFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3
 INC			=
 
-SRC			=	main.cpp
-SRCS		=	$(addprefix ./srcs/, $(SRCS))
+SRC			=	main_test.cpp
+SRCS		=	$(addprefix ./srcs/, $(SRC))
 OBJ			=	$(SRCS:.cpp=.o)
 
-HEADERFILES	=	
+HEADERFILES	=	vector.hpp
 HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))
 
-all: $(NAME)
-	@echo "Compiled !"
+all: $(NAME) exec fclean
 
 $(NAME): $(OBJ) 
-	@$(CXX) $(OBJ) $(CPPFLAGS) $(INC) -o $(NAME) -g
+	@$(CXX) $(OBJ) $(CPPFLAGS) $(INC) -o $(NAME)
 
 %.o: %.c
 	$(CXX) $(CPPFLAGS) $(HEADERS) -c -o $@ $<
+
+exec:
+	@valgrind ./$(NAME)
+
+unit_test:
+	@make -s -C ./unit_tests/
+	@./unit_tests/unit_test "[vector]"
+	@make -s fclean -C ./unit_tests/
 
 clean:
 	@/bin/rm -f $(OBJ)
@@ -37,6 +44,7 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@make -s fclean -C ./unit_tests/
 
 re: clean $(NAME)
 

@@ -4,7 +4,7 @@
 
 #include "common.hpp"
 
-#include <vector.hpp>
+#include "../../include/vector.hpp"
 #include <vector>
 typedef NS::vector<ValueType>							Vec;
 typedef Vec::iterator									VecIt;

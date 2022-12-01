@@ -67,7 +67,7 @@ $(info )
 
 OBJS = ${SRCS:.cpp=.o}
 DEPS = ${SRCS:.cpp=.d}
-FLAGS = -MMD -MP -Wall -Wextra -Werror -std=c++98
+FLAGS = -MMD -MP -Wall -Wextra -Werror -std=c++98 -g3
 
 CC = c++
 

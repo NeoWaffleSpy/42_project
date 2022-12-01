@@ -182,7 +182,6 @@ namespace ft
 	template <class InputIterator1, class InputIterator2>
 	bool equal( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2)
 	{
-		int i = 0;
 		while (first1!=last1 && first2!=last2)
 		{
 			if (*first1 != *first2)
@@ -683,11 +682,11 @@ namespace ft
 
     template <class Iterator>
 	typename reverse_iterator<Iterator>::difference_type operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
-	{ return (lhs.base() - rhs.base()); }
+	{ return (rhs.base() - lhs.base()); }
 
     template <class Iterator_L, class Iterator_R>
 	bool operator- (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
-	{ return (lhs.base() - rhs.base()); }
+	{ return (rhs.base() - lhs.base()); }
 
     /* Lexicographical comparison */
 
