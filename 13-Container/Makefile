@@ -34,8 +34,9 @@ exec:
 	@valgrind ./$(NAME)
 
 unit_test:
+	@echo "Starting tests"
 	@make -s -C ./unit_tests/
-	@./unit_tests/unit_test "[stack]"
+	@./unit_tests/unit_test "[vector][stack]"
 	@make -s fclean -C ./unit_tests/
 
 clean:

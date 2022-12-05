@@ -18,26 +18,13 @@
 static class nullptr_t
 {
     public:
-        /*
-        ** @brief For conversion to any type
-        ** of null non-member pointer.
-        */
         template<class T>
         operator T*() const { return (0); }
 
-        /*
-        ** @brief For conversion to any type of null
-        ** member pointer.
-        */
         template<class C, class T>
         operator T C::*() const { return (0); }
 
     private:
-        
-        /*
-        ** @brief It's imposible to get an address of
-        ** a nullptr.
-        */
         void operator&() const;
 
 } u_nullptr = {};
@@ -51,7 +38,6 @@ namespace ft
     template <typename T>
     std::string to_string(T n)
     {
-        /* Stream used to convert */
         std::ostringstream ss;
         ss << n;
         return (ss.str());
@@ -68,17 +54,12 @@ namespace ft
     ** as a function call).
     */
     template <class Arg1, class Arg2, class Result>
-        struct binary_function
-        {
-            /* The first argument type */
-            typedef Arg1 first_argument_type;
-
-            /* The second arguement type */
-            typedef Arg2 second_argument_type;
-
-            /* The result type */
-            typedef Result result_type;
-        };
+    struct binary_function
+    {
+        typedef Arg1 first_argument_type;
+        typedef Arg2 second_argument_type;
+        typedef Result result_type;
+    };
     
     /*
     ** A binary function object class who will return
@@ -86,10 +67,10 @@ namespace ft
     ** (using "<" operator).
     */
     template <class T>
-        struct less : binary_function<T, T, bool>
-        {
-            bool operator() (const T& x, const T& y) const { return (x < y); }
-        };
+    struct less : binary_function<T, T, bool>
+    {
+        bool operator() (const T& x, const T& y) const { return (x < y); }
+    };
 
     /*
     ** Couple a pair of values, which may be of different types
@@ -98,81 +79,63 @@ namespace ft
     template <class T1, class T2>
     struct pair
     {
-        public :
-            typedef T1 first_type;
-            typedef T2 second_type;
+	public :
+		typedef T1 first_type;
+		typedef T2 second_type;
 
-            first_type first;
-            second_type second;
+		first_type first;
+		second_type second;
 
-            pair() : first(), second()
-            {}
+		pair() : first(), second()
+		{}
 
-            template<class U, class V>
-            pair (const pair<U, V>& pr) : first(pr.first), second(pr.second)
-            {}
+		template<class U, class V>
+		pair (const pair<U, V>& pr) : first(pr.first), second(pr.second)
+		{}
 
-            pair (const first_type& a, const second_type& b) : first(a), second(b)
-            {}
+		pair (const first_type& a, const second_type& b) : first(a), second(b)
+		{}
 
-            pair& operator= (const pair& pr)
-            {
-                if (*this == pr)
-                    return (*this);
-                this->first = pr.first;
-                this->second = pr.second;
-                return (*this);
-            }
+		pair& operator= (const pair& pr)
+		{
+			if (*this == pr)
+				return (*this);
+			this->first = pr.first;
+			this->second = pr.second;
+			return (*this);
+		}
     };
-    
-    /*
-    ** @brief Equal comparison between two pair object.
-    */
+
     template <class T1, class T2>
     bool operator== (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
     {
         return (lhs.first == rhs.first && lhs.second == rhs.second);
     }
 
-    /*
-    ** @brief Difference comparison between two pair object.
-    */
     template <class T1, class T2>
     bool operator!= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
     {
         return !(lhs == rhs);
     }
-    
-    /*
-    ** @brief Inferior comparison between two pair object.
-    */
+
     template <class T1, class T2>
     bool operator<  (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
     {
         return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
     }
 
-    /*
-    ** @brief Inferior or equal comparison between two pair object.
-    */
     template <class T1, class T2>
     bool operator<= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
     {
         return !(rhs < lhs);
     }
 
-    /*
-    ** @brief Superior comparison between two pair object.
-    */
     template <class T1, class T2>
     bool operator>  (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
     {
         return (rhs < lhs);
     }
 
-    /*
-    ** @brief Superior or equal comparison between two pair object.
-    */
     template <class T1, class T2>
     bool operator>= (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)
     {
@@ -221,27 +184,6 @@ namespace ft
     */
     template<bool Cond, class T = void> struct enable_if {};
     template<class T> struct enable_if<true, T> { typedef T type; };
-
-    /*
-    ** All the next part is an adaptation of is_integral.
-    ** "is_integral" for this project in C++98 is a structure 
-    ** that contain if the type given to it is a type from this list :
-    **  - bool
-    **  - char
-    **  - char16_t
-    **  - char32_t
-    **  - wchar_t
-    **  - signed char
-    **  - short int
-    **  - int
-    **  - long int
-    **  - long long int
-    **  - unsigned char
-    **  - unsigned short int
-    **  - unsigned int
-    **  - unsigned long int
-    **  - unsigned long long int
-    */
 
     /*
     ** @brief The basic struct of is_integral has
@@ -308,8 +250,6 @@ namespace ft
     */
     template <typename T>
     struct is_integral : public is_integral_type<typename ft::remove_cv<T>::type> { };
-
-    /*  End of is_integral. */
 
     /*
     ** @brief Empty class to identify the category of an
@@ -671,7 +611,6 @@ namespace ft
 	bool operator>= (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 	{ return (lhs.base() <= rhs.base()); }
 
-    /* For reverser_iterator >= const_reverse_iterator */
     template <class Iterator_L, class Iterator_R>
 	bool operator>= (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
 	{ return (lhs.base() <= rhs.base()); }
@@ -685,7 +624,7 @@ namespace ft
 	{ return (rhs.base() - lhs.base()); }
 
     template <class Iterator_L, class Iterator_R>
-	bool operator- (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
+	typename reverse_iterator<Iterator_L>::difference_type operator- (const reverse_iterator<Iterator_L>& lhs, const reverse_iterator<Iterator_R>& rhs)
 	{ return (rhs.base() - lhs.base()); }
 
     /* Lexicographical comparison */
@@ -705,8 +644,10 @@ namespace ft
         {
             while (first1 != last1)
             {
-                if (first2 == last2 || *first2 < *first1) return false;
-                else if (*first1 < *first2) return true;
+                if (first2 == last2 || *first2 < *first1)
+					return false;
+                else if (*first1 < *first2)
+					return true;
                 ++first1;
                 ++first2;
             }

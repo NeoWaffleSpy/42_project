@@ -52,12 +52,12 @@ void	exec_rev_test(std::string msg)
 
 	size_t x = end - it;
 	std::cout << msg << " len = " << x << " : " << std::endl;
-
+/*
 	for (; it != end; it++)
 		std::cout << *it;
 	std::cout << std::endl;
-	
-	it += x + 1;
+*/
+	it += (x / 2);
 	std::cout << "split in half : " << it - vec.rbegin() << std::endl << std::endl;
 	file.close();
 }
@@ -98,16 +98,18 @@ int main()
 
 	// typedef ft::random_access_iterator<T>							ft_it;
 	// typedef std::vector<T>::iterator								std_it;
-	// typedef ft::reverse_iterator<ft::random_access_iterator<T> >	ft_rev_it;
-	// typedef std::reverse_iterator<std::vector<T>::iterator>			std_rev_it;
+	typedef ft::vector<T>::reverse_iterator							ft_rev_it;
+	typedef ft::vector<T>::const_reverse_iterator					ft_const_rev_it;
+	//typedef std::vector<T>::reverse_iterator			std_rev_it;
 
 	// exec_test<ft::vector<T>, ft_it>		("ft::vector");
 	// exec_test<std::vector<T>, std_it>	("std::vector");
 
-	// exec_rev_test<ft::vector<T>, ft_rev_it>		("ft::rev_vector");
-	// exec_rev_test<std::vector<T>, std_rev_it>	("std::rev_vector");
+	exec_rev_test<ft::vector<T>, ft_rev_it>				("ft::rev_vector");
+	exec_rev_test<ft::vector<T>, ft_const_rev_it>		("ft::const_rev_vector");
+	//exec_rev_test<std::vector<T>, std_rev_it>	("std::rev_vector");
 
-	exec_compare<ft::vector<T> >					("VECTOR");
+	//exec_compare<ft::vector<T> >					("VECTOR");
 	//tests();
 	return 0;
 }
