@@ -94,22 +94,63 @@ void	exec_compare(std::string msg)
 
 int main()
 {
-	typedef	char													T;
+	typedef	std::string												T;
 
-	// typedef ft::random_access_iterator<T>							ft_it;
-	// typedef std::vector<T>::iterator								std_it;
-	typedef ft::vector<T>::reverse_iterator							ft_rev_it;
-	typedef ft::vector<T>::const_reverse_iterator					ft_const_rev_it;
-	//typedef std::vector<T>::reverse_iterator			std_rev_it;
+	// typedef ft::vector<T>::iterator									ft_it;
+	//typedef std::vector<T>::iterator								std_it;
+	// typedef ft::vector<T>::reverse_iterator							ft_rev_it;
+	// typedef ft::vector<T>::const_reverse_iterator					ft_const_rev_it;
+	// typedef std::vector<T>::reverse_iterator			std_rev_it;
 
 	// exec_test<ft::vector<T>, ft_it>		("ft::vector");
 	// exec_test<std::vector<T>, std_it>	("std::vector");
 
-	exec_rev_test<ft::vector<T>, ft_rev_it>				("ft::rev_vector");
-	exec_rev_test<ft::vector<T>, ft_const_rev_it>		("ft::const_rev_vector");
-	//exec_rev_test<std::vector<T>, std_rev_it>	("std::rev_vector");
+	// exec_rev_test<ft::vector<T>, ft_rev_it>				("ft::rev_vector");
+	// exec_rev_test<ft::vector<T>, ft_const_rev_it>		("ft::const_rev_vector");
+	// exec_rev_test<std::vector<T>, std_rev_it>	("std::rev_vector");
 
-	//exec_compare<ft::vector<T> >					("VECTOR");
-	//tests();
+	// exec_compare<ft::vector<T> >					("VECTOR");
+	// tests();
+	// ft::vector<ft::vector<int> >	vec2;
+	// for (int i = 0; i < 7; i++)
+	// {
+	// 	ft::vector<int>	j(2, i * 3);
+	// 	vec2.push_back(j);
+	// }
+	// for (size_t i = 0; i < vec2.size(); i++)
+	// 	std::cout << vec2[i].back() << ' ';
+	// std::cout << std::endl;
+
+	ft::vector<T>		ref;
+    ref.push_back("AAAAAAAAAA");
+    ref.push_back("AAAAAAAAAAA");
+    ref.push_back("AAAAAAAAAAAA");
+    ref.push_back("AAAAAAAAAAAAA");
+    ref.push_back("AAAAAAAAAAAAAA");
+    ref.push_back("AAAAAAAAAAAAAAA");
+    ref.push_back("AAAAAAAAAAAAAAAA");
+    ref.push_back("AAAAAAAAAAAAAAAAA");
+	ft::vector<T>		vec(ref);
+
+	ft::vector<T>::iterator	it;
+	ft::vector<T>::iterator	it2;
+
+	it = ref.begin();
+	it2 = vec.begin();
+
+	std::cout << &(*it) << " = " << &(*ref.begin()) << ": " << (it == ref.begin()) << std::endl;
+	std::cout << &(*it2) << " = " << &(*vec.begin()) << ": " << (it2 == vec.begin()) << std::endl;
+
+	ref.swap(vec);
+
+	std::cout << &(*it) << " = " << &(*vec.begin()) << ": " << (it == vec.begin()) << std::endl;
+	std::cout << &(*it2) << " = " << &(*ref.begin()) << ": " << (it2 == ref.begin()) << std::endl;
+	/* CE TEST EST CENSE ECHOUER ET FAIRE UN INVALID READ
+	ft::vector<std::string>    v2(8);
+    ft::vector<std::string>::iterator    it2 = v2.begin();
+
+    v2.push_back("AAAAAAAAAA");
+    std::cout << (*it2) << std::endl;
+	*/
 	return 0;
 }

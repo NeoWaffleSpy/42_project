@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 	$(CXX) $(CPPFLAGS) $(HEADERS) -c -o $@ $<
 
 exec:
-	@valgrind ./$(NAME)
+	@valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
 unit_test:
 	@echo "Starting tests"

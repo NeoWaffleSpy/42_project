@@ -5,8 +5,8 @@
 # include <algorithm>
 # include <cstddef>
 # include <tgmath.h>
-#include <vector>
 # include "./Iterators/random_access_iterator.hpp"
+# include <typeinfo>
 
 namespace ft
 {
@@ -83,11 +83,13 @@ namespace ft
 
 		vector (const vector& x) : _alloc(x._alloc), _start(u_nullptr), _end(u_nullptr), _end_capacity(u_nullptr)
 		{
+			// std::cout << "PASS: " << *x.begin() << " and " << *x.end() << std::endl;
 			this->insert(this->begin(), x.begin(), x.end());
 		}
 
 		~vector()
 		{
+			// std::cout << "Destroy vector" << std::endl;
 			this->clear();
 			_alloc.deallocate(_start, this->capacity());
 		}
@@ -393,9 +395,6 @@ namespace ft
 
 		void swap (vector& x)
 		{
-			if (x == *this)
-				return;
-			
 			pointer save_start = x._start;
 			pointer save_end = x._end;
 			pointer save_end_capacity = x._end_capacity;
@@ -415,6 +414,7 @@ namespace ft
 		void clear()
 		{
 			size_type save_size = this->size();
+			// std::cout << "destroying " << save_size << " elements of type " << typeid(T).name() << std::endl;
 			for (size_type i = 0; i < save_size; i++)
 			{
 				_end--;
