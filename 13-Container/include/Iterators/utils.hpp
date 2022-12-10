@@ -329,25 +329,19 @@ namespace ft
     ** input iterator form, validity is set to false.
     */
     template <typename T>
-    struct is_input_iterator_tagged
-		: public valid_iterator_tag_res<false, T> { };
+	struct is_input_iterator_tagged									: public valid_iterator_tag_res<false, T> { };
 
     template <>
-    struct is_input_iterator_tagged<ft::random_access_iterator_tag>
-		: public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::random_access_iterator_tag>	: public valid_iterator_tag_res<true, ft::random_access_iterator_tag> { };
 
     template <>
-    struct is_input_iterator_tagged<ft::bidirectional_iterator_tag>
-        : public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::bidirectional_iterator_tag>	: public valid_iterator_tag_res<true, ft::bidirectional_iterator_tag> { };
 
     template <>
-    struct is_input_iterator_tagged<ft::forward_iterator_tag>
-        : public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
+    struct is_input_iterator_tagged<ft::forward_iterator_tag>		: public valid_iterator_tag_res<true, ft::forward_iterator_tag> { };
 
     template <>
-    struct is_input_iterator_tagged<ft::input_iterator_tag>
-        : public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
-
+    struct is_input_iterator_tagged<ft::input_iterator_tag>			: public valid_iterator_tag_res<true, ft::input_iterator_tag> { };
 
     /*
     ** @brief This will return a structure
@@ -387,6 +381,38 @@ namespace ft
 
     template <>
     struct is_ft_iterator_tagged<std::output_iterator_tag>			: public valid_iterator_tag_res<true, std::output_iterator_tag> { };
+
+	/*
+	** @brief Custom class that define that
+	** the existence of double keys is
+	** allowed in the binary tree.
+	*/
+    class allow_double_class_tag { };
+
+	/*
+	** @brief Custom class that define that
+	** the existence of double keys is
+	** forbidden in the binary tree.
+	*/
+    class forbid_double_class_tag { };
+
+    template <bool is_valid, typename T>
+    struct double_class_tag { typedef T type; const static bool value = is_valid; };
+
+    /*
+    ** @brief This will return a structure
+    ** that contain a boolean "value" false if the
+    ** tag forbid the existence of doubles in
+	** the binary tree.
+    */
+    template <typename T>
+	struct is_double_class_tag										: public double_class_tag<true, T> { };
+
+    template <>
+    struct is_double_class_tag<ft::allow_double_class_tag>			: public double_class_tag<true, ft::allow_double_class_tag> { };
+
+    template <>
+    struct is_double_class_tag<ft::forbid_double_class_tag>			: public double_class_tag<false, ft::forbid_double_class_tag> { };
 
     /*
     ** @Brief Invalid iterator Exception.
