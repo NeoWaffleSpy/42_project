@@ -5,146 +5,180 @@
 #include <iterator>
 #include <stdlib.h>
 #include <time.h>
-#include "../unit_tests/hdrs/vector_utils.hpp"
+
+#define PRINT_V 1
 
 #define FILE_TO_READ "./Makefile"
 
-		// for (; it != end; it++)
-		// 	std::cout << *it;
-		// std::cout << std::endl;
+#define COLOR_TITLE	BLUE
+#define COLOR_FT	MAGENTA
+#define COLOR_STD	CYAN
 
-template <typename T_vector, typename T_iter>
-void	exec_test(std::string msg)
+template <typename T_vector>
+T_vector	create_vec()
 {
 	typedef std::istream_iterator<char>	is_iterator;
 	std::ifstream		file;
 	is_iterator			my_it;
 
-	std::cout << msg << std::endl;
 	file.open(FILE_TO_READ);
 	my_it = is_iterator(file);
-
 	T_vector vec(my_it, is_iterator());
+	file.close();
+	return (vec);
+}
+
+template <typename T_iter>
+void	print_v(T_iter it, T_iter end)
+{
+	if (!PRINT_V)
+		return;
+	for (; it != end; it++)
+		std::cout << *it;
+	std::cout << std::endl;
+}
+
+template <typename T_vector, typename T_iter>
+void	exec_test(std::string msg)
+{
+	std::cout << msg << std::endl;
+	T_vector vec = create_vec<T_vector>();
 	T_iter it(vec.begin());
 	T_iter end(vec.end());
 
 	size_t x = end - it;
 	std::cout << msg << " len = " << x << " : " << std::endl;
-	it += (x/2);
-	std::cout << "split in half : " << it - vec.begin() << std::endl << std::endl;
-	file.close();
+
+	print_v<T_iter>(it, end);
+
+	it += (x / 2);
+	std::cout << "split in half : " << it - vec.begin() << std::endl;
 }
 
 template <typename T_vector, typename T_iter>
 void	exec_rev_test(std::string msg)
 {
-	typedef std::istream_iterator<char>	is_iterator;
-	std::ifstream		file;
-	is_iterator			my_it;
-
 	std::cout << msg << std::endl;
-	file.open(FILE_TO_READ);
-	my_it = is_iterator(file);
-
-	T_vector vec(my_it, is_iterator());
+	T_vector vec = create_vec<T_vector>();
 	T_iter it(vec.rbegin());
 	T_iter end(vec.rend());
 
 	size_t x = end - it;
 	std::cout << msg << " len = " << x << " : " << std::endl;
-/*
-	for (; it != end; it++)
-		std::cout << *it;
-	std::cout << std::endl;
-*/
+
+	print_v<T_iter>(it, end);
+
 	it += (x / 2);
-	std::cout << "split in half : " << it - vec.rbegin() << std::endl << std::endl;
-	file.close();
+	std::cout << "split in half : " << it - vec.rbegin() << std::endl;
 }
 
-template <typename t_vec>
+template <typename T_vector>
 void	exec_compare(std::string msg)
 {
-	typedef std::istream_iterator<char>	is_iterator;
-	std::ifstream		file;
-	is_iterator			my_it;
-
-	file.open(FILE_TO_READ);
-	my_it = is_iterator(file);
-
 	std::cout << msg << std::endl;
-	t_vec ref(my_it, is_iterator());
-	std::cout << "Pass 1" << std::endl;
-	t_vec vec(ref);
-	std::cout << "Pass 2" << std::endl;
+	T_vector ref = create_vec<T_vector>();
+	T_vector vec(ref);
 	if (ref == vec)
 		std::cout << "PASS ref == vec" << std::endl;
+	if (ref < vec)
+		std::cout << "PASS ref < vec" << std::endl;
 	if (ref <= vec)
 		std::cout << "PASS ref <= vec" << std::endl;
+	if (ref > vec)
+		std::cout << "PASS ref > vec" << std::endl;
 	if (ref >= vec)
 		std::cout << "PASS ref >= vec" << std::endl;
-	vec.pop_back();
 	if (ref != vec)
 		std::cout << "PASS ref != vec" << std::endl;
 	if (!(ref < vec))
 		std::cout << "PASS !(ref < vec)" << std::endl;
 	
-	file.close();
+	std::cout << "Call to pop_back()" << std::endl;
+	vec.pop_back();
+
+	if (ref == vec)
+		std::cout << "PASS ref == vec" << std::endl;
+	if (ref < vec)
+		std::cout << "PASS ref < vec" << std::endl;
+	if (ref <= vec)
+		std::cout << "PASS ref <= vec" << std::endl;
+	if (ref > vec)
+		std::cout << "PASS ref > vec" << std::endl;
+	if (ref >= vec)
+		std::cout << "PASS ref >= vec" << std::endl;
+	if (ref != vec)
+		std::cout << "PASS ref != vec" << std::endl;
+	if (!(ref < vec))
+		std::cout << "PASS !(ref < vec)" << std::endl;
 }
 
 int main()
 {
-	typedef	std::string												T;
+	typedef	char														T;
 
-	// typedef ft::vector<T>::iterator									ft_it;
-	//typedef std::vector<T>::iterator								std_it;
-	// typedef ft::vector<T>::reverse_iterator							ft_rev_it;
-	// typedef ft::vector<T>::const_reverse_iterator					ft_const_rev_it;
-	// typedef std::vector<T>::reverse_iterator			std_rev_it;
+	{
+		typedef ft::vector<T>::iterator									ft_it;
+		typedef std::vector<T>::iterator								std_it;
 
-	// exec_test<ft::vector<T>, ft_it>		("ft::vector");
-	// exec_test<std::vector<T>, std_it>	("std::vector");
+		std::cout << std::endl << COLOR_TITLE << "[TEST DES ITERATORS DE VECTEURS]" << COLOR_FT << std::endl;
+		exec_test<ft::vector<T>, ft_it>									("ft::vector");
+		std::cout << COLOR_STD;
+		exec_test<std::vector<T>, std_it>								("std::vector");
+		std::cout << END;
+	}
+	{
+		typedef ft::vector<T>::reverse_iterator							ft_rev_it;
+		typedef std::vector<T>::reverse_iterator						std_rev_it;
 
-	// exec_rev_test<ft::vector<T>, ft_rev_it>				("ft::rev_vector");
-	// exec_rev_test<ft::vector<T>, ft_const_rev_it>		("ft::const_rev_vector");
-	// exec_rev_test<std::vector<T>, std_rev_it>	("std::rev_vector");
+		std::cout << std::endl << COLOR_TITLE << "[TEST DES REVERSE ITERATORS DE VECTEURS]" << COLOR_FT << std::endl;
+		exec_rev_test<ft::vector<T>, ft_rev_it>							("ft::rev_vector");
+		std::cout << COLOR_STD;
+		exec_rev_test<std::vector<T>, std_rev_it>						("std::rev_vector");
+		std::cout << END;
+	}
+	{
+		typedef ft::vector<T>::const_reverse_iterator					ft_const_rev_it;
+		typedef std::vector<T>::const_reverse_iterator					std_const_rev_it;
 
-	// exec_compare<ft::vector<T> >					("VECTOR");
-	// tests();
-	// ft::vector<ft::vector<int> >	vec2;
-	// for (int i = 0; i < 7; i++)
-	// {
-	// 	ft::vector<int>	j(2, i * 3);
-	// 	vec2.push_back(j);
-	// }
-	// for (size_t i = 0; i < vec2.size(); i++)
-	// 	std::cout << vec2[i].back() << ' ';
-	// std::cout << std::endl;
+		std::cout << std::endl << COLOR_TITLE << "[TEST DES CONST REVERSE ITERATORS DE VECTEURS]" << COLOR_FT << std::endl;
+		exec_rev_test<ft::vector<T>, ft_const_rev_it>					("ft::const_rev_vector");
+		std::cout << COLOR_STD;
+		exec_rev_test<std::vector<T>, std_const_rev_it>					("std::const_rev_vector");
+		std::cout << END;
+	}
+	{
+		std::cout << std::endl << COLOR_TITLE << "[TEST DES COMPARAISONS DE VECTEURS]" << COLOR_FT << std::endl;
+		exec_compare<ft::vector<T> >									("Lexicographical compare on ft::vector");
+		std::cout << COLOR_STD;
+		exec_compare<std::vector<T> >									("Lexicographical compare on std::vector");
+		std::cout << END;
+	}
 
-	ft::vector<T>		ref;
-    ref.push_back("AAAAAAAAAA");
-    ref.push_back("AAAAAAAAAAA");
-    ref.push_back("AAAAAAAAAAAA");
-    ref.push_back("AAAAAAAAAAAAA");
-    ref.push_back("AAAAAAAAAAAAAA");
-    ref.push_back("AAAAAAAAAAAAAAA");
-    ref.push_back("AAAAAAAAAAAAAAAA");
-    ref.push_back("AAAAAAAAAAAAAAAAA");
-	ft::vector<T>		vec(ref);
+	{
+		std::cout << std::endl << COLOR_TITLE << "[TEST DE VECTEURS DANS VECTEURS]" << COLOR_FT << std::endl;
+		ft::vector<ft::vector<int> >	vec2;
+		for (int i = 0; i < 20; i++)
+		{
+			ft::vector<int>	j(2, i);
+			vec2.push_back(j);
+		}
+		for (size_t i = 0; i < vec2.size(); i++)
+			std::cout << vec2[i].back() << ' ';
+		std::cout << END << std::endl;
+	}
+	{
+		std::cout << COLOR_STD;
+		ft::vector<ft::vector<int> >	vec2;
+		for (int i = 0; i < 20; i++)
+		{
+			ft::vector<int>	j(2, i);
+			vec2.push_back(j);
+		}
+		for (size_t i = 0; i < vec2.size(); i++)
+			std::cout << vec2[i].back() << ' ';
+		std::cout << END << std::endl;
+	}
 
-	ft::vector<T>::iterator	it;
-	ft::vector<T>::iterator	it2;
-
-	it = ref.begin();
-	it2 = vec.begin();
-
-	std::cout << &(*it) << " = " << &(*ref.begin()) << ": " << (it == ref.begin()) << std::endl;
-	std::cout << &(*it2) << " = " << &(*vec.begin()) << ": " << (it2 == vec.begin()) << std::endl;
-
-	ref.swap(vec);
-
-	std::cout << &(*it) << " = " << &(*vec.begin()) << ": " << (it == vec.begin()) << std::endl;
-	std::cout << &(*it2) << " = " << &(*ref.begin()) << ": " << (it2 == ref.begin()) << std::endl;
 	/* CE TEST EST CENSE ECHOUER ET FAIRE UN INVALID READ
 	ft::vector<std::string>    v2(8);
     ft::vector<std::string>::iterator    it2 = v2.begin();

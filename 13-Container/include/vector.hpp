@@ -42,7 +42,7 @@ namespace ft
 	public:
 
 		explicit vector (const allocator_type& alloc = allocator_type()) : _alloc(alloc), _start(u_nullptr), _end(u_nullptr), _end_capacity(u_nullptr)
-		{}
+		{ }
 
 		explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _alloc(alloc), _start(u_nullptr), _end(u_nullptr), _end_capacity(u_nullptr)
         {
@@ -63,33 +63,14 @@ namespace ft
 			for(; first != last; first++)
 				push_back(*first);
 		};
-		// template <class InputIterator>
-		// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr) : _alloc(alloc)
-		// {
-		// 	bool is_valid;
-		// 	if (!(is_valid = ft::is_ft_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::value))
-		// 		throw (ft::InvalidIteratorException<typename ft::is_ft_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::type>());
-			
-		// 	difference_type n = ft::distance(first, last);
-		// 	_start = _alloc.allocate( n );
-		// 	_end_capacity = _start + n;
-		// 	_end = _start;
-		// 	while (n--)
-		// 	{
-		// 		_alloc.construct(_end, *first++);
-		// 		_end++;
-		// 	}
-		// }
 
 		vector (const vector& x) : _alloc(x._alloc), _start(u_nullptr), _end(u_nullptr), _end_capacity(u_nullptr)
 		{
-			// std::cout << "PASS: " << *x.begin() << " and " << *x.end() << std::endl;
 			this->insert(this->begin(), x.begin(), x.end());
 		}
 
 		~vector()
 		{
-			// std::cout << "Destroy vector" << std::endl;
 			this->clear();
 			_alloc.deallocate(_start, this->capacity());
 		}
@@ -152,14 +133,13 @@ namespace ft
 				while (prev_start != prev_end)
 				{
 					_alloc.construct(_end, *prev_start);
+					_alloc.destroy(prev_start);
 					_end++;
 					prev_start++;
 				}
 				_alloc.deallocate(prev_start - prev_size, prev_capacity);
 			}
 		}
-
-		/* ELEMENT ACCESS */
 
 		reference				operator[] (size_type n)			{ return (*(_start + n));						}
 		const_reference			operator[] (size_type n)	const	{ return (*(_start + n));						}
@@ -210,7 +190,7 @@ namespace ft
 		void push_back (const value_type& val)
 		{                
 			if (_end == _end_capacity)
-				this->reserve((this->size() > 0) ? (int)(this->size() * 2) : 1);
+				this->reserve((this->capacity() > 0) ? (int)(this->capacity() * 2) : 1);
 			_alloc.construct(_end, val);
 			_end++;
 		}
@@ -236,7 +216,8 @@ namespace ft
 				pointer new_start = pointer();
 				pointer new_end = pointer();
 				pointer new_end_capacity = pointer();
-				int next_capacity = (this->size() * 2 > 0) ? this->size() * 2 : 1; 
+				int next_capacity = (this->size() * 2 > 0) ? this->size() * 2 : 1;
+
 				new_start = _alloc.allocate( next_capacity );
 				new_end = new_start + this->size() + 1;
 				new_end_capacity = new_start + next_capacity;
@@ -280,19 +261,12 @@ namespace ft
 				pointer new_start = pointer();
 				pointer new_end = pointer();
 				pointer new_end_capacity = pointer();
+				unsigned long next_capacity = (this->capacity() ? this->capacity() : 1);
+				while (next_capacity < (this->capacity() + n))
+					next_capacity *= 2;
 				
-				int next_capacity = (this->capacity() > 0) ? (int)(this->size() * 2) : 1;
 				new_start = _alloc.allocate(next_capacity);
 				new_end_capacity = new_start + next_capacity;
-				if (size_type(new_end_capacity - new_start) < this->size() + n)
-				{
-					if (new_start)
-						_alloc.deallocate(new_start, new_start - new_end_capacity);
-					next_capacity = this->size() + n;
-					new_start = _alloc.allocate(next_capacity);
-					new_end = new_start + this->size() + n;
-					new_end_capacity = new_start + next_capacity;
-				}
 				new_end = new_start + this->size() + n;
 				for (int i = 0; i < (&(*position) - _start); i++)
 					_alloc.construct(new_start + i, *(_start + i));
@@ -330,19 +304,13 @@ namespace ft
 				pointer new_start = pointer();
 				pointer new_end = pointer();
 				pointer new_end_capacity = pointer();
-
-				new_start = _alloc.allocate( this->size() * 2 );
+				unsigned long new_max_size = (this->capacity() ? this->capacity() : 1);
+				while (new_max_size < (this->capacity() + dist))
+					new_max_size *= 2;
+				
+				new_start = _alloc.allocate(new_max_size);
 				new_end = new_start + this->size() + dist;
-				new_end_capacity = new_start + ( this->size() * 2 );
-
-				if (size_type(new_end_capacity - new_start) < this->size() + dist)
-				{
-					if (new_start)
-						_alloc.deallocate(new_start, new_end_capacity - new_start);
-					new_start = _alloc.allocate (this->size() + dist);
-					new_end = new_start + this->size() + dist;
-					new_end_capacity = new_end;
-				}
+				new_end_capacity = new_start + (new_max_size);
 
 				for (int i = 0; i < &(*position) - _start; i++)
 					_alloc.construct(new_start + i, *(_start + i));
@@ -414,7 +382,6 @@ namespace ft
 		void clear()
 		{
 			size_type save_size = this->size();
-			// std::cout << "destroying " << save_size << " elements of type " << typeid(T).name() << std::endl;
 			for (size_type i = 0; i < save_size; i++)
 			{
 				_end--;
