@@ -12,20 +12,28 @@
 
 NAME		= Container
 CXX			= c++
-CPPFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3
+CPPFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -MD
 INC			=
 
 SRC			=	main_test.cpp
 SRCS		=	$(addprefix ./srcs/, $(SRC))
 OBJ			=	$(SRCS:.cpp=.o)
 
-HEADERFILES	=	vector.hpp
+ITERFILES	=	random_access_iterator.hpp \
+				utils.hpp
+RBFILES		=	node.hpp \
+				rbtree.hpp
+HEADERFILES	=	vector.hpp \
+				stack.hpp \
+				$(addprefix Iterators/, $(ITERFILES)) \
+				$(addprefix RBTree/, $(RBFILES))
 HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))
 
 all: $(NAME) exec fclean
 
 $(NAME): $(OBJ) 
-	@$(CXX) $(OBJ) $(CPPFLAGS) $(INC) -o $(NAME)
+	$(CXX) $(OBJ) $(CPPFLAGS) $(INC) -o $(NAME)
+	@echo "done"
 
 %.o: %.c
 	$(CXX) $(CPPFLAGS) $(HEADERS) -c -o $@ $<
@@ -41,6 +49,7 @@ unit_test:
 
 clean:
 	@/bin/rm -f $(OBJ)
+	@/bin/rm -f $(OBJ:.o=.d)
 	@/bin/rm -rf a.out.dSYM
 
 fclean: clean
@@ -48,5 +57,7 @@ fclean: clean
 	@make -s fclean -C ./unit_tests/
 
 re: clean $(NAME)
+
+-include $(OBJ:.o=.d)
 
 .PHONY: re fclean clean all

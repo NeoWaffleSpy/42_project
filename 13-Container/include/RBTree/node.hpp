@@ -26,26 +26,30 @@ namespace ft
 
 		t_color		_color;
 		value_type	_value;
-		Node		_parent;
-		Node		_child[2];
+		pointer		_parent;
+		pointer		_child[2];
 
-		class InvalidSideException : public std::exception
-		{ public: virtual const char *what() const throw(); };
-
-		Node(value_type value = value_type(), reference parent = NULL) : _color(t_color.C_RED), _value(value), _parent(parent)
+		Node(value_type value = value_type(), t_color color = C_RED) : _color(color), _value(value), _parent(NULL)
 		{
 			_child[LEFT] = NULL;
 			_child[RIGHT] = NULL;
 		}
 
-		Node(const_reference n) : _color(n->_color), _value(n->_value), _parent(n->_parent)
+		Node(const_reference n) : _color(n._color), _value(n._value), _parent(n._parent)
 		{
-			_child[LEFT] = n->_child[LEFT];
-			_child[RIGHT] = n->_child[RIGHT];
+			_child[LEFT] = n._child[LEFT];
+			_child[RIGHT] = n._child[RIGHT];
 		}
 
 		~Node()
-		{ }
+		{
+			if (_child[LEFT] || _child[RIGHT])
+				throw std::out_of_range("deleting parent node before child node");
+			if (_parent && is_left())
+				_parent->_child[LEFT] = NULL;
+			if (_parent && is_right())
+				_parent->_child[RIGHT] = NULL;
+		}
 
 		Node operator=(const_reference n)
 		{
@@ -56,54 +60,92 @@ namespace ft
 			_child[RIGHT] = n->_child[RIGHT];
 		}
 
-		reference operator[](int n)
-		{
-			if (n < LEFT || n > RIGHT)
-				throw InvalidSideException("Access to invalid child node");
-			return _child[n];
-		}
-
-		reference set_child(reference n, int side)
+		pointer set_child(pointer n, int side)
 		{
 			if (side < LEFT || side > RIGHT)
-				throw InvalidSideException("Access to invalid child node");
+				throw std::out_of_range("Access to invalid child node");
 			_child[side] = n;
-			n->_parent = this;
+			if (n)
+				n->_parent = this;
+			return n;
 		}
 
-		reference max()
+		bool is_right()
+		{
+			if (this->_parent && (this == this->_parent->_child[RIGHT]))
+				return true;
+			return false;
+		}
+
+		bool is_left()
+		{
+			if (this->_parent && (this == this->_parent->_child[LEFT]))
+				return true;
+			return false;
+		}
+
+		pointer next()
+		{
+			Node* tmp;
+			if (_child[RIGHT] != NULL)
+				return _child[RIGHT]->min();
+			if (is_left())
+				return _parent;
+			tmp = this;
+			while (tmp != NULL && tmp->is_right())
+				tmp = tmp->_parent;
+			if (tmp == NULL)
+				return NULL;
+			return tmp->_parent;
+		}
+
+		pointer prev()
+		{
+			Node* tmp;
+			if (_child[LEFT] != NULL)
+				return _child[LEFT]->max();
+			if (is_right())
+				return _parent;
+			tmp = this;
+			while (tmp != NULL && tmp->is_left())
+				tmp = tmp->_parent;
+			if (tmp == NULL)
+				return NULL;
+			return tmp->_parent;
+		}
+
+		pointer max()
 		{
 			if (_child[RIGHT] == NULL)
 				return this;
 			return _child[RIGHT]->max();
 		}
 
-		reference min()
+		pointer min()
 		{
 			if (_child[LEFT] == NULL)
 				return this;
 			return _child[LEFT]->min();
 		}
 
-		reference find_node(T value)
+		pointer find_node(T value)
 		{
-			if (Compare(this->_value, value))
+			if (Compare()(this->_value, value))
 				return (_child[LEFT] ? _child[LEFT]->find_node(value) : NULL);
-			if (Compare(value, this->_value))
+			if (Compare()(value, this->_value))
 				return (_child[RIGHT] ? _child[RIGHT]->find_node(value) : NULL);
 			return this;
 		}
 
-		reference insert_node(reference n)
+		pointer insert_node(pointer n)
 		{
-			if (Compare(this->_value, n->_value))
-				return (_child[LEFT] ? _child[LEFT]->insert_node(value) : set_child(n, LEFT));
-			if (Compare(n->_value, this->_value))
-				return (_child[RIGHT] ? _child[RIGHT]->insert_node(value) : set_child(n, RIGHT));
+			if (Compare()(this->_value, n->_value))
+				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
+			if (Compare()(n->_value, this->_value))
+				return (_child[LEFT] ? _child[LEFT]->insert_node(n) : set_child(n, LEFT));
 			if (is_double_class_tag<AllowDouble>::value)
-				return (_child[RIGHT] ? _child[RIGHT]->insert_node(value) : set_child(n, RIGHT));
-			else
-				return NULL;
+				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
+			return NULL;
 		}
 	};
 }

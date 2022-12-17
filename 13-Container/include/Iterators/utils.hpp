@@ -396,8 +396,13 @@ namespace ft
 	*/
     class forbid_double_class_tag { };
 
-    template <bool is_valid, typename T>
-    struct double_class_tag { typedef T type; const static bool value = is_valid; };
+    template <bool is_valid, bool is_class, typename T>
+    struct double_class_tag
+	{
+		typedef T type;
+		const static bool valid_class = is_class;
+		const static bool value = is_valid;
+	};
 
     /*
     ** @brief This will return a structure
@@ -406,13 +411,13 @@ namespace ft
 	** the binary tree.
     */
     template <typename T>
-	struct is_double_class_tag										: public double_class_tag<true, T> { };
+	struct is_double_class_tag										: public double_class_tag<true, false, T> { };
 
     template <>
-    struct is_double_class_tag<ft::allow_double_class_tag>			: public double_class_tag<true, ft::allow_double_class_tag> { };
+    struct is_double_class_tag<ft::allow_double_class_tag>			: public double_class_tag<true, true, ft::allow_double_class_tag> { };
 
     template <>
-    struct is_double_class_tag<ft::forbid_double_class_tag>			: public double_class_tag<false, ft::forbid_double_class_tag> { };
+    struct is_double_class_tag<ft::forbid_double_class_tag>			: public double_class_tag<false, true, ft::forbid_double_class_tag> { };
 
     /*
     ** @Brief Invalid iterator Exception.
