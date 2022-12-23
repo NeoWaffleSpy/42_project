@@ -83,6 +83,8 @@ namespace ft
 
 		int					delete_node(node* n)
 		{
+			if (!n)
+				throw std::out_of_range("Value not mapped within container");
 			t_color origin = n->_color;
 			node* y = NULL;
 			node* x = NULL;

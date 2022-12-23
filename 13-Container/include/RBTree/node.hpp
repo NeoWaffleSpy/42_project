@@ -43,8 +43,6 @@ namespace ft
 
 		~Node()
 		{
-			if (_child[LEFT] || _child[RIGHT])
-				throw std::out_of_range("deleting parent node before child node");
 			if (_parent && is_left())
 				_parent->_child[LEFT] = NULL;
 			if (_parent && is_right())
@@ -130,9 +128,9 @@ namespace ft
 
 		pointer find_node(T value)
 		{
-			if (Compare()(this->_value, value))
-				return (_child[LEFT] ? _child[LEFT]->find_node(value) : NULL);
 			if (Compare()(value, this->_value))
+				return (_child[LEFT] ? _child[LEFT]->find_node(value) : NULL);
+			if (Compare()(this->_value, value))
 				return (_child[RIGHT] ? _child[RIGHT]->find_node(value) : NULL);
 			return this;
 		}
@@ -143,7 +141,7 @@ namespace ft
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
 			if (Compare()(n->_value, this->_value))
 				return (_child[LEFT] ? _child[LEFT]->insert_node(n) : set_child(n, LEFT));
-			if (is_double_class_tag<AllowDouble>::value)
+			if (is_	double_class_tag<AllowDouble>::value)
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
 			return NULL;
 		}

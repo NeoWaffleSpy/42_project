@@ -220,7 +220,7 @@ void print_tree_visual(T ref, int depth)
 		typename T::value_type n = ref.at(j);
 		if (n == NULL)
 		{
-			std::cout << "☐";
+			std::cout << "#";
 			new_stack.push_back(NULL);
 			new_stack.push_back(NULL);
 		}
