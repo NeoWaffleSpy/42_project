@@ -141,7 +141,7 @@ namespace ft
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
 			if (Compare()(n->_value, this->_value))
 				return (_child[LEFT] ? _child[LEFT]->insert_node(n) : set_child(n, LEFT));
-			if (is_	double_class_tag<AllowDouble>::value)
+			if (is_double_class_tag<AllowDouble>::value)
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
 			return NULL;
 		}

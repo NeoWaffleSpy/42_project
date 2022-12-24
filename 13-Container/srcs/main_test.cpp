@@ -220,7 +220,7 @@ void print_tree_visual(T ref, int depth)
 		typename T::value_type n = ref.at(j);
 		if (n == NULL)
 		{
-			std::cout << "#";
+			std::cout << "□";
 			new_stack.push_back(NULL);
 			new_stack.push_back(NULL);
 		}
@@ -299,7 +299,20 @@ void main_map()
 		}
 		try
 		{
+			tree.delete_node(tree.find(12));
+			print_tree(tree);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << CYAN << e.what() << END << '\n';
+		}
+		try
+		{
 			tree.delete_node(tree.find(5));
+			print_tree(tree);
+			tree.delete_node(tree.find(4));
+			print_tree(tree);
+			tree.delete_node(tree.find(4));
 			print_tree(tree);
 		}
 		catch(const std::exception& e)

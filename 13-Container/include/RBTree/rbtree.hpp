@@ -85,11 +85,13 @@ namespace ft
 		{
 			if (!n)
 				throw std::out_of_range("Value not mapped within container");
+			std::cout << "Deleting node " << n->_value << std::endl;
 			t_color origin = n->_color;
 			node* y = NULL;
 			node* x = NULL;
 			if (!n->_child[LEFT])
 			{
+				std::cout << "Pass dans left" << std::endl;
 				x = n->_child[RIGHT];
 				if (n == _root)
 					_root = x;
@@ -99,10 +101,21 @@ namespace ft
 			}
 			else
 			{
+				std::cout << "Pass dans right" << std::endl;
 				y = n->_child[LEFT]->max();
-				origin = y->_color;
+				std::cout << "y = " << y->_value << std::endl;
 				x = y->_child[LEFT];
-				y->_parent->set_child(x, RIGHT);
+				origin = C_BLACK;
+				if (x)
+					origin = x->_color;
+				if (x)
+					std::cout << "x = " << x->_value << std::endl;
+				if (n != y->_parent)
+					y->_parent->set_child(x, RIGHT);
+				else
+					y->_parent->set_child(x, LEFT);
+				if (x)
+					x->_color = C_BLACK;
 				y->_child[LEFT] = NULL;
 				n->_value = y->_value;
 				delete_rec(y);
@@ -115,21 +128,27 @@ namespace ft
 
 		void remove_fixup(node* x) {
 			int side = RIGHT;
-			while(x && x != _root && x->_color == C_BLACK) {
-				if(x->is_left() && x->_parent->_child[side]) {
+			while(x && x != _root && x->_color == C_BLACK)
+			{
+				if(x->is_left() && x->_parent->_child[side])
+				{
 					node* w = x->_parent->_child[side];
-					if(w->_color == C_RED) {
+					if(w->_color == C_RED)
+					{
 						w->_color = C_BLACK;
 						x->_parent->_color = C_RED;
 						rotate(x->_parent, !side);
 						w = x->_parent->_child[side];
 					}
-					if(w->_child[!side]->_color == C_BLACK && w->_child[side]->_color == C_BLACK) {
+					if(w->_child[!side]->_color == C_BLACK && w->_child[side]->_color == C_BLACK)
+					{
 						w->_color = C_RED;
 						x = x->_parent;
 					}
-					else {
-						if(w->_child[side]->_color == C_BLACK) {
+					else
+					{
+						if(w->_child[side]->_color == C_BLACK)
+						{
 							w->_child[!side]->_color = C_BLACK;
 							w->_color = C_RED;
 							rotate(w, side);
@@ -142,20 +161,25 @@ namespace ft
 						x = _root;
 					}
 				}
-				else if (x->_parent->_child[!side]) {
+				else if (x->_parent->_child[!side])
+				{
 					node* w = x->_parent->_child[!side];
-					if(w->_color == C_RED) {
+					if(w->_color == C_RED)
+					{
 						w->_color = C_BLACK;
 						x->_parent->_color = C_RED;
 						rotate(x->_parent, side);
 						w = x->_parent->_child[!side];
 					}
-					if(w->_child[side]->_color == C_BLACK && w->_child[!side]->_color == C_BLACK) {
+					if(w->_child[side]->_color == C_BLACK && w->_child[!side]->_color == C_BLACK)
+					{
 						w->_color = C_RED;
 						x = x->_parent;
 					}
-					else {
-						if(w->_child[!side]->_color == C_BLACK) {
+					else
+					{
+						if(w->_child[!side]->_color == C_BLACK)
+						{
 							w->_child[side]->_color = C_BLACK;
 							w->_color = C_RED;
 							rotate(w, !side);
@@ -169,7 +193,8 @@ namespace ft
 					}
 				}
 			}
-			x->_color = C_BLACK;
+			if (x)
+				x->_color = C_BLACK;
 		}
 
 
