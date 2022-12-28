@@ -314,6 +314,11 @@ void main_map()
 			print_tree(tree);
 			tree.delete_node(tree.find(4));
 			print_tree(tree);
+			tree.delete_node(tree.find(3));
+			std::cout << BLUE << "~~~~~~~~~~~~~~~~~~~~~~" << GREEN << std::endl;
+			tree.delete_node(tree.find(3));
+			std::cout << BLUE << "~~~~~~~~~~~~~~~~~~~~~~" << END << std::endl;
+			print_tree(tree);
 		}
 		catch(const std::exception& e)
 		{
