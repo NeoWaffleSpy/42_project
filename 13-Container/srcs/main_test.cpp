@@ -203,7 +203,7 @@ int get_max_depth(T ref, int depth = 0)
 }
 
 template <typename T>
-void print_tree_visual(T ref, int depth)
+void print_tree_visual(T ref, int depth, std::ostream* os)
 {
 	T new_stack;
 	int space = 1;
@@ -214,52 +214,56 @@ void print_tree_visual(T ref, int depth)
 		space = (space * 2) + 1;
 	half = (space - 1) / 2;
 	for (int i = 0; i < half; i++)
-		std::cout << " ";
+		*os << " ";
 	while ((int)ref.size() > j)
 	{
 		typename T::value_type n = ref.at(j);
 		if (n == NULL)
 		{
-			std::cout << "□";
+			*os << "□";
 			new_stack.push_back(NULL);
 			new_stack.push_back(NULL);
 		}
 		else
 		{
 			if (n->_color == C_RED)
-				std::cout << RED;
-			std::cout << n->_value << END;
+				*os << RED;
+			*os << n->_value << END;
 			new_stack.push_back(n->_child[LEFT] ? n->_child[LEFT] : NULL);
 			new_stack.push_back(n->_child[RIGHT] ? n->_child[RIGHT] : NULL);
 		}
 		j++;
 		if ((int)ref.size() > j)
 			for (int i = 0; i < space; i++)
-				std::cout << (j%2 ? "-" : " ");
+				*os << (j%2 ? "-" : " ");
 	}
-	std::cout << std::endl;
+	*os << std::endl;
 	if (depth > 0)
-		print_tree_visual(new_stack, depth - 1);
+		print_tree_visual(new_stack, depth - 1, os);
 }
 
 template <typename T>
-void print_tree(T& rbtree)
+void print_tree(T& rbtree, std::ostream* os = &(std::cout))
 {
 	typedef typename T::node*	ref;
 	{
 		ft::vector<ref>	pile;
 		pile.push_back(rbtree.root());
-		std::cout << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-		print_tree_visual(pile, get_max_depth(rbtree.root()));
-		std::cout << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+		*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+		print_tree_visual(pile, get_max_depth(rbtree.root()), os);
+		*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	}
 	ref n = rbtree.begin();
+	*os << MAGENTA;
 	while (n)
 	{
-		std::cout << MAGENTA << n->_value << " ";
+		*os << n->_value << " ";
 		n = n->next();
 	}
-	std::cout << END << std::endl;
+	*os << END << std::endl;
+	for (int i = 0; i <= (int)rbtree.size(); i++)
+		*os << (((i / 10) % 2) ? GREEN : YELLOW) << (i % 10) << " ";
+	*os << END << std::endl;
 }
 
 void main_map()
@@ -315,9 +319,7 @@ void main_map()
 			tree.delete_node(tree.find(4));
 			print_tree(tree);
 			tree.delete_node(tree.find(3));
-			std::cout << BLUE << "~~~~~~~~~~~~~~~~~~~~~~" << GREEN << std::endl;
 			tree.delete_node(tree.find(3));
-			std::cout << BLUE << "~~~~~~~~~~~~~~~~~~~~~~" << END << std::endl;
 			print_tree(tree);
 		}
 		catch(const std::exception& e)
@@ -339,15 +341,39 @@ void main_map()
 	// 	tree.insert(8);
 	// 	print_tree(tree);
 	// }
-	// {
-	// 	srand(time(NULL));
-	// 	rbtree tree;
-	// 	for (int i = 0; i < 50; i++)
-	// 	{
-	// 		tree.insert(rand() % 10);
-	// 	}
-	// 	print_tree(tree);
-	// }
+	{
+		std::stringstream buff;
+		std::ostream err_str(buff.rdbuf());
+		int node_nbr = -1;
+		try
+		{
+			srand(6);
+			rbtree tree;
+			for (int i = 0; i < 50; i++)
+			{
+				
+				std::cout << "\r insert number " << i << std::flush;
+				err_str << tree.insert(rand() % 10)->_value << " ";
+			}
+			std::cout << "\r";
+			print_tree(tree);
+			std::cout << buff.str() << std::endl;
+			for (int i = 0; i < 20; i++)
+			{
+				buff.str("");
+				print_tree(tree, &err_str);
+				node_nbr = tree[rand() % tree.size()]->_value;
+				std::cout << "delete " << (i + 1) << " of value " << node_nbr << std::endl;
+				tree.delete_node(tree.find(node_nbr));
+			}
+			print_tree(tree);
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << std::endl;
+			std::cerr << RED << "Error while deleting the node " << node_nbr << ":\n" << END << buff.str() << CYAN << e.what() << END << '\n';
+		}
+	}
 }
 
 int main()

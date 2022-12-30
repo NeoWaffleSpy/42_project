@@ -101,7 +101,7 @@ namespace ft
 			std::cout << "Pass 2" << std::endl;
 			c = n->_child[LEFT] ? n->_child[LEFT] : n->_child[RIGHT];
 
-			if (!is_black(n))
+			if (is_red(n))
 			{
 			std::cout << "Pass 2.1" << std::endl;
 				n->_parent->_child[n->is_right()] = NULL;
@@ -109,8 +109,7 @@ namespace ft
 				return;
 			}
 
-			std::cout << "Pass 3" << std::endl;
-			if (!is_black(c))
+			if (is_red(c))
 			{
 			std::cout << "Pass 3.1" << std::endl;
 				n->_value = c->_value;
@@ -123,58 +122,86 @@ namespace ft
 			{
 			std::cout << "Pass 4.1" << std::endl;
 				/* Sibling node */
-				node* s = n->_parent->_child[!n->is_right()];
+				node* s = get_sibling(n);
 				node* tmp = n;
 				n = n->_parent;
 
-			std::cout << "Pass 5" << std::endl;
-				if (s->_color == C_RED)
+				if (!s)
+					throw std::out_of_range("Sibling doesn't exist");
+				if (is_red(s))
 				{
 			std::cout << "Pass 5.1" << std::endl;
 					int side = tmp->is_left();
-					n->_child[!side] = NULL;
 					s->_color = C_BLACK;
 					rotate(n, side);
-					s = n->_parent->_child[!n->is_right()];
+					s = get_sibling(tmp);
 				}
 
+				if (!s)
+					throw std::out_of_range("Sibling doesn't exist V2");
 			std::cout << "Pass 6" << std::endl;
 				if (is_black(s) && is_black(s->_child[RIGHT]) && is_black(s->_child[LEFT]))
 				{
-			std::cout << "Pass 6.1" << std::endl;
-					s->_color = C_RED;
+			std::cout << "Pass 6.1"<< std::endl;
+					// s->_color = C_RED;
+					// if (is_red(n))
+					// 	n->_color = C_BLACK;
+					// else
+					// {
+					// 	get_sibling(n)->_color = C_RED;
+					// 	if (is_red(n->_parent))
+					// 		n->_parent->_color = C_BLACK;
+					// }
+					tmp->_color = C_BLACK;
+					set_black(tmp);
 					del_node(tmp);
 					return;
 				}
 
-			std::cout << "Pass 7" << std::endl;
-				if (n->is_left() && is_black(s->_child[RIGHT]) && !is_black(s->_child[LEFT]))
+				if (n->is_left() && is_black(s->_child[RIGHT]) && is_red(s->_child[LEFT]))
 				{
 			std::cout << "Pass 7.1" << std::endl;
-					swap_value(s, s->_child[LEFT]);
-					s->_child[LEFT]->_color = C_BLACK;
-					rotate(s, RIGHT);
+					// swap_value(s, s->_child[LEFT]);
+					// s->_child[LEFT]->_color = C_BLACK;
+					// rotate(s->_parent, RIGHT);
+					n->_color = C_BLACK;
+					rotate(s, LEFT);
+					rotate(n, RIGHT);
 				}
 			std::cout << "Pass 8" << std::endl;
 
-				if (n->is_right() && !is_black(s->_child[RIGHT]) && is_black(s->_child[LEFT]))
+				if (n->is_right() && is_red(s->_child[RIGHT]) && is_black(s->_child[LEFT]))
 				{
 			std::cout << "Pass 8.1" << std::endl;
-					swap_value(s, s->_child[RIGHT]);
-					s->_child[RIGHT]->_color = C_BLACK;
+					// swap_value(s, s->_child[RIGHT]);
+					n->_color = C_BLACK;
+					rotate(s, RIGHT);
+					rotate(n, LEFT);
 				}
 
-				if (is_black(s) && !is_black(s->_child[RIGHT]) && !is_black(s->_child[LEFT]))
+				if (is_black(s) && is_red(s->_child[RIGHT]) && is_red(s->_child[LEFT]))
 				{
+			std::cout << "Pass 9.1" << std::endl;
 					rotate(n, tmp->is_left());
 					n->_color = C_BLACK;
-					n->_parent->_color = C_RED;
-					n->_parent->_child[!n->is_right()]->_color = C_BLACK;
+					// PAS SUR DE CETTE CONDITION
+					if (is_black(n->_parent->_parent))
+						n->_parent->_color = C_RED;
+					if ((n->_parent->_child[!n->is_right()]))
+						n->_parent->_child[!n->is_right()]->_color = C_BLACK;
 				}
 				del_node(tmp);
 			}
-			std::cout << "Pass 9" << std::endl;
+			std::cout << "Pass 10" << std::endl;
 		}
+
+		node*					get_sibling(node* n)
+		{
+			if (n->_parent)
+				return (n->_parent->_child[!n->is_right()]);
+			return NULL;
+		}
+			
 
 		void					swap_value(node* n1, node* n2)
 		{
@@ -397,6 +424,12 @@ namespace ft
 
 		void	rotate(node* x, int side) {
 			node* y = x->_child[side];
+			if (!x)
+				throw std::out_of_range("x does not exist");
+			if (!y)
+				throw std::out_of_range("y does not exist");
+			if (side < 0 || side > 1)
+				throw std::out_of_range("Side is invalid");
 			x->set_child(y->_child[!side], side);
 			if (!x->_parent)
 			{
@@ -429,6 +462,11 @@ namespace ft
 			return true;
 		}
 
+		bool	is_red(node* ref)
+		{
+			return !is_black(ref);
+		}
+
 		void	delete_rec(node* ref)
 		{
 			if (ref->_child[LEFT])
@@ -442,6 +480,7 @@ namespace ft
 		{
 			_alloc.destroy(ref);
 			_mem_pile.push(ref);
+			_size--;
 		}
 
 	private:
