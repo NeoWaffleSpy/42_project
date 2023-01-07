@@ -245,6 +245,11 @@ void print_tree_visual(T ref, int depth, std::ostream* os)
 template <typename T>
 void print_tree(T& rbtree, std::ostream* os = &(std::cout))
 {
+	if (!rbtree.root())
+	{
+		std::cout << GREEN << "Empty tree" << END << std::endl;
+		return;
+	}
 	typedef typename T::node*	ref;
 	{
 		ft::vector<ref>	pile;
@@ -270,7 +275,7 @@ void main_map()
 {
 	typedef ft::Rbtree<int, ft::allow_double_class_tag>		rbtree;
 	// typedef ft::Rbtree<int, ft::forbid_double_class_tag>		rbtree;
-
+	
 	{
 		rbtree tree;
 		try
@@ -327,6 +332,7 @@ void main_map()
 			std::cerr << CYAN << e.what() << END << '\n';
 		}
 	}
+	
 	// {
 	// 	rbtree tree;
 	// 	tree.insert(0);
@@ -347,7 +353,9 @@ void main_map()
 		int node_nbr = -1;
 		try
 		{
-			srand(7);
+			int	seed = time(NULL);
+			srand(1673123452);
+			std::cout << "Seed = " << seed << std::endl;
 			rbtree tree;
 			for (int i = 0; i < 50; i++)
 			{
@@ -358,14 +366,15 @@ void main_map()
 			std::cout << "\r";
 			print_tree(tree);
 			std::cout << buff.str() << std::endl;
-			for (int i = 0; i < 26; i++)
+			for (int i = 0; i < 30; i++)
 			{
 				buff.str("");
 				print_tree(tree, &err_str);
 				node_nbr = tree[rand() % tree.size()]->_value;
-				std::cout << "delete " << (i + 1) << " of value " << node_nbr << std::endl;
+				std::cout << "\rdelete " << (i + 1) << " of value " << node_nbr;
 				tree.delete_node(tree.find(node_nbr));
 			}
+			std::cout << std::endl;
 			print_tree(tree);
 		}
 		catch(const std::exception& e)
