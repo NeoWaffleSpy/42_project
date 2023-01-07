@@ -70,6 +70,7 @@ namespace ft
 			{
 				_root = n;
 				n->_color = C_BLACK;
+				_size++;
 				return _root;
 			}
 			if (_root->insert_node(n) == NULL)
@@ -131,9 +132,9 @@ namespace ft
 				if (is_red(s))
 				{
 			std::cout << "Pass 5.1" << std::endl;
-					int side = tmp->is_left();
 					s->_color = C_BLACK;
-					rotate(n, side);
+					n->_color = C_RED;
+					rotate(n, tmp->is_left());
 					s = get_sibling(tmp);
 				}
 
@@ -152,36 +153,99 @@ namespace ft
 					// 	if (is_red(n->_parent))
 					// 		n->_parent->_color = C_BLACK;
 					// }
-					tmp->_color = C_BLACK;
-					set_black(tmp);
-					del_node(tmp);
-					return;
+					// tmp->_color = C_BLACK;
+					color_pushup(tmp);
 				}
 
-				if (n->is_left() && is_black(s->_child[RIGHT]) && is_red(s->_child[LEFT]))
+				if (is_black(s->_child[RIGHT]) && is_red(s->_child[LEFT]))
 				{
 			std::cout << "Pass 7.1" << std::endl;
 					// swap_value(s, s->_child[LEFT]);
 					// s->_child[LEFT]->_color = C_BLACK;
 					// rotate(s->_parent, RIGHT);
-					n->_color = C_BLACK;
-					rotate(s, LEFT);
-					rotate(n, RIGHT);
+
+					// n->_color = C_BLACK;
+					// rotate(s, LEFT);
+					// rotate(n, RIGHT);
+					if (s->_child[tmp->is_left()])
+					{
+						rotate(n, LEFT);
+						if (is_red(n))
+						{
+							s->_color = C_RED;
+							n->_color = C_BLACK;
+						}
+						if (!get_sibling(n))
+							throw std::out_of_range("Problem with sibling at 7.1");
+						get_sibling(n)->_color = C_BLACK;
+					}
+					else
+					{
+						s->_child[LEFT]->_color = C_BLACK;
+						rotate(s, LEFT);
+						rotate(n, RIGHT);
+					// 	std::cout << "tmp->is_right() == " << (tmp->is_right() ? "RIGHT" : "LEFT") << std::endl;
+					// 	if (s)
+					// 		std::cout << "s = " << s->_value << std::endl;
+					// 	if (s->_child[LEFT])
+					// 		std::cout << "s->_child[LEFT] = " << s->_child[LEFT]->_value << std::endl;
+					// 	if (s->_child[RIGHT])
+					// 		std::cout << "s->_child[RIGHT] = " << s->_child[RIGHT]->_value << std::endl;
+					// 	throw std::out_of_range("HAHA");
+					}
 				}
 			std::cout << "Pass 8" << std::endl;
 
-				if (n->is_right() && is_red(s->_child[RIGHT]) && is_black(s->_child[LEFT]))
+				if (is_red(s->_child[RIGHT]) && is_black(s->_child[LEFT]))
 				{
 			std::cout << "Pass 8.1" << std::endl;
 					// swap_value(s, s->_child[RIGHT]);
-					n->_color = C_BLACK;
-					rotate(s, RIGHT);
-					rotate(n, LEFT);
+					// rotate(s, RIGHT);
+					if (s->_child[tmp->is_left()])
+					{
+						rotate(n, RIGHT);
+						if (is_red(n))
+						{
+							s->_color = C_RED;
+							n->_color = C_BLACK;
+						}
+						if (!get_sibling(n))
+							throw std::out_of_range("Problem with sibling at 8.1");
+						get_sibling(n)->_color = C_BLACK;
+					}
+					else
+					{
+						s->_child[RIGHT]->_color = C_BLACK;
+						rotate(s, RIGHT);
+						rotate(n, LEFT);
+						// std::cout << "tmp->is_right() == " << (tmp->is_right() ? "RIGHT" : "LEFT") << std::endl;
+						// if (s)
+						// 	std::cout << "s = " << s->_value << std::endl;
+						// if (s->_child[LEFT])
+						// 	std::cout << "s->_child[LEFT] = " << s->_child[LEFT]->_value << std::endl;
+						// if (s->_child[RIGHT])
+						// 	std::cout << "s->_child[RIGHT] = " << s->_child[RIGHT]->_value << std::endl;
+						// throw std::out_of_range("HAHA BIS");
+					}
 				}
 
 				if (is_black(s) && is_red(s->_child[RIGHT]) && is_red(s->_child[LEFT]))
 				{
 			std::cout << "Pass 9.1" << std::endl;
+					// bool side = tmp->is_right(); 
+					// if (is_red(s->_child[!side]))
+					// {
+					// 	s->_child[side]->_color = C_BLACK;
+					// 	s->_color = C_RED;
+					// 	rotate(s, !side);
+					// 	s = get_sibling(tmp);
+					// 	n = tmp->_parent;
+					// }
+					// s->_color = n->_color;
+					// n->_color = C_BLACK;
+					// s->_child[!side]->_color = C_BLACK;
+					// rotate(s, side);
+					
 					rotate(n, tmp->is_left());
 					n->_color = C_BLACK;
 					// PAS SUR DE CETTE CONDITION
@@ -189,10 +253,58 @@ namespace ft
 						n->_parent->_color = C_RED;
 					if ((n->_parent->_child[!n->is_right()]))
 						n->_parent->_child[!n->is_right()]->_color = C_BLACK;
+					
 				}
 				del_node(tmp);
 			}
 			std::cout << "Pass 10" << std::endl;
+		}
+
+		void					color_pushup(node* n)
+		{
+			node* s = NULL;
+			if (n == NULL)
+				return;
+			if (n->_color == C_BLACK)
+			{
+		std::cout << "Pass 6.2" << std::endl;
+				s = get_sibling(n);
+				if (s)
+				{
+		std::cout << "Pass 6.3" << std::endl;
+					if (is_red(s))
+					{
+						s->_color = C_BLACK;
+						n->_parent->_color = C_RED;
+						rotate(n->_parent, RIGHT);
+						return color_pushup(n);
+					}
+		// DERNIERE CONDITION A L ARRACHE, A VOIR
+					if (is_black(s) && s->_child[n->is_left()] && is_black(s->_child[n->is_left()]) && is_red(s->_child[n->is_right()]))
+					{
+		std::cout << "Pass 6.4" << std::endl;
+						rotate(s, !n->is_left());
+						s->_color = C_RED;
+						s = s->_parent;
+						s->_color = C_BLACK;
+					}
+					if (is_red(s->_child[n->is_left()]))
+					{
+		std::cout << "Pass 6.5" << std::endl;
+						rotate(n->_parent, n->is_left());
+						s = n->_parent;
+						s->_color = C_BLACK;
+						get_sibling(s)->_color = C_BLACK;
+						s->_parent->_color = C_RED;
+						return;
+					}
+					else
+						get_sibling(n)->_color = C_RED;
+				}
+				color_pushup(n->_parent);
+			}
+			else
+				n->_color = C_BLACK;
 		}
 
 		node*					get_sibling(node* n)

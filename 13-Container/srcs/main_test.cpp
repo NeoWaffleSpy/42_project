@@ -261,7 +261,7 @@ void print_tree(T& rbtree, std::ostream* os = &(std::cout))
 		n = n->next();
 	}
 	*os << END << std::endl;
-	for (int i = 0; i <= (int)rbtree.size(); i++)
+	for (int i = 0; i < (int)rbtree.size(); i++)
 		*os << (((i / 10) % 2) ? GREEN : YELLOW) << (i % 10) << " ";
 	*os << END << std::endl;
 }
@@ -347,7 +347,7 @@ void main_map()
 		int node_nbr = -1;
 		try
 		{
-			srand(6);
+			srand(7);
 			rbtree tree;
 			for (int i = 0; i < 50; i++)
 			{
@@ -358,7 +358,7 @@ void main_map()
 			std::cout << "\r";
 			print_tree(tree);
 			std::cout << buff.str() << std::endl;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 26; i++)
 			{
 				buff.str("");
 				print_tree(tree, &err_str);
