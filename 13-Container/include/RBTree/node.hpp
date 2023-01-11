@@ -28,14 +28,15 @@ namespace ft
 		value_type	_value;
 		pointer		_parent;
 		pointer		_child[2];
+		Compare		_comp;
 
-		Node(value_type value = value_type(), t_color color = C_RED) : _color(color), _value(value), _parent(NULL)
+		Node(value_type value = value_type(), Compare comp = Compare(), t_color color = C_RED) : _color(color), _value(value), _parent(NULL), _comp(comp)
 		{
 			_child[LEFT] = NULL;
 			_child[RIGHT] = NULL;
 		}
 
-		Node(const_reference n) : _color(n._color), _value(n._value), _parent(n._parent)
+		Node(const_reference n): _color(n._color), _value(n._value), _parent(n._parent), _comp(n._comp)
 		{
 			_child[LEFT] = n._child[LEFT];
 			_child[RIGHT] = n._child[RIGHT];
@@ -128,18 +129,18 @@ namespace ft
 
 		pointer find_node(T value)
 		{
-			if (Compare()(value, this->_value))
+			if (_comp(value, this->_value))
 				return (_child[LEFT] ? _child[LEFT]->find_node(value) : NULL);
-			if (Compare()(this->_value, value))
+			if (_comp(this->_value, value))
 				return (_child[RIGHT] ? _child[RIGHT]->find_node(value) : NULL);
 			return this;
 		}
 
 		pointer insert_node(pointer n)
 		{
-			if (Compare()(this->_value, n->_value))
+			if (_comp(this->_value, n->_value))
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
-			if (Compare()(n->_value, this->_value))
+			if (_comp(n->_value, this->_value))
 				return (_child[LEFT] ? _child[LEFT]->insert_node(n) : set_child(n, LEFT));
 			if (is_double_class_tag<AllowDouble>::value)
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));

@@ -27,11 +27,16 @@ namespace ft
 		typedef 			const Rbtree*						const_pointer;
 		typedef 			Node<T, Compare, AllowDouble>		node;
 	
-		Rbtree(): _size(0), _root(NULL)
+		Rbtree(const Compare& comp = Compare(), const allocator_type& alloc = allocator_type()): _size(0), _root(NULL), _comp(comp), _alloc(alloc)
 		{ }
 
-		Rbtree(const node& n): _root(node(n)), _size(1)
+		Rbtree(const node& n, const Compare& comp = Compare()): _root(node(n)), _size(1), _comp(comp), _alloc(alloc)
 		{ }
+
+		Rbtree(const Rbtree& r, const Compare& comp = Compare()): _root(NULL), _size(0), _comp(comp), _alloc(alloc)
+		{
+			copy_tree(r);
+		}
 		
 		~Rbtree()
 		{
@@ -63,9 +68,32 @@ namespace ft
 			return (tmp);
 		}
 
+		void copy_tree(Rbtree* src)
+		{
+			this->clear();
+			if (src->size() <= 0)
+				return;
+			copy_rec(NULL, src->_root);
+		}
+
+		void copy_rec(node* parent, node* src)
+		{
+			node* n;
+			if (!src)
+				return;
+			n = make_node(node(src, _comp));
+			if (parent)
+				parent->set_child(n, src->is_right());
+			else
+				_root = n;
+			_size++;
+			copy_rec(n, src->_child[LEFT]);
+			copy_rec(n, src->_child[RIGHT]);
+		}
+
 		const node*			insert(T value)
 		{
-			node* n = make_node(node(value));
+			node* n = make_node(node(value, _comp));
 			if (_root == NULL)
 			{
 				_root = n;
@@ -78,7 +106,7 @@ namespace ft
 				delete n;
 				throw std::logic_error("Inserting duplicate key in a forbidden duplicate tree");
 			}
-			insertion_fixup(n);
+			//insertion_fixup(n);
 			_size++;
 			return n;
 		}
@@ -87,7 +115,38 @@ namespace ft
 		{
 			if (!n)
 				throw std::out_of_range("Value not mapped within container");
-			/* Child node */
+			node* c;
+
+			if (n == _root && _size == 1)
+			{
+				_root = NULL;
+				del_node(n);
+				return;
+			}
+			
+			if (n->_child[LEFT] && n->_child[RIGHT])
+			{
+				node* tmp = n->_child[LEFT]->max();
+				n->_value = tmp->_value;
+				n = tmp;
+			}
+
+			c = n->_child[LEFT] ? n->_child[LEFT] : n->_child[RIGHT];
+			if (n->_parent)
+				n->_parent->set_child(c, n->is_right());
+			else
+			{
+				c->_parent = NULL;
+				_root = c;
+			}
+			del_node(n);
+		}
+
+		/*
+		void				delete_node(node* n)
+		{
+			if (!n)
+				throw std::out_of_range("Value not mapped within container");
 			node* c;
 
 			if (n == _root && _size == 1)
@@ -130,7 +189,6 @@ namespace ft
 			if (!c)
 			{
 			// std::cout << "Pass 4.1" << std::endl;
-				/* Sibling node */
 				node* s = get_sibling(n);
 				node* tmp = n;
 				n = n->_parent;
@@ -329,6 +387,7 @@ namespace ft
 			n1->_value = n2->_value;
 			n2->_value = tmp;
 		}
+		*/
 
 		// int					delete_node(node* n)
 		// {
@@ -610,6 +669,7 @@ namespace ft
 		node*					_root;
 		ft::stack<node*>		_mem_pile;
 		allocator_type			_alloc;
+		Compare					_comp;
 	};
 	
 }

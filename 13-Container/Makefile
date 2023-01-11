@@ -54,6 +54,7 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME).exe
 	@make -s fclean -C ./unit_tests/
 
 re: clean $(NAME)

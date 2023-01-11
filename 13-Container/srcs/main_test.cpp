@@ -251,13 +251,14 @@ void print_tree(T& rbtree, std::ostream* os = &(std::cout))
 		return;
 	}
 	typedef typename T::node*	ref;
+	if (false)
 	{
 		ft::vector<ref>	pile;
 		pile.push_back(rbtree.root());
 		*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 		print_tree_visual(pile, get_max_depth(rbtree.root()), os);
-		*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	}
+	*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	ref n = rbtree.begin();
 	*os << MAGENTA;
 	while (n)
@@ -266,9 +267,9 @@ void print_tree(T& rbtree, std::ostream* os = &(std::cout))
 		n = n->next();
 	}
 	*os << END << std::endl;
-	for (int i = 0; i < (int)rbtree.size(); i++)
-		*os << (((i / 10) % 2) ? GREEN : YELLOW) << (i % 10) << " ";
-	*os << END << std::endl;
+	// for (int i = 0; i < (int)rbtree.size(); i++)
+	// 	*os << (((i / 10) % 2) ? GREEN : YELLOW) << (i % 10) << " ";
+	// *os << END << std::endl;
 }
 
 void main_map()
@@ -332,21 +333,6 @@ void main_map()
 			std::cerr << CYAN << e.what() << END << '\n';
 		}
 	}
-	
-	// {
-	// 	rbtree tree;
-	// 	tree.insert(0);
-	// 	tree.insert(4);
-	// 	tree.insert(3);
-	// 	tree.insert(1);
-	// 	tree.insert(8);
-	// 	tree.insert(5);
-	// 	tree.insert(6);
-	// 	tree.insert(5);
-	// 	tree.insert(5);
-	// 	tree.insert(8);
-	// 	print_tree(tree);
-	// }
 	{
 		std::stringstream buff;
 		std::ostream err_str(buff.rdbuf());
@@ -354,19 +340,20 @@ void main_map()
 		try
 		{
 			int	seed = time(NULL);
-			srand(1673123452);
-			std::cout << "Seed = " << seed << std::endl;
+			// srand(1673123452);
+			srand(seed);
+			// std::cout << "Seed = " << seed << std::endl;
 			rbtree tree;
 			for (int i = 0; i < 50; i++)
 			{
 				
 				std::cout << "\r insert number " << i << std::flush;
-				err_str << tree.insert(rand() % 10)->_value << " ";
+				err_str << tree.insert(rand() % 1000)->_value << " ";
 			}
 			std::cout << "\r";
 			print_tree(tree);
-			std::cout << buff.str() << std::endl;
-			for (int i = 0; i < 30; i++)
+			// std::cout << buff.str() << std::endl;
+			for (int i = 0; i < 50; i++)
 			{
 				buff.str("");
 				print_tree(tree, &err_str);
