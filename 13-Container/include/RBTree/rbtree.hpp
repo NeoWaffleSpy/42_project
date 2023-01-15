@@ -92,9 +92,11 @@ namespace ft
 			copy_rec(n, src->_child[RIGHT]);
 		}
 
-		const node*			insert(T value)
+		const T			insert(T value)
 		{
+			unsigned long size = _size;
 			node* n = make_node(node(value, _comp));
+			node* ret;
 			if (_root == NULL)
 			{
 				_root = n;
@@ -102,10 +104,11 @@ namespace ft
 				_size++;
 				return _root;
 			}
-			if (_root->insert_node(n) == NULL)
+			ret = _root->insert_node(n);
+			if (!n->_value)
 			{
-				delete n;
-				throw std::logic_error("Inserting duplicate key in a forbidden duplicate tree");
+				del_node(n);
+				return ret;
 			}
 			//insertion_fixup(n);
 			_size++;

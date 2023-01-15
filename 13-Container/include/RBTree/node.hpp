@@ -144,7 +144,9 @@ namespace ft
 				return (_child[LEFT] ? _child[LEFT]->insert_node(n) : set_child(n, LEFT));
 			if (is_double_class_tag<AllowDouble>::value)
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
-			return NULL;
+			this->_value = n->_value;
+			n->_value = NULL;
+			return this;
 		}
 	};
 }

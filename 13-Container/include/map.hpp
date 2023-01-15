@@ -4,6 +4,8 @@
 # include <iostream>
 # include <iomanip>
 # include <string>
+# include "RBTree/rbtree.hpp"
+# include "RBTree/node.hpp"
 
 namespace ft
 {
@@ -24,11 +26,12 @@ namespace ft
 		typedef typename	allocator_type::pointer								pointer;
 		typedef typename	allocator_type::const_pointer						const_pointer;
 		typedef				ft::BidirectionalIterator<value_type>				iterator;
-		typedef				ft::BidirectionalIterator<const value_type>		const_iterator;
+		typedef				ft::BidirectionalIterator<const value_type>			const_iterator;
 		typedef				ft::reverse_iterator<iterator>						reverse_iterator;
 		typedef				ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 		typedef	typename	ft::iterator_traits<iterator>::difference_type		difference_type;
 		typedef typename	allocator_type::size_type							size_type;
+		typedef 			ft::Node<T, Compare, ft::forbid_double_class_tag>	node;
 		
 		class value_compare {
 				friend class map;
@@ -76,6 +79,40 @@ namespace ft
 			_tree_alloc.construct(_rb_tree, *rhs._rb_tree);
 			_comp = rhs._comp;
 			return (*this);
+		}
+
+		mapped_type& operator[] (const key_type& k) {
+			return (_rb_tree->insert(ft::make_pair<Key, T>(k, mapped_type()))).second;
+		}
+
+		ft::pair<iterator,bool> insert(const value_type& val)
+		{
+			unsigned long last_size = size();
+			node* ptr = _rb_tree->insert(val);
+			ft::pair<iterator, bool> result = ft::make_pair<iterator, bool>(iterator(ptr), true);
+
+			if (size() == last_size)
+				result.second = false;
+
+			return (result);
+		}
+		
+		iterator insert(iterator pos, const value_type& val)
+		{
+			(void)pos;
+			return (insert(val).first);
+		}
+
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last)
+		{
+			for (; first != last; first++)
+				_rb_tree->insert(*first);
+		}
+
+		void erase (iterator position)
+		{
+			\\ TODO
 		}
 		
 		void clear() {
