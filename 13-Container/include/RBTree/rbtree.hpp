@@ -48,14 +48,15 @@ namespace ft
 			}
 		}
 
-		unsigned long	size()				{ return _size;						}
-		node*			get_max()			{ return _root->max();				}
-		node*			get_min()			{ return _root->min();				}
-		node*			find(T value)		{ return _root->find_node(value);	}
-		node*			begin()				{ return _root->min();				}
-		node*			end()				{ return _root->end();				}
-		node*			root()				{ return _root;						}
-		void			clear()				{ delete_rec(_root);				}
+		unsigned long	size()		const	{ return _size;							}
+		unsigned long	max_size()	const	{ return (allocator_type().max_size());	}
+		node*			get_max()			{ return _root->max();					}
+		node*			get_min()			{ return _root->min();					}
+		node*			find(T value)		{ return _root->find_node(value);		}
+		node*			begin()				{ return _root->min();					}
+		node*			end()				{ return _root->end();					}
+		node*			root()				{ return _root;							}
+		void			clear()				{ delete_rec(_root);					}
 		node*			operator[](int i)
 		{
 			if (i >= (int)_size)
@@ -574,12 +575,13 @@ namespace ft
 		// 	y->set_child(x, RIGHT);
 		// }
 
-		void insertion_fixup(node* z) {
-			while(z != _root && z->_parent->_color == C_RED)
+		void insertion_fixup(node* z)
+		{
+			while (z != _root && z->_parent->_color == C_RED)
 			{
-				int side = !z->_parent->is_left();
+				int side = z->_parent->is_right();
 				node* y = z->_parent->_parent->_child[!side];
-				if(y != NULL && y->_color == C_RED)
+				if (y != NULL && y->_color == C_RED)
 				{
 					z->_parent->_color = C_BLACK;
 					y->_color = C_BLACK;
@@ -588,7 +590,7 @@ namespace ft
 				}
 				else
 				{
-					if(z == z->_parent->_child[!side])
+					if (z == z->_parent->_child[!side])
 					{
 						z = z->_parent;
 						rotate(z, !side);

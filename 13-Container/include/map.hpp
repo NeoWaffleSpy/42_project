@@ -23,8 +23,8 @@ namespace ft
 		typedef typename	allocator_type::const_reference						const_reference;
 		typedef typename	allocator_type::pointer								pointer;
 		typedef typename	allocator_type::const_pointer						const_pointer;
-		typedef				std::BidirectionalIterator<value_type>				iterator;
-		typedef				std::BidirectionalIterator<const value_type>		const_iterator;
+		typedef				ft::BidirectionalIterator<value_type>				iterator;
+		typedef				ft::BidirectionalIterator<const value_type>		const_iterator;
 		typedef				ft::reverse_iterator<iterator>						reverse_iterator;
 		typedef				ft::reverse_iterator<const_iterator>				const_reverse_iterator;
 		typedef	typename	ft::iterator_traits<iterator>::difference_type		difference_type;
@@ -57,9 +57,41 @@ namespace ft
 			for (; first != last; first++)
 				_rb_tree->insert(*first);
 		}
+
+		map (const map& from): _comp(from._comp), _tree_alloc(from._tree_alloc), _rb_tree(_tree_alloc.allocate(1))
+		{
+			_tree_alloc.construct(_rb_tree, *from._rb_tree);
+		}
+
+		~map()
+		{
+			_tree_alloc.destroy(_rb_tree);
+			_tree_alloc.deallocate(_rb_tree, 1);
+		}
+
+		map& operator= (const map& rhs)
+		{
+			if (this == &rhs)
+				return (*this);
+			_tree_alloc.construct(_rb_tree, *rhs._rb_tree);
+			_comp = rhs._comp;
+			return (*this);
+		}
 		
 		void clear() {
 			_rb_tree->clear();
+		}
+
+		bool empty() const {
+			return (_rb_tree->empty());
+		}
+
+		unsigned long size() const {
+			return (_rb_tree->size());
+		}
+
+		unsigned long max_size() const {
+			return (_rb_tree->max_size());
 		}
 
 		key_compare key_comp() const {
@@ -69,6 +101,31 @@ namespace ft
 		value_compare value_comp() const {
 			return (value_compare(_comp));
 		}
+
+		iterator	begin() {
+			return (iterator(_rb_tree->min()));
+		}
+		iterator	end() {
+			return (iterator(_rb_tree->max()));
+		}
+		const_iterator	begin() const {
+			return (const_iterator(_rb_tree->min()));
+		}
+		const_iterator	end() const {
+			return (const_iterator(_rb_tree->max()));
+		}
+		reverse_iterator rbegin() {
+			return (reverse_iterator(_rb_tree->max()));
+		};
+		const_reverse_iterator rbegin() const {
+			return (const_reverse_iterator(_rb_tree->max()));
+		};
+		reverse_iterator rend() {
+			return (reverse_iterator(_rb_tree->min()));
+		};
+		const_reverse_iterator rend() const {
+			return (const_reverse_iterator(_rb_tree->min()));
+		};
 
 	private:
 		typedef	ft::Rbtree<value_type, ft::forbid_double_class_tag, value_compare, Alloc>		rbtree;
