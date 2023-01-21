@@ -25,6 +25,7 @@ RBFILES		=	node.hpp \
 				rbtree.hpp
 HEADERFILES	=	vector.hpp \
 				stack.hpp \
+				map.hpp \
 				$(addprefix Iterators/, $(ITERFILES)) \
 				$(addprefix RBTree/, $(RBFILES))
 HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))

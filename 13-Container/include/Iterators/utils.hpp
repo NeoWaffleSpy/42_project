@@ -89,15 +89,12 @@ namespace ft
     ** Couple a pair of values, which may be of different types
     ** (T1 and T2)
     */
-    template <class T1, class T2>
-    struct pair
-    {
+	template <class T1, class T2>
+	struct pair
+	{
 	public :
-		typedef T1 first_type;
-		typedef T2 second_type;
-
-		first_type first;
-		second_type second;
+		T1 first;
+		T2 second;
 
 		pair() : first(), second()
 		{}
@@ -106,16 +103,14 @@ namespace ft
 		pair (const pair<U, V>& pr) : first(pr.first), second(pr.second)
 		{}
 
-		pair (const first_type& a, const second_type& b) : first(a), second(b)
+		pair (const T1& a, const T2& b) : first(a), second(b)
 		{}
 
 		pair& operator= (const pair& pr)
 		{
 			if (*this == pr)
 				return (*this);
-			this->first = pr.first;
-			this->second = pr.second;
-			return (*this);
+			return (*this = pair(pr));
 		}
     };
 
@@ -517,19 +512,6 @@ namespace ft
             typedef Category    iterator_category;
     };
 
-    template <class T>
-    class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
-    {  
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type            value_type;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type       difference_type;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer               pointer;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference             reference;
-        
-        private:
-            pointer _elem;
-    };
-
     template <class Iterator>
     class reverse_iterator
     {
@@ -683,20 +665,20 @@ namespace ft
     ** than the second, false otherwise.
     */
     template <class InputIterator1, class InputIterator2>
-        bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-                                        InputIterator2 first2, InputIterator2 last2)
-        {
-            while (first1 != last1)
-            {
-                if (first2 == last2 || *first2 < *first1)
-					return false;
-                else if (*first1 < *first2)
-					return true;
-                ++first1;
-                ++first2;
-            }
-            return (first2 != last2);
-        }
+	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
+									InputIterator2 first2, InputIterator2 last2)
+	{
+		while (first1 != last1)
+		{
+			if (first2 == last2 || *first2 < *first1)
+				return false;
+			else if (*first1 < *first2)
+				return true;
+			++first1;
+			++first2;
+		}
+		return (first2 != last2);
+	}
 
     /*
     ** @brief Return true if the range [first1, last2) compare
@@ -710,20 +692,22 @@ namespace ft
     ** than the second, false otherwise.
     */
     template <class InputIterator1, class InputIterator2, class Compare>
-        bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-                                        InputIterator2 first2, InputIterator2 last2,
-                                        Compare comp)
-        {
-            while (first1 != last1)
-            {
-                if (first2 == last2 || comp(*first2, *first1)) return false;
-                else if (comp(*first1, *first2)) return true;
-                ++first1;
-                ++first2;
-            }
-            return (first2 != last2);
-        }
-	
+	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
+									InputIterator2 first2, InputIterator2 last2,
+									Compare comp)
+	{
+		while (first1 != last1)
+		{
+			if (first2 == last2 || comp(*first2, *first1)) return false;
+			else if (comp(*first1, *first2)) return true;
+			++first1;
+			++first2;
+		}
+		return (first2 != last2);
+	}
+
+	/* KECECE */
+
     template <typename T>
     struct BST_Node
     {

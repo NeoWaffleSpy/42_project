@@ -27,19 +27,25 @@ namespace ft
 		typedef 			const Rbtree*						const_pointer;
 		typedef 			Node<T, Compare, AllowDouble>		node;
 	
-		Rbtree(const Compare& comp = Compare(), const allocator_type& alloc = allocator_type()): _size(0), _root(NULL), _comp(comp), _alloc(alloc)
-		{ }
+		Rbtree(const Compare& comp, const allocator_type& alloc = allocator_type()): _size(0), _root(NULL), _alloc(alloc), _comp(comp)
+		{
+			std::cout << "Create RBTree 1" << std::endl;
+		}
 
-		Rbtree(const node& n, const Compare& comp = Compare()): _root(node(n)), _size(1), _comp(comp), _alloc(alloc)
-		{ }
+		Rbtree(const node& n, const Compare& comp, const allocator_type& alloc = allocator_type()): _root(node(n)), _size(1), _alloc(alloc), _comp(comp)
+		{
+			std::cout << "Create RBTree 2" << std::endl;
+		}
 
-		Rbtree(const Rbtree& r, const Compare& comp = Compare()): _root(NULL), _size(0), _comp(comp), _alloc(alloc)
+		Rbtree(const Rbtree& r, const Compare& comp, const allocator_type& alloc = allocator_type()): _root(NULL), _size(0), _alloc(alloc), _comp(comp)
 		{
 			copy_tree(r);
+			std::cout << "Create RBTree 3" << std::endl;
 		}
 		
 		~Rbtree()
 		{
+			std::cout << "Destroy RBTree" << std::endl;
 			this->clear();
 			while (!_mem_pile.empty())
 			{
@@ -54,9 +60,13 @@ namespace ft
 		node*			get_min()			{ return _root->min();					}
 		node*			find(T value)		{ return _root->find_node(value);		}
 		node*			begin()				{ return _root->min();					}
-		node*			end()				{ return _root->end();					}
+		node*			end()				{ return _root->max();					}
 		node*			root()				{ return _root;							}
-		void			clear()				{ delete_rec(_root);					}
+
+		void			clear()
+		{
+			delete_rec(_root);
+		}
 		node*			operator[](int i)
 		{
 			if (i >= (int)_size)
@@ -67,6 +77,28 @@ namespace ft
 			if (i > 0)
 				throw (std::out_of_range("OutOfRange: rbtree.hpp::operator[] - Not supposed to happen"));
 			return (tmp);
+		}
+
+		node* lower_bound(T value)
+		{
+			node* tmp = begin();
+			for (; tmp; tmp = tmp->next())
+			{
+				if (!_comp(value, tmp->_value))
+					break;
+			}
+			return tmp;
+		}
+
+		node* upper_bound(T value)
+		{
+			node* tmp = begin();
+			for (; tmp; tmp = tmp->next())
+			{
+				if (_comp(tmp->_value, value))
+					break;
+			}
+			return tmp;
 		}
 
 		void copy_tree(Rbtree* src)
@@ -92,9 +124,8 @@ namespace ft
 			copy_rec(n, src->_child[RIGHT]);
 		}
 
-		const T			insert(T value)
+		node*		insert(T value)
 		{
-			unsigned long size = _size;
 			node* n = make_node(node(value, _comp));
 			node* ret;
 			if (_root == NULL)
@@ -105,7 +136,7 @@ namespace ft
 				return _root;
 			}
 			ret = _root->insert_node(n);
-			if (!n->_value)
+			if (ret != n)
 			{
 				del_node(n);
 				return ret;
@@ -145,6 +176,107 @@ namespace ft
 			}
 			del_node(n);
 		}
+
+
+		void insertion_fixup(node* z)
+		{
+			while (z != _root && z->_parent->_color == C_RED)
+			{
+				int side = z->_parent->is_right();
+				node* y = z->_parent->_parent->_child[!side];
+				if (y != NULL && y->_color == C_RED)
+				{
+					z->_parent->_color = C_BLACK;
+					y->_color = C_BLACK;
+					z->_parent->_parent->_color = C_RED;
+					z = z->_parent->_parent;
+				}
+				else
+				{
+					if (z == z->_parent->_child[!side])
+					{
+						z = z->_parent;
+						rotate(z, !side);
+					}
+					z->_parent->_color = C_BLACK;
+					z->_parent->_parent->_color = C_RED;
+					rotate(z->_parent->_parent, side);
+				}
+			}
+			_root->_color = C_BLACK;
+		}
+
+		void	rotate(node* x, int side) {
+			node* y = x->_child[side];
+			if (!x)
+				throw std::out_of_range("x does not exist");
+			if (!y)
+				throw std::out_of_range("y does not exist");
+			if (side < 0 || side > 1)
+				throw std::out_of_range("Side is invalid");
+			x->set_child(y->_child[!side], side);
+			if (!x->_parent)
+			{
+				_root = y;
+				y->_parent = NULL;
+			}
+			else
+				x->_parent->set_child(y, x->is_right());
+			y->set_child(x, !side);
+		}
+		
+		node*	make_node(const node& ref)
+		{
+			node* new_node;
+			if (!_mem_pile.empty())
+			{
+				new_node = _mem_pile.top();
+				_mem_pile.pop();
+			}
+			else
+				new_node = _alloc.allocate(1);
+			_alloc.construct(new_node, ref);
+			return new_node;
+		}
+
+		bool	is_black(node* ref)
+		{
+			if (ref && ref->_color == C_RED)
+				return false;
+			return true;
+		}
+
+		bool	is_red(node* ref)
+		{
+			return !is_black(ref);
+		}
+
+		void	delete_rec(node* ref)
+		{
+			if (!ref)
+				return;
+			if (ref->_child[LEFT])
+				delete_rec(ref->_child[LEFT]);
+			if (ref->_child[RIGHT])
+				delete_rec(ref->_child[RIGHT]);
+			del_node(ref);
+		}
+
+		void	del_node(node* ref)
+		{
+			_alloc.destroy(ref);
+			_mem_pile.push(ref);
+			_size--;
+		}
+
+	private:
+		unsigned long			_size;
+		node*					_root;
+		ft::stack<node*>		_mem_pile;
+		allocator_type			_alloc;
+		Compare					_comp;
+	};
+}
 
 		/*
 		void				delete_node(node* n)
@@ -577,107 +709,5 @@ namespace ft
 		// 		x->_parent->set_child(y, x->is_right());
 		// 	y->set_child(x, RIGHT);
 		// }
-
-		void insertion_fixup(node* z)
-		{
-			while (z != _root && z->_parent->_color == C_RED)
-			{
-				int side = z->_parent->is_right();
-				node* y = z->_parent->_parent->_child[!side];
-				if (y != NULL && y->_color == C_RED)
-				{
-					z->_parent->_color = C_BLACK;
-					y->_color = C_BLACK;
-					z->_parent->_parent->_color = C_RED;
-					z = z->_parent->_parent;
-				}
-				else
-				{
-					if (z == z->_parent->_child[!side])
-					{
-						z = z->_parent;
-						rotate(z, !side);
-					}
-					z->_parent->_color = C_BLACK;
-					z->_parent->_parent->_color = C_RED;
-					rotate(z->_parent->_parent, side);
-				}
-			}
-			_root->_color = C_BLACK;
-		}
-
-		void	rotate(node* x, int side) {
-			node* y = x->_child[side];
-			if (!x)
-				throw std::out_of_range("x does not exist");
-			if (!y)
-				throw std::out_of_range("y does not exist");
-			if (side < 0 || side > 1)
-				throw std::out_of_range("Side is invalid");
-			x->set_child(y->_child[!side], side);
-			if (!x->_parent)
-			{
-				_root = y;
-				y->_parent = NULL;
-			}
-			else
-				x->_parent->set_child(y, x->is_right());
-			y->set_child(x, !side);
-		}
-		
-		node*	make_node(const node& ref)
-		{
-			node* new_node;
-			if (!_mem_pile.empty())
-			{
-				new_node = _mem_pile.top();
-				_mem_pile.pop();
-			}
-			else
-				new_node = _alloc.allocate(1);
-			_alloc.construct(new_node, ref);
-			return new_node;
-		}
-
-		bool	is_black(node* ref)
-		{
-			if (ref && ref->_color == C_RED)
-				return false;
-			return true;
-		}
-
-		bool	is_red(node* ref)
-		{
-			return !is_black(ref);
-		}
-
-		void	delete_rec(node* ref)
-		{
-			if (!ref)
-				return;
-			if (ref->_child[LEFT])
-				delete_rec(ref->_child[LEFT]);
-			if (ref->_child[RIGHT])
-				delete_rec(ref->_child[RIGHT]);
-			del_node(ref);
-		}
-
-		void	del_node(node* ref)
-		{
-			_alloc.destroy(ref);
-			_mem_pile.push(ref);
-			_size--;
-		}
-
-	private:
-		unsigned long			_size;
-		node*					_root;
-		ft::stack<node*>		_mem_pile;
-		allocator_type			_alloc;
-		Compare					_comp;
-	};
-	
-}
-
 
 #endif

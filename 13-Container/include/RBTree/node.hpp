@@ -115,25 +115,25 @@ namespace ft
 
 		pointer max()
 		{
-			if (_child[RIGHT] == NULL)
+			if (!_child[RIGHT])
 				return this;
 			return _child[RIGHT]->max();
 		}
 
 		pointer min()
 		{
-			if (_child[LEFT] == NULL)
+			if (!_child[LEFT])
 				return this;
 			return _child[LEFT]->min();
 		}
 
 		pointer find_node(T value)
 		{
-			if (_comp(value, this->_value))
+			if (_comp(value, this->_value))							/*This > target*/
 				return (_child[LEFT] ? _child[LEFT]->find_node(value) : NULL);
-			if (_comp(this->_value, value))
+			if (_comp(this->_value, value))							/*This < target*/
 				return (_child[RIGHT] ? _child[RIGHT]->find_node(value) : NULL);
-			return this;
+			return this;											/*This == target*/
 		}
 
 		pointer insert_node(pointer n)
@@ -145,7 +145,6 @@ namespace ft
 			if (is_double_class_tag<AllowDouble>::value)
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
 			this->_value = n->_value;
-			n->_value = NULL;
 			return this;
 		}
 	};
