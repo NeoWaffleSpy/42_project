@@ -12,10 +12,6 @@ namespace ft
 				typename Compare = std::less<T>,
 				class Alloc = std::allocator<Node<T, Compare, AllowDouble> >,
 				typename ft::enable_if<is_double_class_tag<AllowDouble>::valid_class, int>::type = 0>
-
-	/*ft::enable_if<!ft::is_integral<InputIterator>::value, int>::type =0
-	**ft::enable_if<is_double_class_tag<AllowDouble>::valid_class, true>::type
-	*/
 	class Rbtree
 	{
 	public:
@@ -27,25 +23,31 @@ namespace ft
 		typedef 			const Rbtree*						const_pointer;
 		typedef 			Node<T, Compare, AllowDouble>		node;
 	
-		Rbtree(const Compare& comp, const allocator_type& alloc = allocator_type()): _size(0), _root(NULL), _alloc(alloc), _comp(comp)
+		Rbtree(const Compare& comp, const allocator_type& alloc = allocator_type()): _size(0), _root(NULL), _alloc(alloc), _comp(comp), _sentinelle(NULL)
 		{
-			std::cout << "Create RBTree 1" << std::endl;
+			_sentinelle = make_node(node(value_type(), _comp));
+			_root = _sentinelle;
 		}
 
-		Rbtree(const node& n, const Compare& comp, const allocator_type& alloc = allocator_type()): _root(node(n)), _size(1), _alloc(alloc), _comp(comp)
+		Rbtree(const node& n, const Compare& comp, const allocator_type& alloc = allocator_type()): _size(1), _root(node(n)), _alloc(alloc), _comp(comp), _sentinelle(NULL)
 		{
-			std::cout << "Create RBTree 2" << std::endl;
+			_sentinelle = make_node(node(value_type(), _comp));
+			_root->_child[RIGHT] = _sentinelle;
 		}
 
-		Rbtree(const Rbtree& r, const Compare& comp, const allocator_type& alloc = allocator_type()): _root(NULL), _size(0), _alloc(alloc), _comp(comp)
+		Rbtree(const Rbtree& r): _size(r._size), _root(NULL), _alloc(r._alloc), _comp(r._comp), _sentinelle(NULL)
 		{
-			copy_tree(r);
-			std::cout << "Create RBTree 3" << std::endl;
+			if (_size > 0)
+				copy_tree(&r);
+			else
+			{
+				_sentinelle = make_node(node(value_type(), _comp));
+				_root = _sentinelle;
+			}
 		}
 		
 		~Rbtree()
 		{
-			std::cout << "Destroy RBTree" << std::endl;
 			this->clear();
 			while (!_mem_pile.empty())
 			{
@@ -79,6 +81,25 @@ namespace ft
 			return (tmp);
 		}
 
+		void set_sentinelle()
+		{
+			if (_root == NULL)
+			{
+				_root = _sentinelle;
+				_sentinelle->_parent = NULL;
+			}
+			else
+				get_max()->set_child(_sentinelle, RIGHT);
+		}
+
+		void unset_sentinelle()
+		{
+			if (_root == _sentinelle)
+				_root = NULL;
+			else
+				_sentinelle->_parent->set_child(NULL, RIGHT);
+		}
+
 		node* lower_bound(T value)
 		{
 			node* tmp = begin();
@@ -101,7 +122,7 @@ namespace ft
 			return tmp;
 		}
 
-		void copy_tree(Rbtree* src)
+		void copy_tree(const Rbtree* src)
 		{
 			this->clear();
 			if (src->size() <= 0)
@@ -114,18 +135,18 @@ namespace ft
 			node* n;
 			if (!src)
 				return;
-			n = make_node(node(src, _comp));
+			n = make_node(*src);
 			if (parent)
 				parent->set_child(n, src->is_right());
 			else
 				_root = n;
-			_size++;
 			copy_rec(n, src->_child[LEFT]);
 			copy_rec(n, src->_child[RIGHT]);
 		}
 
 		node*		insert(T value)
 		{
+			unset_sentinelle();
 			node* n = make_node(node(value, _comp));
 			node* ret;
 			if (_root == NULL)
@@ -133,16 +154,19 @@ namespace ft
 				_root = n;
 				n->_color = C_BLACK;
 				_size++;
+				set_sentinelle();
 				return _root;
 			}
 			ret = _root->insert_node(n);
 			if (ret != n)
 			{
 				del_node(n);
+				set_sentinelle();
 				return ret;
 			}
 			//insertion_fixup(n);
 			_size++;
+			set_sentinelle();
 			return n;
 		}
 
@@ -150,12 +174,14 @@ namespace ft
 		{
 			if (!n)
 				throw std::out_of_range("Value not mapped within container");
+			unset_sentinelle();
 			node* c;
 
 			if (n == _root && _size == 1)
 			{
 				_root = NULL;
 				del_node(n);
+				set_sentinelle();
 				return;
 			}
 			
@@ -175,8 +201,8 @@ namespace ft
 				_root = c;
 			}
 			del_node(n);
+			set_sentinelle();
 		}
-
 
 		void insertion_fixup(node* z)
 		{
@@ -275,6 +301,7 @@ namespace ft
 		ft::stack<node*>		_mem_pile;
 		allocator_type			_alloc;
 		Compare					_comp;
+		node*					_sentinelle;
 	};
 }
 

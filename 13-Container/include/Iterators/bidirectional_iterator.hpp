@@ -34,10 +34,10 @@ namespace ft {
 			};
 			~bidirectional_iterator() {};
 
-			bool					operator==(const it& rhs) const { return (_elem == rhs._elem); };
-			bool					operator!=(const it& rhs) const { return (_elem != rhs._elem); };
-			pt_pair					operator->() const { return &(_elem->_value); };
-			ref_pair				operator*() const { return (_elem->_value); };
+			bool		operator==(const it& rhs)	const { return (_elem == rhs._elem);	};
+			bool		operator!=(const it& rhs)	const { return (_elem != rhs._elem);	};
+			pt_pair		operator->()				const { return &(_elem->_value);		};
+			ref_pair	operator*()					const { return (_elem->_value);			};
 
 			it&	operator++() { _elem = _elem->next(); return (*this);};
 			it&	operator--() { _elem = _elem->previous(); return (*this); };

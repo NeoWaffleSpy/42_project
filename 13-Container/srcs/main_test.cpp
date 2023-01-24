@@ -378,14 +378,15 @@ void main_map()
 	{
 		typedef std::map<int, std::string> n_map;
 		n_map myMap;
-		// myMap.insert(std::make_pair(1, "one"));
-		// myMap.insert(std::make_pair(2, "two"));
-		// myMap.insert(std::make_pair(3, "three"));
+		myMap.insert(std::make_pair(1, "one"));
+		myMap.insert(std::make_pair(2, "two"));
+		myMap.insert(std::make_pair(3, "three"));
 		for (n_map::iterator it = myMap.begin(); it != myMap.end(); it++)
 		{
 			std::cout << it->second << std::endl;
 		}
 	}
+	std::cout << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
 	{
 		typedef ft::map<int, std::string> n_map;
 		n_map myMap;

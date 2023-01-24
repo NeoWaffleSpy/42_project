@@ -49,7 +49,6 @@ namespace ft
 
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _comp(comp), _tree_alloc(alloc), _rb_tree(_tree_alloc.allocate(1))
 		{
-			std::cout << "Create map 1" << std::endl;
 			_tree_alloc.construct(_rb_tree, rbtree(value_comp()));
 		}
 
@@ -59,7 +58,6 @@ namespace ft
 				const allocator_type& alloc = allocator_type())
 				: _comp(comp), _tree_alloc(alloc), _rb_tree(_tree_alloc.allocate(1))
 		{
-			std::cout << "Create map 2" << std::endl;
 			_tree_alloc.construct(_rb_tree, rbtree(value_comp()));
 			for (; first != last; first++)
 				_rb_tree->insert(*first);
@@ -67,7 +65,6 @@ namespace ft
 
 		map (const map& from): _comp(from._comp), _tree_alloc(from._tree_alloc), _rb_tree(_tree_alloc.allocate(1))
 		{
-			std::cout << "Create map 3" << std::endl;
 			_tree_alloc.construct(_rb_tree, *from._rb_tree);
 		}
 
@@ -75,7 +72,6 @@ namespace ft
 		{
 			_tree_alloc.destroy(_rb_tree);
 			_tree_alloc.deallocate(_rb_tree, 1);
-			std::cout << "Destroy map" << std::endl;
 		}
 
 		map& operator= (const map& rhs)
