@@ -69,6 +69,20 @@ namespace ft
 			return n;
 		}
 
+		bool is_right()	const
+		{
+			if (this->_parent && (this == this->_parent->_child[RIGHT]))
+				return true;
+			return false;
+		}
+
+		bool is_left()	const
+		{
+			if (this->_parent && (this == this->_parent->_child[LEFT]))
+				return true;
+			return false;
+		}
+
 		bool is_right()
 		{
 			if (this->_parent && (this == this->_parent->_child[RIGHT]))
@@ -83,9 +97,39 @@ namespace ft
 			return false;
 		}
 
+		const_pointer next()	const
+		{
+			const_pointer tmp;
+			if (_child[RIGHT] != NULL)
+				return _child[RIGHT]->min();
+			if (is_left())
+				return _parent;
+			tmp = this;
+			while (tmp != NULL && tmp->is_right())
+				tmp = tmp->_parent;
+			if (tmp == NULL)
+				return NULL;
+			return tmp->_parent;
+		}
+
+		const_pointer prev()	const
+		{
+			const_pointer tmp;
+			if (_child[LEFT] != NULL)
+				return _child[LEFT]->max();
+			if (is_right())
+				return _parent;
+			tmp = this;
+			while (tmp != NULL && tmp->is_left())
+				tmp = tmp->_parent;
+			if (tmp == NULL)
+				return NULL;
+			return tmp->_parent;
+		}
+
 		pointer next()
 		{
-			Node* tmp;
+			pointer tmp;
 			if (_child[RIGHT] != NULL)
 				return _child[RIGHT]->min();
 			if (is_left())
@@ -100,7 +144,7 @@ namespace ft
 
 		pointer prev()
 		{
-			Node* tmp;
+			pointer tmp;
 			if (_child[LEFT] != NULL)
 				return _child[LEFT]->max();
 			if (is_right())
@@ -144,7 +188,6 @@ namespace ft
 				return (_child[LEFT] ? _child[LEFT]->insert_node(n) : set_child(n, LEFT));
 			if (is_double_class_tag<AllowDouble>::value)
 				return (_child[RIGHT] ? _child[RIGHT]->insert_node(n) : set_child(n, RIGHT));
-			this->_value = n->_value;
 			return this;
 		}
 	};

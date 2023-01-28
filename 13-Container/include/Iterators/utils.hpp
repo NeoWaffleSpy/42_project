@@ -55,6 +55,18 @@ namespace ft
         ss << n;
         return (ss.str());
     }
+
+	template < class T, bool constness >
+	struct is_const
+	{
+		typedef	T			type;
+	};
+
+	template < class T >
+	struct is_const<T, true>
+	{
+		typedef	const T		type;
+	};
     
     /*
     ** Base class for standard binary function objects.
@@ -108,11 +120,13 @@ namespace ft
 
 		pair& operator= (const pair& pr)
 		{
-			if (*this == pr)
+			if (this == &pr)
 				return (*this);
-			return (*this = pair(pr));
+			first = pr.first;
+			second = pr.second;
+			return ( *this );
 		}
-    };
+	};
 
     template <class T1, class T2>
     bool operator== (const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs)

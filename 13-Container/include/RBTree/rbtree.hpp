@@ -103,10 +103,12 @@ namespace ft
 		node* lower_bound(T value)
 		{
 			node* tmp = begin();
-			for (; tmp; tmp = tmp->next())
+			for (; tmp != _sentinelle; tmp = tmp->next())
 			{
-				if (!_comp(value, tmp->_value))
+				// std::cout << "compare " << value.first << " avec " << tmp->_value.first << std::endl;
+				if (!_comp(tmp->_value, value))
 					break;
+				// std::cout << "test " << !_comp(tmp->_value, value) << std::endl;
 			}
 			return tmp;
 		}
@@ -114,9 +116,9 @@ namespace ft
 		node* upper_bound(T value)
 		{
 			node* tmp = begin();
-			for (; tmp; tmp = tmp->next())
+			for (; tmp != _sentinelle; tmp = tmp->next())
 			{
-				if (_comp(tmp->_value, value))
+				if (_comp(value, tmp->_value))
 					break;
 			}
 			return tmp;
@@ -160,14 +162,31 @@ namespace ft
 			ret = _root->insert_node(n);
 			if (ret != n)
 			{
-				del_node(n);
+				replace_nodes(n, ret);
+				del_node(ret);
 				set_sentinelle();
-				return ret;
+				return n;
 			}
 			//insertion_fixup(n);
 			_size++;
 			set_sentinelle();
 			return n;
+		}
+
+		void			swap_nodes(node* n, node* o)
+		{
+			node* tmp = make_node(*n);
+			replace_nodes(tmp, n);
+			replace_nodes(n, o);
+			replace_nodes(o, tmp);
+		}
+
+		void			replace_nodes(node* n, node* o)
+		{
+			if (o->_parent)
+				o->_parent->set_child(n, o->is_right());
+			n->set_child(o->_child[LEFT], LEFT);
+			n->set_child(o->_child[RIGHT], RIGHT);
 		}
 
 		void				delete_node(node* n)
@@ -188,8 +207,7 @@ namespace ft
 			if (n->_child[LEFT] && n->_child[RIGHT])
 			{
 				node* tmp = n->_child[LEFT]->max();
-				n->_value = tmp->_value;
-				n = tmp;
+				swap_nodes(n, tmp);
 			}
 
 			c = n->_child[LEFT] ? n->_child[LEFT] : n->_child[RIGHT];

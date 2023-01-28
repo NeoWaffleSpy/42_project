@@ -27,7 +27,7 @@ namespace ft
 				friend class map;
 			protected:
 				Compare comp;
-				value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+				value_compare (Compare c) : comp(c) {}
 			public:
 				typedef bool		result_type;
 				typedef value_type	first_argument_type;
@@ -41,7 +41,7 @@ namespace ft
 		typedef typename	allocator_type::pointer												pointer;
 		typedef typename	allocator_type::const_pointer										const_pointer;
 		typedef				ft::bidirectional_iterator<node>									iterator;
-		typedef				ft::bidirectional_iterator<const node>								const_iterator;
+		typedef				ft::bidirectional_iterator<node, true>								const_iterator;
 		typedef				ft::reverse_iterator<iterator>										reverse_iterator;
 		typedef				ft::reverse_iterator<const_iterator>								const_reverse_iterator;
 		typedef	typename	ft::iterator_traits<iterator>::difference_type						difference_type;
@@ -114,18 +114,18 @@ namespace ft
 
 		void erase (iterator position)
 		{
-			_rb_tree->delete_node(*position);
+			_rb_tree->delete_node(position.get_node());
 		}
 
 		size_type erase (const key_type& k) {
-			return (_rb_tree->delete_node(ft::make_pair<key_type, mapped_type>(k, mapped_type())));
+			return (_rb_tree->delete_node(_rb_tree->insert(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));
 		}
 
 		void erase (iterator first, iterator last) {
 			iterator next = first;
 			for (; first != last; first = next) {
 				++next;
-				_rb_tree->delete_node(*first);
+				_rb_tree->delete_node(first.get_node());
 			}
 		}
 		
@@ -160,12 +160,12 @@ namespace ft
 		const_reverse_iterator	rbegin()		const	{ return (const_reverse_iterator(_rb_tree->end()));	}
 		const_reverse_iterator	rend()			const	{ return (const_reverse_iterator(_rb_tree->begin()));	}
 		
-		size_type		count		(const key_type& k) const	{ return (_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type())) ? 1 : 0);										}
-		iterator		find		(const key_type& k)			{ return (iterator(_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));				}
+		size_type		count		(const key_type& k) const	{ return (_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type())) ? 1 : 0);					}
+		iterator		find		(const key_type& k)			{ return (		iterator(_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));			}
 		const_iterator	find		(const key_type& k)	const	{ return (const_iterator(_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));			}
-		iterator		lower_bound (const key_type& k)			{ return (iterator(_rb_tree->lower_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));			}
+		iterator		lower_bound (const key_type& k)			{ return (		iterator(_rb_tree->lower_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));	}
 		const_iterator	lower_bound (const key_type& k)	const	{ return (const_iterator(_rb_tree->lower_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));	}
-		iterator		upper_bound (const key_type& k)			{ return (iterator(_rb_tree->upper_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));			}
+		iterator		upper_bound (const key_type& k)			{ return (		iterator(_rb_tree->upper_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));	}
 		const_iterator	upper_bound (const key_type& k)	const	{ return (const_iterator(_rb_tree->upper_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));	}
 
 		ft::pair<iterator,iterator>				equal_range (const key_type& k)			{ return ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k));				}
