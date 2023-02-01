@@ -63,6 +63,8 @@ namespace ft
 		{
 			if (side < LEFT || side > RIGHT)
 				throw std::out_of_range("Access to invalid child node");
+			if (n == this)
+				throw std::out_of_range("Recursive set_child");
 			_child[side] = n;
 			if (n)
 				n->_parent = this;

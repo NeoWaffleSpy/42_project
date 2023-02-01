@@ -554,8 +554,8 @@ namespace ft
 
             reference operator*() const
             {
-                iterator_type tmp = _elem;
-                return (*(--tmp));
+                iterator_type tmp(_elem);
+                return (*--tmp);
             }
 
             reverse_iterator operator+ (difference_type n) const { return (reverse_iterator(_elem - n)); }
@@ -862,7 +862,15 @@ namespace ft
                 next(next),
                 data(val)
             {}
+
     };
+
+	template<typename T1, typename T2>
+	std::ostream    &operator<<(std::ostream &os, ft::pair<T1, T2> const& p)
+	{
+		os << "[" << p.first << ", " << p.second << "]";
+		return (os);
+	}
 } /* End of namespace */
 
 # endif

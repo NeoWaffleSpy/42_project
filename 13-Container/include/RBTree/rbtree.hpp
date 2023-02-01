@@ -25,14 +25,12 @@ namespace ft
 	
 		Rbtree(const Compare& comp, const allocator_type& alloc = allocator_type()): _size(0), _root(NULL), _alloc(alloc), _comp(comp), _sentinelle(NULL)
 		{
-			_sentinelle = make_node(node(value_type(), _comp));
-			_root = _sentinelle;
+			set_sentinelle();
 		}
 
 		Rbtree(const node& n, const Compare& comp, const allocator_type& alloc = allocator_type()): _size(1), _root(node(n)), _alloc(alloc), _comp(comp), _sentinelle(NULL)
 		{
-			_sentinelle = make_node(node(value_type(), _comp));
-			_root->_child[RIGHT] = _sentinelle;
+			set_sentinelle();
 		}
 
 		Rbtree(const Rbtree& r): _size(r._size), _root(NULL), _alloc(r._alloc), _comp(r._comp), _sentinelle(NULL)
@@ -40,15 +38,13 @@ namespace ft
 			if (_size > 0)
 				copy_tree(&r);
 			else
-			{
-				_sentinelle = make_node(node(value_type(), _comp));
-				_root = _sentinelle;
-			}
+				set_sentinelle();
 		}
 		
 		~Rbtree()
 		{
 			this->clear();
+			del_sentinelle();
 			while (!_mem_pile.empty())
 			{
 				_alloc.deallocate(_mem_pile.top(), 1);
@@ -68,7 +64,11 @@ namespace ft
 		void			clear()
 		{
 			delete_rec(_root);
+			_root = NULL;
+			_sentinelle = NULL;
+			set_sentinelle();
 		}
+
 		node*			operator[](int i)
 		{
 			if (i >= (int)_size)
@@ -83,6 +83,8 @@ namespace ft
 
 		void set_sentinelle()
 		{
+			if (!_sentinelle)
+				_sentinelle = make_node(node(value_type(), _comp));
 			if (_root == NULL)
 			{
 				_root = _sentinelle;
@@ -98,6 +100,14 @@ namespace ft
 				_root = NULL;
 			else
 				_sentinelle->_parent->set_child(NULL, RIGHT);
+		}
+
+		void del_sentinelle()
+		{
+			unset_sentinelle();
+			if (_sentinelle)
+				del_node(_sentinelle);
+			_sentinelle = NULL;
 		}
 
 		node* lower_bound(T value)
@@ -126,10 +136,16 @@ namespace ft
 
 		void copy_tree(const Rbtree* src)
 		{
-			this->clear();
+			if (_root)
+			{
+				this->clear();
+				_root = NULL;
+				del_sentinelle();
+			}
 			if (src->size() <= 0)
 				return;
 			copy_rec(NULL, src->_root);
+			_sentinelle = get_max();
 		}
 
 		void copy_rec(node* parent, node* src)
@@ -221,7 +237,50 @@ namespace ft
 			del_node(n);
 			set_sentinelle();
 		}
+		
+		node*	make_node(const node& ref)
+		{
+			node* new_node;
+			if (!_mem_pile.empty())
+			{
+				new_node = _mem_pile.top();
+				_mem_pile.pop();
+			}
+			else
+				new_node = _alloc.allocate(1);
+			_alloc.construct(new_node, ref);
+			return new_node;
+		}
 
+		void	delete_rec(node* ref)
+		{
+			if (!ref)
+				return;
+			if (ref->_child[LEFT])
+				delete_rec(ref->_child[LEFT]);
+			if (ref->_child[RIGHT])
+				delete_rec(ref->_child[RIGHT]);
+			del_node(ref);
+		}
+
+		void	del_node(node* ref)
+		{
+			_alloc.destroy(ref);
+			_mem_pile.push(ref);
+			_size--;
+		}
+
+	private:
+		unsigned long			_size;
+		node*					_root;
+		ft::stack<node*>		_mem_pile;
+		allocator_type			_alloc;
+		Compare					_comp;
+		node*					_sentinelle;
+	};
+}
+
+		/*
 		void insertion_fixup(node* z)
 		{
 			while (z != _root && z->_parent->_color == C_RED)
@@ -268,20 +327,6 @@ namespace ft
 				x->_parent->set_child(y, x->is_right());
 			y->set_child(x, !side);
 		}
-		
-		node*	make_node(const node& ref)
-		{
-			node* new_node;
-			if (!_mem_pile.empty())
-			{
-				new_node = _mem_pile.top();
-				_mem_pile.pop();
-			}
-			else
-				new_node = _alloc.allocate(1);
-			_alloc.construct(new_node, ref);
-			return new_node;
-		}
 
 		bool	is_black(node* ref)
 		{
@@ -295,35 +340,6 @@ namespace ft
 			return !is_black(ref);
 		}
 
-		void	delete_rec(node* ref)
-		{
-			if (!ref)
-				return;
-			if (ref->_child[LEFT])
-				delete_rec(ref->_child[LEFT]);
-			if (ref->_child[RIGHT])
-				delete_rec(ref->_child[RIGHT]);
-			del_node(ref);
-		}
-
-		void	del_node(node* ref)
-		{
-			_alloc.destroy(ref);
-			_mem_pile.push(ref);
-			_size--;
-		}
-
-	private:
-		unsigned long			_size;
-		node*					_root;
-		ft::stack<node*>		_mem_pile;
-		allocator_type			_alloc;
-		Compare					_comp;
-		node*					_sentinelle;
-	};
-}
-
-		/*
 		void				delete_node(node* n)
 		{
 			if (!n)

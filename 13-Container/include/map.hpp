@@ -2,11 +2,14 @@
 # define MAP_HPP
 
 # include <iostream>
+# include <fstream>
 # include <iomanip>
 # include <string>
 # include "RBTree/rbtree.hpp"
 # include "RBTree/node.hpp"
 # include "Iterators/bidirectional_iterator.hpp"
+
+# define PRINT 1
 
 namespace ft
 {
@@ -40,8 +43,8 @@ namespace ft
 		typedef typename	allocator_type::const_reference										const_reference;
 		typedef typename	allocator_type::pointer												pointer;
 		typedef typename	allocator_type::const_pointer										const_pointer;
-		typedef				ft::bidirectional_iterator<node>									iterator;
-		typedef				ft::bidirectional_iterator<node, true>								const_iterator;
+		typedef				ft::bidirectional_iterator<value_type, node>						iterator;
+		typedef				ft::bidirectional_iterator<value_type, node>						const_iterator;
 		typedef				ft::reverse_iterator<iterator>										reverse_iterator;
 		typedef				ft::reverse_iterator<const_iterator>								const_reverse_iterator;
 		typedef	typename	ft::iterator_traits<iterator>::difference_type						difference_type;
@@ -78,13 +81,15 @@ namespace ft
 		{
 			if (this == &rhs)
 				return (*this);
+			if (_rb_tree)
+				_tree_alloc.destroy(_rb_tree);
 			_tree_alloc.construct(_rb_tree, *rhs._rb_tree);
 			_comp = rhs._comp;
 			return (*this);
 		}
 
 		mapped_type& operator[] (const key_type& k) {
-			return (_rb_tree->insert(ft::make_pair<key_type, mapped_type>(k, mapped_type()))).second;
+			return (_rb_tree->insert(ft::make_pair<key_type, mapped_type>(k, mapped_type())))->_value.second;
 		}
 
 		ft::pair<iterator,bool> insert(const value_type& val)
@@ -171,6 +176,84 @@ namespace ft
 		ft::pair<iterator,iterator>				equal_range (const key_type& k)			{ return ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k));				}
 		ft::pair<const_iterator,const_iterator> equal_range (const key_type& k)	const	{ return ft::make_pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)); }
 
+		void	dump(std::string const& filename)
+		{
+			std::ofstream	ofs(filename.c_str());
+
+			if (!ofs.is_open())
+				return ;
+
+			ofs << "graph g {\n";
+			ofs << "\tnode [shape=plaintext, fontcolor=white, height=.1];\n\n";
+			// ofs << "\t" << _sentinelStart->dump(false);
+			// ofs << "\t" << _sentinelEnd->dump(false);
+			dumpTree(ofs, _rb_tree->_root);
+			ofs << "}";
+
+			ofs.close();
+		}
+
+		void	dumpTree(std::ofstream &ofs, node *n)
+		{
+			ofs << "\t" << n->dump(true);
+
+			// if (n->left && n->left != _sentinelStart)
+				dumpTree(ofs, n->left);
+			// if (n->right && n->right != _sentinelStart)
+				dumpTree(ofs, n->right);
+		}
+
+		void	print_tree_advanced() const
+		{
+			const_iterator	it = begin();
+
+			std::cout << "Tree :";
+			if (it != end())
+			{
+				for (; it != end(); it++)
+				{
+					std::cout << " " << *it << ": " << it.get_node() << std::endl
+					<< "parent: " << it.get_node()->_parent << std::endl
+					<< "left: " << it.get_node()->_child[LEFT] << std::endl
+					<< "right: " << it.get_node()->_child[RIGHT] << std::endl;
+				}
+			}
+			else
+				std::cout << "Tree is empty";
+			std::cout << std::endl;
+
+			const_reverse_iterator	c_rit = rbegin();
+			std::cout << "Tree :";
+			if (c_rit != rend())
+				for (; c_rit != rend(); c_rit++)
+					std::cout << " " << *c_rit;
+			else
+				std::cout << "Tree is empty";
+			std::cout << std::endl;
+		}
+
+		void	print_tree() const
+		{
+			const_iterator	it = begin();
+
+			std::cout << "Tree :";
+			if (it != end())
+				for (; it != end(); it++)
+					std::cout << " " << *it << ": " << it.get_node();
+			else
+				std::cout << "Tree is empty";
+			std::cout << std::endl;
+
+			const_reverse_iterator	c_rit = rbegin();
+			std::cout << "Tree :";
+			if (c_rit != rend())
+				for (; c_rit != rend(); c_rit++)
+					std::cout << " " << *c_rit;
+			else
+				std::cout << "Tree is empty";
+			std::cout << std::endl;
+		}
+		
 	private:
 		typedef	ft::Rbtree<value_type, ft::forbid_double_class_tag, value_compare>	rbtree;
 		typedef typename allocator_type::template rebind<rbtree>::other				tree_allocator_type;
@@ -215,6 +298,27 @@ namespace ft
 	template <class Key, class T, class Compare, class Alloc>
 	void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y) {
 		x.swap(y);
+	}
+	
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	std::ostream	&operator<<(std::ostream &os, ft::map<Key, T, Compare, Alloc> const& map)
+	{
+		if (map.empty() && PRINT)
+			return (os << "Empty map");
+		else if(map.empty())
+			return (os);
+
+		for (typename ft::map<Key, T, Compare, Alloc>::const_iterator it = map.begin(), it1 = ++map.begin();
+			it != map.end(); it++)
+		{
+			os << *(it);
+			if (it1 != map.end())
+			{
+				os << " ";
+				it1++;
+			}
+		}
+		return (os);
 	}
 }
 
