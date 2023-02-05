@@ -3,6 +3,7 @@
 
 # include "node.hpp"
 # include "../stack.hpp"
+# include "../vector.hpp"
 # include <iostream>
 
 namespace ft
@@ -67,6 +68,7 @@ namespace ft
 			_root = NULL;
 			_sentinelle = NULL;
 			set_sentinelle();
+			_size = 0;
 		}
 
 		node*			operator[](int i)
@@ -191,7 +193,9 @@ namespace ft
 
 		void			swap_nodes(node* n, node* o)
 		{
-			node* tmp = make_node(*n);
+			node* tmp = make_node(node(value_type(), _comp));
+			if (!n->_parent) { _root = o; }
+			if (!o->_parent) { _root = n; }
 			replace_nodes(tmp, n);
 			replace_nodes(n, o);
 			replace_nodes(o, tmp);
@@ -201,39 +205,52 @@ namespace ft
 		{
 			if (o->_parent)
 				o->_parent->set_child(n, o->is_right());
-			n->set_child(o->_child[LEFT], LEFT);
-			n->set_child(o->_child[RIGHT], RIGHT);
+			if (n != o->_child[LEFT])
+				n->set_child(o->_child[LEFT], LEFT);
+			if (n != o->_child[RIGHT])
+				n->set_child(o->_child[RIGHT], RIGHT);
 		}
 
 		void				delete_node(node* n)
 		{
+			std::cout << "------------------------------ Delete ------------------------------" << std::endl;
 			if (!n)
 				throw std::out_of_range("Value not mapped within container");
 			unset_sentinelle();
 			node* c;
-
+			std::cout << "Pass 1" << std::endl;
 			if (n == _root && _size == 1)
 			{
+			std::cout << "Pass 1.1" << std::endl;
 				_root = NULL;
+				_size = 0;
 				del_node(n);
 				set_sentinelle();
 				return;
 			}
 			
+			std::cout << "Pass 2" << std::endl;
 			if (n->_child[LEFT] && n->_child[RIGHT])
 			{
+			std::cout << "Pass 2.1" << std::endl;
 				node* tmp = n->_child[LEFT]->max();
+				std::cout << RED << "root value is " << _root->_value.second << END << std::endl;
+				print_tree();
 				swap_nodes(n, tmp);
+				std::cout << RED << "root value is " << _root->_value.second << END << std::endl;
+				print_tree();
 			}
-
+			std::cout << "Pass 3" << std::endl;
 			c = n->_child[LEFT] ? n->_child[LEFT] : n->_child[RIGHT];
 			if (n->_parent)
 				n->_parent->set_child(c, n->is_right());
 			else
 			{
+			std::cout << "Pass 3.9" << std::endl;
 				c->_parent = NULL;
 				_root = c;
 			}
+			std::cout << "Pass 4" << std::endl;
 			del_node(n);
 			set_sentinelle();
 		}
@@ -277,6 +294,86 @@ namespace ft
 		allocator_type			_alloc;
 		Compare					_comp;
 		node*					_sentinelle;
+
+		template <typename Temp>
+		int get_max_depth(Temp ref, int depth = 0)
+		{
+			int d1 = depth;
+			int d2 = depth;
+			if (ref->_child[LEFT])
+				d1 = get_max_depth(ref->_child[LEFT], depth + 1);
+			if (ref->_child[RIGHT])
+				d2 = get_max_depth(ref->_child[RIGHT], depth + 1);
+			return ((d1 > d2) ? d1 : d2);
+		}
+
+		template <typename Temp>
+		void print_tree_visual(Temp ref, int depth, std::ostream* os)
+		{
+			Temp new_stack;
+			int space = 1;
+			int half;
+			int j = 0;
+
+			for (int i = 0; i < depth; i++)
+				space = (space * 2) + 1;
+			half = (space - 1) / 2;
+			for (int i = 0; i < half; i++)
+				*os << " ";
+			while ((int)ref.size() > j)
+			{
+				typename Temp::value_type n = ref.at(j);
+				if (n == NULL)
+				{
+					*os << "□";
+					new_stack.push_back(NULL);
+					new_stack.push_back(NULL);
+				}
+				else
+				{
+					if (n->_color == C_RED)
+						*os << RED;
+					*os << n->_value << END;
+					new_stack.push_back(n->_child[LEFT] ? n->_child[LEFT] : NULL);
+					new_stack.push_back(n->_child[RIGHT] ? n->_child[RIGHT] : NULL);
+				}
+				j++;
+				if ((int)ref.size() > j)
+					for (int i = 0; i < space; i++)
+						*os << (j%2 ? "-" : " ");
+			}
+			*os << std::endl;
+			if (depth > 0)
+				print_tree_visual(new_stack, depth - 1, os);
+		}
+
+		void print_tree(std::ostream* os = &(std::cout))
+		{
+			if (!root())
+			{
+				std::cout << GREEN << "Empty tree" << END << std::endl;
+				return;
+			}
+			if (true)
+			{
+				ft::vector<node*>	pile;
+				pile.push_back(root());
+				*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+				print_tree_visual(pile, get_max_depth(root()), os);
+			}
+			*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+			// node* n = begin();
+			// *os << MAGENTA;
+			// while (n)
+			// {
+			// 	*os << n->_value << " ";
+			// 	n = n->next();
+			// }
+			// *os << END << std::endl;
+			// for (int i = 0; i < (int)size(); i++)
+			// 	*os << (((i / 10) % 2) ? GREEN : YELLOW) << (i % 10) << " ";
+			// *os << END << std::endl;
+		}
 	};
 }
 

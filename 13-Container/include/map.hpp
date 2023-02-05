@@ -122,8 +122,20 @@ namespace ft
 			_rb_tree->delete_node(position.get_node());
 		}
 
+		/*
+
 		size_type erase (const key_type& k) {
-			return (_rb_tree->delete_node(_rb_tree->insert(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));
+			if (!_rb_tree->find(ft::make_pair(k, mapped_type())))
+				return 0;
+			_rb_tree->delete_node(_rb_tree->find(ft::make_pair(k, mapped_type())));
+			return 1;
+		}*/
+
+		size_type erase (const key_type& k) {
+			if (!_rb_tree->find(ft::make_pair(k, mapped_type())))
+				return 0;
+			_rb_tree->delete_node(_rb_tree->insert(ft::make_pair<key_type, mapped_type>(k, mapped_type())));
+			return 1;
 		}
 
 		void erase (iterator first, iterator last) {
@@ -148,13 +160,13 @@ namespace ft
 			x._rb_tree = _rb_tree_temp;
 		}
 		
-		void					clear()					{ _rb_tree->clear();				}
-		bool					empty()			const	{ return (_rb_tree->empty());		}
-		unsigned long			size()			const	{ return (_rb_tree->size());		}
-		unsigned long			max_size()		const	{ return (_rb_tree->max_size());	}
-		key_compare				key_comp()		const	{ return (_comp);					}
-		value_compare			value_comp()	const	{ return (value_compare(_comp));	}
-		allocator_type			get_allocator() const	{ return (_tree_alloc);				}
+		void					clear()					{ _rb_tree->clear();					}
+		bool					empty()			const	{ return (_rb_tree->size() ? 0 : 1);	}
+		unsigned long			size()			const	{ return (_rb_tree->size());			}
+		unsigned long			max_size()		const	{ return (_rb_tree->max_size());		}
+		key_compare				key_comp()		const	{ return (_comp);						}
+		value_compare			value_comp()	const	{ return (value_compare(_comp));		}
+		allocator_type			get_allocator() const	{ return (_tree_alloc);					}
 
 		iterator				begin()					{ return (iterator(_rb_tree->begin()));				}
 		iterator				end()					{ return (iterator(_rb_tree->end()));				}

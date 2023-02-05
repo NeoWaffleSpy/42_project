@@ -44,10 +44,8 @@ namespace ft
 
 		~Node()
 		{
-			if (_parent && is_left())
-				_parent->_child[LEFT] = NULL;
-			if (_parent && is_right())
-				_parent->_child[RIGHT] = NULL;
+			if (_parent)
+				_parent->set_child(NULL, is_right());
 		}
 
 		Node operator=(const_reference n)
