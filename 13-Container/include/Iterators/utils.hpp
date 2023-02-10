@@ -105,6 +105,9 @@ namespace ft
 	struct pair
 	{
 	public :
+		typedef T1	first_type;
+		typedef T2	second_type;
+
 		T1 first;
 		T2 second;
 

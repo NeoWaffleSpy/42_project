@@ -158,7 +158,7 @@ namespace Custom {
 
 //
 // StringMaker
-//
+
 namespace Catch {
 
 	// STD PAIR

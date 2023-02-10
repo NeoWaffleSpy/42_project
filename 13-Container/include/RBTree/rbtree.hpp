@@ -182,6 +182,7 @@ namespace ft
 			{
 				replace_nodes(n, ret);
 				del_node(ret);
+				_size++;
 				set_sentinelle();
 				return n;
 			}
@@ -193,7 +194,8 @@ namespace ft
 
 		void			swap_nodes(node* n, node* o)
 		{
-			node* tmp = make_node(node(value_type(), _comp));
+			node tmp_node(*n);
+			node* tmp = &tmp_node;
 			if (!n->_parent) { _root = o; }
 			if (!o->_parent) { _root = n; }
 			replace_nodes(tmp, n);
@@ -205,6 +207,8 @@ namespace ft
 		{
 			if (o->_parent)
 				o->_parent->set_child(n, o->is_right());
+			else
+				n->_parent = NULL;
 			if (n != o->_child[LEFT])
 				n->set_child(o->_child[LEFT], LEFT);
 			if (n != o->_child[RIGHT])
@@ -213,15 +217,12 @@ namespace ft
 
 		void				delete_node(node* n)
 		{
-			std::cout << "------------------------------ Delete ------------------------------" << std::endl;
 			if (!n)
 				throw std::out_of_range("Value not mapped within container");
 			unset_sentinelle();
 			node* c;
-			std::cout << "Pass 1" << std::endl;
 			if (n == _root && _size == 1)
 			{
-			std::cout << "Pass 1.1" << std::endl;
 				_root = NULL;
 				_size = 0;
 				del_node(n);
@@ -229,28 +230,19 @@ namespace ft
 				return;
 			}
 			
-			std::cout << "Pass 2" << std::endl;
 			if (n->_child[LEFT] && n->_child[RIGHT])
 			{
-			std::cout << "Pass 2.1" << std::endl;
 				node* tmp = n->_child[LEFT]->max();
-				std::cout << RED << "root value is " << _root->_value.second << END << std::endl;
-				print_tree();
 				swap_nodes(n, tmp);
-				std::cout << RED << "root value is " << _root->_value.second << END << std::endl;
-				print_tree();
 			}
-			std::cout << "Pass 3" << std::endl;
 			c = n->_child[LEFT] ? n->_child[LEFT] : n->_child[RIGHT];
 			if (n->_parent)
 				n->_parent->set_child(c, n->is_right());
 			else
 			{
-			std::cout << "Pass 3.9" << std::endl;
 				c->_parent = NULL;
 				_root = c;
 			}
-			std::cout << "Pass 4" << std::endl;
 			del_node(n);
 			set_sentinelle();
 		}

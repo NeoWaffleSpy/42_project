@@ -88,8 +88,12 @@ namespace ft
 			return (*this);
 		}
 
-		mapped_type& operator[] (const key_type& k) {
-			return (_rb_tree->insert(ft::make_pair<key_type, mapped_type>(k, mapped_type())))->_value.second;
+		mapped_type& operator[] (const key_type& k)
+		{
+			node* n = _rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()));
+			if (n == NULL)
+				return (_rb_tree->insert(ft::make_pair<key_type, mapped_type>(k, mapped_type())))->_value.second;
+			return n->_value.second;
 		}
 
 		ft::pair<iterator,bool> insert(const value_type& val)

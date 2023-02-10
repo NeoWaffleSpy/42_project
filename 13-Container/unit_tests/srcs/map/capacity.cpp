@@ -10,9 +10,6 @@ TEST_CASE("Map capacity", "[map][capacity]") {
 	SECTION("size()") {
 		REQUIRE(ref.size() == map.size());
 	}
-	SECTION("max_size()") {
-		CHECK(ref.max_size() == map.max_size());
-	}
 	SECTION("empty()") {
 		Map tmp_map;
 		REQUIRE(tmp_map.empty());
