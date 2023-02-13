@@ -7,27 +7,29 @@
 
 namespace ft {
 
-	template <typename T, typename Node_Type> /* PAIR */
+	template <typename T, typename Node_Type, bool constness = false> /* PAIR */
 	class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
 	{
 		public:
 			typedef bidirectional_iterator	it;
 			typedef T						value_type;
-			typedef T*						pointer;
-			typedef T&						reference;
+			typedef	typename is_const<T, constness>::type*		pointer;
+			typedef	typename is_const<T, constness>::type&		reference;
 			typedef Node_Type*				node;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
 			typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type       difference_type;
 
 			bidirectional_iterator(): _elem(NULL) {};
 			bidirectional_iterator(const node src): _elem(src) {};
-			bidirectional_iterator(const bidirectional_iterator<T, node>& src): _elem(src.get_node()) {};
+			bidirectional_iterator(const bidirectional_iterator<T, Node_Type, true>& src): _elem(src.get_node()) {};
+			bidirectional_iterator(const bidirectional_iterator<T, Node_Type, false>& src): _elem(src.get_node()) {};
 			it&	operator=(const it& rhs) {
 				if (this == &rhs)
 					return (*this);
 				_elem = rhs._elem;
 					return (*this);
 			};
+
 			~bidirectional_iterator() {};
 
 			node		get_node()					const	{ return (_elem);				}

@@ -44,7 +44,7 @@ namespace ft
 		typedef typename	allocator_type::pointer												pointer;
 		typedef typename	allocator_type::const_pointer										const_pointer;
 		typedef				ft::bidirectional_iterator<value_type, node>						iterator;
-		typedef				ft::bidirectional_iterator<value_type, node>						const_iterator;
+		typedef				ft::bidirectional_iterator<value_type, node, true>						const_iterator;
 		typedef				ft::reverse_iterator<iterator>										reverse_iterator;
 		typedef				ft::reverse_iterator<const_iterator>								const_reverse_iterator;
 		typedef	typename	ft::iterator_traits<iterator>::difference_type						difference_type;
@@ -163,6 +163,22 @@ namespace ft
 			x._tree_alloc = _tree_alloc_temp;
 			x._rb_tree = _rb_tree_temp;
 		}
+
+		iterator		find		(const key_type& k)
+		{
+			node* ret = _rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()));
+			if (ret)
+				return (iterator(ret));
+			return end();
+		}
+		
+		const_iterator	find		(const key_type& k)	const
+		{
+			node* ret = _rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()));
+			if (ret)
+				return (const_iterator(ret));
+			return end();
+		}
 		
 		void					clear()					{ _rb_tree->clear();					}
 		bool					empty()			const	{ return (_rb_tree->size() ? 0 : 1);	}
@@ -172,18 +188,16 @@ namespace ft
 		value_compare			value_comp()	const	{ return (value_compare(_comp));		}
 		allocator_type			get_allocator() const	{ return (_tree_alloc);					}
 
-		iterator				begin()					{ return (iterator(_rb_tree->begin()));				}
-		iterator				end()					{ return (iterator(_rb_tree->end()));				}
+		iterator				begin()					{ return (iterator(_rb_tree->begin()));					}
+		iterator				end()					{ return (iterator(_rb_tree->end()));					}
 		const_iterator			begin()			const	{ return (const_iterator(_rb_tree->begin()));			}
-		const_iterator			end()			const	{ return (const_iterator(_rb_tree->end()));			}
-		reverse_iterator		rbegin()				{ return (reverse_iterator(_rb_tree->end()));		}
-		reverse_iterator		rend()					{ return (reverse_iterator(_rb_tree->begin()));		}
-		const_reverse_iterator	rbegin()		const	{ return (const_reverse_iterator(_rb_tree->end()));	}
+		const_iterator			end()			const	{ return (const_iterator(_rb_tree->end()));				}
+		reverse_iterator		rbegin()				{ return (reverse_iterator(_rb_tree->end()));			}
+		reverse_iterator		rend()					{ return (reverse_iterator(_rb_tree->begin()));			}
+		const_reverse_iterator	rbegin()		const	{ return (const_reverse_iterator(_rb_tree->end()));		}
 		const_reverse_iterator	rend()			const	{ return (const_reverse_iterator(_rb_tree->begin()));	}
 		
 		size_type		count		(const key_type& k) const	{ return (_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type())) ? 1 : 0);					}
-		iterator		find		(const key_type& k)			{ return (		iterator(_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));			}
-		const_iterator	find		(const key_type& k)	const	{ return (const_iterator(_rb_tree->find(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));			}
 		iterator		lower_bound (const key_type& k)			{ return (		iterator(_rb_tree->lower_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));	}
 		const_iterator	lower_bound (const key_type& k)	const	{ return (const_iterator(_rb_tree->lower_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));	}
 		iterator		upper_bound (const key_type& k)			{ return (		iterator(_rb_tree->upper_bound(ft::make_pair<key_type, mapped_type>(k, mapped_type()))));	}

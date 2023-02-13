@@ -62,6 +62,7 @@ namespace ft
 		node*			end()				{ return _root->max();					}
 		node*			root()				{ return _root;							}
 
+
 		void			clear()
 		{
 			delete_rec(_root);
@@ -143,11 +144,13 @@ namespace ft
 				this->clear();
 				_root = NULL;
 				del_sentinelle();
+				_size = 0;
 			}
 			if (src->size() <= 0)
 				return;
 			copy_rec(NULL, src->_root);
 			_sentinelle = get_max();
+			_size = src->_size;
 		}
 
 		void copy_rec(node* parent, node* src)
@@ -180,11 +183,10 @@ namespace ft
 			ret = _root->insert_node(n);
 			if (ret != n)
 			{
-				replace_nodes(n, ret);
-				del_node(ret);
+				del_node(n);
 				_size++;
 				set_sentinelle();
-				return n;
+				return ret;
 			}
 			//insertion_fixup(n);
 			_size++;
@@ -224,8 +226,8 @@ namespace ft
 			if (n == _root && _size == 1)
 			{
 				_root = NULL;
-				_size = 0;
 				del_node(n);
+				_size = 0;
 				set_sentinelle();
 				return;
 			}

@@ -2,7 +2,6 @@
 # define BASE_HPP
 
 #  define TESTED_NAMESPACE ft
-
 # include <iostream>
 # include <string>
 
