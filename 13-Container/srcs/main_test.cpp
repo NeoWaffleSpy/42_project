@@ -376,51 +376,92 @@ int main_vector()
 #include <list>
 #include "../include/common.hpp"
 
-#define T1 float
-#define T2 foo<int>
-typedef _pair<const T1, T2> T3;
+#define T1 int
+#define T2 std::string
+typedef TESTED_NAMESPACE::map<T1, T2>::value_type T3;
+
+static int iter = 0;
+
+template <typename MAP>
+void	ft_erase(MAP &mp, const T1 param)
+{
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	mp.erase(param);
+	printSize(mp);
+}
 
 int		main_map(void)
 {
-	std::list<T3> lst;
-	unsigned int lst_size = 5;
-	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(T3(2.5 + i, i + 1));
+	TESTED_NAMESPACE::map<T1, T2> mp;
 
-	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
-	TESTED_NAMESPACE::map<T1, T2>::iterator it(mp.begin());
-	TESTED_NAMESPACE::map<T1, T2>::const_iterator ite(mp.begin());
+
+	mp[5] = "Number 1";
+	mp[2] = "Number 2";
+	mp[1] = "Number 3";
+	// mp[3] = "Number 4";
+	// mp[6] = "Number 5";
+	
 	printSize(mp);
+	ft_erase(mp, 2);
+	// mp[42] = "lol";
 
-	printPair(++ite);
-	printPair(ite++);
-	printPair(ite++);
-	printPair(++ite);
+	// mp[50] = "mdr";
+	// mp[25] = "funny";
 
-	it->second.m();
-	ite->second.m();
+	// mp[46] = "bunny";
+	// mp[21] = "fizz";
+	// mp[30] = "buzz";
+	// mp[55] = "fuzzy";
 
-	printPair(++it);
-	printPair(it++);
-	printPair(it++);
-	printPair(++it);
+	// mp[18] = "bee";
+	// mp[23] = "coconut";
+	// mp[28] = "diary";
+	// mp[35] = "fiesta";
+	// mp[44] = "hello";
+	// mp[48] = "world";
+	// mp[53] = "this is a test";
+	// mp[80] = "hey";
 
-	printPair(--ite);
-	printPair(ite--);
-	printPair(--ite);
-	printPair(ite--);
+	// mp[12] = "no";
+	// mp[20] = "idea";
+	// mp[22] = "123";
+	// mp[24] = "345";
+	// mp[27] = "27";
+	// mp[29] = "29";
+	// mp[33] = "33";
+	// mp[38] = "38";
 
-	(*it).second.m();
-	(*ite).second.m();
+	// mp[43] = "1";
+	// mp[45] = "2";
+	// mp[47] = "3";
+	// mp[49] = "4";
+	// mp[51] = "5";
+	// mp[54] = "6";
+	// mp[60] = "7";
+	// mp[90] = "8";
 
-	printPair(--it);
-	printPair(it--);
-	printPair(it--);
-	printPair(--it);
+	// printSize(mp);
+
+	// ft_erase(mp, 25); // right != NULL; left != NULL
+	// ft_erase(mp, 55); // right != NULL; left != NULL
+
+	// ft_erase(mp, 24); // right != NULL; left != NULL
+	// ft_erase(mp, 54); // right != NULL; left != NULL
+
+	// ft_erase(mp, 22); // right == NULL; left == NULL
+	// ft_erase(mp, 51); // right == NULL; left == NULL
+
+	// ft_erase(mp, 21); // right == NULL; left != NULL
+	// ft_erase(mp, 53); // right != NULL; left == NULL
+	// ft_erase(mp, 20); // right == NULL; left != NULL
+	// ft_erase(mp, 23); // right != NULL; left != NULL
+	// ft_erase(mp, 42); // right != NULL; left != NULL; parent == NULL
+	// ft_erase(mp, 38); // right != NULL; left != NULL; parent == NULL
+	// ft_erase(mp, 35); // right != NULL; left != NULL; parent == NULL
+	// ft_erase(mp, 33); // right != NULL; left != NULL; parent == NULL
 
 	return (0);
 }
-
 
 int main()
 {

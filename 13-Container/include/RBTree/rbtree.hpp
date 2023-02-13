@@ -223,8 +223,10 @@ namespace ft
 				throw std::out_of_range("Value not mapped within container");
 			unset_sentinelle();
 			node* c;
+			std::cout << "Pass 1" << std::endl;
 			if (n == _root && _size == 1)
 			{
+			std::cout << "Pass 1.1" << std::endl;
 				_root = NULL;
 				del_node(n);
 				_size = 0;
@@ -239,7 +241,10 @@ namespace ft
 			}
 			c = n->_child[LEFT] ? n->_child[LEFT] : n->_child[RIGHT];
 			if (n->_parent)
+			{
 				n->_parent->set_child(c, n->is_right());
+				n->_parent = NULL;
+			}
 			else
 			{
 				c->_parent = NULL;
