@@ -69,6 +69,16 @@ namespace ft
 			return n;
 		}
 
+		void copy_setting(pointer n)
+		{
+			if (n->_parent)
+				n->_parent->set_child(this, n->is_right());
+			else
+				n->_parent = NULL;
+			this->set_child(n->_child[LEFT], LEFT);
+			this->set_child(n->_child[RIGHT], RIGHT);
+		}
+
 		bool is_right()	const
 		{
 			if (this->_parent && (this == this->_parent->_child[RIGHT]))
