@@ -74,7 +74,7 @@ namespace ft
 			if (n->_parent)
 				n->_parent->set_child(this, n->is_right());
 			else
-				n->_parent = NULL;
+				_parent = NULL;
 			this->set_child(n->_child[LEFT], LEFT);
 			this->set_child(n->_child[RIGHT], RIGHT);
 		}

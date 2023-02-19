@@ -188,19 +188,76 @@ namespace ft
 				set_sentinelle();
 				return ret;
 			}
-			//insertion_fixup(n);
+			insertion_fixup(n);
 			_size++;
 			set_sentinelle();
 			return n;
 		}
+
+		//===========================================================================
+		
+		void insertion_fixup(node* z)
+		{
+			while (z != _root && z->_parent->_color == C_RED)
+			{
+				int side = z->_parent->is_right();
+				node* y = z->_parent->_parent->_child[!side];
+				if (y != NULL && y->_color == C_RED)
+				{
+					z->_parent->_color = C_BLACK;
+					y->_color = C_BLACK;
+					z->_parent->_parent->_color = C_RED;
+					z = z->_parent->_parent;
+				}
+				else
+				{
+					if (z == z->_parent->_child[!side])
+					{
+						z = z->_parent;
+						rotate(z, !side);
+					}
+					z->_parent->_color = C_BLACK;
+					z->_parent->_parent->_color = C_RED;
+					rotate(z->_parent->_parent, side);
+				}
+			}
+			_root->_color = C_BLACK;
+		}
+
+		void	rotate(node* x, int side) {
+			node* y = x->_child[side];
+			x->set_child(y->_child[!side], side);
+			if (!x->_parent)
+			{
+				_root = y;
+				y->_parent = NULL;
+			}
+			else
+				x->_parent->set_child(y, x->is_right());
+			y->set_child(x, !side);
+		}
+
+		bool	is_black(node* ref)
+		{
+			if (ref && ref->_color == C_RED)
+				return false;
+			return true;
+		}
+
+		bool	is_red(node* ref)
+		{
+			return !is_black(ref);
+		}
+
+		//===========================================================================
 
 		node*			swap_nodes(node* n, node* o)
 		{
 			node* tmp_n = make_node(*n);
 			node* tmp_o = make_node(*o);
 			_size += 2;
-			if (!n->_parent) { _root = tmp_n; }
-			if (!o->_parent) { _root = tmp_o; }
+			if (!n->_parent) { _root = tmp_o; }
+			if (!o->_parent) { _root = tmp_n; }
 			tmp_n->copy_setting(o);
 			tmp_o->copy_setting(n);
 			n->_parent = NULL;
@@ -210,6 +267,146 @@ namespace ft
 			return (tmp_n);
 		}
 
+		//===========================================================================
+
+		void				delete_node(node* n)
+		{
+			unset_sentinelle();
+			std::cout << MAGENTA << "Pass" << END << std::endl;
+			if (!n)
+				throw std::out_of_range("Value not mapped within container");
+			node *x, *y;
+
+			y = n;
+			int y_original_color = y->_color;
+			if (n->_child[LEFT] == NULL)
+			{
+				x = n->_child[RIGHT];
+				rbTransplant(n, n->_child[RIGHT]);
+			}
+			else if (n->_child[RIGHT] == NULL)
+			{
+				x = n->_child[LEFT];
+				rbTransplant(n, n->_child[LEFT]);
+			}
+			else
+			{
+				y = n->_child[RIGHT]->min();
+				y_original_color = y->_color;
+				x = y->_child[RIGHT];
+				if (y->_parent == n)
+				{
+					x->_parent = y;
+				}
+				else
+				{
+					rbTransplant(y, y->_child[RIGHT]);
+					y->_child[RIGHT] = n->_child[RIGHT];
+					y->_child[RIGHT]->_parent = y;
+				}
+
+				rbTransplant(n, y);
+				y->_child[LEFT] = n->_child[LEFT];
+				y->_child[LEFT]->_parent = y;
+				y->_color = n->_color;
+			}
+			del_node(n);
+			if (y_original_color == 0)
+			{
+				deleteFix(x);
+			}
+			set_sentinelle();
+		}
+
+		void deleteFix(node *x)
+		{
+			node *s;
+			while (x != _root && x->_color == 0)
+			{
+				if (x == x->_parent->_child[LEFT])
+				{
+					s = x->_parent->_child[RIGHT];
+					if (s->_color == C_RED)
+					{
+						s->_color = C_BLACK;
+						x->_parent->_color = C_RED;
+						rotate(x->_parent, LEFT);
+						s = x->_parent->_child[RIGHT];
+					}
+
+					if (s->_child[LEFT]->_color == C_BLACK && s->_child[RIGHT]->_color == 0)
+					{
+						s->_color = C_RED;
+						x = x->_parent;
+					}
+					else
+					{
+						if (s->_child[RIGHT]->_color == C_BLACK)
+						{
+							s->_child[LEFT]->_color = C_BLACK;
+							s->_color = C_RED;
+							rotate(s, RIGHT);
+							s = x->_parent->_child[RIGHT];
+						}
+
+						s->_color = x->_parent->_color;
+						x->_parent->_color = C_BLACK;
+						s->_child[RIGHT]->_color = C_BLACK;
+						rotate(x->_parent, LEFT);
+						x = _root;
+					}
+				}
+				else
+				{
+					s = x->_parent->_child[LEFT];
+					if (s->_color == C_RED)
+					{
+						s->_color = C_BLACK;
+						x->_parent->_color = C_RED;
+						rotate(x->_parent, RIGHT);
+						s = x->_parent->_child[LEFT];
+					}
+
+					if (s->_child[RIGHT]->_color == 0 && s->_child[RIGHT]->_color == 0)
+					{
+						s->_color = C_RED;
+						x = x->_parent;
+					}
+					else
+					{
+						if (s->_child[LEFT]->_color == 0)
+						{
+							s->_child[RIGHT]->_color = C_BLACK;
+							s->_color = C_RED;
+							rotate(s, LEFT);
+							s = x->_parent->_child[LEFT];
+						}
+
+						s->_color = x->_parent->_color;
+						x->_parent->_color = C_BLACK;
+						s->_child[LEFT]->_color = C_BLACK;
+						rotate(x->_parent, RIGHT);
+						x = _root;
+					}
+				}
+			}
+			x->_color = C_BLACK;
+		}
+
+		void rbTransplant(node *u, node *v)
+		{
+			if (u->_parent == NULL)
+				_root = v;
+			else if (u == u->_parent->_child[LEFT])
+				u->_parent->_child[LEFT] = v;
+			else
+				u->_parent->_child[RIGHT] = v;
+			v->_parent = u->_parent;
+		}
+
+		//===========================================================================
+
+/*
 		void				delete_node(node* n)
 		{
 			if (!n)
@@ -244,6 +441,14 @@ namespace ft
 			del_node(n);
 			set_sentinelle();
 		}
+*/
+
+		node*					get_sibling(node* n)
+		{
+			if (n->_parent)
+				return (n->_parent->_child[!n->is_right()]);
+			return NULL;
+		}
 		
 		node*	make_node(const node& ref)
 		{
@@ -276,15 +481,9 @@ namespace ft
 			_mem_pile.push(ref);
 			_size--;
 		}
-
-	private:
-		unsigned long			_size;
-		node*					_root;
-		ft::stack<node*>		_mem_pile;
-		allocator_type			_alloc;
-		Compare					_comp;
-		node*					_sentinelle;
-
+		
+		//===========================================================================
+		
 		template <typename Temp>
 		int get_max_depth(Temp ref, int depth = 0)
 		{
@@ -339,6 +538,7 @@ namespace ft
 
 		void print_tree(std::ostream* os = &(std::cout))
 		{
+			unset_sentinelle();
 			if (!root())
 			{
 				std::cout << GREEN << "Empty tree" << END << std::endl;
@@ -363,70 +563,22 @@ namespace ft
 			// for (int i = 0; i < (int)size(); i++)
 			// 	*os << (((i / 10) % 2) ? GREEN : YELLOW) << (i % 10) << " ";
 			// *os << END << std::endl;
+			set_sentinelle();
 		}
+		
+		//===========================================================================
+
+	private:
+		unsigned long			_size;
+		node*					_root;
+		ft::stack<node*>		_mem_pile;
+		allocator_type			_alloc;
+		Compare					_comp;
+		node*					_sentinelle;
 	};
 }
 
-		/*
-		void insertion_fixup(node* z)
-		{
-			while (z != _root && z->_parent->_color == C_RED)
-			{
-				int side = z->_parent->is_right();
-				node* y = z->_parent->_parent->_child[!side];
-				if (y != NULL && y->_color == C_RED)
-				{
-					z->_parent->_color = C_BLACK;
-					y->_color = C_BLACK;
-					z->_parent->_parent->_color = C_RED;
-					z = z->_parent->_parent;
-				}
-				else
-				{
-					if (z == z->_parent->_child[!side])
-					{
-						z = z->_parent;
-						rotate(z, !side);
-					}
-					z->_parent->_color = C_BLACK;
-					z->_parent->_parent->_color = C_RED;
-					rotate(z->_parent->_parent, side);
-				}
-			}
-			_root->_color = C_BLACK;
-		}
-
-		void	rotate(node* x, int side) {
-			node* y = x->_child[side];
-			if (!x)
-				throw std::out_of_range("x does not exist");
-			if (!y)
-				throw std::out_of_range("y does not exist");
-			if (side < 0 || side > 1)
-				throw std::out_of_range("Side is invalid");
-			x->set_child(y->_child[!side], side);
-			if (!x->_parent)
-			{
-				_root = y;
-				y->_parent = NULL;
-			}
-			else
-				x->_parent->set_child(y, x->is_right());
-			y->set_child(x, !side);
-		}
-
-		bool	is_black(node* ref)
-		{
-			if (ref && ref->_color == C_RED)
-				return false;
-			return true;
-		}
-
-		bool	is_red(node* ref)
-		{
-			return !is_black(ref);
-		}
-
+/*
 		void				delete_node(node* n)
 		{
 			if (!n)
@@ -655,21 +807,6 @@ namespace ft
 			}
 			else
 				n->_color = C_BLACK;
-		}
-
-		node*					get_sibling(node* n)
-		{
-			if (n->_parent)
-				return (n->_parent->_child[!n->is_right()]);
-			return NULL;
-		}
-			
-
-		void					swap_value(node* n1, node* n2)
-		{
-			T tmp = n1->_value;
-			n1->_value = n2->_value;
-			n2->_value = tmp;
 		}
 		*/
 

@@ -57,17 +57,17 @@ namespace ft
     }
 
 	template < class T, bool constness >
-	struct is_const
+	struct get_const
 	{
 		typedef	T			type;
 	};
 
 	template < class T >
-	struct is_const<T, true>
+	struct get_const<T, true>
 	{
 		typedef	const T		type;
 	};
-    
+
     /*
     ** Base class for standard binary function objects.
     ** (Doc = http://www.cplusplus.com/reference/functional/binary_function/?kw=binary_function)
@@ -430,6 +430,20 @@ namespace ft
 
     template <>
     struct is_double_class_tag<ft::forbid_double_class_tag>			: public double_class_tag<false, true, ft::forbid_double_class_tag> { };
+
+    template <bool is_value, typename T>
+    struct const_class_tag
+	{
+		typedef T type;
+		const static bool value = is_value;
+	};
+	
+	template <typename T>
+	struct is_const													: public const_class_tag<false, T> { };
+	
+	template <typename T>
+	struct is_const<const T>										: public const_class_tag<true, T> { };
+	
 
     /*
     ** @Brief Invalid iterator Exception.
