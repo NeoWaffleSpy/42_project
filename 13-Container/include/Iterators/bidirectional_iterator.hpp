@@ -21,7 +21,6 @@ namespace ft {
 
 			bidirectional_iterator(): _elem(NULL) {};
 			bidirectional_iterator(const node src): _elem(src) {};
-			bidirectional_iterator(const bidirectional_iterator<T, Node_Type, true>& src): _elem(src.get_node()) {};
 			bidirectional_iterator(const bidirectional_iterator<T, Node_Type, false>& src): _elem(src.get_node()) {};
 			it&	operator=(const it& rhs) {
 				if (this == &rhs)

@@ -376,32 +376,19 @@ int main_vector()
 #include <list>
 #include "../include/common.hpp"
 
-void	main_map()
-{
-	ft::map<int, std::string> mp;
-	int size = 25;
-
-	for (int i = 0; i < size; i++)
-		mp.insert(ft::make_pair(i, " "));
-
-	for (int i = 0; i < size; i++)
-		mp.erase(i);
-	mp.print_tree();
-}
-
 /* TODO */
 
-// #define T1 int
-// #define T2 int
+#define T1 int
+#define T2 int
 
-// int		main_map(void)
-// {
-// 	TESTED_NAMESPACE::map<T1, T2> const mp;
-// 	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(); // <-- error expected
+int		main_map(void)
+{
+	TESTED_NAMESPACE::map<T1, T2> const mp;
+	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(); // <-- error expected
 
-// 	(void)it;
-// 	return (0);
-// }
+	(void)it;
+	return (0);
+}
 
 
 int main()
