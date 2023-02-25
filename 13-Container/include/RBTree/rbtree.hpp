@@ -333,14 +333,14 @@ namespace ft
 						s = get_sibling(x);
 					}
 
-					if (s->_child[side]->_color == C_BLACK && s->_child[!side]->_color == C_BLACK)
+					if (is_black(s->_child[side]) && is_black(s->_child[!side]))
 					{
 						s->_color = C_RED;
 						x = x->_parent;
 					}
 					else
 					{
-						if (s->_child[!side]->_color == C_BLACK)
+						if (is_black(s->_child[!side]))
 						{
 							s->_child[side]->_color = C_BLACK;
 							s->_color = C_RED;
@@ -366,14 +366,14 @@ namespace ft
 						s = get_sibling(x);
 					}
 
-					if (s->_child[!side]->_color == C_BLACK && s->_child[!side]->_color == C_BLACK)
+					if (is_black(s->_child[side]) && is_black(s->_child[!side]))
 					{
 						s->_color = C_RED;
 						x = x->_parent;
 					}
 					else
 					{
-						if (s->_child[side]->_color == C_BLACK)
+						if (is_black(s->_child[side]))
 						{
 							s->_child[!side]->_color = C_BLACK;
 							s->_color = C_RED;

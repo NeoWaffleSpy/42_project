@@ -17,12 +17,6 @@
 # include <string>
 # include <sstream>
 
-# ifdef DEBUG
-#  define PRINT 1
-#  else
-#  define PRINT 0
-# endif
-
 
 namespace ft
 {

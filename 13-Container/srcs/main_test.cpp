@@ -191,205 +191,42 @@ int main_vector()
 	return 0;
 }
 
-// template <typename T>
-// int get_max_depth(T ref, int depth = 0)
-// {
-// 	int d1 = depth;
-// 	int d2 = depth;
-// 	if (ref->_child[LEFT])
-// 		d1 = get_max_depth(ref->_child[LEFT], depth + 1);
-// 	if (ref->_child[RIGHT])
-// 		d2 = get_max_depth(ref->_child[RIGHT], depth + 1);
-// 	return ((d1 > d2) ? d1 : d2);
-// }
-
-// template <typename T>
-// void print_tree_visual(T ref, int depth, std::ostream* os)
-// {
-// 	T new_stack;
-// 	int space = 1;
-// 	int half;
-// 	int j = 0;
-
-// 	for (int i = 0; i < depth; i++)
-// 		space = (space * 2) + 1;
-// 	half = (space - 1) / 2;
-// 	for (int i = 0; i < half; i++)
-// 		*os << " ";
-// 	while ((int)ref.size() > j)
-// 	{
-// 		typename T::value_type n = ref.at(j);
-// 		if (n == NULL)
-// 		{
-// 			*os << "□";
-// 			new_stack.push_back(NULL);
-// 			new_stack.push_back(NULL);
-// 		}
-// 		else
-// 		{
-// 			if (n->_color == C_RED)
-// 				*os << RED;
-// 			*os << n->_value << END;
-// 			new_stack.push_back(n->_child[LEFT] ? n->_child[LEFT] : NULL);
-// 			new_stack.push_back(n->_child[RIGHT] ? n->_child[RIGHT] : NULL);
-// 		}
-// 		j++;
-// 		if ((int)ref.size() > j)
-// 			for (int i = 0; i < space; i++)
-// 				*os << (j%2 ? "-" : " ");
-// 	}
-// 	*os << std::endl;
-// 	if (depth > 0)
-// 		print_tree_visual(new_stack, depth - 1, os);
-// }
-
-// template <typename T>
-// void print_tree(T& rbtree, std::ostream* os = &(std::cout))
-// {
-// 	if (!rbtree.root())
-// 	{
-// 		std::cout << GREEN << "Empty tree" << END << std::endl;
-// 		return;
-// 	}
-// 	typedef typename T::node*	ref;
-// 	if (false)
-// 	{
-// 		ft::vector<ref>	pile;
-// 		pile.push_back(rbtree.root());
-// 		*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-// 		print_tree_visual(pile, get_max_depth(rbtree.root()), os);
-// 	}
-// 	*os << "~~~~~~~~~~~~~~~~~~~~~~" << std::endl;
-// 	ref n = rbtree.begin();
-// 	*os << MAGENTA;
-// 	while (n)
-// 	{
-// 		*os << n->_value << " ";
-// 		n = n->next();
-// 	}
-// 	*os << END << std::endl;
-// 	// for (int i = 0; i < (int)rbtree.size(); i++)
-// 	// 	*os << (((i / 10) % 2) ? GREEN : YELLOW) << (i % 10) << " ";
-// 	// *os << END << std::endl;
-// }
-
-// void main_map()
-// {
-// 	typedef ft::Rbtree<int, ft::allow_double_class_tag>		rbtree;
-// 	// typedef ft::Rbtree<int, ft::forbid_double_class_tag>		rbtree;
-	
-// 	{
-// 		rbtree tree;
-// 		try
-// 		{
-// 			tree.insert(4);
-// 			tree.insert(3);
-// 			tree.insert(2);
-// 			tree.insert(1);
-// 			tree.insert(5);
-// 			tree.insert(6);
-// 			print_tree(tree);
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << CYAN << e.what() << END << '\n';
-// 		}
-// 		try
-// 		{
-// 			tree.insert(1);
-// 			tree.insert(2);
-// 			tree.insert(3);
-// 			tree.insert(4);
-// 			tree.insert(5);
-// 			tree.insert(6);
-// 			print_tree(tree);
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << CYAN << e.what() << END << '\n';
-// 		}
-// 		try
-// 		{
-// 			tree.delete_node(tree.find(12));
-// 			print_tree(tree);
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << CYAN << e.what() << END << '\n';
-// 		}
-// 		try
-// 		{
-// 			tree.delete_node(tree.find(5));
-// 			print_tree(tree);
-// 			tree.delete_node(tree.find(4));
-// 			print_tree(tree);
-// 			tree.delete_node(tree.find(4));
-// 			print_tree(tree);
-// 			tree.delete_node(tree.find(3));
-// 			tree.delete_node(tree.find(3));
-// 			print_tree(tree);
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cerr << CYAN << e.what() << END << '\n';
-// 		}
-// 	}
-// 	{
-// 		std::stringstream buff;
-// 		std::ostream err_str(buff.rdbuf());
-// 		int node_nbr = -1;
-// 		try
-// 		{
-// 			int	seed = time(NULL);
-// 			// srand(1673123452);
-// 			srand(seed);
-// 			// std::cout << "Seed = " << seed << std::endl;
-// 			rbtree tree;
-// 			for (int i = 0; i < 50; i++)
-// 			{
-				
-// 				std::cout << "\r insert number " << i << std::flush;
-// 				err_str << tree.insert(rand() % 1000)->_value << " ";
-// 			}
-// 			std::cout << "\r";
-// 			print_tree(tree);
-// 			// std::cout << buff.str() << std::endl;
-// 			for (int i = 0; i < 50; i++)
-// 			{
-// 				buff.str("");
-// 				print_tree(tree, &err_str);
-// 				node_nbr = tree[rand() % tree.size()]->_value;
-// 				std::cout << "\rdelete " << (i + 1) << " of value " << node_nbr;
-// 				tree.delete_node(tree.find(node_nbr));
-// 			}
-// 			std::cout << std::endl;
-// 			print_tree(tree);
-// 		}
-// 		catch(const std::exception& e)
-// 		{
-// 			std::cout << std::endl;
-// 			std::cerr << RED << "Error while deleting the node " << node_nbr << ":\n" << END << buff.str() << CYAN << e.what() << END << '\n';
-// 		}
-// 	}
-// }
-
-#include <list>
-#include "../include/common.hpp"
-
-/* TODO */
-
 #define T1 int
 #define T2 int
 
+/* Ce test est cense faie une erreur de compilation */
+
+/*
 int		main_map(void)
 {
-	TESTED_NAMESPACE::map<T1, T2> const mp;
-	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(); // <-- error expected
+	ft::map<T1, T2> const mp;
+	ft::map<T1, T2>::iterator it = mp.begin(); // <-- error expected
 
 	(void)it;
 	return (0);
 }
+*/
 
+#define REF_SIZE 255
+#define NSP ft
+
+void		main_map(void)
+{
+	NSP::map<T1, T2> mp;
+	for (int i = 0; i < REF_SIZE; i++)
+		mp.insert(NSP::make_pair(i, 0));
+	for (size_t i = 0; i < REF_SIZE / 10; i++)
+	{
+		std::cout << MAGENTA << "\rIter " << i << END << std::flush;
+		if (i % 3 == 0)
+			mp.erase(mp.begin());
+		else if (i % 3 == 1)
+			mp.erase((++(++mp.begin())));
+		else
+			mp.erase((--(--mp.end())));
+	}
+	std::cout << std::endl;
+}
 
 int main()
 {
