@@ -181,6 +181,7 @@ namespace ft
 			return end();
 		}
 		
+		void					print_tree()			{ _rb_tree->print_tree();				}
 		void					clear()					{ _rb_tree->clear();					}
 		bool					empty()			const	{ return (_rb_tree->size() ? 0 : 1);	}
 		unsigned long			size()			const	{ return (_rb_tree->size());			}
