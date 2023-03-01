@@ -1,5 +1,5 @@
-#include "../include/vector.hpp"
-#include "../include/map.hpp"
+#include "vector.hpp"
+#include "map.hpp"
 #include <vector>
 #include <map>
 #include <string>
@@ -17,11 +17,24 @@
 #define COLOR_FT	MAGENTA
 #define COLOR_STD	CYAN
 
-# if !defined(USING_STD)
-#  define TESTED_NAMESPACE ft
-# else
+# ifdef USING_STD
 #  define TESTED_NAMESPACE std
+# else
+#  define TESTED_NAMESPACE ft
 # endif
+
+# define BLACK "\e[1;30m"
+# define RED "\e[1;31m"
+# define GREEN "\e[1;32m"
+# define YELLOW "\e[1;33m"
+# define BLUE "\e[1;34m"
+# define MAGENTA "\e[1;35m"
+# define CYAN "\e[1;36m"
+# define WHITE "\e[1;37m"
+# define BLINK_RED "\x1B[5;31m"
+# define BLINK_BLUE "\x1B[5;34m"
+# define BLINK_CYAN "\x1B[5;36m"
+# define END "\e[0m"
 
 
 template <typename T_vector>
@@ -141,7 +154,7 @@ int main_vector()
 		std::cout << END;
 	}
 	{
-		typedef ft::vector<T>::const_reverse_iterator					ft_const_rev_it;
+		typedef TESTED_NAMESPACE::vector<T>::const_reverse_iterator					ft_const_rev_it;
 
 		std::cout << std::endl << COLOR_TITLE << "[TEST DES CONST REVERSE ITERATORS DE VECTEURS]" << COLOR_FT << std::endl;
 		exec_rev_test<TESTED_NAMESPACE::vector<T>, ft_const_rev_it>					("const_rev_vector");
@@ -155,7 +168,7 @@ int main_vector()
 
 	{
 		std::cout << std::endl << COLOR_TITLE << "[TEST DE VECTEURS DANS VECTEURS]" << COLOR_FT << std::endl;
-		TESTED_NAMESPACE::vector<ft::vector<int> >	vec2;
+		TESTED_NAMESPACE::vector<TESTED_NAMESPACE::vector<int> >	vec2;
 		for (int i = 0; i < 20; i++)
 		{
 			TESTED_NAMESPACE::vector<int>	j(2, i);
@@ -168,8 +181,8 @@ int main_vector()
 	std::cout << END << std::endl;
 
 	/* CE TEST EST CENSE ECHOUER ET FAIRE UN INVALID READ
-	ft::vector<std::string>    v2(8);
-    ft::vector<std::string>::iterator    it2 = v2.begin();
+	TESTED_NAMESPACE::vector<std::string>    v2(8);
+    TESTED_NAMESPACE::vector<std::string>::iterator    it2 = v2.begin();
 
     v2.push_back("AAAAAAAAAA");
     std::cout << (*it2) << std::endl;
@@ -285,13 +298,25 @@ void		main_map(void)
 	}
 	/*	 Ce test est cense faie une erreur de compilation
 	{
-		ft::map<T1, T2> const mp;
-		ft::map<T1, T2>::iterator it = mp.begin(); // <-- error expected
+		TESTED_NAMESPACE::map<T1, T2> const mp;
+		TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(); // <-- error expected
 
 		(void)it;
 		return (0);
 	}
 	*/
+	/*TESTED_NAMESPACE::map<int, std::string>	map;
+
+	for (int i = 0; i < 10000; i++)
+	{
+		map.insert(TESTED_NAMESPACE::make_pair<int, std::string>(i, "a"));
+	}
+	std::cout << map.size() << std::endl;
+	for (int i = 0; i < 10000; i++)
+	{
+		map.erase(map.begin());
+	}
+	std::cout << map.size() << std::endl;*/
 }
 
 int main()

@@ -2,8 +2,8 @@
 # define RBTREE_HPP
 
 # include "node.hpp"
-# include "../stack.hpp"
-# include "../vector.hpp"
+# include "stack.hpp"
+# include "vector.hpp"
 # include <iostream>
 
 namespace ft
@@ -118,10 +118,8 @@ namespace ft
 			node* tmp = begin();
 			for (; tmp != _sentinelle; tmp = tmp->next())
 			{
-				// std::cout << "compare " << value.first << " avec " << tmp->_value.first << std::endl;
 				if (!_comp(tmp->_value, value))
 					break;
-				// std::cout << "test " << !_comp(tmp->_value, value) << std::endl;
 			}
 			return tmp;
 		}

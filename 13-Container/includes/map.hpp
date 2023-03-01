@@ -5,11 +5,9 @@
 # include <fstream>
 # include <iomanip>
 # include <string>
-# include "RBTree/rbtree.hpp"
-# include "RBTree/node.hpp"
-# include "Iterators/bidirectional_iterator.hpp"
-
-# define PRINT 1
+# include "rbtree.hpp"
+# include "node.hpp"
+# include "bidirectional_iterator.hpp"
 
 namespace ft
 {
@@ -64,6 +62,7 @@ namespace ft
 			_tree_alloc.construct(_rb_tree, rbtree(value_comp()));
 			for (; first != last; first++)
 				_rb_tree->insert(*first);
+			std::cout << GREEN << "Using FT" << END << std::endl;
 		}
 
 		map (const map& from): _comp(from._comp), _tree_alloc(from._tree_alloc), _rb_tree(_tree_alloc.allocate(1))
@@ -251,27 +250,6 @@ namespace ft
 	template <class Key, class T, class Compare, class Alloc>
 	void swap (map<Key,T,Compare,Alloc>& x, map<Key,T,Compare,Alloc>& y) {
 		x.swap(y);
-	}
-	
-	template<typename Key, typename T, typename Compare, typename Alloc>
-	std::ostream	&operator<<(std::ostream &os, ft::map<Key, T, Compare, Alloc> const& map)
-	{
-		if (map.empty() && PRINT)
-			return (os << "Empty map");
-		else if(map.empty())
-			return (os);
-
-		for (typename ft::map<Key, T, Compare, Alloc>::const_iterator it = map.begin(), it1 = ++map.begin();
-			it != map.end(); it++)
-		{
-			os << *(it);
-			if (it1 != map.end())
-			{
-				os << " ";
-				it1++;
-			}
-		}
-		return (os);
 	}
 }
 

@@ -5,7 +5,7 @@
 # include <algorithm>
 # include <cstddef>
 # include <tgmath.h>
-# include "./Iterators/random_access_iterator.hpp"
+# include "random_access_iterator.hpp"
 # include <typeinfo>
 
 namespace ft
@@ -101,6 +101,7 @@ namespace ft
 		size_type				max_size(void)				const	{ return (allocator_type().max_size());			}
 		size_type				capacity (void)				const	{ return (this->_end_capacity - this->_start);	}
 		bool					empty (void)				const	{ return (size() == 0 ? true : false);			}
+
 		void					resize (size_type n, value_type val = value_type())
 		{
 			if (n > this->max_size())

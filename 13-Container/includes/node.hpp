@@ -1,7 +1,7 @@
 #ifndef NODE_HPP
 # define NODE_HPP
 
-# include "../Iterators/utils.hpp"
+# include "utils.hpp"
 
 # define LEFT 0
 # define RIGHT 1

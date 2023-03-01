@@ -1,65 +1,71 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ncaba <ncaba@student.42.fr>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/11/17 14:48:49 by ncaba             #+#    #+#              #
-#    Updated: 2022/08/12 20:07:41 by ncaba            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+FT_NAME		=	ft_containers
+STD_NAME	=	std_containers
 
-NAME		= Container
-CXX			= c++
-CPPFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -MD
-INC			=
+FT_FLAGS	=	-Wall -Wextra -Werror -std=c++98 -g3
+STD_FLAGS	=	-DUSING_STD -Wall -Wextra -Werror -std=c++98 -g3 #<--Here __STD is defined to change the namespace from ft:: to std:: (i.e std::vector, ft::vector)
 
-SRC			=	main_test.cpp
-SRCS		=	$(addprefix ./srcs/, $(SRC))
-OBJ			=	$(SRCS:.cpp=.o)
+FT_OBJ_PATH		=	obj_ft/
+STD_OBJ_PATH	=	obj_std/
 
-ITERFILES	=	random_access_iterator.hpp \
-				utils.hpp
-RBFILES		=	node.hpp \
-				rbtree.hpp
-HEADERFILES	=	vector.hpp \
-				stack.hpp \
-				map.hpp \
-				$(addprefix Iterators/, $(ITERFILES)) \
-				$(addprefix RBTree/, $(RBFILES))
-HEADERS		=	$(addprefix -I ./include/, $(HEADERFILES))
+CC			=	c++
+SRC_PATH	=	srcs/
+INCLUDES	=	-Iincludes
+SRC_NAME	=	main_test.cpp
 
-all: $(NAME) exec fclean
+OBJ_NAME	=	$(SRC_NAME:.cpp=.o)
+FT_OBJ		=	$(addprefix $(FT_OBJ_PATH), $(OBJ_NAME))
+STD_OBJ		=	$(addprefix $(STD_OBJ_PATH), $(OBJ_NAME))
 
-$(NAME): $(OBJ) 
-	$(CXX) $(OBJ) $(CPPFLAGS) $(INC) -o $(NAME)
-	@echo "done"
+#----------COLORS---------#
+BLACK		=	\033[1;30m
+RED			=	\033[1;31m
+GREEN		=	\033[1;32m
+BLUE		=	\033[1;34m
+PURPLE		=	\033[1;35m
+CYAN		=	\033[1;36m
+WHITE		=	\033[1;37m
+EOC			=	\033[0;0m
 
-%.o: %.c
-	$(CXX) $(CPPFLAGS) $(HEADERS) -c -o $@ $<
 
-exec:
-	@valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
-unit_test:
-	@echo "Starting tests"
-	@make -s -C ./unit_tests/
-	@./unit_tests/unit_test "[vector][stack]"
-	@make -s fclean -C ./unit_tests/
+all: $(FT_NAME) $(STD_NAME)
+
+$(FT_NAME): $(FT_OBJ)
+	@echo "$(RED)=====>Compiling FT_NAMESPACE Containers<===== $(WHITE)"
+	$(CC) $(FT_FLAGS) $(INCLUDES) $(FT_OBJ) -o $(FT_NAME)
+	@echo "$(GREEN)Done ! ✅ $(EOC)"
+
+$(FT_OBJ_PATH)%.o: $(SRC_PATH)%.cpp
+	mkdir -p $(@D)
+	$(CC) $(FT_FLAGS) $(INCLUDES) -MMD -c $< -o $@
+
+-include $(FT_OBJ:%.o=%.d)
+
+$(STD_NAME): $(STD_OBJ)
+	@echo "$(RED)=====>Compiling STD_NAMESPACE Containers<===== $(WHITE)"
+	$(CC) $(STD_FLAGS) $(INCLUDES) $(STD_OBJ) -o $(STD_NAME)
+	@echo "$(GREEN)Done ! ✅ $(EOC)"
+	@echo "$(CYAN)Containers executables are ready ✅ $(EOC)"
+
+$(STD_OBJ_PATH)%.o: $(SRC_PATH)%.cpp
+	mkdir -p $(@D)
+	$(CC) $(STD_FLAGS) $(INCLUDES) -MMD -c $< -o $@
+
+-include $(STD_OBJ:%.o=%.d)
+
 
 clean:
-	@/bin/rm -f $(OBJ)
-	@/bin/rm -f $(OBJ:.o=.d)
-	@/bin/rm -rf a.out.dSYM
+	@echo "$(CYAN)♻  Cleaning obj files ♻ $(WHITE)"
+	rm -rf $(FT_OBJ_PATH)
+	rm -rf $(STD_OBJ_PATH)
+	@echo "$(GREEN)Done !✅ $(EOC)"
 
 fclean: clean
-	@/bin/rm -f $(NAME)
-	@/bin/rm -f $(NAME).exe
-	@make -s fclean -C ./unit_tests/
+	@echo "$(CYAN)♻  Cleaning executables ♻ $(WHITE)"
+	rm -rf $(FT_NAME)
+	rm -rf $(STD_NAME)
+	@echo "$(GREEN)Done !✅ $(EOC)"
 
-re: clean $(NAME)
+re: fclean all
 
--include $(OBJ:.o=.d)
-
-.PHONY: re fclean clean all
+.PHONY: all clean fclean re
