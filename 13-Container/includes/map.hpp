@@ -62,7 +62,6 @@ namespace ft
 			_tree_alloc.construct(_rb_tree, rbtree(value_comp()));
 			for (; first != last; first++)
 				_rb_tree->insert(*first);
-			std::cout << GREEN << "Using FT" << END << std::endl;
 		}
 
 		map (const map& from): _comp(from._comp), _tree_alloc(from._tree_alloc), _rb_tree(_tree_alloc.allocate(1))
