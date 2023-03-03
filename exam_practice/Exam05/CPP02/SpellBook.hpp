@@ -6,6 +6,9 @@
 # include <string>
 # include <map>
 # include "ASpell.hpp"
+# include "Fireball.hpp"
+# include "Fwoosh.hpp"
+# include "Polymorph.hpp"
 
 class SpellBook
 {
