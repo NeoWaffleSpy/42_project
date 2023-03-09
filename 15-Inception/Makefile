@@ -1,6 +1,6 @@
 all:
-	mkdir -p /home/ncaba/42/data/wordpress
-	mkdir -p /home/ncaba/42/data/database
+	mkdir -p /home/ncaba/inception/data/wordpress
+	mkdir -p /home/ncaba/inception/data/database
 	docker compose -f srcs/docker-compose.yml up -d --build
 
 stop:

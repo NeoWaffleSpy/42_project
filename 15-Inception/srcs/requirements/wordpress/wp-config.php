@@ -13,29 +13,29 @@
  * * Database table prefix
  * * ABSPATH
  *
- * @link https://wordpress.org/documentation/article/editing-wp-config-php/
+ * @link https://wordpress.org/support/article/editing-wp-config-php/
  *
  * @package WordPress
  */
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'database_name_here' );
+define('DB_NAME', getenv('DB_NAME'));
 
 /** Database username */
-define( 'DB_USER', 'username_here' );
+define('DB_USER', getenv('DB_USER'));
 
 /** Database password */
-define( 'DB_PASSWORD', 'password_here' );
+define('DB_PASSWORD', getenv('DB_PASSWORD'));
 
 /** Database hostname */
-define( 'DB_HOST', 'mariadb:3306' );
+define('DB_HOST', "mariadb:3306");
 
 /** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8' );
+define('DB_CHARSET', 'utf8' );
 
 /** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+define('DB_COLLATE', '' );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -56,7 +56,8 @@ define('AUTH_SALT',        '<<a!,6A%.<TCBu~9m:2Y(rV]}i|GQInDF-y/$BFd1+Nz3`>IJ[v~
 define('SECURE_AUTH_SALT', 'V phm+_jB_+:(2L^)9;czAJD<N?YkIN^?0T6VP&W);%[IyoXsi[m,>P>YW.~Jq$;');
 define('LOGGED_IN_SALT',   'jaQozbxlP3XJ!zF<EOle$~2qlL+7TsShr*l$Nc0.>!:Oj52%m6<-b.G&3lz<,UqB');
 define('NONCE_SALT',       '|p.MQmh{QwZsGP_C.+4`VYlCGve1Wv.cGo1O>?J-y%JEJ)t7:N}~N:jb+mcT(dt~');
-	
+
+
 /**#@-*/
 
 /**
@@ -77,7 +78,7 @@ $table_prefix = 'wp_';
  * For information on other constants that can be used for debugging,
  * visit the documentation.
  *
- * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
+ * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
 

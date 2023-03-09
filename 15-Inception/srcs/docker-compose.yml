@@ -49,10 +49,10 @@ volumes:
         driver_opts:
             type: volume
             o: bind
-            device: /home/ncaba/42/data/wordpress
+            device: /home/ncaba/inception/data/wordpress
     database:
         driver: local
         driver_opts:
             type: volume
             o: bind
-            device: /home/ncaba/42/data/database
+            device: /home/ncaba/inception/data/database
