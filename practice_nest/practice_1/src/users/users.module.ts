@@ -1,4 +1,10 @@
-import { Module } from '@nestjs/common';
+import {
+	MiddlewareConsumer,
+	Module,
+	NestModule,
+	RequestMethod,
+} from '@nestjs/common';
+import { ValidateCustomerMiddleware } from './controllers/middleware/validate-customer.middleware';
 import { UsersController } from './controllers/users/users.controller';
 import { UsersService } from './service/users/users.service';
 
@@ -11,4 +17,8 @@ import { UsersService } from './service/users/users.service';
 		},
 	],
 })
-export class UsersModule {}
+export class UsersModule implements NestModule {
+	configure(user: MiddlewareConsumer) {
+		user.apply(ValidateCustomerMiddleware).forRoutes(UsersController);
+	}
+}
