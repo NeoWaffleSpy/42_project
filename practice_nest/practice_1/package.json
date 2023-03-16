@@ -1,5 +1,5 @@
 {
-  "name": "practice_1",
+  "name": "server_requests",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -18,13 +18,14 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-	"gen": "nest g",
-	"gen_help": "nest g --help"
+    "gen": "nest g",
+    "gen_help": "nest g --help"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
