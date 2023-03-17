@@ -5,7 +5,7 @@ import { CreateUserDto, SerializedUserDto } from 'src/users/controllers/dtos/Cre
 @Injectable()
 export class UsersService {
 	users = [
-		{
+		{ 
 			username: 'tmoragli',
 			email: 'tmoragli@student.42.fr',
 			createdAt: new Date(),

@@ -8,11 +8,15 @@ import {
 	Post,
 	Req,
 	Res,
+	NotFoundException,
+	UseFilters,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { UsersService } from 'src/users/service/users/users.service';
 import { CreateUserDto } from 'src/users/controllers/dtos/CreateUser.dto';
+import { UserNotFoundFilterFilter } from 'src/users/controllers/filters/user-not-found/user-not-found.filter';
 
+@UseFilters(UserNotFoundFilterFilter)
 @Controller('users')
 export class UsersController {
 	constructor(private usersService: UsersService) {}
@@ -36,7 +40,7 @@ export class UsersController {
 	) {
 		const user = this.usersService.findUser(us);
 		if (user) res.send(user);
-		else res.status(HttpStatus.NOT_FOUND).send({ msg: 'User not found!' });
+		else throw new NotFoundException();
 	}
 
 	@Post('create')
